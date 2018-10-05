@@ -38,4 +38,7 @@ score.numberseries()
 
 score.lettersets()
 
+## Binning Scoring Method
+
+bin.score()
 
