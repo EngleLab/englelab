@@ -6,39 +6,39 @@ A set of functions specific to the Engle Lab
 
 #### Create Tidy Raw files from the E-Merged File
 
-raw.ospan()
+* raw.ospan()
 
-raw.sspan()
+* raw.sspan()
 
-raw.rotspan()
+* raw.rotspan()
 
 #### Or Score from the E-Merged File
 
-score.ospan()
+* score.ospan()
 
-score.sspan()
+* score.sspan()
 
-score.rotspan()
+* score.rotspan()
 
 ### Fluid Intelligence Tasks
 
 #### Create Tidy Raw files from the E-Merged File
 
-raw.rapm()
+* raw.rapm()
 
-raw.numberseries()
+* raw.numberseries()
 
-raw.lettersets()
+* raw.lettersets()
 
 #### Or Score from the E-Merged File
 
-score.rapm()
+* score.rapm()
 
-score.numberseries()
+* score.numberseries()
 
-score.lettersets()
+* score.lettersets()
 
 ### Binning Scoring Method
 
-bin.score()
+* bin.score()
 
