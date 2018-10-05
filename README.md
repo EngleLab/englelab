@@ -4,7 +4,7 @@ A set of functions specific to the Engle Lab
 
 ## Complex Span Tasks
 
-### Create Tidy Raw files from the E-Merged File
+#### Create Tidy Raw files from the E-Merged File
 
 raw.ospan()
 
@@ -12,7 +12,7 @@ raw.sspan()
 
 raw.rotspan()
 
-### Or Score from the E-Merged File
+#### Or Score from the E-Merged File
 
 score.ospan()
 
@@ -22,7 +22,7 @@ score.rotspan()
 
 ## Fluid Intelligence Tasks
 
-### Create Tidy Raw files from the E-Merged File
+#### Create Tidy Raw files from the E-Merged File
 
 raw.rapm()
 
@@ -30,7 +30,7 @@ raw.numberseries()
 
 raw.lettersets()
 
-### Or Score from the E-Merged File
+#### Or Score from the E-Merged File
 
 score.rapm()
 
