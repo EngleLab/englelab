@@ -2,7 +2,7 @@
 
 A set of functions specific to the Engle Lab
 
-## Complex Span Tasks
+### Complex Span Tasks
 
 #### Create Tidy Raw files from the E-Merged File
 
@@ -20,7 +20,7 @@ score.sspan()
 
 score.rotspan()
 
-## Fluid Intelligence Tasks
+### Fluid Intelligence Tasks
 
 #### Create Tidy Raw files from the E-Merged File
 
@@ -38,7 +38,7 @@ score.numberseries()
 
 score.lettersets()
 
-## Binning Scoring Method
+### Binning Scoring Method
 
 bin.score()
 
