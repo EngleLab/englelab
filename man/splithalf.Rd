@@ -4,7 +4,7 @@
 \alias{splithalf}
 \title{Calculate Cronbach's Alpha}
 \usage{
-splithalf(x, trial.col = "Trial", value = NULL, id = "Subject")
+splithalf(x, trial.col = "Trial", value = "", id = "Subject")
 }
 \arguments{
 \item{x}{a dataframe with trial level data}

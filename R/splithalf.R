@@ -10,8 +10,8 @@
 #' @examples
 #'
 
-splithalf <- function(x, trial.col = "Trial", value = NULL, id = "Subject"){
-  if (!is.null(value)){
+splithalf <- function(x, trial.col = "Trial", value = "", id = "Subject"){
+  if (value != ""){
     colnames(x)[which(colnames(x)==trial.col)] <- "Trial"
     trials <- max(x$Trial, na.rm = TRUE)
     if (trials < 100){
