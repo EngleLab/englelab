@@ -10,7 +10,7 @@
 #' @examples
 #'
 
-cronbach.alpha <- function(x, trial.col = "Trial", value = NULL, id = "Subject"){
+splithalf <- function(x, trial.col = "Trial", value = NULL, id = "Subject"){
   if (!is.null(value)){
     colnames(x)[which(colnames(x)==trial.col)] <- "Trial"
     trials <- max(x$Trial, na.rm = TRUE)
@@ -21,11 +21,16 @@ cronbach.alpha <- function(x, trial.col = "Trial", value = NULL, id = "Subject")
       x <- dplyr::mutate(x, Trial = ifelse(Trial<10, paste(00, Trial, sep = ""), ifelse(Trial<100, paste(0, Trial, sep = ""), Trial)),
                          Trial = paste("Trial", Trial, sep = ""))
     }
-    colnames(x)[which(colnames(x)=="Trial")] <- trial.col
-    x <- dplyr::select(x, id, trial.col, value)
-    x <- tidyr::spread(x, key = trial.col, value = value)
+    x <- dplyr::select(x, id, Trial, value)
+    x <- tidyr::spread(x, key = "Trial", value = value)
     x <- dplyr::select(x, dplyr::starts_with("Trial"))
   }
-  a <- psych::alpha(x)$total$std.alpha
-  return(a)
+  even.col <- colnames(x)[c(FALSE,TRUE)]
+  odd.col <- colnames(x)[c(TRUE,FALSE)]
+  x <- transform(x, even = rowMeans(x[even.col], na.rm = TRUE))
+  x <- transform(x, odd = rowMeans(x[odd.col], na.rm = TRUE))
+
+  r <- cor(x$even, x$odd, use = "pairwise.complete.obs")
+  sh <- (2*r)/(1+r)
+  return(sh)
 }
