@@ -4,22 +4,24 @@
 \alias{bin.score}
 \title{A Binning Function}
 \usage{
-bin.score(x, RT.label = "RT", Accuracy.label = "Accuracy",
-  Condition.label = "Condition", Subject.label = "Subject",
-  baseline.condition = "congruent")
+bin.score(x, rt.col = "RT", accuracy.col = "Accuracy",
+  condition.col = "Condition", baseline.condition = "congruent",
+  type = "mean", id = "Subject")
 }
 \arguments{
 \item{x}{a dataframe with trial level data. Needs to have RT and Accuracy DVs}
 
-\item{RT.label}{Column name in dataframe that contains the reaction time data}
+\item{rt.col}{Column name in dataframe that contains the reaction time data}
 
-\item{Accuracy.label}{Column name in dataframe that contains the accuracy data}
+\item{accuracy.col}{Column name in dataframe that contains the accuracy data}
 
-\item{Condition.label}{Column name in dataframe that contains the trial condition type}
-
-\item{Subject.label}{Column name in dataframe that contains the subject identifiers}
+\item{condition.col}{Column name in dataframe that contains the trial condition type}
 
 \item{baseline.condition}{The values that specify the baseline condition}
+
+\item{type}{How should Bin trials be aggregated, "sum" or "mean" (Default: "mean")}
+
+\item{id}{Column name in dataframe that contains the subject identifiers}
 }
 \description{
 Calculates Bin scores using the method suggested in [insert citation here]

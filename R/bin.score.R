@@ -38,7 +38,7 @@ bin.score <- function(x, rt.col = "RT", accuracy.col = "Accuracy", condition.col
     x <- dplyr::summarise(x, BinScore = mean(Bin, na.rm = TRUE))
   }
 
-  if (type = "sum"){
+  if (type == "sum"){
     x <- dplyr::summarise(x, BinScore = sum(Bin, na.rm = TRUE))
   }
   x <- dplyr::ungroup(x)
