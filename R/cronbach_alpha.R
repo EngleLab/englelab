@@ -5,22 +5,12 @@
 #' @param trial.col The column name that identifies trials
 #' @param value The column name that identifies the values to be used
 #' @param id The column name that identifies the Subject IDs.
-#'
-#' @templateVar fun cronbach.alpha
-#' @template template-depr_fun
-NULL
-
-#' @templateVar old cronbach.alpha
-#' @templateVar new cronbach_alpha
-#' @template template-depr_pkg
-#'
 #' @keywords cronbach
 #' @export
 #' @examples
 #'
 
-cronbach.alpha <- function(x, trial.col = "Trial", value = NULL, id = "Subject"){
-  .Deprecated("cronbach_alpha")
+cronbach_alpha <- function(x, trial.col = "Trial", value = NULL, id = "Subject"){
   if (!is.null(value)){
     colnames(x)[which(colnames(x)==trial.col)] <- "Trial"
     trials <- max(x$Trial, na.rm = TRUE)
