@@ -2,22 +2,12 @@
 #'
 #' Creates a raw data file of the NumberSeries task from the E-Merge file
 #' @param x a .txt exported E-Merge (or single E-Data) file
-#'
-#' @templateVar fun raw.numberseries
-#' @template template-depr_fun
-NULL
-
-#' @templateVar old raw.numberseries
-#' @templateVar new raw_numberseries
-#' @template template-depr_pkg
-#'
 #' @keywords raw
 #' @export
 #' @examples
-#' raw.numberseries(data)
+#' raw_numberseries(data)
 
-raw.numberseries <- function(x){
-  .Deprecated("raw_numberseries")
+raw_numberseries <- function(x){
   x <- dplyr::filter(x, Blocks=="Real"|Blocks=="End", ShowStim.RT>0|!is.na(TotalScore))
   x <- dplyr::select(x, Subject, Trial, Answer = answer, Response = ItemResp,
                      Accuracy = ShowStim.ACC, RT = ShowStim.RT, TimeLeft = StopTime, TotalScore,
