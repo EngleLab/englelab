@@ -8,23 +8,14 @@
 #' @param type How should Bin trials be aggregated, "sum" or "mean" (Default: "mean")
 #' @param baseline.condition The values that specify the baseline condition
 #' @param id Column name in dataframe that contains the subject identifiers
-#'
-#' @templateVar fun bin.score
-#' @template template-depr_fun
-NULL
-
-#' @templateVar old bin.score
-#' @templateVar new bin_score
-#' @template template-depr_pkg
-#'
 #' @keywords bin
 #' @export
 #' @examples
-#' bin.score(data, RT.label = "RT", Accuracy.label = "Accuracy", Condition.label = "TrialType", Subject.label = "Subject")
+#' bin_score(data, RT.label = "RT", Accuracy.label = "Accuracy", Condition.label = "TrialType", Subject.label = "Subject")
 
-bin.score <- function(x, rt.col = "RT", accuracy.col = "Accuracy", condition.col = "Condition",
+bin_score <- function(x, rt.col = "RT", accuracy.col = "Accuracy", condition.col = "Condition",
                       baseline.condition = "congruent", type = "mean", id = "Subject"){
-  .Deprecated("bin_score")
+
   colnames(x)[which(colnames(x)==id)] <- "Subject"
   colnames(x)[which(colnames(x)==rt.col)] <- "RT"
   colnames(x)[which(colnames(x)==accuracy.col)] <- "Accuracy"
