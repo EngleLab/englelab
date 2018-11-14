@@ -3,22 +3,12 @@
 #' Scores the Operation Span (OSPAN) task taking a .txt exported E-Merge (or single E-Data) file as input
 #' @param x a .txt exported E-Merge (or single E-Data) file
 #' @param blocks number of blocks administered. From 1-3
-#'
-#' @templateVar fun score.ospan
-#' @template template-depr_fun
-NULL
-
-#' @templateVar old score.ospan
-#' @templateVar new score_ospan
-#' @template template-depr_pkg
-#'
 #' @keywords score
 #' @export
 #' @examples
-#' score.ospan(data, blocks = 2)
+#' score_ospan(data, blocks = 2)
 
-score.ospan <- function(x, blocks = ""){
-  .Deprecated("score_ospan")
+score_ospan <- function(x, blocks = ""){
   if (blocks==1){
     x <- dplyr::filter(x, `Procedure[Block]`=="TaskProc")
     x <- dplyr::select(x, Subject,
