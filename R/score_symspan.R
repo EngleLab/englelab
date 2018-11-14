@@ -3,22 +3,12 @@
 #' Scores the Symmetry Span (SSPAN) task taking a .txt exported E-Merge (or single E-Data) file as input
 #' @param x a .txt exported E-Merge (or single E-Data) file
 #' @param blocks number of blocks administered. From 1-3
-#'
-#' @templateVar fun score.symspan
-#' @template template-depr_fun
-NULL
-
-#' @templateVar old score.symspan
-#' @templateVar new score_symspan
-#' @template template-depr_pkg
-#'
 #' @keywords score
 #' @export
 #' @examples
-#' score.symspan(data, blocks = 2)
+#' score_symspan(data, blocks = 2)
 
-score.symspan <- function(x, blocks = ""){
-  .Deprecated("score_symspan")
+score_symspan <- function(x, blocks = ""){
   if (blocks==1){
     x <- dplyr::filter(x, `Procedure[Block]`=="TaskProc")
     x <- dplyr::select(x, Subject,
