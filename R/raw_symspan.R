@@ -4,22 +4,12 @@
 #' @param x a .txt exported E-Merge (or single E-Data) file
 #' @param blocks number of blocks administered. From 1-3
 #' @param taskVersion old or new version. Old version means the Procedure[Block] variable has a different label. (Default = "new")
-#'
-#' @templateVar fun raw.symspan
-#' @template template-depr_fun
-NULL
-
-#' @templateVar old raw.symspan
-#' @templateVar new raw_symspan
-#' @template template-depr_pkg
-#'
 #' @keywords raw
 #' @export
 #' @examples
-#' raw.symspan(data, blocks = 2)
+#' raw_symspan(data, blocks = 2)
 
-raw.symspan <- function(x, blocks = "", taskVersion = "new"){
-  .Deprecated("raw_symspan")
+raw_symspan <- function(x, blocks = "", taskVersion = "new"){
   if (taskVersion=="new"){
     x <- dplyr::filter(x, `Procedure[Block]`=="TaskProc")
   } else if (taskVersion=="old"){
