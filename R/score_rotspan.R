@@ -3,22 +3,12 @@
 #' Scores the Rotation Span (RotSPAN) task taking a .txt exported E-Merge (or single E-Data) file as input
 #' @param x a .txt exported E-Merge (or single E-Data) file
 #' @param blocks number of blocks administered. From 1-3
-#'
-#' @templateVar fun score.rotspan
-#' @template template-depr_fun
-NULL
-
-#' @templateVar old score.rotspan
-#' @templateVar new score_rotspan
-#' @template template-depr_pkg
-#'
 #' @keywords score
 #' @export
 #' @examples
-#' score.rotspan(x, blocks = 2)
+#' score_rotspan(x, blocks = 2)
 
-score.rotspan <- function(x, blocks = ""){
-  .Deprecated("score_rotspan")
+score_rotspan <- function(x, blocks = ""){
   if (blocks==1){
     x <- dplyr::filter(x, `Procedure[Block]`=="realBoth")
     x <- dplyr::select(x, Subject,
