@@ -4,22 +4,12 @@
 #' @param x a .txt exported E-Merge (or single E-Data) file
 #' @param blocks number of blocks administered. From 1-3
 #' @param taskVersion old or new version. Old version means the Procedure[Block] variable has a different label. (Default = "new")
-#'
-#' @templateVar fun raw.ospan
-#' @template template-depr_fun
-NULL
-
-#' @templateVar old raw.ospan
-#' @templateVar new raw_ospan
-#' @template template-depr_pkg
-#'
 #' @keywords score
 #' @export
 #' @examples
-#' raw.ospan(data, blocks = 2)
+#' raw_ospan(data, blocks = 2)
 
-raw.ospan <- function(x, blocks = "", taskVersion = "new"){
-  .Deprecated("raw_ospan")
+raw_ospan <- function(x, blocks = "", taskVersion = "new"){
   if (taskVersion=="new"){
     x <- dplyr::filter(x, `Procedure[Block]`=="TaskProc")
   } else if (taskVersion=="old"){
