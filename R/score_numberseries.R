@@ -2,22 +2,12 @@
 #'
 #' Scores the Number Series task taking a .txt exported E-Merge (or single E-Data) file as input
 #' @param x a .txt exported E-Merge (or single E-Data) file
-#'
-#' @templateVar fun score.numberseries
-#' @template template-depr_fun
-NULL
-
-#' @templateVar old score.numberseries
-#' @templateVar new score_numberseries
-#' @template template-depr_pkg
-#'
 #' @keywords score
 #' @export
 #' @examples
-#' score.numberseries(data)
+#' score_numberseries(data)
 
-score.numberseries <- function(x){
-  .Deprecated("score_numberseries")
+score_numberseries <- function(x){
   x <- dplyr::filter(x,`Procedure[Block]`=="endproc")
   x <- dplyr::select(x, Subject, TotalScore, Attempted, TotalTime)
   x <- dplyr::rename(x, NumberSeries.Total = TotalScore, NumberSeries.Attempted = Attempted, NumberSeries.Time = TotalTime)

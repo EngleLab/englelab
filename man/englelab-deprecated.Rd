@@ -2,7 +2,7 @@
 % Please edit documentation in R/bin.score.R, R/cronbach.alpha.R,
 %   R/englelab-deprecated.r, R/raw.lettersets.R, R/raw.numberseries.R,
 %   R/raw.ospan.R, R/raw.rapm.R, R/raw.rotspan.R, R/raw.symspan.R,
-%   R/score.lettersets.R
+%   R/score.lettersets.R, R/score.numberseries.R
 \name{englelab-deprecated}
 \alias{englelab-deprecated}
 \alias{bin.score}
@@ -14,6 +14,7 @@
 \alias{raw.rotspan}
 \alias{raw.symspan}
 \alias{score.lettersets}
+\alias{score.numberseries}
 \title{Deprecated functions in package \pkg{englelab}.}
 \usage{
 bin.score(x, rt.col = "RT", accuracy.col = "Accuracy",
@@ -35,6 +36,8 @@ raw.rotspan(x, blocks = "", taskVersion = "new")
 raw.symspan(x, blocks = "", taskVersion = "new")
 
 score.lettersets(x)
+
+score.numberseries(x)
 }
 \description{
 The functions listed below are deprecated and will be defunct in
@@ -87,6 +90,11 @@ For \code{raw.symspan}, use \code{\link{raw_symspan}}.
 For \code{score.lettersets}, use \code{\link{score_lettersets}}.
 }
 
+\section{\code{score.numberseries}}{
+
+For \code{score.numberseries}, use \code{\link{score_numberseries}}.
+}
+
 \examples{
 bin.score(data, RT.label = "RT", Accuracy.label = "Accuracy", Condition.label = "TrialType", Subject.label = "Subject")
 
@@ -97,6 +105,7 @@ raw.rapm(data)
 raw.rotspan(x, blocks = 2)
 raw.symspan(data, blocks = 2)
 score.lettersets(data)
+score.numberseries(data)
 }
 \keyword{bin}
 \keyword{cronbach}
