@@ -4,22 +4,12 @@
 #' @param x a .txt exported E-Merge (or single E-Data) file
 #' @param blocks number of blocks administered. From 1-3
 #' @param taskVersion old or new version. Old version means the Procedure[Block] variable has a different label. (Default = "new")
-#'
-#' @templateVar fun raw.rotspan
-#' @template template-depr_fun
-NULL
-
-#' @templateVar old raw.rotspan
-#' @templateVar new raw_rotspan
-#' @template template-depr_pkg
-#'
 #' @keywords raw
 #' @export
 #' @examples
-#' raw.rotspan(x, blocks = 2)
+#' raw_rotspan(x, blocks = 2)
 
-raw.rotspan <- function(x, blocks = "", taskVersion = "new"){
-  .Deprecated("raw_rotspan")
+raw_rotspan <- function(x, blocks = "", taskVersion = "new"){
   if(taskVersion=="old"){
     x <- dplyr::mutate(x, RotationACC = NA)
   }
