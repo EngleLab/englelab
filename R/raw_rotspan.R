@@ -193,15 +193,15 @@ raw_rotspan <- function(x, blocks = "", taskVersion = "new"){
                                                    SubTrialProc=="Recall" ~ as.character(ArrowSelection),
                                                    TRUE ~ as.character(NA)),
                        MemoryItem = ArrowId,
-                       Processing.correct = ifelse(SubTrialProc=="ProcessingTask", Accuracy, NA),
-                       Processing.correct = stats::ave(Processing.correct, FUN = function(x) sum(x, na.rm = TRUE)),
-                       Recall.correct = ifelse(SubTrialProc=="Recall", Accuracy, NA),
-                       Recall.correct = stats::ave(Recall.correct, FUN = function(x) sum(x, na.rm = TRUE)))
+                       Processing.total = ifelse(SubTrialProc=="ProcessingTask", Accuracy, NA),
+                       Processing.total = stats::ave(Processing.total, FUN = function(x) sum(x, na.rm = TRUE)),
+                       Recall.total = ifelse(SubTrialProc=="Recall", Accuracy, NA),
+                       Recall.total = stats::ave(Recall.total, FUN = function(x) sum(x, na.rm = TRUE)))
     x <- dplyr::ungroup(x)
     if ("RotspanPartialUnitScore" %in% colnames(x)){
       x <- dplyr::select(x, Subject, Block, Trial, SetSize = setsz, SubTrial, SubTrialProc,
                          RT, Accuracy, Response,
-                         CorrectResponse, MemoryItem, Processing.correct, Recall.correct,
+                         CorrectResponse, MemoryItem, Processing.total, Recall.total,
                          RotSpan.Absolute = RotspanAbsoluteScore,
                          RotSpan.AbsoluteUnit = RotspanAbsoluteUnitScore,
                          RotSpan.Partial = RotspanPartialScore,
@@ -212,7 +212,7 @@ raw_rotspan <- function(x, blocks = "", taskVersion = "new"){
     } else {
       x <- dplyr::select(x, Subject, Block, Trial, SetSize = setsz, SubTrial, SubTrialProc,
                          RT, Accuracy, Response,
-                         CorrectResponse, MemoryItem, Processing.correct, Recall.correct,
+                         CorrectResponse, MemoryItem, Processing.total, Recall.total,
                          RotSpan.Absolute = RotspanAbsoluteScore,
                          RotSpan.Partial = RotspanPartialScore,
                          RotSpan.RotationACC = RotationACC,
@@ -404,15 +404,15 @@ raw_rotspan <- function(x, blocks = "", taskVersion = "new"){
                                                    SubTrialProc=="Recall" ~ as.character(ArrowSelection),
                                                    TRUE ~ as.character(NA)),
                        MemoryItem = ArrowId,
-                       Processing.correct = ifelse(SubTrialProc=="ProcessingTask", Accuracy, NA),
-                       Processing.correct = stats::ave(Processing.correct, FUN = function(x) sum(x, na.rm = TRUE)),
-                       Recall.correct = ifelse(SubTrialProc=="Recall", Accuracy, NA),
-                       Recall.correct = stats::ave(Recall.correct, FUN = function(x) sum(x, na.rm = TRUE)))
+                       Processing.total = ifelse(SubTrialProc=="ProcessingTask", Accuracy, NA),
+                       Processing.total = stats::ave(Processing.total, FUN = function(x) sum(x, na.rm = TRUE)),
+                       Recall.total = ifelse(SubTrialProc=="Recall", Accuracy, NA),
+                       Recall.total = stats::ave(Recall.total, FUN = function(x) sum(x, na.rm = TRUE)))
     x <- dplyr::ungroup(x)
     if ("RotspanPartialUnitScore" %in% colnames(x)){
       x <- dplyr::select(x, Subject, Block, Trial, SetSize = setsz, SubTrial, SubTrialProc,
                          RT, Accuracy, Response,
-                         CorrectResponse, MemoryItem, Processing.correct, Recall.correct,
+                         CorrectResponse, MemoryItem, Processing.total, Recall.total,
                          RotSpan.Absolute = RotspanAbsoluteScore,
                          RotSpan.AbsoluteUnit = RotspanAbsoluteUnitScore,
                          RotSpan.Partial = RotspanPartialScore,
@@ -427,7 +427,7 @@ raw_rotspan <- function(x, blocks = "", taskVersion = "new"){
     } else {
       x <- dplyr::select(x, Subject, Block, Trial, SetSize = setsz, SubTrial, SubTrialProc,
                          RT, Accuracy, Response,
-                         CorrectResponse, MemoryItem, Processing.correct, Recall.correct,
+                         CorrectResponse, MemoryItem, Processing.total, Recall.total,
                          RotSpan.Absolute = RotspanAbsoluteScore,
                          RotSpan.Partial = RotspanPartialScore,
                          RotSpan.Partial_Block1 = RotspanPartialScoreBlock1,
@@ -628,15 +628,15 @@ raw_rotspan <- function(x, blocks = "", taskVersion = "new"){
                                                    SubTrialProc=="Recall" ~ as.character(ArrowSelection),
                                                    TRUE ~ as.character(NA)),
                        MemoryItem = ArrowId,
-                       Processing.correct = ifelse(SubTrialProc=="ProcessingTask", Accuracy, NA),
-                       Processing.correct = stats::ave(Processing.correct, FUN = function(x) sum(x, na.rm = TRUE)),
-                       Recall.correct = ifelse(SubTrialProc=="Recall", Accuracy, NA),
-                       Recall.correct = stats::ave(Recall.correct, FUN = function(x) sum(x, na.rm = TRUE)))
+                       Processing.total = ifelse(SubTrialProc=="ProcessingTask", Accuracy, NA),
+                       Processing.total = stats::ave(Processing.total, FUN = function(x) sum(x, na.rm = TRUE)),
+                       Recall.total = ifelse(SubTrialProc=="Recall", Accuracy, NA),
+                       Recall.total = stats::ave(Recall.total, FUN = function(x) sum(x, na.rm = TRUE)))
     x <- dplyr::ungroup(x)
     if ("RotspanPartialUnitScore" %in% colnames(x)){
       x <- dplyr::select(x, Subject, Block, Trial, SetSize = setsz, SubTrial, SubTrialProc,
                          RT, Accuracy, Response,
-                         CorrectResponse, MemoryItem, Processing.correct, Recall.correct,
+                         CorrectResponse, MemoryItem, Processing.total, Recall.total,
                          RotSpan.Absolute = RotspanAbsoluteScore,
                          RotSpan.AbsoluteUnit = RotspanAbsoluteUnitScore,
                          RotSpan.Partial = RotspanPartialScore,
@@ -649,7 +649,7 @@ raw_rotspan <- function(x, blocks = "", taskVersion = "new"){
     } else {
       x <- dplyr::select(x, Subject, Block, Trial, SetSize = setsz, SubTrial, SubTrialProc,
                          RT, Accuracy, Response,
-                         CorrectResponse, MemoryItem, Processing.correct, Recall.correct,
+                         CorrectResponse, MemoryItem, Processing.total, Recall.total,
                          RotSpan.Absolute = RotspanAbsoluteScore,
                          RotSpan.Partial = RotspanPartialScore,
                          RotSpan.Partial_Block1 = RotspanPartialScoreBlock1,

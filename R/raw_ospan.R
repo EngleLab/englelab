@@ -87,15 +87,15 @@ raw_ospan <- function(x, blocks = "", taskVersion = "new"){
                                                    SubTrialProc=="Recall" ~ as.character(WordSelection),
                                                    TRUE ~ as.character(NA)),
                        MemoryItem = letterstimuli,
-                       Processing.correct = ifelse(SubTrialProc=="ProcessingTask", Accuracy, NA),
-                       Processing.correct = stats::ave(Processing.correct, FUN = function(x) sum(x, na.rm = TRUE)),
-                       Recall.correct = ifelse(SubTrialProc=="Recall", Accuracy, NA),
-                       Recall.correct = stats::ave(Recall.correct, FUN = function(x) sum(x, na.rm = TRUE)))
+                       Processing.total = ifelse(SubTrialProc=="ProcessingTask", Accuracy, NA),
+                       Processing.total = stats::ave(Processing.total, FUN = function(x) sum(x, na.rm = TRUE)),
+                       Recall.total = ifelse(SubTrialProc=="Recall", Accuracy, NA),
+                       Recall.total = stats::ave(Recall.total, FUN = function(x) sum(x, na.rm = TRUE)))
     x <- dplyr::ungroup(x)
     if ("OspanPartialUnitScore" %in% colnames(x)){
       x <- dplyr::select(x, Subject, Block, Trial, SetSize = setsz, SubTrial, SubTrialProc,
                          RT, Accuracy, Response,
-                         CorrectResponse, MemoryItem, Processing.correct, Recall.correct,
+                         CorrectResponse, MemoryItem, Processing.total, Recall.total,
                          OSpan.Absolute = OspanAbsoluteScore,
                          OSpan.AbsoluteUnit = OspanAbsoluteUnitScore,
                          OSpan.Partial = OspanPartialScore,
@@ -107,7 +107,7 @@ raw_ospan <- function(x, blocks = "", taskVersion = "new"){
     } else {
       x <- dplyr::select(x, Subject, Block, Trial, SetSize = setsz, SubTrial, SubTrialProc,
                          RT, Accuracy, Response,
-                         CorrectResponse, MemoryItem, Processing.correct, Recall.correct,
+                         CorrectResponse, MemoryItem, Processing.total, Recall.total,
                          OSpan.Absolute = OspanAbsoluteScore,
                          OSpan.Partial = OspanPartialScore,
                          OSpan.MathACC = MathACC,
@@ -191,15 +191,15 @@ raw_ospan <- function(x, blocks = "", taskVersion = "new"){
                                                    SubTrialProc=="Recall" ~ as.character(WordSelection),
                                                    TRUE ~ as.character(NA)),
                        MemoryItem = letterstimuli,
-                       Processing.correct = ifelse(SubTrialProc=="ProcessingTask", Accuracy, NA),
-                       Processing.correct = stats::ave(Processing.correct, FUN = function(x) sum(x, na.rm = TRUE)),
-                       Recall.correct = ifelse(SubTrialProc=="Recall", Accuracy, NA),
-                       Recall.correct = stats::ave(Recall.correct, FUN = function(x) sum(x, na.rm = TRUE)))
+                       Processing.total = ifelse(SubTrialProc=="ProcessingTask", Accuracy, NA),
+                       Processing.total = stats::ave(Processing.total, FUN = function(x) sum(x, na.rm = TRUE)),
+                       Recall.total = ifelse(SubTrialProc=="Recall", Accuracy, NA),
+                       Recall.total = stats::ave(Recall.total, FUN = function(x) sum(x, na.rm = TRUE)))
     x <- dplyr::ungroup(x)
     if ("OspanPartialUnitScore" %in% colnames(x)){
       x <- dplyr::select(x, Subject, Block, Trial, SetSize = setsz, SubTrial, SubTrialProc,
                          RT, Accuracy, Response,
-                         CorrectResponse, MemoryItem, Processing.correct, Recall.correct,
+                         CorrectResponse, MemoryItem, Processing.total, Recall.total,
                          OSpan.Absolute = OspanAbsoluteScore,
                          OSpan.AbsoluteUnit = OspanAbsoluteUnitScore,
                          OSpan.Partial = OspanPartialScore,
@@ -214,7 +214,7 @@ raw_ospan <- function(x, blocks = "", taskVersion = "new"){
     } else {
       x <- dplyr::select(x, Subject, Block, Trial, SetSize = setsz, SubTrial, SubTrialProc,
                          RT, Accuracy, Response,
-                         CorrectResponse, MemoryItem, Processing.correct, Recall.correct,
+                         CorrectResponse, MemoryItem, Processing.total, Recall.total,
                          OSpan.Absolute = OspanAbsoluteScore,
                          OSpan.Partial = OspanPartialScore,
                          OSpan.Partial_Block1 = OspanPartialScoreBlock1,
@@ -308,15 +308,15 @@ raw_ospan <- function(x, blocks = "", taskVersion = "new"){
                                                    SubTrialProc=="Recall" ~ as.character(WordSelection),
                                                    TRUE ~ as.character(NA)),
                        MemoryItem = letterstimuli,
-                       Processing.correct = ifelse(SubTrialProc=="ProcessingTask", Accuracy, NA),
-                       Processing.correct = stats::ave(Processing.correct, FUN = function(x) sum(x, na.rm = TRUE)),
-                       Recall.correct = ifelse(SubTrialProc=="Recall", Accuracy, NA),
-                       Recall.correct = stats::ave(Recall.correct, FUN = function(x) sum(x, na.rm = TRUE)))
+                       Processing.total = ifelse(SubTrialProc=="ProcessingTask", Accuracy, NA),
+                       Processing.total = stats::ave(Processing.total, FUN = function(x) sum(x, na.rm = TRUE)),
+                       Recall.total = ifelse(SubTrialProc=="Recall", Accuracy, NA),
+                       Recall.total = stats::ave(Recall.total, FUN = function(x) sum(x, na.rm = TRUE)))
     x <- dplyr::ungroup(x)
     if ("OspanPartialUnitScore" %in% colnames(x)){
       x <- dplyr::select(x, Subject, Block, Trial, SetSize = setsz, SubTrial, SubTrialProc,
                          RT, Accuracy, Response,
-                         CorrectResponse, MemoryItem, Processing.correct, Recall.correct,
+                         CorrectResponse, MemoryItem, Processing.total, Recall.total,
                          OSpan.Absolute = OspanAbsoluteScore,
                          OSpan.AbsoluteUnit = OspanAbsoluteUnitScore,
                          OSpan.Partial = OspanPartialScore,
@@ -333,7 +333,7 @@ raw_ospan <- function(x, blocks = "", taskVersion = "new"){
     } else {
       x <- dplyr::select(x, Subject, Block, Trial, SetSize = setsz, SubTrial, SubTrialProc,
                          RT, Accuracy, Response,
-                         CorrectResponse, MemoryItem, Processing.correct, Recall.correct,
+                         CorrectResponse, MemoryItem, Processing.total, Recall.total,
                          OSpan.Absolute = OspanAbsoluteScore,
                          OSpan.Partial = OspanPartialScore,
                          OSpan.Partial_Block1 = OspanPartialScoreBlock1,
