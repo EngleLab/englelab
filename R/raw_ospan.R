@@ -121,7 +121,7 @@ raw_ospan <- function(x, blocks = "", taskVersion = "new"){
                                                 TRUE ~ as.numeric(NA)),
                        Trial = dplyr::case_when(Block==1 ~ BlockList1.Sample,
                                                 Block==2 ~ BlockList2.Sample,
-                                                TRUE ~ as.numeric(NA)))
+                                                TRUE ~ as.integer(NA)))
     x <- dplyr::group_by(x, Subject, Block, Trial)
     x <- dplyr::mutate(x,
                        SubTrialProc = dplyr::case_when(`Procedure[SubTrial]`=="TrialProc" |
@@ -233,7 +233,7 @@ raw_ospan <- function(x, blocks = "", taskVersion = "new"){
                        Trial = dplyr::case_when(Block==1 ~ BlockList1.Sample,
                                                 Block==2 ~ BlockList2.Sample,
                                                 Block==3 ~ BlockList3.Sample,
-                                                TRUE ~ as.numeric(NA)))
+                                                TRUE ~ as.integer(NA)))
     x <- dplyr::group_by(x, Subject, Block, Trial)
     x <- dplyr::mutate(x,
                        SubTrialProc = dplyr::case_when(`Procedure[SubTrial]`=="TrialProc" |
