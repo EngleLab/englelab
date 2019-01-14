@@ -20,7 +20,7 @@ raw_rotspan <- function(x, blocks = "", taskVersion = "new"){
                        Block = dplyr::case_when(`Running[Trial]`=="BlockList1" ~ 1,
                                                 TRUE ~ as.numeric(NA)),
                        Trial = dplyr::case_when(Block==1 ~ BlockList1.Sample,
-                                                TRUE ~ as.integer(NA)))
+                                                TRUE ~ as.numeric(NA)))
     x <- dplyr::group_by(x, Subject, Block, Trial)
     x <- dplyr::mutate(x,
                        SubTrialProc = dplyr::case_when(`Procedure[SubTrial]`=="TrialProc"  ~ "ProcessingTask",
@@ -227,7 +227,7 @@ raw_rotspan <- function(x, blocks = "", taskVersion = "new"){
                                                 TRUE ~ as.numeric(NA)),
                        Trial = dplyr::case_when(Block==1 ~ BlockList1.Sample,
                                                 Block==2 ~ BlockList2.Sample,
-                                                TRUE ~ as.integer(NA)))
+                                                TRUE ~ as.numeric(NA)))
     x <- dplyr::group_by(x, Subject, Block, Trial)
     x <- dplyr::mutate(x,
                        SubTrialProc = dplyr::case_when(`Procedure[SubTrial]`=="TrialProc" |
@@ -446,7 +446,7 @@ raw_rotspan <- function(x, blocks = "", taskVersion = "new"){
                        Trial = dplyr::case_when(Block==1 ~ BlockList1.Sample,
                                                 Block==2 ~ BlockList2.Sample,
                                                 Block==3 ~ BlockList3.Sample,
-                                                TRUE ~ as.integer(NA)))
+                                                TRUE ~ as.numeric(NA)))
     x <- dplyr::group_by(x, Subject, Block, Trial)
     x <- dplyr::mutate(x,
                        SubTrialProc = dplyr::case_when(`Procedure[SubTrial]`=="TrialProc" |
