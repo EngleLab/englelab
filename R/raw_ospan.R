@@ -137,9 +137,9 @@ raw_ospan <- function(x, blocks = "", taskVersion = "new"){
                        erase = ifelse(SubTrialProc=="Recall" & WordSelection=="clear", 1, NA),
                        erase = zoo::na.locf(erase, fromLast = TRUE, na.rm = FALSE),
                        erase = ifelse(SubTrialProc=="ProcessingTask", NA, erase),
-                       remove = dplyr::case_when(SubTrialProc=="Recall" & is.na(WordSelection) ~ 1,
-                                                 SubTrialProc=="Recall" & WordSelection=="Enter" ~ 1,
-                                                 SubTrialProc=="Recall" & WordSelection=="InvalidResponse" ~ 1,
+                       remove = dplyr::case_when(SubTrialProc=="Recall" & is.na(WordSelection) ~ as.numeric(1),
+                                                 SubTrialProc=="Recall" & WordSelection=="Enter" ~ as.numeric(1),
+                                                 SubTrialProc=="Recall" & WordSelection=="InvalidResponse" ~ as.numeric(1),
                                                  TRUE ~ as.numeric(NA)),
                        MathDuration = ifelse(!is.na(MathDuration)&MathDuration=="?", NA, MathDuration))
 
