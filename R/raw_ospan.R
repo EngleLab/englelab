@@ -116,8 +116,8 @@ raw_ospan <- function(x, blocks = "", taskVersion = "new"){
     }
   } else if (blocks==2){
     x <- dplyr::mutate(x,
-                       Block = dplyr::case_when(`Running[Trial]`=="BlockList1" ~ 1,
-                                                `Running[Trial]`=="BlockList2" ~ 2,
+                       Block = dplyr::case_when(`Running[Trial]`=="BlockList1" ~ as.numeric(1),
+                                                `Running[Trial]`=="BlockList2" ~ as.numeric(2),
                                                 TRUE ~ as.numeric(NA)),
                        Trial = dplyr::case_when(Block==1 ~ BlockList1.Sample,
                                                 Block==2 ~ BlockList2.Sample,
