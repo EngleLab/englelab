@@ -20,7 +20,7 @@ raw_ospan <- function(x, blocks = "", taskVersion = "new"){
   if (blocks==1){
     x <- dplyr::mutate(x,
                        Block = dplyr::case_when(`Running[Trial]`=="BlockList1" ~ 1,
-                                                TRUE ~ as.numeric(NA)),
+                                                TRUE ~ as.double(NA)),
                        Trial = ifelse(!is.na(BlockList1.Sample),
                                       BlockList1.Sample))
     x <- dplyr::group_by(x, Subject, Block, Trial)
@@ -28,16 +28,16 @@ raw_ospan <- function(x, blocks = "", taskVersion = "new"){
                        SubTrialProc = dplyr::case_when(`Procedure[SubTrial]`=="TrialProc" ~ "ProcessingTask",
                                                        `Procedure[SubTrial]`=="recall" ~ "Recall",
                                                        TRUE ~ as.character(NA)),
-                       RT = dplyr::case_when(SubTrialProc=="ProcessingTask" ~ as.numeric(OPERATION.RT),
-                                             SubTrialProc=="Recall" ~ as.numeric(CollectClick.RT),
-                                             TRUE ~ as.numeric(NA)),
+                       RT = dplyr::case_when(SubTrialProc=="ProcessingTask" ~ as.double(OPERATION.RT),
+                                             SubTrialProc=="Recall" ~ as.double(CollectClick.RT),
+                                             TRUE ~ as.double(NA)),
                        erase = ifelse(SubTrialProc=="Recall" & WordSelection=="clear", 1, NA),
                        erase = zoo::na.locf(erase, fromLast = TRUE, na.rm = FALSE),
                        erase = ifelse(SubTrialProc=="ProcessingTask", NA, erase),
                        remove = dplyr::case_when(SubTrialProc=="Recall" & is.na(WordSelection) ~ 1,
                                                  SubTrialProc=="Recall" & WordSelection=="Enter" ~ 1,
                                                  SubTrialProc=="Recall" & WordSelection=="InvalidResponse" ~ 1,
-                                                 TRUE ~ as.numeric(NA)),
+                                                 TRUE ~ as.double(NA)),
                        MathDuration = ifelse(!is.na(MathDuration)&MathDuration=="?", NA, MathDuration))
 
     x <- dplyr::filter(x, is.na(erase), is.na(remove))
@@ -77,10 +77,10 @@ raw_ospan <- function(x, blocks = "", taskVersion = "new"){
                                                 as.character(`CorrectAnswer[SubTrial]`),
                                                 ifelse(SubTrialProc=="Recall",
                                                        as.character(memory_item), NA)),
-                       Accuracy = dplyr::case_when(SubTrialProc=="ProcessingTask" ~ as.numeric(OPERATION.ACC),
-                                                   SubTrialProc=="Recall" & CorrectResponse==WordSelection ~ as.numeric(1),
-                                                   SubTrialProc=="Recall" & CorrectResponse!=WordSelection ~ as.numeric(0),
-                                                   TRUE ~ as.numeric((NA))),
+                       Accuracy = dplyr::case_when(SubTrialProc=="ProcessingTask" ~ as.double(OPERATION.ACC),
+                                                   SubTrialProc=="Recall" & CorrectResponse==WordSelection ~ as.double(1),
+                                                   SubTrialProc=="Recall" & CorrectResponse!=WordSelection ~ as.double(0),
+                                                   TRUE ~ as.double((NA))),
                        Response = dplyr::case_when(SubTrialProc=="ProcessingTask" & Accuracy==1 ~ CorrectResponse,
                                                    SubTrialProc=="ProcessingTask" & Accuracy==0 & CorrectResponse=="TRUE" ~ "FALSE",
                                                    SubTrialProc=="ProcessingTask" & Accuracy==0 & CorrectResponse=="FALSE" ~ "TRUE",
@@ -116,12 +116,12 @@ raw_ospan <- function(x, blocks = "", taskVersion = "new"){
     }
   } else if (blocks==2){
     x <- dplyr::mutate(x,
-                       Block = dplyr::case_when(`Running[Trial]`=="BlockList1" ~ as.numeric(1),
-                                                `Running[Trial]`=="BlockList2" ~ as.numeric(2),
-                                                TRUE ~ as.numeric(NA)),
+                       Block = dplyr::case_when(`Running[Trial]`=="BlockList1" ~ as.double(1),
+                                                `Running[Trial]`=="BlockList2" ~ as.double(2),
+                                                TRUE ~ as.double(NA)),
                        Trial = dplyr::case_when(Block==1 ~ BlockList1.Sample,
                                                 Block==2 ~ BlockList2.Sample,
-                                                TRUE ~ as.numeric(NA)))
+                                                TRUE ~ as.double(NA)))
     x <- dplyr::group_by(x, Subject, Block, Trial)
     x <- dplyr::mutate(x,
                        SubTrialProc = dplyr::case_when(`Procedure[SubTrial]`=="TrialProc" |
@@ -129,18 +129,18 @@ raw_ospan <- function(x, blocks = "", taskVersion = "new"){
                                                        `Procedure[SubTrial]`=="recall" |
                                                          `Procedure[SubTrial]`=="recall1" ~ "Recall",
                                                        TRUE ~ as.character(NA)),
-                       RT = dplyr::case_when(SubTrialProc=="ProcessingTask" & Block==1 ~ as.numeric(OPERATION.RT),
-                                             SubTrialProc=="ProcessingTask" & Block==2 ~ as.numeric(OPERATION1.RT),
-                                             SubTrialProc=="Recall" & Block==1 ~ as.numeric(CollectClick.RT),
-                                             SubTrialProc=="Recall" & Block==2 ~ as.numeric(CollectClick2.RT),
-                                             TRUE ~ as.numeric(NA)),
+                       RT = dplyr::case_when(SubTrialProc=="ProcessingTask" & Block==1 ~ as.double(OPERATION.RT),
+                                             SubTrialProc=="ProcessingTask" & Block==2 ~ as.double(OPERATION1.RT),
+                                             SubTrialProc=="Recall" & Block==1 ~ as.double(CollectClick.RT),
+                                             SubTrialProc=="Recall" & Block==2 ~ as.double(CollectClick2.RT),
+                                             TRUE ~ as.double(NA)),
                        erase = ifelse(SubTrialProc=="Recall" & WordSelection=="clear", 1, NA),
                        erase = zoo::na.locf(erase, fromLast = TRUE, na.rm = FALSE),
                        erase = ifelse(SubTrialProc=="ProcessingTask", NA, erase),
-                       remove = dplyr::case_when(SubTrialProc=="Recall" & is.na(WordSelection) ~ as.numeric(1),
-                                                 SubTrialProc=="Recall" & WordSelection=="Enter" ~ as.numeric(1),
-                                                 SubTrialProc=="Recall" & WordSelection=="InvalidResponse" ~ as.numeric(1),
-                                                 TRUE ~ as.numeric(NA)),
+                       remove = dplyr::case_when(SubTrialProc=="Recall" & is.na(WordSelection) ~ as.double(1),
+                                                 SubTrialProc=="Recall" & WordSelection=="Enter" ~ as.double(1),
+                                                 SubTrialProc=="Recall" & WordSelection=="InvalidResponse" ~ as.double(1),
+                                                 TRUE ~ as.double(NA)),
                        MathDuration = ifelse(!is.na(MathDuration)&MathDuration=="?", NA, MathDuration))
 
     x <- dplyr::filter(x, is.na(erase), is.na(remove))
@@ -180,11 +180,11 @@ raw_ospan <- function(x, blocks = "", taskVersion = "new"){
                                                 as.character(`CorrectAnswer[SubTrial]`),
                                                 ifelse(SubTrialProc=="Recall",
                                                        as.character(memory_item), NA)),
-                       Accuracy = dplyr::case_when(SubTrialProc=="ProcessingTask" & Block==1 ~ as.numeric(OPERATION.ACC),
-                                                   SubTrialProc=="ProcessingTask" & Block==2 ~ as.numeric(OPERATION1.ACC),
-                                                   SubTrialProc=="Recall" & CorrectResponse==WordSelection ~ as.numeric(1),
-                                                   SubTrialProc=="Recall" & CorrectResponse!=WordSelection ~ as.numeric(0),
-                                                   TRUE ~ as.numeric((NA))),
+                       Accuracy = dplyr::case_when(SubTrialProc=="ProcessingTask" & Block==1 ~ as.double(OPERATION.ACC),
+                                                   SubTrialProc=="ProcessingTask" & Block==2 ~ as.double(OPERATION1.ACC),
+                                                   SubTrialProc=="Recall" & CorrectResponse==WordSelection ~ as.double(1),
+                                                   SubTrialProc=="Recall" & CorrectResponse!=WordSelection ~ as.double(0),
+                                                   TRUE ~ as.double((NA))),
                        Response = dplyr::case_when(SubTrialProc=="ProcessingTask" & Accuracy==1 ~ CorrectResponse,
                                                    SubTrialProc=="ProcessingTask" & Accuracy==0 & CorrectResponse=="TRUE" ~ "FALSE",
                                                    SubTrialProc=="ProcessingTask" & Accuracy==0 & CorrectResponse=="FALSE" ~ "TRUE",
@@ -229,11 +229,11 @@ raw_ospan <- function(x, blocks = "", taskVersion = "new"){
                        Block = dplyr::case_when(`Running[Trial]`=="BlockList1" ~ 1,
                                                 `Running[Trial]`=="BlockList2" ~ 2,
                                                 `Running[Trial]`=="BlockList3" ~ 3,
-                                                TRUE ~ as.numeric(NA)),
+                                                TRUE ~ as.double(NA)),
                        Trial = dplyr::case_when(Block==1 ~ BlockList1.Sample,
                                                 Block==2 ~ BlockList2.Sample,
                                                 Block==3 ~ BlockList3.Sample,
-                                                TRUE ~ as.numeric(NA)))
+                                                TRUE ~ as.double(NA)))
     x <- dplyr::group_by(x, Subject, Block, Trial)
     x <- dplyr::mutate(x,
                        SubTrialProc = dplyr::case_when(`Procedure[SubTrial]`=="TrialProc" |
@@ -243,20 +243,20 @@ raw_ospan <- function(x, blocks = "", taskVersion = "new"){
                                                          `Procedure[SubTrial]`=="recall1" |
                                                          `Procedure[SubTrial]`=="recall2" ~ "Recall",
                                                        TRUE ~ as.character(NA)),
-                       RT = dplyr::case_when(SubTrialProc=="ProcessingTask" & Block==1 ~ as.numeric(OPERATION.RT),
-                                             SubTrialProc=="ProcessingTask" & Block==2 ~ as.numeric(OPERATION1.RT),
-                                             SubTrialProc=="ProcessingTask" & Block==3 ~ as.numeric(OPERATION2.RT),
-                                             SubTrialProc=="Recall" & Block==1 ~ as.numeric(CollectClick.RT),
-                                             SubTrialProc=="Recall" & Block==2 ~ as.numeric(CollectClick2.RT),
-                                             SubTrialProc=="Recall" & Block==3 ~ as.numeric(CollectClick3.RT),
-                                             TRUE ~ as.numeric(NA)),
+                       RT = dplyr::case_when(SubTrialProc=="ProcessingTask" & Block==1 ~ as.double(OPERATION.RT),
+                                             SubTrialProc=="ProcessingTask" & Block==2 ~ as.double(OPERATION1.RT),
+                                             SubTrialProc=="ProcessingTask" & Block==3 ~ as.double(OPERATION2.RT),
+                                             SubTrialProc=="Recall" & Block==1 ~ as.double(CollectClick.RT),
+                                             SubTrialProc=="Recall" & Block==2 ~ as.double(CollectClick2.RT),
+                                             SubTrialProc=="Recall" & Block==3 ~ as.double(CollectClick3.RT),
+                                             TRUE ~ as.double(NA)),
                        erase = ifelse(SubTrialProc=="Recall" & WordSelection=="clear", 1, NA),
                        erase = zoo::na.locf(erase, fromLast = TRUE, na.rm = FALSE),
                        erase = ifelse(SubTrialProc=="ProcessingTask", NA, erase),
                        remove = dplyr::case_when(SubTrialProc=="Recall" & is.na(WordSelection) ~ 1,
                                                  SubTrialProc=="Recall" & WordSelection=="Enter" ~ 1,
                                                  SubTrialProc=="Recall" & WordSelection=="InvalidResponse" ~ 1,
-                                                 TRUE ~ as.numeric(NA)),
+                                                 TRUE ~ as.double(NA)),
                        MathDuration = ifelse(!is.na(MathDuration)&MathDuration=="?", NA, MathDuration))
 
     x <- dplyr::filter(x, is.na(erase), is.na(remove))
@@ -296,12 +296,12 @@ raw_ospan <- function(x, blocks = "", taskVersion = "new"){
                                                 as.character(`CorrectAnswer[SubTrial]`),
                                                 ifelse(SubTrialProc=="Recall",
                                                        as.character(memory_item), NA)),
-                       Accuracy = dplyr::case_when(SubTrialProc=="ProcessingTask" & Block==1 ~ as.numeric(OPERATION.ACC),
-                                                   SubTrialProc=="ProcessingTask" & Block==2 ~ as.numeric(OPERATION1.ACC),
-                                                   SubTrialProc=="ProcessingTask" & Block==3 ~ as.numeric(OPERATION2.ACC),
-                                                   SubTrialProc=="Recall" & CorrectResponse==WordSelection ~ as.numeric(1),
-                                                   SubTrialProc=="Recall" & CorrectResponse!=WordSelection ~ as.numeric(0),
-                                                   TRUE ~ as.numeric((NA))),
+                       Accuracy = dplyr::case_when(SubTrialProc=="ProcessingTask" & Block==1 ~ as.double(OPERATION.ACC),
+                                                   SubTrialProc=="ProcessingTask" & Block==2 ~ as.double(OPERATION1.ACC),
+                                                   SubTrialProc=="ProcessingTask" & Block==3 ~ as.double(OPERATION2.ACC),
+                                                   SubTrialProc=="Recall" & CorrectResponse==WordSelection ~ as.double(1),
+                                                   SubTrialProc=="Recall" & CorrectResponse!=WordSelection ~ as.double(0),
+                                                   TRUE ~ as.double((NA))),
                        Response = dplyr::case_when(SubTrialProc=="ProcessingTask" & Accuracy==1 ~ CorrectResponse,
                                                    SubTrialProc=="ProcessingTask" & Accuracy==0 & CorrectResponse=="TRUE" ~ "FALSE",
                                                    SubTrialProc=="ProcessingTask" & Accuracy==0 & CorrectResponse=="FALSE" ~ "TRUE",
