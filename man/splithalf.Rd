@@ -4,7 +4,8 @@
 \alias{splithalf}
 \title{Calculate Cronbach's Alpha}
 \usage{
-splithalf(x, trial.col = "Trial", value = "", id = "Subject")
+splithalf(x, trial.col = "Trial", value = "", aggregate = NULL,
+  id = "Subject")
 }
 \arguments{
 \item{x}{a dataframe with trial level data}
@@ -12,6 +13,8 @@ splithalf(x, trial.col = "Trial", value = "", id = "Subject")
 \item{trial.col}{The column name that identifies trials}
 
 \item{value}{The column name that identifies the values to be used}
+
+\item{aggregate}{How should the value column be aggregated across even and odd trials? (ex. mean or sum)}
 
 \item{id}{The column name that identifies the Subject IDs.}
 }
