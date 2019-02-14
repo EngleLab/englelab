@@ -28,15 +28,16 @@ splithalf <- function(x, trial.col = "Trial", value = "", aggregate = NULL, id =
   }
   even.col <- colnames(x)[c(FALSE,TRUE)]
   odd.col <- colnames(x)[c(TRUE,FALSE)]
-  if (aggregate=="mean"){
-    x <- transform(x, even = rowMeans(x[even.col], na.rm = TRUE))
-    x <- transform(x, odd = rowMeans(x[odd.col], na.rm = TRUE))
+  if (!is.null(aggregate)){
+    if (aggregate=="mean"){
+      x <- transform(x, even = rowMeans(x[even.col], na.rm = TRUE))
+      x <- transform(x, odd = rowMeans(x[odd.col], na.rm = TRUE))
+    }
+    if (aggregate=="sum"){
+      x <- transform(x, even = rowSums(x[even.col], na.rm = TRUE))
+      x <- transform(x, odd = rowSums(x[odd.col], na.rm = TRUE))
+    }
   }
-  if (aggregate=="sum"){
-    x <- transform(x, even = rowSums(x[even.col], na.rm = TRUE))
-    x <- transform(x, odd = rowSums(x[odd.col], na.rm = TRUE))
-  }
-
   r <- cor(x$even, x$odd, use = "pairwise.complete.obs")
   sh <- (2*r)/(1+r)
   return(sh)
