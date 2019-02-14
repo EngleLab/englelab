@@ -38,8 +38,7 @@ splithalf <- function(x, trial.col = "Trial", value = "", aggregate = NULL, id =
       x <- transform(x, odd = rowSums(x[odd.col], na.rm = TRUE))
     }
   } else {
-    x <- transform(x, even = x[even.col])
-    x <- transform(x, odd = x[even.col])
+    colnames(x) <- c("even", "odd")
   }
   r <- cor(x$even, x$odd, use = "pairwise.complete.obs")
   sh <- (2*r)/(1+r)
