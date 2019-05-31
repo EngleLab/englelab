@@ -2,6 +2,7 @@
 
 export(bin_score)
 export(cronbach_alpha)
+export(get_script)
 export(raw_lettersets)
 export(raw_numberseries)
 export(raw_ospan)
