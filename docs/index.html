@@ -66,7 +66,7 @@
     <div id="englelab" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#englelab" class="anchor"></a>englelab</h1></div>
-<p>This package contains various functions for processing data common to the (EngleLab)[<a href="http://englelab.gatech.edu" class="uri">http://englelab.gatech.edu</a>]</p>
+<p>This package contains various functions for processing data common to the <a href="http://englelab.gatech.edu">EngleLab</a></p>
 <p>Most relevant to other researchers will be the functions available to process data from the complex span tasks. The complex span tasks are programmed in E-Prime, and unfortunately the resulting data file (<strong>.edat</strong>) the program produces is not easy to work with. The column names may not make any sense to you, there are way too many columns, the values in the columns are not always clear, and more messy issues. Even if you are not using R for data analysis you still may find the funtions useful.</p>
 <p>Currently there are only functions for the <strong>Operation Span</strong>, <strong>Symmetry Span</strong>, and <strong>Rotation Span</strong> tasks. For each task there are two functions you may choose to use. One is for creating a clean and tidy raw data file. I suggest using this because you may want to go back to the raw data to compute internal consistency estimates. It is also easy to score the task from this clean and tidy raw data file. The other function will directly score the task but you will lose the raw data.</p>
 <p>This package also contains functions to calculate binned scores (CITATION). There are also functions to easily calculate internal consistency estimates from trial-level raw data; both cronbach’s alpha and split-half reliability</p>

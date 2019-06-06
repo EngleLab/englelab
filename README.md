@@ -1,6 +1,6 @@
 # englelab
 
-This package contains various functions for processing data common to the (EngleLab)[http://englelab.gatech.edu]
+This package contains various functions for processing data common to the [EngleLab](http://englelab.gatech.edu)
 
 Most relevant to other researchers will be the functions available to process data from the complex span tasks. The complex span tasks are programmed in E-Prime, and unfortunately the resulting data file (**.edat**) the program produces is not easy to work with. The column names may not make any sense to you, there are way too many columns, the values in the columns are not always clear, and more messy issues. Even if you are not using R for data analysis you still may find the funtions useful.
 
