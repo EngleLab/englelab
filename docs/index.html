@@ -5,11 +5,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>What the Package Does (Title Case) • englelab</title>
+<title>EngleLab R Functions • englelab</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="What the Package Does (Title Case)">
+<script src="pkgdown.js"></script><meta property="og:title" content="EngleLab R Functions">
 <meta property="og:description" content="This package will help with scoring certain tasks commonly used by the EngleLab">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
@@ -66,57 +66,58 @@
     <div id="englelab" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#englelab" class="anchor"></a>englelab</h1></div>
-<p>A set of functions specific to the Engle Lab</p>
-<div id="complex-span-tasks" class="section level3">
+<p>This package contains various functions for processing data common to the (EngleLab)[<a href="http://englelab.gatech.edu" class="uri">http://englelab.gatech.edu</a>]</p>
+<p>Most relevant to other researchers will be the functions available to process data from the complex span tasks. The complex span tasks are programmed in E-Prime, and unfortunately the resulting data file (<strong>.edat</strong>) the program produces is not easy to work with. The column names may not make any sense to you, there are way too many columns, the values in the columns are not always clear, and more messy issues. Even if you are not using R for data analysis you still may find the funtions useful.</p>
+<p>Currently there are only functions for the <strong>Operation Span</strong>, <strong>Symmetry Span</strong>, and <strong>Rotation Span</strong> tasks. For each task there are two functions you may choose to use. One is for creating a clean and tidy raw data file. I suggest using this because you may want to go back to the raw data to compute internal consistency estimates. It is also easy to score the task from this clean and tidy raw data file. The other function will directly score the task but you will lose the raw data.</p>
+<p>This package also contains functions to calculate binned scores (CITATION). There are also functions to easily calculate internal consistency estimates from trial-level raw data; both cronbach’s alpha and split-half reliability</p>
+<div id="install" class="section level2">
+<h2 class="hasAnchor">
+<a href="#install" class="anchor"></a>Install</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"EngleLab/englelab"</span>)</a></code></pre></div>
+</div>
+<div id="usage" class="section level2">
+<h2 class="hasAnchor">
+<a href="#usage" class="anchor"></a>Usage</h2>
+<p>Once you are ready to start analyzing data from the complex span tasks, you will first need to create a merged (<strong>.emrg</strong>) data file of all the individual <strong>.edat</strong> files E-Prime produces. You then will need to export that <strong>.emrg</strong> file as either a tab-delimited .txt file or a comma delimited .csv file. You can then import the .txt or .csv merged file into R. <code><a href="https://readr.tidyverse.org/reference/read_delim.html">readr::read_delim()</a></code> or <code><a href="https://readr.tidyverse.org/reference/read_delim.html">readr::read_csv()</a></code></p>
+<p>Once you have the data file imported into R as a dataframe object, you can then use the functions to easily create clean and tidy raw data files for the complex span tasks. Depending on your sample size, these functions may actually take a little while to execute.</p>
+<hr>
+<div id="operation-span" class="section level3">
 <h3 class="hasAnchor">
-<a href="#complex-span-tasks" class="anchor"></a>Complex Span Tasks</h3>
-<div id="create-tidy-raw-files-from-the-e-merged-file" class="section level4">
-<h4 class="hasAnchor">
-<a href="#create-tidy-raw-files-from-the-e-merged-file" class="anchor"></a>Create Tidy Raw files from the E-Merged File</h4>
+<a href="#operation-span" class="anchor"></a>Operation Span</h3>
+<p><code><a href="reference/raw_ospan.html">raw_ospan()</a></code> will create a clean and tidy raw data file for the operation span task. The only arguments you need to specify are:</p>
 <ul>
-<li><p>raw_ospan()</p></li>
-<li><p>raw_sspan()</p></li>
-<li><p>raw_rotspan()</p></li>
+<li><p><strong>x</strong>: The dataframe object</p></li>
+<li><p><strong>blocks</strong>: How many blocks were administered? (1-3)</p></li>
 </ul>
 </div>
-<div id="or-score-from-the-e-merged-file" class="section level4">
-<h4 class="hasAnchor">
-<a href="#or-score-from-the-e-merged-file" class="anchor"></a>Or Score from the E-Merged File</h4>
-<ul>
-<li><p>score_ospan()</p></li>
-<li><p>score_sspan()</p></li>
-<li><p>score_rotspan()</p></li>
-</ul>
-</div>
-</div>
-<div id="fluid-intelligence-tasks" class="section level3">
+<div id="symmetry-span" class="section level3">
 <h3 class="hasAnchor">
-<a href="#fluid-intelligence-tasks" class="anchor"></a>Fluid Intelligence Tasks</h3>
-<div id="create-tidy-raw-files-from-the-e-merged-file-1" class="section level4">
-<h4 class="hasAnchor">
-<a href="#create-tidy-raw-files-from-the-e-merged-file-1" class="anchor"></a>Create Tidy Raw files from the E-Merged File</h4>
+<a href="#symmetry-span" class="anchor"></a>Symmetry Span</h3>
+<p><code><a href="reference/raw_symspan.html">raw_symspan()</a></code> will create a clean and tidy raw data file for the symmetry span task. The only arguments you need to specify are:</p>
 <ul>
-<li><p>raw_rapm()</p></li>
-<li><p>raw_numberseries()</p></li>
-<li><p>raw_lettersets()</p></li>
+<li><p><strong>x</strong>: The dataframe object</p></li>
+<li><p><strong>blocks</strong>: How many blocks were administered? (1-3)</p></li>
 </ul>
 </div>
-<div id="or-score-from-the-e-merged-file-1" class="section level4">
-<h4 class="hasAnchor">
-<a href="#or-score-from-the-e-merged-file-1" class="anchor"></a>Or Score from the E-Merged File</h4>
-<ul>
-<li><p>score_rapm()</p></li>
-<li><p>score_numberseries()</p></li>
-<li><p>score_lettersets()</p></li>
-</ul>
-</div>
-</div>
-<div id="binning-scoring-method" class="section level3">
+<div id="rotation-span" class="section level3">
 <h3 class="hasAnchor">
-<a href="#binning-scoring-method" class="anchor"></a>Binning Scoring Method</h3>
+<a href="#rotation-span" class="anchor"></a>Rotation Span</h3>
+<p><code><a href="reference/raw_rotspan.html">raw_rotspan()</a></code> will create a clean and tidy raw data file for the rotation span task. The only arguments you need to specify are:</p>
 <ul>
-<li>bin_score()</li>
+<li><p><strong>x</strong>: The dataframe object</p></li>
+<li><p><strong>blocks</strong>: How many blocks were administered? (1-3)</p></li>
 </ul>
+<hr>
+<p>You will then want to write the resulting dataframe to a file on your computer. <code><a href="https://readr.tidyverse.org/reference/write_delim.html">readr::write_csv()</a></code></p>
+<p>See <strong>Articles</strong> for more information about the other functions in this package</p>
+</div>
+</div>
+<div id="citation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#citation" class="anchor"></a>Citation</h2>
+<blockquote>
+<p>Tsukahara, J.S. (2018). englelab: An R Package for Processing Data Common to the EngleLab. Retrieved from <a href="https://englelab.github.io/englelab/" class="uri">https://englelab.github.io/englelab/</a></p>
+</blockquote>
 </div>
 </div>
   </div>
