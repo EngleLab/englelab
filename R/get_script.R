@@ -8,6 +8,7 @@
 #' @param ac Logical. Do you want to download template scripts for all the attention taks?
 #' @param antisaccade Logical. Do you want to download a template file for the antisaccade task?
 #' @param stroop Logical. Do you want to download a template file for the Stroop task?
+#' @param stroopDL Logical. Do you want to download a template file for the Stroop task?
 #' @param flanker Logical. Do you want to download a template file for the flanker task?
 #' @param stroopDL Logical. Do you want to download a template file for the StroopDL task?
 #' @param flankerDL Logical. Do you want to download a template file for the FlankerDL task?
@@ -121,6 +122,28 @@ get_script <- function(type = "all", to = "R Scripts", overwrite = FALSE,
       } else {
         download.file("https://raw.githubusercontent.com/EngleLab/R-Templates/master/Tasks/stroop_score.R",
                       paste(to, "1_stroop_score.R", sep = "/"))
+      }
+    }
+  }
+  
+  if (stroopDL == TRUE) {
+    if (type == "raw" | type == "all") {
+      exists <- file.exists(paste(to, "0_stroopDL_raw.R", sep = "/"))
+      if (exists == TRUE & overwrite == FALSE) {
+        message("Did not download file. 0_stroopDL_raw.R already exists")
+      } else {
+        download.file("https://raw.githubusercontent.com/EngleLab/R-Templates/master/Tasks/stroopDL_raw.R",
+                      paste(to, "0_stroopDL_raw.R", sep = "/"))
+      }
+    }
+
+    if (type == "score" | type == "all") {
+      exists <- file.exists(paste(to, "1_stroopDL_score.R", sep = "/"))
+      if (exists == TRUE & overwrite == FALSE) {
+        message("Did not download file. 1_stroopDL_score.R already exists")
+      } else {
+        download.file("https://raw.githubusercontent.com/EngleLab/R-Templates/master/Tasks/stroop_score.R",
+                      paste(to, "1_stroopDL_score.R", sep = "/"))
       }
     }
   }
