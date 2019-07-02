@@ -4,11 +4,10 @@
 \alias{get_script}
 \title{Download template R scripts}
 \usage{
-get_script(type = "all", to = "R Scripts/templates",
-  overwrite = FALSE, gf = FALSE, wmc = FALSE, ac = FALSE,
-  antisaccade = FALSE, stroop = FALSE, flanker = FALSE,
-  stroopDL = FALSE, flankerDL = FALSE, va4 = FALSE, sact = FALSE,
-  path = "./")
+get_script(type = "all", to = "R Scripts", overwrite = FALSE,
+  gf = FALSE, wmc = FALSE, ac = FALSE, antisaccade = FALSE,
+  stroop = FALSE, flanker = FALSE, stroopDL = FALSE,
+  flankerDL = FALSE, va4 = FALSE, sact = FALSE, path = "./")
 }
 \arguments{
 \item{type}{String. Do you want to download "raw" or "score" task template files?}

@@ -17,7 +17,7 @@
 #' @export
 #'
 
-get_script <- function(type = "all", to = "R Scripts/templates", overwrite = FALSE,
+get_script <- function(type = "all", to = "R Scripts", overwrite = FALSE,
                      gf = FALSE, wmc = FALSE, ac = FALSE,
                      antisaccade = FALSE, stroop = FALSE, flanker = FALSE,
                      stroopDL = FALSE, flankerDL = FALSE, va4 = FALSE,
