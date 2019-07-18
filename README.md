@@ -50,7 +50,7 @@ Once you have the data file imported into R as a dataframe object, you can then 
 
 You will then want to write the resulting dataframe to a file on your computer. `readr::write_csv()`
 
-See **Articles** for more information about the other functions in this package
+See [References](https://englelab.github.io/englelab/reference/index.html) for more information about the other functions in this package
 
 ## Citation
 
