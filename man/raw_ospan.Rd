@@ -2,21 +2,18 @@
 % Please edit documentation in R/ospan.R
 \name{raw_ospan}
 \alias{raw_ospan}
-\title{A Task Scoring Function}
+\title{Creates a "tidy" raw dataframe for the OSpan task}
 \usage{
 raw_ospan(x, blocks = "", taskVersion = "new")
 }
 \arguments{
-\item{x}{a .txt exported E-Merge (or single E-Data) file}
+\item{x}{dataframe (an imported .emrge file)}
 
 \item{blocks}{number of blocks administered. From 1-3}
 
-\item{taskVersion}{old or new version. Old version means the Procedure[Block] variable has a different label. (Default = "new")}
+\item{taskVersion}{old or new version. Old version means the
+Procedure[Block] variable has a different label. (Default = "new")}
 }
 \description{
-Creates a raw data file of the OSPAN task from an E-Merged file
+Creates a "tidy" raw dataframe for the OSpan task
 }
-\examples{
-raw_ospan(data, blocks = 2)
-}
-\keyword{score}

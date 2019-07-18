@@ -2,17 +2,13 @@
 % Please edit documentation in R/gf.R
 \name{raw_numberseries}
 \alias{raw_numberseries}
-\title{A Task Scoring Function}
+\title{Creates a "tidy" raw dataframe for the NumberSeries task}
 \usage{
 raw_numberseries(x)
 }
 \arguments{
-\item{x}{a .txt exported E-Merge (or single E-Data) file}
+\item{x}{dataframe (an imported .emrge file)}
 }
 \description{
-Creates a raw data file of the NumberSeries task from the E-Merge file
+Creates a "tidy" raw dataframe for the NumberSeries task
 }
-\examples{
-raw_numberseries(data)
-}
-\keyword{raw}

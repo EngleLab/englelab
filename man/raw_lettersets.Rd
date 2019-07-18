@@ -2,17 +2,13 @@
 % Please edit documentation in R/gf.R
 \name{raw_lettersets}
 \alias{raw_lettersets}
-\title{A Task Scoring Function}
+\title{Creates a "tidy" raw dataframe for the LetterSets task}
 \usage{
 raw_lettersets(x)
 }
 \arguments{
-\item{x}{a .txt exported E-Merge (or single E-Data) file}
+\item{x}{dataframe (an imported .emrge file)}
 }
 \description{
-Creates a raw data file of the LetterSets task from the E-Merge file
+Creates a "tidy" raw dataframe for the LetterSets task
 }
-\examples{
-raw_lettersets(data)
-}
-\keyword{raw}

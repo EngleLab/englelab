@@ -16,7 +16,8 @@ cronbach_alpha(x, trial.col = "Trial", value = NULL, id = "Subject")
 \item{id}{The column name that identifies the Subject IDs.}
 }
 \description{
-Takes a trial-level data frame and calculates cronbach's alpha on the specified value
+Takes a trial-level data frame and calculates
+    cronbach's alpha on the specified value
 }
 \examples{
 

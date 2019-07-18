@@ -2,7 +2,7 @@
 % Please edit documentation in R/reliability.R
 \name{splithalf}
 \alias{splithalf}
-\title{Calculate Cronbach's Alpha}
+\title{Calculate split-half reliability}
 \usage{
 splithalf(x, trial.col = "Trial", value = "", aggregate = NULL,
   id = "Subject")
@@ -14,12 +14,14 @@ splithalf(x, trial.col = "Trial", value = "", aggregate = NULL,
 
 \item{value}{The column name that identifies the values to be used}
 
-\item{aggregate}{How should the value column be aggregated across even and odd trials? (ex. mean or sum)}
+\item{aggregate}{How should the value column be aggregated
+across even and odd trials? (ex. mean or sum)}
 
 \item{id}{The column name that identifies the Subject IDs.}
 }
 \description{
-Takes a trial-level data frame and calculates cronbach's alpha on the specified value
+Takes a trial-level data frame and calculates
+    split-half reliability on the specified value
 }
 \examples{
 

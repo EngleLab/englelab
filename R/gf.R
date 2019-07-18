@@ -1,11 +1,8 @@
-#' A Task Scoring Function
+#' Creates a "tidy" raw dataframe for the RAPM task
 #'
-#' Creates a raw data file of the RAPM task from the E-Merge file
-#' @param x a .txt exported E-Merge (or single E-Data) file
-#' @keywords raw
+#' @param x dataframe (an imported .emrge file)
 #' @export
-#' @examples
-#' raw_rapm(data)
+#'
 
 raw_rapm <- function(x){
   x <- dplyr::filter(x, Blocks=="RealAll"|Blocks=="End", ShowStim.RT>0|!is.na(TotalScore))
@@ -20,14 +17,11 @@ raw_rapm <- function(x){
 
 
 
-#' A Task Scoring Function
+#' Creates a "tidy" raw dataframe for the NumberSeries task
 #'
-#' Creates a raw data file of the NumberSeries task from the E-Merge file
-#' @param x a .txt exported E-Merge (or single E-Data) file
-#' @keywords raw
+#' @param x dataframe (an imported .emrge file)
 #' @export
-#' @examples
-#' raw_numberseries(data)
+#'
 
 raw_numberseries <- function(x){
   x <- dplyr::filter(x, Blocks=="Real"|Blocks=="End", ShowStim.RT>0|!is.na(TotalScore))
@@ -42,14 +36,11 @@ raw_numberseries <- function(x){
 
 
 
-#' A Task Scoring Function
+#' Creates a "tidy" raw dataframe for the LetterSets task
 #'
-#' Creates a raw data file of the LetterSets task from the E-Merge file
-#' @param x a .txt exported E-Merge (or single E-Data) file
-#' @keywords raw
+#' @param x dataframe (an imported .emrge file)
 #' @export
-#' @examples
-#' raw_lettersets(data)
+#'
 
 raw_lettersets <- function(x){
   x <- dplyr::filter(x, Blocks=="Real"|Blocks=="End", ShowStim.RT>0|!is.na(TotalScore))
@@ -63,14 +54,14 @@ raw_lettersets <- function(x){
 }
 
 
-#' A Task Scoring Function
+#' Calculate RAPM scores from a messy raw dataframe
 #'
-#' Scores the Raven's Advanced Progressive Matrices (RAPM) task taking a .txt exported E-Merge (or single E-Data) file as input
-#' @param x a .txt exported E-Merge (or single E-Data) file
-#' @keywords score
+#' This function skips the 'raw_rapm()' step and therefore
+#'     is not advised. However, some researchers may find
+#'     it easier to just skip right to 'score_rapm()'
+#' @param x dataframe (an imported .emrge file)
 #' @export
-#' @examples
-#' score_rapm(data)
+#'
 
 score_rapm <- function(x){
   x <- dplyr::filter(x,`Procedure[Block]`=="endproc")
@@ -81,14 +72,14 @@ score_rapm <- function(x){
 
 
 
-#' A Task Scoring Function
+#' Calculate NumberSeries scores from a messy raw dataframe
 #'
-#' Scores the Number Series task taking a .txt exported E-Merge (or single E-Data) file as input
-#' @param x a .txt exported E-Merge (or single E-Data) file
-#' @keywords score
+#' This function skips the 'raw_numberseries()' step and therefore
+#'     is not advised. However, some researchers may find
+#'     it easier to just skip right to 'score_numberseries()'
+#' @param x dataframe (an imported .emrge file)
 #' @export
-#' @examples
-#' score_numberseries(data)
+#'
 
 score_numberseries <- function(x){
   x <- dplyr::filter(x,`Procedure[Block]`=="endproc")
@@ -99,14 +90,14 @@ score_numberseries <- function(x){
 
 
 
-#' A Task Scoring Function
+#' Calculate LetterSets scores from a messy raw dataframe
 #'
-#' Scores the Letter Sets task taking a .txt exported E-Merge (or single E-Data) file as input
-#' @param x a .txt exported E-Merge (or single E-Data) file
-#' @keywords score
+#' This function skips the 'raw_lettersets()' step and therefore
+#'     is not advised. However, some researchers may find
+#'     it easier to just skip right to 'score_lettersets()'
+#' @param x dataframe (an imported .emrge file)
 #' @export
-#' @examples
-#' score_lettersets(data)
+#'
 
 score_lettersets <- function(x){
   x <- dplyr::filter(x,`Procedure[Block]`=="endproc")

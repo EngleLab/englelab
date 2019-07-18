@@ -1,13 +1,11 @@
-#' A Task Scoring Function
+#' Creates a "tidy" raw dataframe for the OSpan task
 #'
-#' Creates a raw data file of the OSPAN task from an E-Merged file
-#' @param x a .txt exported E-Merge (or single E-Data) file
+#' @param x dataframe (an imported .emrge file)
 #' @param blocks number of blocks administered. From 1-3
-#' @param taskVersion old or new version. Old version means the Procedure[Block] variable has a different label. (Default = "new")
-#' @keywords score
+#' @param taskVersion old or new version. Old version means the
+#'     Procedure[Block] variable has a different label. (Default = "new")
 #' @export
-#' @examples
-#' raw_ospan(data, blocks = 2)
+#'
 
 raw_ospan <- function(x, blocks = "", taskVersion = "new"){
   if (taskVersion=="new"){
@@ -354,15 +352,15 @@ raw_ospan <- function(x, blocks = "", taskVersion = "new"){
 }
 
 
-#' A Task Scoring Function
+#' Calculate OSpan scores from a messy raw dataframe
 #'
-#' Scores the Operation Span (OSPAN) task taking a .txt exported E-Merge (or single E-Data) file as input
-#' @param x a .txt exported E-Merge (or single E-Data) file
+#' This function skips the 'raw_ospan()' step and therefore
+#'     is not advised. However, some researchers may find
+#'     it easier to just skip right to 'score_ospan()'
+#' @param x dataframe (an imported .emrge file)
 #' @param blocks number of blocks administered. From 1-3
-#' @keywords score
 #' @export
-#' @examples
-#' score_ospan(data, blocks = 2)
+#'
 
 score_ospan <- function(x, blocks = ""){
   if (blocks==1){

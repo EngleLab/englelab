@@ -2,17 +2,15 @@
 % Please edit documentation in R/gf.R
 \name{score_numberseries}
 \alias{score_numberseries}
-\title{A Task Scoring Function}
+\title{Calculate NumberSeries scores from a messy raw dataframe}
 \usage{
 score_numberseries(x)
 }
 \arguments{
-\item{x}{a .txt exported E-Merge (or single E-Data) file}
+\item{x}{dataframe (an imported .emrge file)}
 }
 \description{
-Scores the Number Series task taking a .txt exported E-Merge (or single E-Data) file as input
+This function skips the 'raw_numberseries()' step and therefore
+    is not advised. However, some researchers may find
+    it easier to just skip right to 'score_numberseries()'
 }
-\examples{
-score_numberseries(data)
-}
-\keyword{score}

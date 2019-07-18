@@ -1,13 +1,11 @@
-#' A Task Scoring Function
+#' Creates a "tidy" raw dataframe for the RotSpan task
 #'
-#' Creates a raw data file of the RotSpan task from an E-Merged file
-#' @param x a .txt exported E-Merge (or single E-Data) file
+#' @param x dataframe (an imported .emrge file)
 #' @param blocks number of blocks administered. From 1-3
-#' @param taskVersion old or new version. Old version means the Procedure[Block] variable has a different label. (Default = "new")
-#' @keywords raw
+#' @param taskVersion old or new version. Old version means the
+#'     Procedure[Block] variable has a different label. (Default = "new")
 #' @export
-#' @examples
-#' raw_rotspan(x, blocks = 2)
+#'
 
 raw_rotspan <- function(x, blocks = "", taskVersion = "new"){
   if(taskVersion=="old"){
@@ -676,15 +674,15 @@ raw_rotspan <- function(x, blocks = "", taskVersion = "new"){
 
 
 
-#' A Task Scoring Function
+#' Calculate RotSpan scores from a messy raw dataframe
 #'
-#' Scores the Rotation Span (RotSPAN) task taking a .txt exported E-Merge (or single E-Data) file as input
-#' @param x a .txt exported E-Merge (or single E-Data) file
+#' This function skips the 'raw_rotspan()' step and therefore
+#'     is not advised. However, some researchers may find
+#'     it easier to just skip right to 'score_rotspan()'
+#' @param x dataframe (an imported .emrge file)
 #' @param blocks number of blocks administered. From 1-3
-#' @keywords score
 #' @export
-#' @examples
-#' score_rotspan(x, blocks = 2)
+#'
 
 score_rotspan <- function(x, blocks = ""){
   if (blocks==1){

@@ -2,29 +2,18 @@
 % Please edit documentation in R/symspan.R
 \name{raw_symspan}
 \alias{raw_symspan}
-\title{A Task Scoring Function}
+\title{Creates a "tidy" raw dataframe for the SymSpan task}
 \usage{
 raw_symspan(x, blocks = "", taskVersion = "new")
 }
 \arguments{
-\item{x}{a .txt exported E-Merge (or single E-Data) file}
+\item{x}{dataframe (an imported .emrge file)}
 
 \item{blocks}{number of blocks administered. From 1-3}
 
-\item{taskVersion}{old or new version. Old version means the Procedure[Block] variable has a different label. (Default = "new")}
-
-\item{x}{a .txt exported E-Merge (or single E-Data) file}
-
-\item{blocks}{number of blocks administered. From 1-3}
+\item{taskVersion}{old or new version. Old version means the
+Procedure[Block] variable has a different label. (Default = "new")}
 }
 \description{
-Creates a raw data file of the SymSpan task from an E-Merged file
+Creates a "tidy" raw dataframe for the SymSpan task
 }
-\examples{
-raw_symspan(data, blocks = 2)
-
-Scores the Symmetry Span (SSPAN) task taking a .txt exported E-Merge (or single E-Data) file as input
-score_symspan(data, blocks = 2)
-}
-\keyword{raw}
-\keyword{score}

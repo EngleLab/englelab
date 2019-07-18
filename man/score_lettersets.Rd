@@ -2,17 +2,15 @@
 % Please edit documentation in R/gf.R
 \name{score_lettersets}
 \alias{score_lettersets}
-\title{A Task Scoring Function}
+\title{Calculate LetterSets scores from a messy raw dataframe}
 \usage{
 score_lettersets(x)
 }
 \arguments{
-\item{x}{a .txt exported E-Merge (or single E-Data) file}
+\item{x}{dataframe (an imported .emrge file)}
 }
 \description{
-Scores the Letter Sets task taking a .txt exported E-Merge (or single E-Data) file as input
+This function skips the 'raw_lettersets()' step and therefore
+    is not advised. However, some researchers may find
+    it easier to just skip right to 'score_lettersets()'
 }
-\examples{
-score_lettersets(data)
-}
-\keyword{score}

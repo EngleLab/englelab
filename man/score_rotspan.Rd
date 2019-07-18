@@ -2,19 +2,17 @@
 % Please edit documentation in R/rotspan.R
 \name{score_rotspan}
 \alias{score_rotspan}
-\title{A Task Scoring Function}
+\title{Calculate RotSpan scores from a messy raw dataframe}
 \usage{
 score_rotspan(x, blocks = "")
 }
 \arguments{
-\item{x}{a .txt exported E-Merge (or single E-Data) file}
+\item{x}{dataframe (an imported .emrge file)}
 
 \item{blocks}{number of blocks administered. From 1-3}
 }
 \description{
-Scores the Rotation Span (RotSPAN) task taking a .txt exported E-Merge (or single E-Data) file as input
+This function skips the 'raw_rotspan()' step and therefore
+    is not advised. However, some researchers may find
+    it easier to just skip right to 'score_rotspan()'
 }
-\examples{
-score_rotspan(x, blocks = 2)
-}
-\keyword{score}

@@ -2,19 +2,17 @@
 % Please edit documentation in R/ospan.R
 \name{score_ospan}
 \alias{score_ospan}
-\title{A Task Scoring Function}
+\title{Calculate OSpan scores from a messy raw dataframe}
 \usage{
 score_ospan(x, blocks = "")
 }
 \arguments{
-\item{x}{a .txt exported E-Merge (or single E-Data) file}
+\item{x}{dataframe (an imported .emrge file)}
 
 \item{blocks}{number of blocks administered. From 1-3}
 }
 \description{
-Scores the Operation Span (OSPAN) task taking a .txt exported E-Merge (or single E-Data) file as input
+This function skips the 'raw_ospan()' step and therefore
+    is not advised. However, some researchers may find
+    it easier to just skip right to 'score_ospan()'
 }
-\examples{
-score_ospan(data, blocks = 2)
-}
-\keyword{score}

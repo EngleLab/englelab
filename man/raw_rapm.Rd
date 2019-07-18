@@ -2,17 +2,13 @@
 % Please edit documentation in R/gf.R
 \name{raw_rapm}
 \alias{raw_rapm}
-\title{A Task Scoring Function}
+\title{Creates a "tidy" raw dataframe for the RAPM task}
 \usage{
 raw_rapm(x)
 }
 \arguments{
-\item{x}{a .txt exported E-Merge (or single E-Data) file}
+\item{x}{dataframe (an imported .emrge file)}
 }
 \description{
-Creates a raw data file of the RAPM task from the E-Merge file
+Creates a "tidy" raw dataframe for the RAPM task
 }
-\examples{
-raw_rapm(data)
-}
-\keyword{raw}

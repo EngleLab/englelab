@@ -2,17 +2,15 @@
 % Please edit documentation in R/gf.R
 \name{score_rapm}
 \alias{score_rapm}
-\title{A Task Scoring Function}
+\title{Calculate RAPM scores from a messy raw dataframe}
 \usage{
 score_rapm(x)
 }
 \arguments{
-\item{x}{a .txt exported E-Merge (or single E-Data) file}
+\item{x}{dataframe (an imported .emrge file)}
 }
 \description{
-Scores the Raven's Advanced Progressive Matrices (RAPM) task taking a .txt exported E-Merge (or single E-Data) file as input
+This function skips the 'raw_rapm()' step and therefore
+    is not advised. However, some researchers may find
+    it easier to just skip right to 'score_rapm()'
 }
-\examples{
-score_rapm(data)
-}
-\keyword{score}

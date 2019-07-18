@@ -1,6 +1,7 @@
 #' Calculate Cronbach's Alpha
 #'
-#' Takes a trial-level data frame and calculates cronbach's alpha on the specified value
+#' Takes a trial-level data frame and calculates
+#'     cronbach's alpha on the specified value
 #' @param x a dataframe with trial level data
 #' @param trial.col The column name that identifies trials
 #' @param value The column name that identifies the values to be used
@@ -32,13 +33,15 @@ cronbach_alpha <- function(x, trial.col = "Trial", value = NULL, id = "Subject")
 
 
 
-#' Calculate Cronbach's Alpha
+#' Calculate split-half reliability
 #'
-#' Takes a trial-level data frame and calculates cronbach's alpha on the specified value
+#' Takes a trial-level data frame and calculates
+#'     split-half reliability on the specified value
 #' @param x a dataframe with trial level data
 #' @param trial.col The column name that identifies trials
 #' @param value The column name that identifies the values to be used
-#' @param aggregate How should the value column be aggregated across even and odd trials? (ex. mean or sum)
+#' @param aggregate How should the value column be aggregated
+#'     across even and odd trials? (ex. mean or sum)
 #' @param id The column name that identifies the Subject IDs.
 #' @keywords cronbach
 #' @export

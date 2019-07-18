@@ -1,13 +1,11 @@
-#' A Task Scoring Function
+#' Creates a "tidy" raw dataframe for the SymSpan task
 #'
-#' Creates a raw data file of the SymSpan task from an E-Merged file
-#' @param x a .txt exported E-Merge (or single E-Data) file
+#' @param x dataframe (an imported .emrge file)
 #' @param blocks number of blocks administered. From 1-3
-#' @param taskVersion old or new version. Old version means the Procedure[Block] variable has a different label. (Default = "new")
-#' @keywords raw
+#' @param taskVersion old or new version. Old version means the
+#'     Procedure[Block] variable has a different label. (Default = "new")
 #' @export
-#' @examples
-#' raw_symspan(data, blocks = 2)
+#'
 
 raw_symspan <- function(x, blocks = "", taskVersion = "new"){
   if (taskVersion=="new"){
@@ -330,64 +328,58 @@ raw_symspan <- function(x, blocks = "", taskVersion = "new"){
     warning('Need to specify the number of blocks')
   } else if (blocks>3|blocks<1){
     warning('Invalid number of blocks specified')
-  }#' A Task Scoring Function
-  #'
-  #' Scores the Symmetry Span (SSPAN) task taking a .txt exported E-Merge (or single E-Data) file as input
-  #' @param x a .txt exported E-Merge (or single E-Data) file
-  #' @param blocks number of blocks administered. From 1-3
-  #' @keywords score
-  #' @export
-  #' @examples
-  #' score_symspan(data, blocks = 2)
-
-  score_symspan <- function(x, blocks = ""){
-    if (blocks==1){
-      x <- dplyr::filter(x, `Procedure[Block]`=="TaskProc")
-      x <- dplyr::select(x, Subject,
-                         SymSpan.Absolute = SspanAbsoluteScore,
-                         SymSpan.Partial = SspanPartialScore,
-                         SymSpan.Partial_Block1 = SspanPartialScoreBlock1,
-                         SymSpan.SymmetryACC = SymmetryACC,
-                         SymSpan.SymmetryDuration = SymmetryDuration)
-      x <- dplyr::distinct(x)
-    } else if (blocks==2){
-      x <- dplyr::filter(x, `Procedure[Block]`=="TaskProc")
-      x <- dplyr::select(x, Subject,
-                         SymSpan.Absolute = SspanAbsoluteScore,
-                         SymSpan.Partial = SspanPartialScore,
-                         SymSpan.Partial_Block1 = SspanPartialScoreBlock1,
-                         SymSpan.Partial_Block2 = SspanPartialScoreBlock2,
-                         SymSpan.SymmetryACC = SymmetryACC,
-                         SymSpan.SymmetryDuration = SymmetryDuration)
-      x <- dplyr::distinct(x)
-    } else if (blocks==3){
-      x <- dplyr::filter(x, `Procedure[Block]`=="TaskProc")
-      x <- dplyr::select(x, Subject,
-                         SymSpan.Absolute = SspanAbsoluteScore,
-                         SymSpan.Partial = SspanPartialScore,
-                         SymSpan.Partial_Block1 = SspanPartialScoreBlock1,
-                         SymSpan.Partial_Block2 = SspanPartialScoreBlock2,
-                         SymSpan.Partial_Block3 = SspanPartialScoreBlock3,
-                         SymSpan.SymmetryACC = SymmetryACC,
-                         SymSpan.SymmetryDuration = SymmetryDuration)
-      x <- dplyr::distinct(x)
-      x <- dplyr::rename(x, SymSpan.Absolute = SspanAbsoluteScore,
-                         SymSpan.Partial = SspanPartialScore,
-                         SymSpan.Partial_Block1 = SspanPartialScoreBlock1,
-                         SymSpan.Partial_Block2 = SspanPartialScoreBlock2,
-                         SymSpan.Partial_Block3 = SspanPartialScoreBlock3,
-                         SymSpan.SymmetryACC = SymmetryACC,
-                         SymSpan.SymmetryDuration = SymmetryDuration)
-    } else if (blocks==""){
-      warning('Need to specify the number of blocks')
-    } else if (blocks>3|blocks<1){
-      warning('Invalid number of blocks specified')
-    }
-    return(x)
   }
-
-
   x <- dplyr::distinct(x)
+  return(x)
+}
+
+
+#' Calculate SymSpan scores from a messy raw dataframe
+#'
+#' This function skips the 'raw_symspan()' step and therefore
+#'     is not advised. However, some researchers may find
+#'     it easier to just skip right to 'score_symspan()'
+#' @param x dataframe (an imported .emrge file)
+#' @param blocks number of blocks administered. From 1-3
+#' @export
+#'
+
+score_symspan <- function(x, blocks = ""){
+  if (blocks==1){
+    x <- dplyr::filter(x, `Procedure[Block]`=="TaskProc")
+    x <- dplyr::select(x, Subject,
+                       SymSpan.Absolute = SspanAbsoluteScore,
+                       SymSpan.Partial = SspanPartialScore,
+                       SymSpan.Partial_Block1 = SspanPartialScoreBlock1,
+                       SymSpan.SymmetryACC = SymmetryACC,
+                       SymSpan.SymmetryDuration = SymmetryDuration)
+    x <- dplyr::distinct(x)
+  } else if (blocks==2){
+    x <- dplyr::filter(x, `Procedure[Block]`=="TaskProc")
+    x <- dplyr::select(x, Subject,
+                       SymSpan.Absolute = SspanAbsoluteScore,
+                       SymSpan.Partial = SspanPartialScore,
+                       SymSpan.Partial_Block1 = SspanPartialScoreBlock1,
+                       SymSpan.Partial_Block2 = SspanPartialScoreBlock2,
+                       SymSpan.SymmetryACC = SymmetryACC,
+                       SymSpan.SymmetryDuration = SymmetryDuration)
+    x <- dplyr::distinct(x)
+  } else if (blocks==3){
+    x <- dplyr::filter(x, `Procedure[Block]`=="TaskProc")
+    x <- dplyr::select(x, Subject,
+                       SymSpan.Absolute = SspanAbsoluteScore,
+                       SymSpan.Partial = SspanPartialScore,
+                       SymSpan.Partial_Block1 = SspanPartialScoreBlock1,
+                       SymSpan.Partial_Block2 = SspanPartialScoreBlock2,
+                       SymSpan.Partial_Block3 = SspanPartialScoreBlock3,
+                       SymSpan.SymmetryACC = SymmetryACC,
+                       SymSpan.SymmetryDuration = SymmetryDuration)
+    x <- dplyr::distinct(x)
+  } else if (blocks==""){
+    warning('Need to specify the number of blocks')
+  } else if (blocks>3|blocks<1){
+    warning('Invalid number of blocks specified')
+  }
   return(x)
 }
 
