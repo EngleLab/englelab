@@ -1,0 +1,39 @@
+url: https://englelab.github.io/englelab/
+
+authors:
+  Jason Tsukahara:
+    href: http://englelab.gatech.edu/jason.html
+
+template:
+  params:
+    docsearch:
+      api_key: API_KEY
+      index_name: INDEX_NAME
+
+reference:
+- title: Tidy Raw Data
+  contents:
+  - raw_ospan
+  - raw_symspan
+  - raw_rotspan
+  - raw_rapm
+  - raw_numberseries
+  - raw_lettersets
+- title: Score Tasks
+  contents:
+  - score_ospan
+  - score_symspan
+  - score_rotspan
+  - score_rapm
+  - score_numberseries
+  - score_lettersets
+- title: Calculate Reliability Estimates
+  contents:
+  - cronbach_alpha
+  - splithalf
+- title: Combine Reaction Time and Accuracy
+  contents:
+  - bin_score
+- title: Download Template Scripts
+  contents:
+  - get_script

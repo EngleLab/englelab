@@ -29,6 +29,12 @@
 <script src="../pkgdown.js"></script>
 
 
+<!-- docsearch -->
+<script src="../docsearch.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+
 
 <meta property="og:title" content="Function reference" />
 
@@ -84,6 +90,12 @@
 </li>
       </ul>
       
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -108,7 +120,115 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
+          <h2 id="section-tidy-raw-data" class="hasAnchor"><a href="#section-tidy-raw-data" class="anchor"></a>Tidy Raw Data</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="raw_ospan.html">raw_ospan()</a></code> </p>
+        </td>
+        <td><p>Creates a "tidy" raw dataframe for the OSpan task</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="raw_symspan.html">raw_symspan()</a></code> </p>
+        </td>
+        <td><p>Creates a "tidy" raw dataframe for the SymSpan task</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="raw_rotspan.html">raw_rotspan()</a></code> </p>
+        </td>
+        <td><p>Creates a "tidy" raw dataframe for the RotSpan task</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="raw_rapm.html">raw_rapm()</a></code> </p>
+        </td>
+        <td><p>Creates a "tidy" raw dataframe for the RAPM task</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="raw_numberseries.html">raw_numberseries()</a></code> </p>
+        </td>
+        <td><p>Creates a "tidy" raw dataframe for the NumberSeries task</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="raw_lettersets.html">raw_lettersets()</a></code> </p>
+        </td>
+        <td><p>Creates a "tidy" raw dataframe for the LetterSets task</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-score-tasks" class="hasAnchor"><a href="#section-score-tasks" class="anchor"></a>Score Tasks</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="score_ospan.html">score_ospan()</a></code> </p>
+        </td>
+        <td><p>Calculate OSpan scores from a messy raw dataframe</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="score_symspan.html">score_symspan()</a></code> </p>
+        </td>
+        <td><p>Calculate SymSpan scores from a messy raw dataframe</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="score_rotspan.html">score_rotspan()</a></code> </p>
+        </td>
+        <td><p>Calculate RotSpan scores from a messy raw dataframe</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="score_rapm.html">score_rapm()</a></code> </p>
+        </td>
+        <td><p>Calculate RAPM scores from a messy raw dataframe</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="score_numberseries.html">score_numberseries()</a></code> </p>
+        </td>
+        <td><p>Calculate NumberSeries scores from a messy raw dataframe</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="score_lettersets.html">score_lettersets()</a></code> </p>
+        </td>
+        <td><p>Calculate LetterSets scores from a messy raw dataframe</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-calculate-reliability-estimates" class="hasAnchor"><a href="#section-calculate-reliability-estimates" class="anchor"></a>Calculate Reliability Estimates</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="cronbach_alpha.html">cronbach_alpha()</a></code> </p>
+        </td>
+        <td><p>Calculate Cronbach's Alpha</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="splithalf.html">splithalf()</a></code> </p>
+        </td>
+        <td><p>Calculate split-half reliability</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-combine-reaction-time-and-accuracy" class="hasAnchor"><a href="#section-combine-reaction-time-and-accuracy" class="anchor"></a>Combine Reaction Time and Accuracy</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
@@ -118,96 +238,20 @@
           <p><code><a href="bin_score.html">bin_score()</a></code> </p>
         </td>
         <td><p>A Binning Function</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="cronbach_alpha.html">cronbach_alpha()</a></code> </p>
-        </td>
-        <td><p>Calculate Cronbach's Alpha</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="englelab.html">englelab</a></code> </p>
-        </td>
-        <td><p>englelab</p></td>
-      </tr><tr>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-download-template-scripts" class="hasAnchor"><a href="#section-download-template-scripts" class="anchor"></a>Download Template Scripts</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
         
         <td>
           <p><code><a href="get_script.html">get_script()</a></code> </p>
         </td>
         <td><p>Download template R scripts</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="raw_lettersets.html">raw_lettersets()</a></code> </p>
-        </td>
-        <td><p>A Task Scoring Function</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="raw_numberseries.html">raw_numberseries()</a></code> </p>
-        </td>
-        <td><p>A Task Scoring Function</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="raw_ospan.html">raw_ospan()</a></code> </p>
-        </td>
-        <td><p>A Task Scoring Function</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="raw_rapm.html">raw_rapm()</a></code> </p>
-        </td>
-        <td><p>A Task Scoring Function</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="raw_rotspan.html">raw_rotspan()</a></code> </p>
-        </td>
-        <td><p>A Task Scoring Function</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="raw_symspan.html">raw_symspan()</a></code> </p>
-        </td>
-        <td><p>A Task Scoring Function</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="score_lettersets.html">score_lettersets()</a></code> </p>
-        </td>
-        <td><p>A Task Scoring Function</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="score_numberseries.html">score_numberseries()</a></code> </p>
-        </td>
-        <td><p>A Task Scoring Function</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="score_ospan.html">score_ospan()</a></code> </p>
-        </td>
-        <td><p>A Task Scoring Function</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="score_rapm.html">score_rapm()</a></code> </p>
-        </td>
-        <td><p>A Task Scoring Function</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="score_rotspan.html">score_rotspan()</a></code> </p>
-        </td>
-        <td><p>A Task Scoring Function</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="splithalf.html">splithalf()</a></code> </p>
-        </td>
-        <td><p>Calculate Cronbach's Alpha</p></td>
       </tr>
     </tbody>
     </table>
@@ -216,14 +260,18 @@
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
+      <li><a href="#section-tidy-raw-data">Tidy Raw Data</a></li>
+      <li><a href="#section-score-tasks">Score Tasks</a></li>
+      <li><a href="#section-calculate-reliability-estimates">Calculate Reliability Estimates</a></li>
+      <li><a href="#section-combine-reaction-time-and-accuracy">Combine Reaction Time and Accuracy</a></li>
+      <li><a href="#section-download-template-scripts">Download Template Scripts</a></li>
     </ul>
   </div>
 </div>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Jason Tsukahara.</p>
+  <p>Developed by <a href='http://englelab.gatech.edu/jason.html'>Jason Tsukahara</a>.</p>
 </div>
 
 <div class="pkgdown">
@@ -234,6 +282,23 @@
    </div>
 
   
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: 'API_KEY',
+    indexName: 'INDEX_NAME',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+
 
   </body>
 </html>

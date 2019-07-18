@@ -29,10 +29,17 @@
 <script src="../pkgdown.js"></script>
 
 
+<!-- docsearch -->
+<script src="../docsearch.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+
 
 <meta property="og:title" content="Calculate Cronbach's Alpha — cronbach_alpha" />
 
-<meta property="og:description" content="Takes a trial-level data frame and calculates cronbach's alpha on the specified value" />
+<meta property="og:description" content="Takes a trial-level data frame and calculates
+    cronbach's alpha on the specified value" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -87,6 +94,12 @@
 </li>
       </ul>
       
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -104,7 +117,8 @@
 
     <div class="ref-description">
     
-    <p>Takes a trial-level data frame and calculates cronbach's alpha on the specified value</p>
+    <p>Takes a trial-level data frame and calculates
+    cronbach's alpha on the specified value</p>
     
     </div>
 
@@ -149,7 +163,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by Jason Tsukahara.</p>
+  <p>Developed by <a href='http://englelab.gatech.edu/jason.html'>Jason Tsukahara</a>.</p>
 </div>
 
 <div class="pkgdown">
@@ -160,6 +174,23 @@
    </div>
 
   
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: 'API_KEY',
+    indexName: 'INDEX_NAME',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+
 
   </body>
 </html>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Creates a "tidy" raw dataframe for the SymSpan task — raw_symspan • englelab</title>
+<title>Calculate SymSpan scores from a messy raw dataframe — score_symspan • englelab</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -36,9 +36,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Creates a "tidy" raw dataframe for the SymSpan task — raw_symspan" />
+<meta property="og:title" content="Calculate SymSpan scores from a messy raw dataframe — score_symspan" />
 
-<meta property="og:description" content="Creates a &quot;tidy&quot; raw dataframe for the SymSpan task" />
+<meta property="og:description" content="This function skips the 'raw_symspan()' step and therefore
+    is not advised. However, some researchers may find
+    it easier to just skip right to 'score_symspan()'" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -109,18 +111,20 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Creates a "tidy" raw dataframe for the SymSpan task</h1>
+    <h1>Calculate SymSpan scores from a messy raw dataframe</h1>
     <small class="dont-index">Source: <a href='https://github.com/EngleLab/englelab/blob/master/R/symspan.R'><code>R/symspan.R</code></a></small>
-    <div class="hidden name"><code>raw_symspan.Rd</code></div>
+    <div class="hidden name"><code>score_symspan.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Creates a "tidy" raw dataframe for the SymSpan task</p>
+    <p>This function skips the 'raw_symspan()' step and therefore
+    is not advised. However, some researchers may find
+    it easier to just skip right to 'score_symspan()'</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>raw_symspan</span>(<span class='no'>x</span>, <span class='kw'>blocks</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>taskVersion</span> <span class='kw'>=</span> <span class='st'>"new"</span>)</pre>
+    <pre class="usage"><span class='fu'>score_symspan</span>(<span class='no'>x</span>, <span class='kw'>blocks</span> <span class='kw'>=</span> <span class='st'>""</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -132,11 +136,6 @@
     <tr>
       <th>blocks</th>
       <td><p>number of blocks administered. From 1-3</p></td>
-    </tr>
-    <tr>
-      <th>taskVersion</th>
-      <td><p>old or new version. Old version means the
-Procedure[Block] variable has a different label. (Default = "new")</p></td>
     </tr>
     </table>
     
