@@ -17,7 +17,7 @@
 #' @export
 #'
 
-get_script <- function(type = "all", to = "R Scripts", overwrite = FALSE,
+get_script <- function(type = NULL, to = "R Scripts", overwrite = FALSE,
                      gf = FALSE, wmc = FALSE, ac = FALSE,
                      antisaccade = FALSE, stroop = FALSE, flanker = FALSE,
                      stroopDL = FALSE, flankerDL = FALSE, va4 = FALSE,
@@ -25,6 +25,8 @@ get_script <- function(type = "all", to = "R Scripts", overwrite = FALSE,
 
   ## Setup ####
   to <- paste(path, to, sep = "/")
+  if (!dir.exists(to)) dir.create(to)
+  if (is.null(type)) type <- "none"
 
   if (ac == TRUE) {
     antisaccade <- TRUE
