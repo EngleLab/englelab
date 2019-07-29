@@ -4,7 +4,7 @@
 \alias{get_script}
 \title{Download template R scripts}
 \usage{
-get_script(type = "all", to = "R Scripts", overwrite = FALSE,
+get_script(type = NULL, to = "R Scripts", overwrite = FALSE,
   gf = FALSE, wmc = FALSE, ac = FALSE, antisaccade = FALSE,
   stroop = FALSE, flanker = FALSE, stroopDL = FALSE,
   flankerDL = FALSE, va4 = FALSE, sact = FALSE, path = "./")
