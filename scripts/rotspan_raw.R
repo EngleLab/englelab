@@ -7,7 +7,7 @@ library(datawrangling)
 library(englelab)
 
 ## Set import/output directories
-import.dir <- "Merged"
+import.dir <- "Data Files/Merged"
 output.dir <- "Data Files"
 
 ## Set import/output files
