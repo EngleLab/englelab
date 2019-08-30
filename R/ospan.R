@@ -12,7 +12,7 @@ raw_ospan <- function(x, blocks = "", taskVersion = "new"){
     x <- dplyr::filter(x, `Procedure[Block]`=="TaskProc")
   } else if (taskVersion=="old"){
     x <- dplyr::filter(x, `Procedure[Block]`=="SessionProc")
-    x <- dplyr::mutate(x, MathACC = NA)
+    x <- dplyr::mutate(x, MathACC = NA, AvgMathTime = NA)
   }
 
   if (blocks==1){

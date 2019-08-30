@@ -12,7 +12,7 @@ raw_symspan <- function(x, blocks = "", taskVersion = "new"){
     x <- dplyr::filter(x, `Procedure[Block]`=="TaskProc")
   } else if (taskVersion=="old"){
     x <- dplyr::filter(x, `Procedure[Block]`=="SessionProc")
-    x <- dplyr::mutate(x, SymmetryACC = NA)
+    x <- dplyr::mutate(x, SymmetryACC = NA, AvgMathTime = NA)
   }
 
   if (blocks==1){
