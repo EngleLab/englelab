@@ -25,9 +25,22 @@ get_script <- function(type = NULL, to = "R Scripts", overwrite = FALSE,
 
   ## Setup ####
   to <- paste(path, to, sep = "/")
+  github_repo <-
+    "https://raw.githubusercontent.com/EngleLab/englelab/master/scripts"
+
   if (!dir.exists(to)) dir.create(to)
   if (is.null(type)) type <- "none"
 
+  if (wmc == TRUE) {
+    symspan <- TRUE
+    ospan <- TRUE
+    rotspan <- TRUE
+  }
+  if (gf == TRUE) {
+    rapm <- TRUE
+    numberseries <- TRUE
+    lettersets <- TRUE
+  }
   if (ac == TRUE) {
     antisaccade <- TRUE
     flanker <- TRUE
@@ -40,56 +53,87 @@ get_script <- function(type = NULL, to = "R Scripts", overwrite = FALSE,
   #####
 
   ## Download task templates
-  if (gf == TRUE) {
-    if (type == "raw" | type == "all") {
-      exists <- file.exists(paste(to, "0_gf_raw.R", sep = "/"))
-      if (exists == TRUE & overwrite == FALSE) {
-        message("Did not download file. 0_gf_raw.R already exists")
-      } else {
-        download.file("https://raw.githubusercontent.com/EngleLab/R-Templates/master/Tasks/gf_raw.R",
-                      paste(to, "0_gf_raw.R", sep = "/"))
-      }
-    }
-
-    if (type == "score" | type == "all") {
-      exists <- file.exists(paste(to, "1_gf_score.R", sep = "/"))
-      if (exists == TRUE & overwrite == FALSE) {
-        message("Did not download file. 1_gf_score.R already exists")
-      } else {
-        download.file("https://raw.githubusercontent.com/EngleLab/R-Templates/master/Tasks/gf_score.R",
-                      paste(to, "1_gf_score.R", sep = "/"))
-      }
+  if (symspan == TRUE) {
+    exists <- file.exists(paste(to, "0_symspan_raw.R", sep = "/"))
+    if (exists == TRUE & overwrite == FALSE) {
+      message("Did not download file. 0_symspan_raw.R already exists")
+    } else {
+      download.file(paste(github_repo, "symspan_raw.R", sep = "/"),
+                    paste(to, "0_symspan_raw.R", sep = "/"))
     }
   }
-
+  if (ospan == TRUE) {
+    exists <- file.exists(paste(to, "0_ospan_raw.R", sep = "/"))
+    if (exists == TRUE & overwrite == FALSE) {
+      message("Did not download file. 0_ospan_raw.R already exists")
+    } else {
+      download.file(paste(github_repo, "ospan_raw.R", sep = "/"),
+                    paste(to, "0_ospan_raw.R", sep = "/"))
+    }
+  }
+  if (rotspan == TRUE) {
+    exists <- file.exists(paste(to, "0_rotspan_raw.R", sep = "/"))
+    if (exists == TRUE & overwrite == FALSE) {
+      message("Did not download file. 0_rotspan_raw.R already exists")
+    } else {
+      download.file(paste(github_repo, "rotspan_raw.R", sep = "/"),
+                    paste(to, "0_rotspan_raw.R", sep = "/"))
+    }
+  }
   if (wmc == TRUE) {
-    if (type == "raw" | type == "all") {
-      exists <- file.exists(paste(to, "0_wmc_raw.R", sep = "/"))
-      if (exists == TRUE & overwrite == FALSE) {
-        message("Did not download file. 0_wmc_raw.R already exists")
-      } else {
-        download.file("https://raw.githubusercontent.com/EngleLab/R-Templates/master/Tasks/wmc_raw.R",
-                      paste(to, "0_wmc_raw.R", sep = "/"))
-      }
-    }
-
-    if (type == "score" | type == "all") {
-      exists <- file.exists(paste(to, "1_wmc_score.R", sep = "/"))
-      if (exists == TRUE & overwrite == FALSE) {
-        message("Did not download file. 1_wmc_score.R already exists")
-      } else {
-        download.file("https://raw.githubusercontent.com/EngleLab/R-Templates/master/Tasks/wmc_score.R",
-                      paste(to, "1_wmc_score.R", sep = "/"))
-      }
+    exists <- file.exists(paste(to, "1_wmc_score.R", sep = "/"))
+    if (exists == TRUE & overwrite == FALSE) {
+      message("Did not download file. 1_wmc_score.R already exists")
+    } else {
+      download.file(paste(github_repo, "wmc_score.R", sep = "/"),
+                    paste(to, "1_wmc_score.R", sep = "/"))
     }
   }
+
+  if (rapm == TRUE) {
+    exists <- file.exists(paste(to, "0_rapm_raw.R", sep = "/"))
+    if (exists == TRUE & overwrite == FALSE) {
+      message("Did not download file. 0_rapm_raw.R already exists")
+    } else {
+      download.file(paste(github_repo, "rapm_raw.R", sep = "/"),
+                    paste(to, "0_rapm_raw.R", sep = "/"))
+    }
+  }
+  if (numberseries == TRUE) {
+    exists <- file.exists(paste(to, "0_numberseries_raw.R", sep = "/"))
+    if (exists == TRUE & overwrite == FALSE) {
+      message("Did not download file. 0_numberseries_raw.R already exists")
+    } else {
+      download.file(paste(github_repo, "numberseries_raw.R", sep = "/"),
+                    paste(to, "0_numberseries_raw.R", sep = "/"))
+    }
+  }
+  if (lettersets == TRUE) {
+    exists <- file.exists(paste(to, "0_lettersets_raw.R", sep = "/"))
+    if (exists == TRUE & overwrite == FALSE) {
+      message("Did not download file. 0_lettersets_raw.R already exists")
+    } else {
+      download.file(paste(github_repo, "lettersets_raw.R", sep = "/"),
+                    paste(to, "0_lettersets_raw.R", sep = "/"))
+    }
+  }
+  if (gf == TRUE) {
+    exists <- file.exists(paste(to, "1_gf_score.R", sep = "/"))
+    if (exists == TRUE & overwrite == FALSE) {
+      message("Did not download file. 1_gf_score.R already exists")
+    } else {
+      download.file(paste(github_repo, "gf_score.R", sep = "/"),
+                    paste(to, "1_gf_score.R", sep = "/"))
+    }
+  }
+
   if (antisaccade == TRUE) {
     if (type == "raw" | type == "all") {
       exists <- file.exists(paste(to, "0_antisaccade_raw.R", sep = "/"))
       if (exists == TRUE & overwrite == FALSE) {
         message("Did not download file. 0_antisaccade_raw.R already exists")
       } else {
-        download.file("https://raw.githubusercontent.com/EngleLab/R-Templates/master/Tasks/antisaccade_raw.R",
+        download.file(paste(github_repo, "antisaccade_raw.R", sep = "/"),
                       paste(to, "0_antisaccade_raw.R", sep = "/"))
       }
     }
@@ -99,7 +143,7 @@ get_script <- function(type = NULL, to = "R Scripts", overwrite = FALSE,
       if (exists == TRUE & overwrite == FALSE) {
         message("Did not download file. 1_antisaccade_score.R already exists")
       } else {
-        download.file("https://raw.githubusercontent.com/EngleLab/R-Templates/master/Tasks/antisaccade_score.R",
+        download.file(paste(github_repo, "antisaccade_score.R", sep = "/"),
                       paste(to, "1_antisaccade_score.R", sep = "/"))
       }
     }
@@ -111,7 +155,7 @@ get_script <- function(type = NULL, to = "R Scripts", overwrite = FALSE,
       if (exists == TRUE & overwrite == FALSE) {
         message("Did not download file. 0_stroop_raw.R already exists")
       } else {
-        download.file("https://raw.githubusercontent.com/EngleLab/R-Templates/master/Tasks/stroop_raw.R",
+        download.file(paste(github_repo, "stroop_raw.R", sep = "/"),
                       paste(to, "0_stroop_raw.R", sep = "/"))
       }
     }
@@ -121,7 +165,7 @@ get_script <- function(type = NULL, to = "R Scripts", overwrite = FALSE,
       if (exists == TRUE & overwrite == FALSE) {
         message("Did not download file. 1_stroop_score.R already exists")
       } else {
-        download.file("https://raw.githubusercontent.com/EngleLab/R-Templates/master/Tasks/stroop_score.R",
+        download.file(paste(github_repo, "stroop_score.R", sep = "/"),
                       paste(to, "1_stroop_score.R", sep = "/"))
       }
     }
@@ -133,7 +177,7 @@ get_script <- function(type = NULL, to = "R Scripts", overwrite = FALSE,
       if (exists == TRUE & overwrite == FALSE) {
         message("Did not download file. 0_stroopDL_raw.R already exists")
       } else {
-        download.file("https://raw.githubusercontent.com/EngleLab/R-Templates/master/Tasks/stroopDL_raw.R",
+        download.file(paste(github_repo, "hstroopDL_raw.R", sep = "/"),
                       paste(to, "0_stroopDL_raw.R", sep = "/"))
       }
     }
@@ -143,7 +187,7 @@ get_script <- function(type = NULL, to = "R Scripts", overwrite = FALSE,
       if (exists == TRUE & overwrite == FALSE) {
         message("Did not download file. 1_stroopDL_score.R already exists")
       } else {
-        download.file("https://raw.githubusercontent.com/EngleLab/R-Templates/master/Tasks/stroopDL_score.R",
+        download.file(paste(github_repo, "stroopDL_score.R", sep = "/"),
                       paste(to, "1_stroopDL_score.R", sep = "/"))
       }
     }
@@ -155,7 +199,7 @@ get_script <- function(type = NULL, to = "R Scripts", overwrite = FALSE,
       if (exists == TRUE & overwrite == FALSE) {
         message("Did not download file. 0_flanker_raw.R already exists")
       } else {
-        download.file("https://raw.githubusercontent.com/EngleLab/R-Templates/master/Tasks/flanker_raw.R",
+        download.file(paste(github_repo, "flanker_raw.R", sep = "/"),
                       paste(to, "0_flanker_raw.R", sep = "/"))
       }
     }
@@ -165,7 +209,7 @@ get_script <- function(type = NULL, to = "R Scripts", overwrite = FALSE,
       if (exists == TRUE & overwrite == FALSE) {
         message("Did not download file. 1_flanker_score.R already exists")
       } else {
-        download.file("https://raw.githubusercontent.com/EngleLab/R-Templates/master/Tasks/flanker_score.R",
+        download.file(paste(github_repo, "flanker_score.R", sep = "/"),
                       paste(to, "1_flanker_score.R", sep = "/"))
       }
     }
@@ -177,7 +221,7 @@ get_script <- function(type = NULL, to = "R Scripts", overwrite = FALSE,
       if (exists == TRUE & overwrite == FALSE) {
         message("Did not download file. 0_flankerDL_raw.R already exists")
       } else {
-        download.file("https://raw.githubusercontent.com/EngleLab/R-Templates/master/Tasks/flankerDL_raw.R",
+        download.file(paste(github_repo, "flankerDL_raw.R", sep = "/"),
                       paste(to, "0_flankerDL_raw.R", sep = "/"))
       }
     }
@@ -187,7 +231,7 @@ get_script <- function(type = NULL, to = "R Scripts", overwrite = FALSE,
       if (exists == TRUE & overwrite == FALSE) {
         message("Did not download file. 1_flankerDL_score.R already exists")
       } else {
-        download.file("https://raw.githubusercontent.com/EngleLab/R-Templates/master/Tasks/flankerDL_score.R",
+        download.file(paste(github_repo, "flankerDL_score.R", sep = "/"),
                       paste(to, "1_flankerDL_score.R", sep = "/"))
       }
     }
@@ -199,7 +243,7 @@ get_script <- function(type = NULL, to = "R Scripts", overwrite = FALSE,
       if (exists == TRUE & overwrite == FALSE) {
         message("Did not download file. 0_va4_raw.R already exists")
       } else {
-        download.file("https://raw.githubusercontent.com/EngleLab/R-Templates/master/Tasks/va4_raw.R",
+        download.file(paste(github_repo, "va4_raw.R", sep = "/"),
                       paste(to, "0_va4_raw.R", sep = "/"))
       }
     }
@@ -209,7 +253,7 @@ get_script <- function(type = NULL, to = "R Scripts", overwrite = FALSE,
       if (exists == TRUE & overwrite == FALSE) {
         message("Did not download file. 1_va4_score.R already exists")
       } else {
-        download.file("https://raw.githubusercontent.com/EngleLab/R-Templates/master/Tasks/va4_score.R",
+        download.file(paste(github_repo, "va4_score.R", sep = "/"),
                       paste(to, "1_va4_score.R", sep = "/"))
       }
     }
@@ -221,7 +265,7 @@ get_script <- function(type = NULL, to = "R Scripts", overwrite = FALSE,
       if (exists == TRUE & overwrite == FALSE) {
         message("Did not download file. 0_sact_raw.R already exists")
       } else {
-        download.file("https://raw.githubusercontent.com/EngleLab/R-Templates/master/Tasks/sact_raw.R",
+        download.file(paste(github_repo, "sact_raw.R", sep = "/"),
                       paste(to, "0_sact_raw.R", sep = "/"))
       }
     }
@@ -231,7 +275,7 @@ get_script <- function(type = NULL, to = "R Scripts", overwrite = FALSE,
       if (exists == TRUE & overwrite == FALSE) {
         message("Did not download file. 1_sact_score.R already exists")
       } else {
-        download.file("https://raw.githubusercontent.com/EngleLab/R-Templates/master/Tasks/sact_score.R",
+        download.file(paste(github_repo, "sact_score.R", sep = "/"),
                       paste(to, "1_sact_score.R", sep = "/"))
       }
     }
