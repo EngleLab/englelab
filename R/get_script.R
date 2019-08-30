@@ -81,12 +81,14 @@ get_script <- function(type = NULL, to = "R Scripts", overwrite = FALSE,
     }
   }
   if (wmc == TRUE) {
-    exists <- file.exists(paste(to, "1_wmc_score.R", sep = "/"))
-    if (exists == TRUE & overwrite == FALSE) {
-      message("Did not download file. 1_wmc_score.R already exists")
-    } else {
-      download.file(paste(github_repo, "wmc_score.R", sep = "/"),
-                    paste(to, "1_wmc_score.R", sep = "/"))
+    if (type == "score" | type == "all") {
+      exists <- file.exists(paste(to, "1_wmc_score.R", sep = "/"))
+      if (exists == TRUE & overwrite == FALSE) {
+        message("Did not download file. 1_wmc_score.R already exists")
+      } else {
+        download.file(paste(github_repo, "wmc_score.R", sep = "/"),
+                      paste(to, "1_wmc_score.R", sep = "/"))
+      }
     }
   }
 
@@ -118,12 +120,14 @@ get_script <- function(type = NULL, to = "R Scripts", overwrite = FALSE,
     }
   }
   if (gf == TRUE) {
-    exists <- file.exists(paste(to, "1_gf_score.R", sep = "/"))
-    if (exists == TRUE & overwrite == FALSE) {
-      message("Did not download file. 1_gf_score.R already exists")
-    } else {
-      download.file(paste(github_repo, "gf_score.R", sep = "/"),
-                    paste(to, "1_gf_score.R", sep = "/"))
+    if (type == "score" | type == "all") {
+      exists <- file.exists(paste(to, "1_gf_score.R", sep = "/"))
+      if (exists == TRUE & overwrite == FALSE) {
+        message("Did not download file. 1_gf_score.R already exists")
+      } else {
+        download.file(paste(github_repo, "gf_score.R", sep = "/"),
+                      paste(to, "1_gf_score.R", sep = "/"))
+      }
     }
   }
 
