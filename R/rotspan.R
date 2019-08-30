@@ -26,7 +26,7 @@ raw_rotspan <- function(x, blocks = "", taskVersion = "new"){
                                                        TRUE ~ as.character(NA)),
                        RT = dplyr::case_when(SubTrialProc=="ProcessingTask" & Block==1 ~ as.double(CheckResponse.RT),
                                              TRUE ~ as.double(NA)),
-                       RotationDuration = ifelse(!is.na(RotationDuration)&RotationDuration=="?", NA, RotationDuration))
+                       AvgRotationTime = ifelse(!is.na(AvgRotationTime)&AvgRotationTime=="?", NA, AvgRotationTime))
 
     x <- dplyr::group_by(x, Subject, Block, Trial)
     x <- dplyr::do(x, dplyr::add_row(.,
@@ -205,7 +205,7 @@ raw_rotspan <- function(x, blocks = "", taskVersion = "new"){
                          RotSpan.Partial = RotspanPartialScore,
                          RotSpan.PartialUnit = RotspanPartialUnitScore,
                          RotSpan.RotationACC = RotationACC,
-                         RotSpan.RotationDuration = RotationDuration,
+                         RotSpan.AvgRotationTime = AvgRotationTime,
                          SessionDate, SessionTime)
     } else {
       x <- dplyr::select(x, Subject, Block, Trial, SetSize = setsz, SubTrial, SubTrialProc,
@@ -214,7 +214,7 @@ raw_rotspan <- function(x, blocks = "", taskVersion = "new"){
                          RotSpan.Absolute = RotspanAbsoluteScore,
                          RotSpan.Partial = RotspanPartialScore,
                          RotSpan.RotationACC = RotationACC,
-                         RotSpan.RotationDuration = RotationDuration,
+                         RotSpan.AvgRotationTime = AvgRotationTime,
                          SessionDate, SessionTime)
     }
 
@@ -236,7 +236,7 @@ raw_rotspan <- function(x, blocks = "", taskVersion = "new"){
                        RT = dplyr::case_when(SubTrialProc=="ProcessingTask" & Block==1 ~ as.double(CheckResponse.RT),
                                              SubTrialProc=="ProcessingTask" & Block==2 ~ as.double(CheckResponse1.RT),
                                              TRUE ~ as.double(NA)),
-                       RotationDuration = ifelse(!is.na(RotationDuration)&RotationDuration=="?", NA, RotationDuration))
+                       AvgRotationTime = ifelse(!is.na(AvgRotationTime)&AvgRotationTime=="?", NA, AvgRotationTime))
 
     x <- dplyr::group_by(x, Subject, Block, Trial)
     x <- dplyr::do(x, dplyr::add_row(.,
@@ -420,7 +420,7 @@ raw_rotspan <- function(x, blocks = "", taskVersion = "new"){
                          RotSpan.PartialUnit_Block1 = RotspanPartialUnitScoreBlock1,
                          RotSpan.PartialUnit_Block2 = RotspanPartialUnitScoreBlock2,
                          RotSpan.RotationACC = RotationACC,
-                         RotSpan.RotationDuration = RotationDuration,
+                         RotSpan.AvgRotationTime = AvgRotationTime,
                          SessionDate, SessionTime)
     } else {
       x <- dplyr::select(x, Subject, Block, Trial, SetSize = setsz, SubTrial, SubTrialProc,
@@ -431,7 +431,7 @@ raw_rotspan <- function(x, blocks = "", taskVersion = "new"){
                          RotSpan.Partial_Block1 = RotspanPartialScoreBlock1,
                          RotSpan.Partial_Block2 = RotspanPartialScoreBlock2,
                          RotSpan.RotationACC = RotationACC,
-                         RotSpan.RotationDuration = RotationDuration,
+                         RotSpan.AvgRotationTime = AvgRotationTime,
                          SessionDate, SessionTime)
     }
 
@@ -459,7 +459,7 @@ raw_rotspan <- function(x, blocks = "", taskVersion = "new"){
 
                                              SubTrialProc=="ProcessingTask" & Block==3 ~ as.double(CheckResponse2.RT),
                                              TRUE ~ as.double(NA)),
-                       RotationDuration = ifelse(!is.na(RotationDuration)&RotationDuration=="?", NA, RotationDuration))
+                       AvgRotationTime = ifelse(!is.na(AvgRotationTime)&AvgRotationTime=="?", NA, AvgRotationTime))
 
     x <- dplyr::group_by(x, Subject, Block, Trial)
     x <- dplyr::do(x, dplyr::add_row(.,
@@ -642,7 +642,7 @@ raw_rotspan <- function(x, blocks = "", taskVersion = "new"){
                          RotSpan.Partial_Block2 = RotspanPartialScoreBlock2,
                          RotSpan.Partial_Block3 = RotspanPartialScoreBlock3,
                          RotSpan.RotationACC = RotationACC,
-                         RotSpan.RotationDuration = RotationDuration,
+                         RotSpan.AvgRotationTime = AvgRotationTime,
                          SessionDate, SessionTime)
     } else {
       x <- dplyr::select(x, Subject, Block, Trial, SetSize = setsz, SubTrial, SubTrialProc,
@@ -658,7 +658,7 @@ raw_rotspan <- function(x, blocks = "", taskVersion = "new"){
                          RotSpan.PartialUnit_Block2 = RotspanPartialUnitScoreBlock2,
                          RotSpan.PartialUnit_Block3 = RotspanPartialUnitScoreBlock3,
                          RotSpan.RotationACC = RotationACC,
-                         RotSpan.RotationDuration = RotationDuration,
+                         RotSpan.AvgRotationTime = AvgRotationTime,
                          SessionDate, SessionTime)
     }
 
@@ -692,7 +692,7 @@ score_rotspan <- function(x, blocks = ""){
                        RotSpan.Partial = RotspanPartialScore,
                        RotSpan.Partial_Block1 = RotspanPartialScoreBlock1,
                        RotSpan.RotationACC = RotationACC,
-                       RotSpan.RotationDuration = RotationDuration)
+                       RotSpan.AvgRotationTime = AvgRotationTime)
     x <- dplyr::distinct(x)
   } else if (blocks==2){
     x <- dplyr::filter(x, `Procedure[Block]`=="realBoth")
@@ -702,7 +702,7 @@ score_rotspan <- function(x, blocks = ""){
                        RotSpan.Partial_Block1 = RotspanPartialScoreBlock1,
                        RotSpan.Partial_Block2 = RotspanPartialScoreBlock2,
                        RotSpan.RotationACC = RotationACC,
-                       RotSpan.RotationDuration = RotationDuration)
+                       RotSpan.AvgRotationTime = AvgRotationTime)
     x <- dplyr::distinct(x)
   } else if (blocks==3){
     x <- dplyr::filter(x, `Procedure[Block]`=="realBoth")
@@ -713,7 +713,7 @@ score_rotspan <- function(x, blocks = ""){
                        RotSpan.Partial_Block2 = RotspanPartialScoreBlock2,
                        RotSpan.Partial_Block3 = RotspanPartialScoreBlock3,
                        RotSpan.RotationACC = RotationACC,
-                       RotSpan.RotationDuration = RotationDuration)
+                       RotSpan.AvgRotationTime = AvgRotationTime)
     x <- dplyr::distinct(x)
   } else if (blocks==""){
     warning('Need to specify the number of blocks')

@@ -36,7 +36,7 @@ raw_ospan <- function(x, blocks = "", taskVersion = "new"){
                                                  SubTrialProc=="Recall" & WordSelection=="Enter" ~ 1,
                                                  SubTrialProc=="Recall" & WordSelection=="InvalidResponse" ~ 1,
                                                  TRUE ~ as.double(NA)),
-                       MathDuration = ifelse(!is.na(MathDuration)&MathDuration=="?", NA, MathDuration))
+                       AvgMathTime = ifelse(!is.na(AvgMathTime)&AvgMathTime=="?", NA, AvgMathTime))
 
     x <- dplyr::filter(x, is.na(erase), is.na(remove))
     x <- dplyr::group_by(x, Subject, Block, Trial)
@@ -100,7 +100,7 @@ raw_ospan <- function(x, blocks = "", taskVersion = "new"){
                          OSpan.PartialUnit = OspanPartialUnitScore,
                          OSpan.PartialUnit_Block1 = OspanPartialUnitScoreBlock1,
                          OSpan.MathACC = MathACC,
-                         OSpan.MathDuration = MathDuration,
+                         OSpan.AvgMathTime = AvgMathTime,
                          SessionDate, SessionTime)
     } else {
       x <- dplyr::select(x, Subject, Block, Trial, SetSize = setsz, SubTrial, SubTrialProc,
@@ -109,7 +109,7 @@ raw_ospan <- function(x, blocks = "", taskVersion = "new"){
                          OSpan.Absolute = OspanAbsoluteScore,
                          OSpan.Partial = OspanPartialScore,
                          OSpan.MathACC = MathACC,
-                         OSpan.MathDuration = MathDuration,
+                         OSpan.AvgMathTime = AvgMathTime,
                          SessionDate, SessionTime)
     }
   } else if (blocks==2){
@@ -139,7 +139,7 @@ raw_ospan <- function(x, blocks = "", taskVersion = "new"){
                                                  SubTrialProc=="Recall" & WordSelection=="Enter" ~ as.double(1),
                                                  SubTrialProc=="Recall" & WordSelection=="InvalidResponse" ~ as.double(1),
                                                  TRUE ~ as.double(NA)),
-                       MathDuration = ifelse(!is.na(MathDuration)&MathDuration=="?", NA, MathDuration))
+                       AvgMathTime = ifelse(!is.na(AvgMathTime)&AvgMathTime=="?", NA, AvgMathTime))
 
     x <- dplyr::filter(x, is.na(erase), is.na(remove))
     x <- dplyr::group_by(x, Subject, Block, Trial)
@@ -207,7 +207,7 @@ raw_ospan <- function(x, blocks = "", taskVersion = "new"){
                          OSpan.PartialUnit_Block1 = OspanPartialUnitScoreBlock1,
                          OSpan.PartialUnit_Block2 = OspanPartialUnitScoreBlock2,
                          OSpan.MathACC = MathACC,
-                         OSpan.MathDuration = MathDuration,
+                         OSpan.AvgMathTime = AvgMathTime,
                          SessionDate, SessionTime)
     } else {
       x <- dplyr::select(x, Subject, Block, Trial, SetSize = setsz, SubTrial, SubTrialProc,
@@ -218,7 +218,7 @@ raw_ospan <- function(x, blocks = "", taskVersion = "new"){
                          OSpan.Partial_Block1 = OspanPartialScoreBlock1,
                          OSpan.Partial_Block2 = OspanPartialScoreBlock2,
                          OSpan.MathACC = MathACC,
-                         OSpan.MathDuration = MathDuration,
+                         OSpan.AvgMathTime = AvgMathTime,
                          SessionDate, SessionTime)
     }
 
@@ -255,7 +255,7 @@ raw_ospan <- function(x, blocks = "", taskVersion = "new"){
                                                  SubTrialProc=="Recall" & WordSelection=="Enter" ~ 1,
                                                  SubTrialProc=="Recall" & WordSelection=="InvalidResponse" ~ 1,
                                                  TRUE ~ as.double(NA)),
-                       MathDuration = ifelse(!is.na(MathDuration)&MathDuration=="?", NA, MathDuration))
+                       AvgMathTime = ifelse(!is.na(AvgMathTime)&AvgMathTime=="?", NA, AvgMathTime))
 
     x <- dplyr::filter(x, is.na(erase), is.na(remove))
     x <- dplyr::group_by(x, Subject, Block, Trial)
@@ -326,7 +326,7 @@ raw_ospan <- function(x, blocks = "", taskVersion = "new"){
                          OSpan.PartialUnit_Block2 = OspanPartialUnitScoreBlock2,
                          OSpan.PartialUnit_Block3 = OspanPartialUnitScoreBlock3,
                          OSpan.MathACC = MathACC,
-                         OSpan.MathDuration = MathDuration,
+                         OSpan.AvgMathTime = AvgMathTime,
                          SessionDate, SessionTime)
     } else {
       x <- dplyr::select(x, Subject, Block, Trial, SetSize = setsz, SubTrial, SubTrialProc,
@@ -338,7 +338,7 @@ raw_ospan <- function(x, blocks = "", taskVersion = "new"){
                          OSpan.Partial_Block2 = OspanPartialScoreBlock2,
                          OSpan.Partial_Block3 = OspanPartialScoreBlock3,
                          OSpan.MathACC = MathACC,
-                         OSpan.MathDuration = MathDuration,
+                         OSpan.AvgMathTime = AvgMathTime,
                          SessionDate, SessionTime)
     }
 
@@ -370,7 +370,7 @@ score_ospan <- function(x, blocks = ""){
                        OSpan.Partial = OspanPartialScore,
                        OSpan.Partial_Block1 = OspanPartialScoreBlock1,
                        OSpan.MathACC = MathACC,
-                       OSpan.MathDuration = MathDuration)
+                       OSpan.AvgMathTime = AvgMathTime)
     x <- dplyr::distinct(x)
   } else if (blocks==2){
     x <- dplyr::filter(x, `Procedure[Block]`=="TaskProc")
@@ -380,7 +380,7 @@ score_ospan <- function(x, blocks = ""){
                        OSpan.Partial_Block1 = OspanPartialScoreBlock1,
                        OSpan.Partial_Block2 = OspanPartialScoreBlock2,
                        OSpan.MathACC = MathACC,
-                       OSpan.MathDuration = MathDuration)
+                       OSpan.AvgMathTime = AvgMathTime)
     x <- dplyr::distinct(x)
   } else if (blocks==3){
     x <- dplyr::filter(x, `Procedure[Block]`=="TaskProc")
@@ -391,7 +391,7 @@ score_ospan <- function(x, blocks = ""){
                        OSpan.Partial_Block2 = OspanPartialScoreBlock2,
                        OSpan.Partial_Block3 = OspanPartialScoreBlock3,
                        OSpan.MathACC = MathACC,
-                       OSpan.MathDuration = MathDuration)
+                       OSpan.AvgMathTime = AvgMathTime)
     x <- dplyr::distinct(x)
   } else if (blocks==""){
     warning('Need to specify the number of blocks')

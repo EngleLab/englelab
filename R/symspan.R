@@ -36,7 +36,7 @@ raw_symspan <- function(x, blocks = "", taskVersion = "new"){
                                                  SubTrialProc=="Recall" & WordSelection=="Enter" ~ 1,
                                                  SubTrialProc=="Recall" & WordSelection=="InvalidResponse" ~ 1,
                                                  TRUE ~ as.numeric(NA)),
-                       SymmetryDuration = ifelse(!is.na(SymmetryDuration)&SymmetryDuration=="?", NA, SymmetryDuration))
+                       AvgSymmetryTime = ifelse(!is.na(AvgSymmetryTime)&AvgSymmetryTime=="?", NA, AvgSymmetryTime))
 
     x <- dplyr::filter(x, is.na(erase), is.na(remove))
     x <- dplyr::group_by(x, Subject, Block, Trial)
@@ -93,7 +93,7 @@ raw_symspan <- function(x, blocks = "", taskVersion = "new"){
                          SymSpan.Partial = SspanPartialScore,
                          SymSpan.PartialUnit = SspanPartialUnitScore,
                          SymSpan.SymmetryACC = SymmetryACC,
-                         SymSpan.SymmetryDuration = SymmetryDuration,
+                         SymSpan.AvgSymmetryTime = AvgSymmetryTime,
                          SessionDate, SessionTime)
     } else {
       x <- dplyr::select(x, Subject, Block, Trial, SetSize = setsz, SubTrial, SubTrialProc,
@@ -102,7 +102,7 @@ raw_symspan <- function(x, blocks = "", taskVersion = "new"){
                          SymSpan.Absolute = SspanAbsoluteScore,
                          SymSpan.Partial = SspanPartialScore,
                          SymSpan.SymmetryACC = SymmetryACC,
-                         SymSpan.SymmetryDuration = SymmetryDuration,
+                         SymSpan.AvgSymmetryTime = AvgSymmetryTime,
                          SessionDate, SessionTime)
     }
 
@@ -133,7 +133,7 @@ raw_symspan <- function(x, blocks = "", taskVersion = "new"){
                                                  SubTrialProc=="Recall" & WordSelection=="Enter" ~ 1,
                                                  SubTrialProc=="Recall" & WordSelection=="InvalidResponse" ~ 1,
                                                  TRUE ~ as.numeric(NA)),
-                       SymmetryDuration = ifelse(!is.na(SymmetryDuration)&SymmetryDuration=="?", NA, SymmetryDuration))
+                       AvgSymmetryTime = ifelse(!is.na(AvgSymmetryTime)&AvgSymmetryTime=="?", NA, AvgSymmetryTime))
 
     x <- dplyr::filter(x, is.na(erase), is.na(remove))
     x <- dplyr::group_by(x, Subject, Block, Trial)
@@ -195,7 +195,7 @@ raw_symspan <- function(x, blocks = "", taskVersion = "new"){
                          SymSpan.PartialUnit_Block1 = SspanPartialUnitScoreBlock1,
                          SymSpan.PartialUnit_Block2 = SspanPartialUnitScoreBlock2,
                          SymSpan.SymmetryACC = SymmetryACC,
-                         SymSpan.SymmetryDuration = SymmetryDuration,
+                         SymSpan.AvgSymmetryTime = AvgSymmetryTime,
                          SessionDate, SessionTime)
     } else {
       x <- dplyr::select(x, Subject, Block, Trial, SetSize = setsz, SubTrial, SubTrialProc,
@@ -206,7 +206,7 @@ raw_symspan <- function(x, blocks = "", taskVersion = "new"){
                          SymSpan.Partial_Block1 = SspanPartialScoreBlock1,
                          SymSpan.Partial_Block2 = SspanPartialScoreBlock2,
                          SymSpan.SymmetryACC = SymmetryACC,
-                         SymSpan.SymmetryDuration = SymmetryDuration,
+                         SymSpan.AvgSymmetryTime = AvgSymmetryTime,
                          SessionDate, SessionTime)
     }
 
@@ -243,7 +243,7 @@ raw_symspan <- function(x, blocks = "", taskVersion = "new"){
                                                  SubTrialProc=="Recall" & WordSelection=="Enter" ~ 1,
                                                  SubTrialProc=="Recall" & WordSelection=="InvalidResponse" ~ 1,
                                                  TRUE ~ as.numeric(NA)),
-                       SymmetryDuration = ifelse(!is.na(SymmetryDuration)&SymmetryDuration=="?", NA, SymmetryDuration))
+                       AvgSymmetryTime = ifelse(!is.na(AvgSymmetryTime)&AvgSymmetryTime=="?", NA, AvgSymmetryTime))
 
     x <- dplyr::filter(x, is.na(erase), is.na(remove))
     x <- dplyr::group_by(x, Subject, Block, Trial)
@@ -308,7 +308,7 @@ raw_symspan <- function(x, blocks = "", taskVersion = "new"){
                          SymSpan.PartialUnit_Block2 = SspanPartialUnitScoreBlock2,
                          SymSpan.PartialUnit_Block3 = SspanPartialUnitScoreBlock3,
                          SymSpan.SymmetryACC = SymmetryACC,
-                         SymSpan.SymmetryDuration = SymmetryDuration,
+                         SymSpan.AvgSymmetryTime = AvgSymmetryTime,
                          SessionDate, SessionTime)
     } else {
       x <- dplyr::select(x, Subject, Block, Trial, SetSize = setsz, SubTrial, SubTrialProc,
@@ -320,7 +320,7 @@ raw_symspan <- function(x, blocks = "", taskVersion = "new"){
                          SymSpan.Partial_Block2 = SspanPartialScoreBlock2,
                          SymSpan.Partial_Block3 = SspanPartialScoreBlock3,
                          SymSpan.SymmetryACC = SymmetryACC,
-                         SymSpan.SymmetryDuration = SymmetryDuration,
+                         SymSpan.AvgSymmetryTime = AvgSymmetryTime,
                          SessionDate, SessionTime)
     }
 
@@ -352,7 +352,7 @@ score_symspan <- function(x, blocks = ""){
                        SymSpan.Partial = SspanPartialScore,
                        SymSpan.Partial_Block1 = SspanPartialScoreBlock1,
                        SymSpan.SymmetryACC = SymmetryACC,
-                       SymSpan.SymmetryDuration = SymmetryDuration)
+                       SymSpan.AvgSymmetryTime = AvgSymmetryTime)
     x <- dplyr::distinct(x)
   } else if (blocks==2){
     x <- dplyr::filter(x, `Procedure[Block]`=="TaskProc")
@@ -362,7 +362,7 @@ score_symspan <- function(x, blocks = ""){
                        SymSpan.Partial_Block1 = SspanPartialScoreBlock1,
                        SymSpan.Partial_Block2 = SspanPartialScoreBlock2,
                        SymSpan.SymmetryACC = SymmetryACC,
-                       SymSpan.SymmetryDuration = SymmetryDuration)
+                       SymSpan.AvgSymmetryTime = AvgSymmetryTime)
     x <- dplyr::distinct(x)
   } else if (blocks==3){
     x <- dplyr::filter(x, `Procedure[Block]`=="TaskProc")
@@ -373,7 +373,7 @@ score_symspan <- function(x, blocks = ""){
                        SymSpan.Partial_Block2 = SspanPartialScoreBlock2,
                        SymSpan.Partial_Block3 = SspanPartialScoreBlock3,
                        SymSpan.SymmetryACC = SymmetryACC,
-                       SymSpan.SymmetryDuration = SymmetryDuration)
+                       SymSpan.AvgSymmetryTime = AvgSymmetryTime)
     x <- dplyr::distinct(x)
   } else if (blocks==""){
     warning('Need to specify the number of blocks')
