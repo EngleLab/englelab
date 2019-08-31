@@ -5,7 +5,9 @@
 \title{Download template R scripts}
 \usage{
 get_script(type = "all", to = "R Scripts", overwrite = FALSE,
-  gf = FALSE, wmc = FALSE, ac = FALSE, antisaccade = FALSE,
+  wmc = FALSE, symspan = FALSE, ospan = FALSE, rotspan = FALSE,
+  gf = FALSE, rapm = FALSE, numberseries = FALSE,
+  lettersets = FALSE, ac = FALSE, antisaccade = FALSE,
   stroop = FALSE, flanker = FALSE, stroopDL = FALSE,
   flankerDL = FALSE, va4 = FALSE, sact = FALSE, path = "./")
 }
@@ -14,9 +16,9 @@ get_script(type = "all", to = "R Scripts", overwrite = FALSE,
 
 \item{to}{a directory where to download R scripts}
 
-\item{gf}{Logical. Do you want to download template scripts for the gf taks?}
-
 \item{wmc}{Logical. Do you want to download template scripts for the wmc taks?}
+
+\item{gf}{Logical. Do you want to download template scripts for the gf taks?}
 
 \item{ac}{Logical. Do you want to download template scripts for all the attention taks?}
 

@@ -18,8 +18,9 @@
 #'
 
 get_script <- function(type = "all", to = "R Scripts", overwrite = FALSE,
-                     gf = FALSE, wmc = FALSE, ac = FALSE,
-                     antisaccade = FALSE, stroop = FALSE, flanker = FALSE,
+                     wmc = FALSE, symspan = FALSE, ospan = FALSE, rotspan = FALSE,
+                     gf = FALSE, rapm = FALSE, numberseries = FALSE, lettersets = FALSE,
+                     ac = FALSE, antisaccade = FALSE, stroop = FALSE, flanker = FALSE,
                      stroopDL = FALSE, flankerDL = FALSE, va4 = FALSE,
                      sact = FALSE, path = "./"){
 
