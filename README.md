@@ -50,6 +50,64 @@ Once you have the data file imported into R as a dataframe object, you can then 
 
 You will then want to write the resulting dataframe to a file on your computer. `readr::write_csv()`
 
+## Tidy File
+
+The resulting dataframe will contain both raw trial-level data and scored data. The columns in the data are as follows
+
+**Raw Trial-Level Columns**
+
+- Subject:  Subject ID column
+
+- Block:  Which block? (1-3)
+
+- Trial:  Within a block, what trial number. 
+
+    Trial number refers to an entire set-size sequence (presentation of processing items, memory items, and recall screen)
+    
+- SetSize:  For the trial, what is the set-size?
+
+- SubTrial:  Within a trial, there are processing items presented sequentially. 
+
+    Sub-Trial refers to this sequential presentation. It also represents the order of responses on the recall screen
+
+- SubTrialProc:   "Processing" or "Recall" portion of the task?
+
+- RT:  Reaction time
+
+- Accuracy:  Accuracy (provided for both "Processing" and "Recall")
+
+- Response:  The subject's response (provided for both "Processing" and "Recall")
+
+- CorrectResponse:  The correct response (provided for both "Processing" and "Recall")
+
+**Task Scores**
+
+- Processing.total:  The total number of processing items correctly answered
+
+- Recall.total:  The total number of recall items correctly answered
+
+- [Task].Absolute: The task score using the Absolute Scoring method
+
+    i.e. SymSpan.Absolute or OSpan.Absolute. 
+
+- [Task].Partial:  The task score using the Partial Scoring method
+
+- [Task].Partial_Block1:  The score on block 1 using the Partial Scoring method
+
+- [Task].Partial_Block2:  The score on block 2 using the Partial Scoring method
+
+- [Task].Partial_Block3:  The score on block 3 using the Partial Scoring method
+
+- [Task].[Processing]ACC: Proportion of processing task items correctly answered
+
+    i.e. SymSpan.SymmetryACC or OSpan.MathACC. 
+
+- [Task].Avg[Processing]Time: The average time to complete a processing task item
+
+     i.e. SymSpan.AvgSymmetryTime or OSpan.AvgMathTime.
+     
+----
+
 See [References](https://englelab.github.io/englelab/reference/index.html) for more information about the other functions in this package
 
 ## Citation
