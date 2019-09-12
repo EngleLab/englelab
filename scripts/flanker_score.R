@@ -47,7 +47,7 @@ data_flanker <- data_trim %>%
                  id = "Subject") %>%
   mutate(FlankerEffect_RT = incongruent_RT.mean - congruent_RT.mean,
          FlankerEffect_ACC = incongruent_ACC.mean - congruent_ACC.mean) %>%
-  rename(Flanker_incogruent_RT.mean = incognruent_RT.mean,
+  rename(Flanker_incongruent_RT.mean = incongruent_RT.mean,
          Flanker_congruent_RT.mean = congruent_RT.mean,
          Flanker_incongruent_ACC.mean = incongruent_ACC.mean,
          Flanker_congruent_ACC.mean = congruent_ACC.mean)
