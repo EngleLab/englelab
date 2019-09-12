@@ -44,15 +44,19 @@ data_stroop <- data_trim %>%
                  values = c("ACC.mean", "RT.mean", "RT.sd"),
                  id = "Subject") %>%
   mutate(StroopEffect_RT = incongruent_RT.mean - congruent_RT.mean,
-         StroopEffect_ACC = incongruent_ACC.mean - congruent_ACC.mean)
+         StroopEffect_ACC = incongruent_ACC.mean - congruent_ACC.mean) %>%
+  rename(Stroop_incongruent_RT.mean = incongruent_RT.mean,
+         Stroop_congruent_RT.mean = congruent_RT.mean,
+         Stroop_incongruent_ACC.mean = incongruent_ACC.mean,
+         Stroop_congruent_ACC.mean = congruent_ACC.mean)
 ##########################################################
 
 ## Remove subjects with poor performance based on acc.criteria ####
 data_remove <- data_stroop %>%
-  center(variables = c("congruent_ACC.mean", "incongruent_ACC.mean"),
+  center(variables = c("Stroop_congruent_ACC.mean", "Stroop_incongruent_ACC.mean"), 
          standardize = TRUE) %>%
-  filter(congruent_ACC.mean_z < acc.criteria |
-           incongruent_ACC.mean_z < acc.criteria)
+  filter(Stroop_congruent_ACC.mean_z < acc.criteria | 
+           Stroop_incongruent_ACC.mean_z < acc.criteria)
 
 data_stroop <- remove_save(data_stroop, data_remove,
                            output.dir = removed.dir,
