@@ -46,15 +46,19 @@ data_flanker <- data_trim %>%
                  values = c("ACC.mean", "RT.mean", "RT.sd"),
                  id = "Subject") %>%
   mutate(FlankerEffect_RT = incongruent_RT.mean - congruent_RT.mean,
-         FlankerEffect_ACC = incongruent_ACC.mean - congruent_ACC.mean)
+         FlankerEffect_ACC = incongruent_ACC.mean - congruent_ACC.mean) %>%
+  rename(Flanker_incogruent_RT.mean = incognruent_RT.mean,
+         Flanker_congruent_RT.mean = congruent_RT.mean,
+         Flanker_incongruent_ACC.mean = incongruent_ACC.mean,
+         Flanker_congruent_ACC.mean = congruent_ACC.mean)
 ###########################################################
 
 ## Remove subjects with poor performance based on acc.criteria ####
 data_remove <- data_flanker %>%
-  center(variables = c("congruent_ACC.mean", "incongruent_ACC.mean"),
+  center(variables = c("Flanker_congruent_ACC.mean", "Flanker_incongruent_ACC.mean"), 
          standardize = TRUE) %>%
-  filter(congruent_ACC.mean_z < acc.criteria |
-           incongruent_ACC.mean_z < acc.criteria)
+  filter(Flanker_congruent_ACC.mean_z < acc.criteria | 
+           Flanker_incongruent_ACC.mean_z < acc.criteria)
 
 data_flanker <- remove_save(data_flanker, data_remove,
                             output.dir = removed.dir,
