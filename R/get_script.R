@@ -182,7 +182,7 @@ get_script <- function(type = "all", to = "R Scripts", overwrite = FALSE,
       if (exists == TRUE & overwrite == FALSE) {
         message("Did not download file. 0_stroopDL_raw.R already exists")
       } else {
-        download.file(paste(github_repo, "hstroopDL_raw.R", sep = "/"),
+        download.file(paste(github_repo, "stroopDL_raw.R", sep = "/"),
                       paste(to, "0_stroopDL_raw.R", sep = "/"))
       }
     }
