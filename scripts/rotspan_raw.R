@@ -23,12 +23,7 @@ data_import <- read_delim(here(import.dir, import.file),
                     output.folder = here(output.dir, "duplicates"))
 
 ## Clean up raw data and save
-data_raw <- raw_rotspan(data_import, blocks = 2) %>%
-  filter(Trial <= 12) %>%
-  group_by(Subject) %>%
-  mutate(RotSpan.Partial = RotSpan.Partial_Block1 + RotSpan.Partial_Block2,
-         RotSpan.RotationACC =
-           sum(Processing.total, na.rm = TRUE) / sum(SetSize))
+data_raw <- raw_rotspan(data_import, blocks = 2)
 
 ## Output Data
 write_csv(data_raw, path = here(output.dir, output.file))
