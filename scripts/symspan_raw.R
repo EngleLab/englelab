@@ -23,11 +23,7 @@ data_import <- read_delim(here(import.dir, import.file),
                     output.folder = here(output.dir, "duplicates"))
 
 ## Clean up raw data and save
-data_raw <- raw_symspan(data_import, blocks = 2) %>%
-  filter(Trial <= 12) %>%
-  group_by(Subject) %>%
-  mutate(SymSpan.SymmetryACC =
-           sum(Processing.total, na.rm = TRUE) / sum(SetSize))
+data_raw <- raw_symspan(data_import, blocks = 2)
 
 ## Output Data
 write_csv(data_raw, path = here(output.dir, output.file))
