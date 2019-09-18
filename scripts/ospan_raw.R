@@ -23,10 +23,7 @@ data_import <- read_delim(here(import.dir, import.file),
                     output.folder = here(output.dir, "duplicates"))
 
 ## Clean up raw data and save
-data_raw <- raw_ospan(data_import, blocks = 2) %>%
-  group_by(Subject) %>%
-  mutate(SetSize = ifelse(SetSize == 9, 8, SetSize),
-         OSpan.MathACC = sum(Processing.total, na.rm = TRUE) / sum(SetSize))
+data_raw <- raw_ospan(data_import, blocks = 2)
 
 ## Output Data
 write_csv(data_raw, path = here(output.dir, output.file))
