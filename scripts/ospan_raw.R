@@ -3,7 +3,6 @@
 library(readr)
 library(dplyr)
 library(here)
-library(datawrangling)
 library(englelab)
 
 ## Set import/output directories
