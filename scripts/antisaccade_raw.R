@@ -3,7 +3,6 @@
 library(readr)
 library(dplyr)
 library(here)
-library(datawrangling)
 
 ## Set import/output directories
 import.dir <- "Data Files/Merged"
