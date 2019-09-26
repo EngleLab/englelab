@@ -3,7 +3,6 @@
 library(readr)
 library(dplyr)
 library(here)
-library(datawrangling)
 
 ## Set import/output directories
 import.dir <- "Data Files/Merged"
@@ -17,10 +16,8 @@ block_output.file <- paste(task, "block_raw.csv", sep = "_")
 ##############
 
 ## Import Data
-data_import <- read_delim(here(import.dir, import.file),
-                          "\t", escape_double = FALSE, trim_ws = TRUE) %>%
-  duplicates_remove(taskname = task,
-                    output.folder = here(output.dir, "duplicates"))
+data_import <- read_delim(here(import.dir, import.file), "\t", 
+                          escape_double = FALSE, trim_ws = TRUE)
 
 ## Clean up raw data and save
 data_raw.trial <- data_import %>%
