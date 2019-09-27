@@ -10,7 +10,7 @@ Currently there are only functions for the **Operation Span**, **Symmetry Span**
 
 For those of you that do not use R for processing and analyzing data, we have developed a point-and-click GUI to process and score data files from the complex span tasks. 
 
-#### <a href = "https://englelab.shinyapps.io/taskscoring/" target = "_blank"><b>GUI for Complex Span Data Processing and Scoring</b></a>
+#### <a href = "https://englelab.shinyapps.io/taskscoring/" target = "_blank"><b>Web App for Complex Span Data Processing and Scoring</b></a>
 
 ----
 
