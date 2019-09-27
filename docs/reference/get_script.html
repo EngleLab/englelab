@@ -120,8 +120,10 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>get_script</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"all"</span>, <span class='kw'>to</span> <span class='kw'>=</span> <span class='st'>"R Scripts"</span>, <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>gf</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>wmc</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ac</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>antisaccade</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+    <pre class="usage"><span class='fu'>get_script</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"raw"</span>, <span class='kw'>to</span> <span class='kw'>=</span> <span class='st'>"R Scripts"</span>, <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>wmc</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>symspan</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ospan</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>rotspan</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>gf</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>rapm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>numberseries</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>lettersets</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ac</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>antisaccade</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>stroop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>flanker</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>stroopDL</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>flankerDL</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>va4</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>sact</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"./"</span>)</pre>
     
@@ -137,44 +139,68 @@
       <td><p>a directory where to download R scripts</p></td>
     </tr>
     <tr>
-      <th>gf</th>
-      <td><p>Logical. Do you want to download template scripts for the gf taks?</p></td>
+      <th>wmc</th>
+      <td><p>Logical. Download scripts for the wmc taks?</p></td>
     </tr>
     <tr>
-      <th>wmc</th>
-      <td><p>Logical. Do you want to download template scripts for the wmc taks?</p></td>
+      <th>symspan</th>
+      <td><p>Logical. Download script for the symmetry span task?</p></td>
+    </tr>
+    <tr>
+      <th>ospan</th>
+      <td><p>Logical. Download script for the operation span task?</p></td>
+    </tr>
+    <tr>
+      <th>rotspan</th>
+      <td><p>Logical. Download script for the rotation span task?</p></td>
+    </tr>
+    <tr>
+      <th>gf</th>
+      <td><p>Logical. Dowload scripts for the gf taks?</p></td>
+    </tr>
+    <tr>
+      <th>rapm</th>
+      <td><p>Logical. Download script for ravens advanced progressive matrices?</p></td>
+    </tr>
+    <tr>
+      <th>numberseries</th>
+      <td><p>Logical. Download script for number series?</p></td>
+    </tr>
+    <tr>
+      <th>lettersets</th>
+      <td><p>Logical. Download script for letter sets?</p></td>
     </tr>
     <tr>
       <th>ac</th>
-      <td><p>Logical. Do you want to download template scripts for all the attention taks?</p></td>
+      <td><p>Logical. Download scripts for all the attention taks?</p></td>
     </tr>
     <tr>
       <th>antisaccade</th>
-      <td><p>Logical. Do you want to download a template file for the antisaccade task?</p></td>
+      <td><p>Logical. Download script for the antisaccade task?</p></td>
     </tr>
     <tr>
       <th>stroop</th>
-      <td><p>Logical. Do you want to download a template file for the Stroop task?</p></td>
+      <td><p>Logical. Download script for the Stroop task?</p></td>
     </tr>
     <tr>
       <th>flanker</th>
-      <td><p>Logical. Do you want to download a template file for the flanker task?</p></td>
+      <td><p>Logical. Download script for the flanker task?</p></td>
     </tr>
     <tr>
       <th>stroopDL</th>
-      <td><p>Logical. Do you want to download a template file for the StroopDL task?</p></td>
+      <td><p>Logical. Download script for the StroopDL task?</p></td>
     </tr>
     <tr>
       <th>flankerDL</th>
-      <td><p>Logical. Do you want to download a template file for the FlankerDL task?</p></td>
+      <td><p>Logical. Download script for the FlankerDL task?</p></td>
     </tr>
     <tr>
       <th>va4</th>
-      <td><p>Logical. Do you want to download a template file for the Visual Arrays 4 task?</p></td>
+      <td><p>Logical. Download script for the Visual Arrays 4 task?</p></td>
     </tr>
     <tr>
       <th>sact</th>
-      <td><p>Logical. Do you want to download a template file for the SACT task?</p></td>
+      <td><p>Logical. Download script for the SACT task?</p></td>
     </tr>
     <tr>
       <th>path</th>

@@ -71,54 +71,110 @@
       
       </header><div class="row">
   <div class="contents col-md-9">
-    <div id="englelab" class="section level1">
+    <div id="englelab-" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#englelab" class="anchor"></a>englelab</h1></div>
-<p>This package contains various functions for processing data common to the <a href="http://englelab.gatech.edu">EngleLab</a></p>
-<p>Most relevant to other researchers will be the functions available to process data from the complex span tasks. The complex span tasks are programmed in E-Prime, and unfortunately the resulting data file (<strong>.edat</strong>) the program produces is not easy to work with. The column names may not make any sense to you, there are way too many columns, the values in the columns are not always clear, and more messy issues. Even if you are not using R for data analysis you still may find the funtions useful.</p>
-<p>Currently there are only functions for the <strong>Operation Span</strong>, <strong>Symmetry Span</strong>, and <strong>Rotation Span</strong> tasks. For each task there are two functions you may choose to use. One is for creating a clean and tidy raw data file. I suggest using this because you may want to go back to the raw data to compute internal consistency estimates. It is also easy to score the task from this clean and tidy raw data file. The other function will directly score the task but you will lose the raw data.</p>
-<p>This package also contains functions to calculate binned scores (CITATION). There are also functions to easily calculate internal consistency estimates from trial-level raw data; both cronbach’s alpha and split-half reliability</p>
+<a href="#englelab-" class="anchor"></a>englelab <img src="reference/figures/hexlogo_small.png" align="right">
+</h1></div>
+<p>This package contains various functions for processing and scoring data common to the <a href="http://englelab.gatech.edu" target="_blank"><b>EngleLab</b></a></p>
+<p>Most relevant to other researchers will be the functions available to process data from the <strong>complex span tasks</strong>. The complex span tasks are programmed in E-Prime, and unfortunately the resulting data file (<strong>.edat</strong>) the program produces is not easy to work with. The column names may not make any sense to you, there are way too many columns, the values in the columns are not always clear, and more messy issues. Even if you are not using R for data analysis you still may find this package useful.</p>
+<p>Currently there are only functions for the <strong>Operation Span</strong>, <strong>Symmetry Span</strong>, and <strong>Rotation Span</strong> tasks.</p>
+<div id="non-r-users" class="section level2">
+<h2 class="hasAnchor">
+<a href="#non-r-users" class="anchor"></a>Non-R Users</h2>
+<p>For those of you that do not use R for processing and analyzing data, we have developed a point-and-click GUI to process and score data files from the complex span tasks.</p>
+<div id="gui-for-complex-span-data-processing-and-scoring" class="section level4">
+<h4 class="hasAnchor">
+<a href="#gui-for-complex-span-data-processing-and-scoring" class="anchor"></a><a href="https://englelab.shinyapps.io/taskscoring/" target="_blank"><b>GUI for Complex Span Data Processing and Scoring</b></a>
+</h4>
+<hr>
+</div>
+</div>
 <div id="install" class="section level2">
 <h2 class="hasAnchor">
 <a href="#install" class="anchor"></a>Install</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"EngleLab/englelab"</span>)</a></code></pre></div>
 </div>
+<div id="data-preparation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#data-preparation" class="anchor"></a>Data Preparation</h2>
+<p>Once you are ready to start analyzing data from the complex span tasks, you will first need to create a merged (<strong>.emrg</strong>) data file of all the individual <strong>.edat</strong> files E-Prime produces. <a href="https://www.youtube.com/watch?v=rQOg7ECK2Kw" target="_blank">How to create a merged E-Prime file</a></p>
+<p>You then will need to export that <strong>.emrg</strong> file as a tab-delimited .txt file. <a href="https://support.pstnet.com/hc/en-us/articles/115012298367-E-DATAAID-Exporting-Data-22832-" target="_blank">How to Export E-Prime files to .txt</a>. You need to follow the ‘Export Data to StatView’ instructions AND <strong>uncheck Unicode</strong>.</p>
+<p>You can then import the .txt merged file into R. <code><a href="https://readr.tidyverse.org/reference/read_delim.html">readr::read_delim()</a></code></p>
+</div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
-<p>Once you are ready to start analyzing data from the complex span tasks, you will first need to create a merged (<strong>.emrg</strong>) data file of all the individual <strong>.edat</strong> files E-Prime produces. You then will need to export that <strong>.emrg</strong> file as either a tab-delimited .txt file or a comma delimited .csv file. You can then import the .txt or .csv merged file into R. <code><a href="https://readr.tidyverse.org/reference/read_delim.html">readr::read_delim()</a></code> or <code><a href="https://readr.tidyverse.org/reference/read_delim.html">readr::read_csv()</a></code></p>
 <p>Once you have the data file imported into R as a dataframe object, you can then use the functions to easily create clean and tidy raw data files for the complex span tasks. Depending on your sample size, these functions may actually take a little while to execute.</p>
-<hr>
-<div id="operation-span" class="section level3">
-<h3 class="hasAnchor">
-<a href="#operation-span" class="anchor"></a>Operation Span</h3>
-<p><code><a href="reference/raw_ospan.html">raw_ospan()</a></code> will create a clean and tidy raw data file for the operation span task. The only arguments you need to specify are:</p>
-<ul>
-<li><p><strong>x</strong>: The dataframe object</p></li>
-<li><p><strong>blocks</strong>: How many blocks were administered? (1-3)</p></li>
-</ul>
+<p><strong>Example with Operation Span</strong>: <code><a href="reference/raw_ospan.html">raw_ospan()</a></code></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">library</span>(readr)</a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="kw">library</span>(englelab)</a>
+<a class="sourceLine" id="cb2-3" title="3"></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="co">## Import</span></a>
+<a class="sourceLine" id="cb2-5" title="5">import &lt;-<span class="st"> </span><span class="kw"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_delim</a></span>(<span class="st">"import/OSpan.txt"</span>, <span class="st">"</span><span class="ch">\t</span><span class="st">"</span>, </a>
+<a class="sourceLine" id="cb2-6" title="6">                     <span class="dt">escape_double =</span> <span class="ot">FALSE</span>, <span class="dt">trim_ws =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb2-7" title="7">                     </a>
+<a class="sourceLine" id="cb2-8" title="8"><span class="co">## Raw</span></a>
+<a class="sourceLine" id="cb2-9" title="9">data &lt;-<span class="st"> </span><span class="kw"><a href="reference/raw_ospan.html">raw_ospan</a></span>(import, <span class="dt">blocks =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb2-10" title="10"></a>
+<a class="sourceLine" id="cb2-11" title="11"><span class="co">## Output</span></a>
+<a class="sourceLine" id="cb2-12" title="12"><span class="kw"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span>(data, <span class="st">"output/OSpan_raw.txt"</span>)</a></code></pre></div>
+<p><strong>Symmetry Span</strong>: <code><a href="reference/raw_symspan.html">raw_symspan()</a></code></p>
+<p><strong>Rotation Span</strong>: <code><a href="reference/raw_rotspan.html">raw_rotspan()</a></code></p>
 </div>
-<div id="symmetry-span" class="section level3">
-<h3 class="hasAnchor">
-<a href="#symmetry-span" class="anchor"></a>Symmetry Span</h3>
-<p><code><a href="reference/raw_symspan.html">raw_symspan()</a></code> will create a clean and tidy raw data file for the symmetry span task. The only arguments you need to specify are:</p>
-<ul>
-<li><p><strong>x</strong>: The dataframe object</p></li>
-<li><p><strong>blocks</strong>: How many blocks were administered? (1-3)</p></li>
-</ul>
+<div id="download-r-scripts" class="section level2">
+<h2 class="hasAnchor">
+<a href="#download-r-scripts" class="anchor"></a>Download R Scripts</h2>
+<p>Instead of creating your own R scripts from scratch you can download scripts to score each of the complex span tasks. With these downloaded scripts you should only have to change the import/output directories and filenames.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">library</span>(englelab)</a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="kw"><a href="reference/get_script.html">get_script</a></span>(<span class="dt">type =</span> <span class="st">"raw"</span>, <span class="dt">to =</span> <span class="st">"R Scripts"</span>,</a>
+<a class="sourceLine" id="cb3-3" title="3">           <span class="dt">ospan =</span> <span class="ot">TRUE</span>, <span class="dt">symspan =</span> <span class="ot">TRUE</span>, <span class="dt">rotspan =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
-<div id="rotation-span" class="section level3">
-<h3 class="hasAnchor">
-<a href="#rotation-span" class="anchor"></a>Rotation Span</h3>
-<p><code><a href="reference/raw_rotspan.html">raw_rotspan()</a></code> will create a clean and tidy raw data file for the rotation span task. The only arguments you need to specify are:</p>
+<div id="tidy-file" class="section level2">
+<h2 class="hasAnchor">
+<a href="#tidy-file" class="anchor"></a>Tidy File</h2>
+<p>The resulting dataframe will contain <strong>both raw trial-level data and scored data</strong>. The columns in the data are as follows</p>
+<p><strong>Raw Trial-Level Columns</strong></p>
 <ul>
-<li><p><strong>x</strong>: The dataframe object</p></li>
-<li><p><strong>blocks</strong>: How many blocks were administered? (1-3)</p></li>
+<li><p><strong>Subject</strong>: Subject ID column</p></li>
+<li><p><strong>Block</strong>: Block number (1-3)</p></li>
+<li>
+<p><strong>Trial</strong>: Within a block, the trial number.</p>
+<p>Trial number refers to an entire set-size sequence (presentation of processing items, memory items, and recall screen)</p>
+</li>
+<li><p><strong>SetSize</strong>: For the trial, the set-size (number of memory items)</p></li>
+<li>
+<p><strong>SubTrial</strong>: Within a trial, there are processing items presented sequentially.</p>
+<p>Sub-Trial refers to this sequential presentation. It also represents the order of responses on the recall screen</p>
+</li>
+<li><p><strong>SubTrialProc</strong>: “Processing” or “Recall” portion of the task</p></li>
+<li><p><strong>RT</strong>: Reaction time</p></li>
+<li><p><strong>Accuracy</strong>: Accuracy (provided for both “Processing” and “Recall”)</p></li>
+<li><p><strong>Response</strong>: The subject’s response (provided for both “Processing” and “Recall”)</p></li>
+<li><p><strong>CorrectResponse</strong>: The correct response (provided for both “Processing” and “Recall”)</p></li>
+</ul>
+<p><strong>Task Scores</strong></p>
+<ul>
+<li><p><strong>Processing.total</strong>: The total number of processing items correctly answered</p></li>
+<li><p><strong>Recall.total</strong>: The total number of recall items correctly answered</p></li>
+<li>
+<p><strong>[Task].Absolute</strong>: The task score using the Absolute Scoring method</p>
+<p>i.e. SymSpan.Absolute or OSpan.Absolute.</p>
+</li>
+<li><p><strong>[Task].Partial</strong>: The task score using the Partial Scoring method</p></li>
+<li><p><strong>[Task].Partial_Block1</strong>: The score on block 1 using the Partial Scoring method</p></li>
+<li><p><strong>[Task].Partial_Block2</strong>: The score on block 2 using the Partial Scoring method</p></li>
+<li><p><strong>[Task].Partial_Block3</strong>: The score on block 3 using the Partial Scoring method</p></li>
+<li>
+<p><strong>[Task].[ProcessingTask]ACC</strong>: Proportion of processing task items correctly answered</p>
+<p>i.e. SymSpan.SymmetryACC or OSpan.MathACC.</p>
+</li>
+<li>
+<p><strong>[Task].Avg[ProcessingTask]Time</strong>: The average time to complete a processing task item</p>
+<p>i.e. SymSpan.AvgSymmetryTime or OSpan.AvgMathTime.</p>
+</li>
 </ul>
 <hr>
-<p>You will then want to write the resulting dataframe to a file on your computer. <code><a href="https://readr.tidyverse.org/reference/write_delim.html">readr::write_csv()</a></code></p>
 <p>See <a href="https://englelab.github.io/englelab/reference/index.html">References</a> for more information about the other functions in this package</p>
-</div>
 </div>
 <div id="citation" class="section level2">
 <h2 class="hasAnchor">

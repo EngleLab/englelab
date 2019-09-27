@@ -1,12 +1,18 @@
-# englelab
+# englelab <img src = "man/figures/hexlogo_small.png" align = "right" />
 
-This package contains various functions for processing data common to the [EngleLab](http://englelab.gatech.edu)
+This package contains various functions for processing and scoring data common to the <a href = "http://englelab.gatech.edu" target = "_blank"><b>EngleLab</b></a>
 
-Most relevant to other researchers will be the functions available to process data from the complex span tasks. The complex span tasks are programmed in E-Prime, and unfortunately the resulting data file (**.edat**) the program produces is not easy to work with. The column names may not make any sense to you, there are way too many columns, the values in the columns are not always clear, and more messy issues. Even if you are not using R for data analysis you still may find the funtions useful.
+Most relevant to other researchers will be the functions available to process data from the **complex span tasks**. The complex span tasks are programmed in E-Prime, and unfortunately the resulting data file (**.edat**) the program produces is not easy to work with. The column names may not make any sense to you, there are way too many columns, the values in the columns are not always clear, and more messy issues. Even if you are not using R for data analysis you still may find this package useful.
 
-Currently there are only functions for the **Operation Span**, **Symmetry Span**, and **Rotation Span** tasks. For each task there are two functions you may choose to use. One is for creating a clean and tidy raw data file. I suggest using this because you may want to go back to the raw data to compute internal consistency estimates. It is also easy to score the task from this clean and tidy raw data file. The other function will directly score the task but you will lose the raw data.
+Currently there are only functions for the **Operation Span**, **Symmetry Span**, and **Rotation Span** tasks.
 
-This package also contains functions to calculate binned scores (CITATION). There are also functions to easily calculate internal consistency estimates from trial-level raw data; both cronbach's alpha and split-half reliability
+## Non-R Users
+
+For those of you that do not use R for processing and analyzing data, we have developed a point-and-click GUI to process and score data files from the complex span tasks. 
+
+#### <a href = "https://englelab.shinyapps.io/taskscoring/" target = "_blank"><b>GUI for Complex Span Data Processing and Scoring</b></a>
+
+----
 
 ## Install
 
@@ -14,63 +20,71 @@ This package also contains functions to calculate binned scores (CITATION). Ther
 devtools::install_github("EngleLab/englelab")
 ```
 
-## Usage
+## Data Preparation
 
-Once you are ready to start analyzing data from the complex span tasks, you will first need to create a merged (**.emrg**) data file of all the individual **.edat** files E-Prime produces. You then will need to export that **.emrg** file as either a tab-delimited .txt file or a comma delimited .csv file. You can then import the .txt or .csv merged file into R. `readr::read_delim()` or `readr::read_csv()`
+Once you are ready to start analyzing data from the complex span tasks, you will first need to create a merged (**.emrg**) data file of all the individual **.edat** files E-Prime produces. <a href = "https://www.youtube.com/watch?v=rQOg7ECK2Kw" target = "_blank">How to create a merged E-Prime file</a>
+
+You then will need to export that **.emrg** file as a tab-delimited .txt file. <a href = "https://support.pstnet.com/hc/en-us/articles/115012298367-E-DATAAID-Exporting-Data-22832-" target = "_blank">How to Export E-Prime files to .txt</a>. You need to follow the 'Export Data to StatView' instructions AND **uncheck Unicode**.
+
+You can then import the .txt merged file into R. `readr::read_delim()`
+
+## Usage
 
 Once you have the data file imported into R as a dataframe object, you can then use the functions to easily create clean and tidy raw data files for the complex span tasks. Depending on your sample size, these functions may actually take a little while to execute.
 
-----
+**Example with Operation Span**: `raw_ospan()`
 
-### Operation Span
+```r
+library(readr)
+library(englelab)
 
-`raw_ospan()` will create a clean and tidy raw data file for the operation span task. The only arguments you need to specify are:
+## Import
+import <- read_delim("import/OSpan.txt", "\t", 
+                     escape_double = FALSE, trim_ws = TRUE)
+                     
+## Raw
+data <- raw_ospan(import, blocks = 2)
 
-* __x__: The dataframe object
+## Output
+write_csv(data, "output/OSpan_raw.txt")
+```
 
-* __blocks__: How many blocks were administered? (1-3)
+**Symmetry Span**: `raw_symspan()`
 
-### Symmetry Span
+**Rotation Span**: `raw_rotspan()`
 
-`raw_symspan()` will create a clean and tidy raw data file for the symmetry span task. The only arguments you need to specify are:
+## Download R Scripts
 
-* __x__: The dataframe object
+Instead of creating your own R scripts from scratch you can download scripts to score each of the complex span tasks. With these downloaded scripts you should only have to change the import/output directories and filenames.
 
-* __blocks__: How many blocks were administered? (1-3)
+```r
+library(englelab)
+get_script(type = "raw", to = "R Scripts",
+           ospan = TRUE, symspan = TRUE, rotspan = TRUE)
+```
 
-### Rotation Span
-
-`raw_rotspan()` will create a clean and tidy raw data file for the rotation span task. The only arguments you need to specify are:
-
-* __x__: The dataframe object
-
-* __blocks__: How many blocks were administered? (1-3)
-
-----
-
-You will then want to write the resulting dataframe to a file on your computer. `readr::write_csv()`
 
 ## Tidy File
 
-The resulting dataframe will contain both raw trial-level data and scored data. The columns in the data are as follows
+The resulting dataframe will contain **both raw trial-level data and scored data**. The columns in the data are as follows
 
 **Raw Trial-Level Columns**
 
 - **Subject**:  Subject ID column
 
-- **Block**:  Which block? (1-3)
+- **Block**:  Block number (1-3)
 
-- **Trial**:  Within a block, what trial number. 
+- **Trial**:  Within a block, the trial number. 
 
     Trial number refers to an entire set-size sequence (presentation of processing items, memory items, and recall screen)
     
-- **SetSize**:  For the trial, what is the set-size?
+- **SetSize**:  For the trial, the set-size (number of memory items)
 
-- **SubTrial**:  Within a trial, there are processing items presented sequentially. 
+- **SubTrial**:  Within a trial, there are processing items presented sequentially.
 
     Sub-Trial refers to this sequential presentation. It also represents the order of responses on the recall screen
 
-- **SubTrialProc**:   "Processing" or "Recall" portion of the task?
+- **SubTrialProc**: "Processing" or "Recall" portion of the task
 
 - **RT**:  Reaction time
 
@@ -98,11 +112,11 @@ The resulting dataframe will contain both raw trial-level data and scored data. 
 
 - **[Task].Partial_Block3**:  The score on block 3 using the Partial Scoring method
 
-- **[Task].[Processing]ACC**: Proportion of processing task items correctly answered
+- **[Task].[ProcessingTask]ACC**: Proportion of processing task items correctly answered
 
     i.e. SymSpan.SymmetryACC or OSpan.MathACC. 
 
-- **[Task].Avg[Processing]Time**: The average time to complete a processing task item
+- **[Task].Avg[ProcessingTask]Time**: The average time to complete a processing task item
 
      i.e. SymSpan.AvgSymmetryTime or OSpan.AvgMathTime.
      
