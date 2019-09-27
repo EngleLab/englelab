@@ -3,7 +3,6 @@
 library(readr)
 library(dplyr)
 library(here)
-library(datawrangling)
 library(englelab)
 
 ## Set import/output directories
@@ -17,10 +16,8 @@ output.file <- paste(task, "_raw.csv", sep = "")
 ##############
 
 ## Import Data
-data_import <- read_delim(here(import.dir, import.file),
-                          "\t", escape_double = FALSE, trim_ws = TRUE) %>%
-  duplicates_remove(taskname = task,
-                    output.folder = here(output.dir, "duplicates"))
+data_import <- read_delim(here(import.dir, import.file), "\t", 
+                          escape_double = FALSE, trim_ws = TRUE) 
 
 ## Clean up raw data and save
 data_raw <- raw_symspan(data_import, blocks = 2)
