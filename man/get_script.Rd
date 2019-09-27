@@ -4,7 +4,7 @@
 \alias{get_script}
 \title{Download template R scripts}
 \usage{
-get_script(type = "all", to = "R Scripts", overwrite = FALSE,
+get_script(type = "raw", to = "R Scripts", overwrite = FALSE,
   wmc = FALSE, symspan = FALSE, ospan = FALSE, rotspan = FALSE,
   gf = FALSE, rapm = FALSE, numberseries = FALSE,
   lettersets = FALSE, ac = FALSE, antisaccade = FALSE,
@@ -16,25 +16,37 @@ get_script(type = "all", to = "R Scripts", overwrite = FALSE,
 
 \item{to}{a directory where to download R scripts}
 
-\item{wmc}{Logical. Do you want to download template scripts for the wmc taks?}
+\item{wmc}{Logical. Download scripts for the wmc taks?}
 
-\item{gf}{Logical. Do you want to download template scripts for the gf taks?}
+\item{symspan}{Logical. Download script for the symmetry span task?}
 
-\item{ac}{Logical. Do you want to download template scripts for all the attention taks?}
+\item{ospan}{Logical. Download script for the operation span task?}
 
-\item{antisaccade}{Logical. Do you want to download a template file for the antisaccade task?}
+\item{rotspan}{Logical. Download script for the rotation span task?}
 
-\item{stroop}{Logical. Do you want to download a template file for the Stroop task?}
+\item{gf}{Logical. Dowload scripts for the gf taks?}
 
-\item{flanker}{Logical. Do you want to download a template file for the flanker task?}
+\item{rapm}{Logical. Download script for ravens advanced progressive matrices?}
 
-\item{stroopDL}{Logical. Do you want to download a template file for the StroopDL task?}
+\item{numberseries}{Logical. Download script for number series?}
 
-\item{flankerDL}{Logical. Do you want to download a template file for the FlankerDL task?}
+\item{lettersets}{Logical. Download script for letter sets?}
 
-\item{va4}{Logical. Do you want to download a template file for the Visual Arrays 4 task?}
+\item{ac}{Logical. Download scripts for all the attention taks?}
 
-\item{sact}{Logical. Do you want to download a template file for the SACT task?}
+\item{antisaccade}{Logical. Download script for the antisaccade task?}
+
+\item{stroop}{Logical. Download script for the Stroop task?}
+
+\item{flanker}{Logical. Download script for the flanker task?}
+
+\item{stroopDL}{Logical. Download script for the StroopDL task?}
+
+\item{flankerDL}{Logical. Download script for the FlankerDL task?}
+
+\item{va4}{Logical. Download script for the Visual Arrays 4 task?}
+
+\item{sact}{Logical. Download script for the SACT task?}
 
 \item{path}{String. Home directory file path}
 }

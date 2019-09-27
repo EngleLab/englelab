@@ -3,21 +3,27 @@
 #' This function will download R script templates for tasks commonly used in the EngleLab
 #' @param type String. Do you want to download "raw" or "score" task template files?
 #' @param to a directory where to download R scripts
-#' @param gf Logical. Do you want to download template scripts for the gf taks?
-#' @param wmc Logical. Do you want to download template scripts for the wmc taks?
-#' @param ac Logical. Do you want to download template scripts for all the attention taks?
-#' @param antisaccade Logical. Do you want to download a template file for the antisaccade task?
-#' @param stroop Logical. Do you want to download a template file for the Stroop task?
-#' @param flanker Logical. Do you want to download a template file for the flanker task?
-#' @param stroopDL Logical. Do you want to download a template file for the StroopDL task?
-#' @param flankerDL Logical. Do you want to download a template file for the FlankerDL task?
-#' @param va4 Logical. Do you want to download a template file for the Visual Arrays 4 task?
-#' @param sact Logical. Do you want to download a template file for the SACT task?
+#' @param gf Logical. Dowload scripts for the gf taks?
+#' @param rapm Logical. Download script for ravens advanced progressive matrices?
+#' @param numberseries Logical. Download script for number series?
+#' @param lettersets Logical. Download script for letter sets?
+#' @param wmc Logical. Download scripts for the wmc taks?
+#' @param ospan Logical. Download script for the operation span task?
+#' @param symspan Logical. Download script for the symmetry span task?
+#' @param rotspan Logical. Download script for the rotation span task?
+#' @param ac Logical. Download scripts for all the attention taks?
+#' @param antisaccade Logical. Download script for the antisaccade task?
+#' @param stroop Logical. Download script for the Stroop task?
+#' @param flanker Logical. Download script for the flanker task?
+#' @param stroopDL Logical. Download script for the StroopDL task?
+#' @param flankerDL Logical. Download script for the FlankerDL task?
+#' @param va4 Logical. Download script for the Visual Arrays 4 task?
+#' @param sact Logical. Download script for the SACT task?
 #' @param path String. Home directory file path
 #' @export
 #'
 
-get_script <- function(type = "all", to = "R Scripts", overwrite = FALSE,
+get_script <- function(type = "raw", to = "R Scripts", overwrite = FALSE,
                      wmc = FALSE, symspan = FALSE, ospan = FALSE, rotspan = FALSE,
                      gf = FALSE, rapm = FALSE, numberseries = FALSE, lettersets = FALSE,
                      ac = FALSE, antisaccade = FALSE, stroop = FALSE, flanker = FALSE,
