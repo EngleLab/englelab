@@ -1,4 +1,4 @@
-# englelab <img src = "man/figures/hexlogo_small.png" align = "right" />
+# englelab <img src = "man/figures/logo_small.png" align = "right" />
 
 This package contains various functions for processing and scoring data common to the <a href = "http://englelab.gatech.edu" target = "_blank"><b>EngleLab</b></a>
 
