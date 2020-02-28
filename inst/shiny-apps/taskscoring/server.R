@@ -31,6 +31,36 @@ function(input, output) {
       data$scores <- select(data$trial, Subject, RotSpan.Absolute:SessionTime)
       data$scores <- distinct(data$scores)
     }
+
+    if (input$task == "Antisaccade") {
+      data$trial <- raw_antisaccade(import)
+      data$scores <- select(data$trial, Subject, Antisaccade.ACC, AdminTime)
+      data$scores <- distinct(data$scores)
+    }
+
+    if (input$task == "Visual Arrays") {
+      data$trial <- raw_visualarrays(import)
+      data$scores <- select(data$trial, Subject, VA_k, AdminTime)
+      data$scores <- distinct(data$scores)
+    }
+
+    if (input$task == "SACT") {
+      data$trial <- raw_sact(import)
+      data$scores <- select(data$trial, Subject, SACT.ACC, AdminTime)
+      data$scores <- distinct(data$scores)
+    }
+
+    if (input$task == "FlankerDL") {
+      data$trial <- raw_flankerDL(import)
+      data$scores <- select(data$trial, Subject, FlankerDLScore, AdminTime)
+      data$scores <- distinct(data$scores)
+    }
+
+    if (input$task == "StroopDL") {
+      data$trial <- raw_stroopDL(import)
+      data$scores <- select(data$trial, Subject, StroopDLScore, AdminTime)
+      data$scores <- distinct(data$scores)
+    }
   })
 
   output$trialLevel <- renderTable({

@@ -5,7 +5,8 @@ library(englelab)
 
 fluidPage(
 
-  titlePanel("Complex Span Task - Data Processing and Scoring"),
+  titlePanel("Data Processing and Scoring: Complex Span and Attention
+             Control Tasks"),
 
   sidebarPanel(
 
@@ -16,12 +17,14 @@ fluidPage(
                          "text/tab-delimited,text/plain",
                          ".txt")),
 
-    selectInput("task", "Which Complex-Span Task?",
+    selectInput("task", "Which Task?",
                 choices = c("Operation Span", "Symmetry Span", "Rotation Span",
-                            ""),
+                            "Antisaccade", "Visual Arrays", "SACT",
+                            "FlankerDL", "StroopDL", ""),
                 selected = ""),
 
-    numericInput("blocks", "How many blocks were adminstered?",
+    numericInput("blocks",
+                 "How many blocks were adminstered? (complex-span tasks only)",
                  2, min = 1, max = 3),
 
     # Input: actionButton() to defer the rendering of output ----
@@ -34,8 +37,10 @@ fluidPage(
 
     hr(),
     hr(),
-    helpText("Once the tables are displayed, you can download the data to your computer"),
-    downloadButton("downloadTrialLevel", "Trial Level"), downloadButton("downloadScores", "Task Scores")
+    helpText("Once the tables are displayed, you can download the data to
+             your computer"),
+    downloadButton("downloadTrialLevel", "Trial Level"),
+    downloadButton("downloadScores", "Task Scores")
   ),
 
   # Main panel for displaying outputs ----
