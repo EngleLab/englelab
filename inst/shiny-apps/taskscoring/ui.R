@@ -32,6 +32,8 @@ fluidPage(
     # doing it immediately when inputs change). This is useful if
     # the computations required to render output are inordinately
     # time-consuming.
+    hr(),
+    hr(),
     actionButton("update", "Run"),
     helpText("Tables may take a few minutes to display after clicking Run"),
 
