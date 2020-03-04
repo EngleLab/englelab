@@ -32,9 +32,6 @@ raw_visualarrays <- function(x){
                        dplyr::case_when(CorrectResponse == "different" & Response == "different" ~
                                           1,
                                         TRUE ~ 0),
-                     InstructionsTime = InstructionsTime/1000/60,
-                     PracticeTime = PracticeTime/1000/60,
-                     TaskTime = TaskTime/1000/60,
                      AdminTime = AdminTime/1000/60)
 
   x_score <- dplyr::filter(x, TrialProc == "real")
@@ -63,6 +60,10 @@ raw_visualarrays <- function(x){
   x <- merge(x, x_score, by = "Subject", all = TRUE)
 
   if ("InstructionsTime" %in% colnames(x)) {
+    x <- dplyr::mutate(x,
+                       InstructionsTime = InstructionsTime/1000/60,
+                       PracticeTime = PracticeTime/1000/60,
+                       TaskTime = TaskTime/1000/60)
     x <- dplyr::select(x, Subject, TrialProc, Trial, SetSize,
                        Accuracy, Response, CorrectResponse,
                        CorrectRejection, FalseAlarm, Miss, Hit,

@@ -18,8 +18,8 @@ raw_antisaccade <- function(x){
                          dplyr::case_when(TrialProc == "TrialProc" ~ "real",
                                           TrialProc == "pracproc" ~ "practice"),
                        Trial =
-                         dplyr::case_when(TrailProc == "real" ~ TrialList.Sample,
-                                          TrialProc == "practice" ~ practice.sample))
+                         dplyr::case_when(TrialProc == "real" ~ TrialList.Sample,
+                                          TrialProc == "practice" ~ practice.Sample))
   } else {
     x <- dplyr::select(x, -TrialProc)
     x <- dplyr::rename(x, TrialProc = `Running[Trial]`)
@@ -37,9 +37,6 @@ raw_antisaccade <- function(x){
   x <- dplyr::mutate(x,
                      Target = dplyr::case_when(!is.na(right_targ) ~ right_targ,
                                                !is.na(left_targ) ~ left_targ),
-                     InstructionsTime = InstructionsTime/1000/60,
-                     PracticeTime = PracticeTime/1000/60,
-                     TaskTime = TaskTime/1000/60,
                      AdminTime = AdminTime/1000/60)
 
   x_score <- dplyr::filter(x, TrialProc == "real")
@@ -50,6 +47,10 @@ raw_antisaccade <- function(x){
   x <- merge(x, x_score, by = "Subject", all = TRUE)
 
   if ("InstructionsTime" %in% colnames(x)) {
+    x <- dplyr::mutate(x,
+                       InstructionsTime = InstructionsTime/1000/60,
+                       PracticeTime = PracticeTime/1000/60,
+                       TaskTime = TaskTime/1000/60)
     x <- dplyr::select(x, Subject, TrialProc, Trial, Accuracy = Mask.ACC,
                        RT = Mask.RT, Target, FixationDuration, Antisaccade.ACC,
                        InstructionsTime, PracticeTime, TaskTime, AdminTime,

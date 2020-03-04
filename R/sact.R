@@ -11,12 +11,13 @@ raw_sact <- function(x){
   x <- dplyr::mutate(x,
                      TrialProc = dplyr::case_when(TrialProc == "TrialProc" ~ "real",
                                                   TrialProc == "PracticeTrialProc" ~ "pratice"),
-                     InstructionsTime = InstructionsTime/1000/60,
-                     PracticeTime = PracticeTime/1000/60,
-                     TaskTime = TaskTime/1000/60,
                      AdminTime = AdminTime/1000/60)
 
   if ("InstructionsTime" %in% colnames(x)) {
+    x <- dplyr::mutate(x,
+                       InstructionsTime = InstructionsTime/1000/60,
+                       PracticeTime = PracticeTime/1000/60,
+                       TaskTime = TaskTime/1000/60)
     x <- dplyr::select(x, Subject, TrialProc, Trial, WaitTime,
                        RT = ResponseRT, Accuracy = Response.ACC,
                        Response = ResponseMade,  SACT.ACC = SACTscore,

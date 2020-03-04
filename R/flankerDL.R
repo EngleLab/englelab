@@ -51,12 +51,13 @@ raw_flankerDL <- function(x){
                      TargetArrowDirection =
                        dplyr::case_when(TrialProc == "real"     ~ TargetDirection,
                                         TrialProc == "practice" ~ TargerDirection),
-                     InstructionsTime = InstructionsTime/1000/60,
-                     PracticeTime = PracticeTime/1000/60,
-                     TaskTime = TaskTime/1000/60,
                      AdminTime = AdminTime/1000/60)
 
   if ("InstructionsTime" %in% colnames(x)) {
+    x <- dplyr::mutate(x,
+                       InstructionsTime = InstructionsTime/1000/60,
+                       PracticeTime = PracticeTime/1000/60,
+                       TaskTime = TaskTime/1000/60)
     x <- dplyr::select(x, Subject, TrialProc, Block, Trial, ResponseDeadline,
                        Condition = FlankerType, RT, MissedDeadline, Accuracy,
                        Response, TrialCriteria.ACC, TargetArrowDirection,
