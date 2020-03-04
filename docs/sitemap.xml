@@ -19,13 +19,34 @@
     <loc>https://englelab.github.io/englelab//reference/get_script.html</loc>
   </url>
   <url>
+    <loc>https://englelab.github.io/englelab//reference/raw_antisaccade.html</loc>
+  </url>
+  <url>
+    <loc>https://englelab.github.io/englelab//reference/raw_flankerDL.html</loc>
+  </url>
+  <url>
     <loc>https://englelab.github.io/englelab//reference/raw_ospan.html</loc>
   </url>
   <url>
     <loc>https://englelab.github.io/englelab//reference/raw_rotspan.html</loc>
   </url>
   <url>
+    <loc>https://englelab.github.io/englelab//reference/raw_sact.html</loc>
+  </url>
+  <url>
+    <loc>https://englelab.github.io/englelab//reference/raw_stroopDL.html</loc>
+  </url>
+  <url>
     <loc>https://englelab.github.io/englelab//reference/raw_symspan.html</loc>
+  </url>
+  <url>
+    <loc>https://englelab.github.io/englelab//reference/raw_visualarrays.html</loc>
+  </url>
+  <url>
+    <loc>https://englelab.github.io/englelab//reference/score_antisaccade.html</loc>
+  </url>
+  <url>
+    <loc>https://englelab.github.io/englelab//reference/score_flankerDL.html</loc>
   </url>
   <url>
     <loc>https://englelab.github.io/englelab//reference/score_ospan.html</loc>
@@ -34,7 +55,16 @@
     <loc>https://englelab.github.io/englelab//reference/score_rotspan.html</loc>
   </url>
   <url>
+    <loc>https://englelab.github.io/englelab//reference/score_sact.html</loc>
+  </url>
+  <url>
+    <loc>https://englelab.github.io/englelab//reference/score_stroopDL.html</loc>
+  </url>
+  <url>
     <loc>https://englelab.github.io/englelab//reference/score_symspan.html</loc>
+  </url>
+  <url>
+    <loc>https://englelab.github.io/englelab//reference/score_visualarrays.html</loc>
   </url>
   <url>
     <loc>https://englelab.github.io/englelab//reference/splithalf.html</loc>

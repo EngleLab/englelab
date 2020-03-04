@@ -19,6 +19,11 @@ reference:
   - raw_rapm
   - raw_numberseries
   - raw_lettersets
+  - raw_antisaccade
+  - raw_visualarrays
+  - raw_sact
+  - raw_flankerDL
+  - raw_stroopDL
 - title: Score Tasks
   contents:
   - score_ospan
@@ -27,6 +32,11 @@ reference:
   - score_rapm
   - score_numberseries
   - score_lettersets
+  - score_antisaccade
+  - score_visualarrays
+  - score_sact
+  - score_flankerDL
+  - score_stroopDL
 - title: Calculate Reliability Estimates
   contents:
   - cronbach_alpha
