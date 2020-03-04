@@ -57,7 +57,7 @@ raw_antisaccade <- function(x){
                        SessionDate, SessionTime)
   } else {
     x <- dplyr::select(x, Subject, TrialProc, Trial, Accuracy = Mask.ACC,
-                       RT = Mask.RT, Target, FixationDuration, Antisaccade.ACC,
+                       RT = Mask.RT, Target, FixationDuration = t4, Antisaccade.ACC,
                        AdminTime, SessionDate, SessionTime)
   }
   return(x)
