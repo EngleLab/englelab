@@ -1,5 +1,3 @@
-devtools::install_github("Englelab/englelab", upgrade = "never")
-
 library(shiny)
 library(readr)
 library(dplyr)
