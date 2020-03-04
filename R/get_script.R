@@ -17,7 +17,7 @@
 #' @param flanker Logical. Download script for the flanker task?
 #' @param stroopDL Logical. Download script for the StroopDL task?
 #' @param flankerDL Logical. Download script for the FlankerDL task?
-#' @param va4 Logical. Download script for the Visual Arrays 4 task?
+#' @param va Logical. Download script for the Visual Arrays 4 task?
 #' @param sact Logical. Download script for the SACT task?
 #' @param path String. Home directory file path
 #' @export
@@ -27,7 +27,7 @@ get_script <- function(type = "raw", to = "R Scripts", overwrite = FALSE,
                      wmc = FALSE, symspan = FALSE, ospan = FALSE, rotspan = FALSE,
                      gf = FALSE, rapm = FALSE, numberseries = FALSE, lettersets = FALSE,
                      ac = FALSE, antisaccade = FALSE, stroop = FALSE, flanker = FALSE,
-                     stroopDL = FALSE, flankerDL = FALSE, va4 = FALSE,
+                     stroopDL = FALSE, flankerDL = FALSE, va = FALSE,
                      sact = FALSE, path = "./"){
 
   ## Setup ####
@@ -54,7 +54,7 @@ get_script <- function(type = "raw", to = "R Scripts", overwrite = FALSE,
     stroop <- TRUE
     stroopDL <- TRUE
     flankerDL <- TRUE
-    va4 <- TRUE
+    va <- TRUE
     sact <- TRUE
   }
   #####
@@ -248,7 +248,7 @@ get_script <- function(type = "raw", to = "R Scripts", overwrite = FALSE,
     }
   }
 
-  if (va4 == TRUE) {
+  if (va == TRUE) {
     if (type == "raw" | type == "all") {
       exists <- file.exists(paste(to, "0_va4_raw.R", sep = "/"))
       if (exists == TRUE & overwrite == FALSE) {

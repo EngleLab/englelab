@@ -97,16 +97,16 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#englelab" class="anchor"></a>englelab <img src="reference/figures/logo_small.png" align="right">
 </h1></div>
-<p>This package contains various functions for processing and scoring data common to the <a href="http://englelab.gatech.edu" target="_blank"><b>EngleLab</b></a></p>
-<p>Most relevant to other researchers will be the functions available to process data from the <strong>complex span tasks</strong>. The complex span tasks are programmed in E-Prime, and unfortunately the resulting data file (<strong>.edat</strong>) the program produces is not easy to work with. The column names may not make any sense to you, there are way too many columns, the values in the columns are not always clear, and more messy issues. Even if you are not using R for data analysis you still may find this package useful.</p>
-<p>Currently there are only functions for the <strong>Operation Span</strong>, <strong>Symmetry Span</strong>, and <strong>Rotation Span</strong> tasks.</p>
+<p>This package contains various functions for processing and scoring data downloaded from the <a href="http://englelab.gatech.edu" target="_blank"><b>EngleLab</b></a></p>
+<p>Most relevant to other researchers will be the functions available to process data from the <strong>complex span tasks</strong> and <strong>attention control tasks</strong>. The tasks are programmed in E-Prime, and unfortunately the resulting data file (<strong>.edat</strong>) the program produces is not easy to work with. The column names may not make any sense to you, there are way too many columns, the values in the columns are not always clear, and more messy issues. Even if you are not using R for data analysis you still may find this package useful.</p>
+<p>Currently there are only functions for the <strong>Advanced versions</strong> of the complex-span tasks and functions for all the <strong>Attention Control</strong> tasks.</p>
 <div id="non-r-users" class="section level2">
 <h2 class="hasAnchor">
 <a href="#non-r-users" class="anchor"></a>Non-R Users</h2>
-<p>For those of you that do not use R for processing and analyzing data, we have developed a point-and-click GUI to process and score data files from the complex span tasks.</p>
-<div id="web-app-for-complex-span-data-processing-and-scoring" class="section level4">
+<p>For those of you that do not use R for processing and analyzing data, we have developed a point-and-click GUI to process and score data files from the tasks.</p>
+<div id="web-app-for-englelab-data-processing-and-scoring" class="section level4">
 <h4 class="hasAnchor">
-<a href="#web-app-for-complex-span-data-processing-and-scoring" class="anchor"></a><a href="https://englelab.shinyapps.io/taskscoring/" target="_blank"><b>Web App for Complex Span Data Processing and Scoring</b></a>
+<a href="#web-app-for-englelab-data-processing-and-scoring" class="anchor"></a><a href="https://englelab.shinyapps.io/taskscoring/" target="_blank"><b>Web App for EngleLab Data Processing and Scoring</b></a>
 </h4>
 <hr>
 </div>
@@ -119,14 +119,14 @@
 <div id="data-preparation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#data-preparation" class="anchor"></a>Data Preparation</h2>
-<p>Once you are ready to start analyzing data from the complex span tasks, you will first need to create a merged (<strong>.emrg</strong>) data file of all the individual <strong>.edat</strong> files E-Prime produces. <a href="https://www.youtube.com/watch?v=rQOg7ECK2Kw" target="_blank">How to create a merged E-Prime file</a></p>
+<p>Once you are ready to start analyzing data from the tasks, you will first need to create a merged (<strong>.emrg</strong>) data file of all the individual <strong>.edat</strong> files E-Prime produces. <a href="https://www.youtube.com/watch?v=rQOg7ECK2Kw" target="_blank">How to create a merged E-Prime file</a></p>
 <p>You then will need to export that <strong>.emrg</strong> file as a tab-delimited .txt file. <a href="https://support.pstnet.com/hc/en-us/articles/115012298367-E-DATAAID-Exporting-Data-22832-" target="_blank">How to Export E-Prime files to .txt</a>. You need to follow the ‘Export Data to StatView’ instructions AND <strong>uncheck Unicode</strong>.</p>
 <p>You can then import the .txt merged file into R. <code><a href="https://readr.tidyverse.org/reference/read_delim.html">readr::read_delim()</a></code></p>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
-<p>Once you have the data file imported into R as a dataframe object, you can then use the functions to easily create clean and tidy raw data files for the complex span tasks. Depending on your sample size, these functions may actually take a little while to execute.</p>
+<p>Once you have the data file imported into R as a dataframe object, you can then use the functions to easily create clean and tidy raw data files for the tasks. Depending on your sample size, these functions may actually take a little while to execute.</p>
 <p><strong>Example with Operation Span</strong>: <code><a href="reference/raw_ospan.html">raw_ospan()</a></code></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(readr)</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(englelab)</a>
@@ -142,19 +142,27 @@
 <a class="sourceLine" id="cb2-12" data-line-number="12"><span class="kw"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span>(data, <span class="st">"output/OSpan_raw.txt"</span>)</a></code></pre></div>
 <p><strong>Symmetry Span</strong>: <code><a href="reference/raw_symspan.html">raw_symspan()</a></code></p>
 <p><strong>Rotation Span</strong>: <code><a href="reference/raw_rotspan.html">raw_rotspan()</a></code></p>
+<p><strong>Antisaccade</strong>: <code><a href="reference/raw_antisaccade.html">raw_antisaccade()</a></code></p>
+<p><strong>Visual Arrays</strong>: <code><a href="reference/raw_visualarrays.html">raw_visualarrays()</a></code></p>
+<p><strong>SACT</strong>: <code><a href="reference/raw_sact.html">raw_sact()</a></code></p>
+<p><strong>FlankerDL</strong>: <code><a href="reference/raw_flankerDL.html">raw_flankerDL()</a></code></p>
+<p><strong>StroopDL</strong>: <code><a href="reference/raw_stroopDL.html">raw_stroopDL()</a></code></p>
 </div>
 <div id="download-r-scripts" class="section level2">
 <h2 class="hasAnchor">
 <a href="#download-r-scripts" class="anchor"></a>Download R Scripts</h2>
-<p>Instead of creating your own R scripts from scratch you can download scripts to score each of the complex span tasks. With these downloaded scripts you should only have to change the import/output directories and filenames.</p>
+<p>Instead of creating your own R scripts from scratch you can download scripts to score each of the tasks. With these downloaded scripts you should only have to change the import/output directories and filenames.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(englelab)</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw"><a href="reference/get_script.html">get_script</a></span>(<span class="dt">type =</span> <span class="st">"raw"</span>, <span class="dt">to =</span> <span class="st">"R Scripts"</span>,</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">           <span class="dt">ospan =</span> <span class="ot">TRUE</span>, <span class="dt">symspan =</span> <span class="ot">TRUE</span>, <span class="dt">rotspan =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb3-3" data-line-number="3">           <span class="dt">ospan =</span> <span class="ot">TRUE</span>, <span class="dt">symspan =</span> <span class="ot">TRUE</span>, <span class="dt">rotspan =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">           <span class="dt">antisaccade =</span> <span class="ot">TRUE</span>, <span class="dt">va =</span> <span class="ot">TRUE</span>, <span class="dt">sact =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">           <span class="dt">flankerDL =</span> <span class="ot">TRUE</span>, <span class="dt">stroopDL =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
 <div id="tidy-file" class="section level2">
 <h2 class="hasAnchor">
 <a href="#tidy-file" class="anchor"></a>Tidy File</h2>
-<p>The resulting dataframe will contain <strong>both raw trial-level data and scored data</strong>. The columns in the data are as follows</p>
+<p>The resulting dataframe will contain <strong>both raw trial-level data and scored data</strong>.</p>
+<p>For the <strong>Complex-Span</strong> tasks, the columns in the data are as follows</p>
 <p><strong>Raw Trial-Level Columns</strong></p>
 <ul>
 <li><p><strong>Subject</strong>: Subject ID column</p></li>

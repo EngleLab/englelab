@@ -9,7 +9,7 @@ get_script(type = "raw", to = "R Scripts", overwrite = FALSE,
   gf = FALSE, rapm = FALSE, numberseries = FALSE,
   lettersets = FALSE, ac = FALSE, antisaccade = FALSE,
   stroop = FALSE, flanker = FALSE, stroopDL = FALSE,
-  flankerDL = FALSE, va4 = FALSE, sact = FALSE, path = "./")
+  flankerDL = FALSE, va = FALSE, sact = FALSE, path = "./")
 }
 \arguments{
 \item{type}{String. Do you want to download "raw" or "score" task template files?}
@@ -44,7 +44,7 @@ get_script(type = "raw", to = "R Scripts", overwrite = FALSE,
 
 \item{flankerDL}{Logical. Download script for the FlankerDL task?}
 
-\item{va4}{Logical. Download script for the Visual Arrays 4 task?}
+\item{va}{Logical. Download script for the Visual Arrays 4 task?}
 
 \item{sact}{Logical. Download script for the SACT task?}
 

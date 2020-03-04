@@ -51,9 +51,13 @@ fluidPage(
       tabPanel("Instructions",
 
       br(),
-      p("This app allows you to easily create two types of data files from the
-      Complex Span tasks. If, like me, you are scared of the file E-Prime produces
-        for these tasks you will find this app useful."),
+      p("Warning: This WebApp is still under development and may not work for
+        all of the complex-span tasks. As of 3/4/2020 this WebApp only works for
+        the Advanced Versions of the complex-span tasks."),
+      br(),
+      p("This app allows you to easily create two types of data files.
+      If, like me, you are scared of the large and overwhelming
+      file E-Prime produces for these tasks, then you will find this app useful."),
       br(),
       p(strong("1) A trial level data file:")),
       p("This is basically a cleaned up
@@ -70,7 +74,7 @@ fluidPage(
       h3(strong("Instructions")),
       p(strong("1. Choose a file to upload")),
       p("This file should be a merged E-Prime file (.emrg) exported as a .txt
-      file from one of the Complex Span task. See this YouTube video on",
+      file. See this YouTube video on",
         a("how to create a merged E-Prime file",
           href = "https://www.youtube.com/watch?v=rQOg7ECK2Kw",
           target = "_blank")),
@@ -79,11 +83,11 @@ fluidPage(
         href = "https://support.pstnet.com/hc/en-us/articles/115012298367-E-DATAAID-Exporting-Data-22832-",
         target = "_blank"), ". You need to follow the 'Export Data to StatView' instructions AND",
         strong("uncheck Unicode")),
-      p(strong("2. Select which complex span task the data corresponds to")),
+      p(strong("2. Select which task the data corresponds to")),
       p("Right now only newly downloaded versions of the complex span
         tasks are supported. If you modified the task it is not guaranteed
         to work (it will depend on how you modified it)."),
-      p(strong("3. Select how many blocks you administered")),
+      p(strong("3. Select how many blocks you administered (complex-span tasks only)")),
       p(strong("4. Click on Run")),
       p("Once you click on Run it may take a few minutes to process the data
         and display the tables. You can see a display of the two types of
@@ -94,8 +98,9 @@ fluidPage(
         ready for download."),
 
       hr(),
+      hr(),
 
-      h3(strong("Description of Columns")),
+      h3(strong("Description of Columns in Complex-Span Task Data Files")),
       br(),
       h4(strong("Trial Level Data")),
       p(strong("Subject: "), "Subject ID column"),
