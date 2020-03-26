@@ -1,8 +1,8 @@
 # englelab <img src = "man/figures/logo_small.png" align = "right" />
 
-This package contains various functions for processing and scoring data from tasks downloaded from the <a href = "http://englelab.gatech.edu" target = "_blank"><b>EngleLab</b></a>
+This package contains various functions for processing and scoring complex-span and attention control tasks downloaded from the <a href = "http://englelab.gatech.edu" target = "_blank"><b>EngleLab</b></a>
 
-Most relevant to other researchers will be the functions available to process data from the **complex span tasks** and **attention control tasks**. The tasks are programmed in E-Prime, and unfortunately the resulting data file (**.edat**) the program produces is not easy to work with. The column names may not make any sense to you, there are way too many columns, the values in the columns are not always clear, and more messy issues. Even if you are not using R for data analysis you still may find this package useful.
+The tasks are programmed in E-Prime, and unfortunately the resulting data file (**.edat**) the program produces is not easy to work with. The column names may not make any sense to you, there are way too many columns, the values in the columns are not always clear, and more messy issues. Even if you are not using R for data analysis you still may find this package useful.
 
 Currently there are only functions for the **Advanced versions** of the complex-span tasks and functions for all the **Attention Control** tasks.
 
@@ -85,6 +85,6 @@ See [References](https://englelab.github.io/englelab/reference/index.html) for m
 
 ## Citation
 
-> Tsukahara, J.S. (2018). englelab: An R Package for Processing Data from Tasks Downloaded from the EngleLab. Retrieved from https://englelab.github.io/englelab/
+> Tsukahara, J.S. (2018). englelab: An R Package for Processing Complex-Span and Attention Control Tasks Downloaded from the EngleLab. Retrieved from https://englelab.github.io/englelab/
 
 
