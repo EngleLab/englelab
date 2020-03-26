@@ -11,8 +11,8 @@ output_dir <- "Data Files/Scored Data"
 removed_dir <- "Data Files/Scored Data/removed"
 
 ## Set import/output files
-task <- "FlankerDL"
-import_file <- paste(task, "_trial_raw.csv", sep = "")
+task <- "VisualArrays_4"
+import_file <- paste(task, "_raw.csv", sep = "")
 output_file <- paste(task, "_Scores.csv", sep = "")
 removed_file <- paste(task, "_removed.csv", sep = "")
 
@@ -26,16 +26,16 @@ data_import <- read_csv(here(import_dir, import_file)) %>%
 
 ## Scores
 data_scores <- data_import %>%
-  select(Subject, contains(task), contains("Time"), contains("Date")) %>%
+  select(Subject, contains("VA"), contains("Time"), contains("Date")) %>%
   distinct()
 
 ## Trim outliers
 data_remove <- data_import %>%
   group_by(Subject) %>%
-  summarise(ACC.mean = mean(TrialCriteria.Acc, na.rm = TRUE)) %>%
+  summarise(ACC.mean = mean(Accuracy, na.rm = TRUE)) %>%
   ungroup() %>%
   center(variables = "ACC.mean", standardize = TRUE) %>%
-  filter(ACC.mean_z < acc_criteria)
+  filter(ACC.mean < acc_criteria)
 
 data_scores <- remove_save(data_scores, data_remove,
                            output.dir = here(removed_dir),
@@ -45,3 +45,4 @@ data_scores <- remove_save(data_scores, data_remove,
 write_csv(data_scores, path = here(output_dir, output_file))
 
 rm(list=ls())
+

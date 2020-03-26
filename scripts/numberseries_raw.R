@@ -1,24 +1,25 @@
 ## Set up ####
 ## Load packages
 library(readr)
-library(dplyr)
 library(here)
+library(dplyr)
 
 ## Set import/output directories
-import.dir <- "Data Files/Merged"
-output.dir <- "Data Files"
+import_dir <- "Data Files/Merged"
+output_dir <- "Data Files"
 
 ## Set import/output files
 task <- "NumberSeries"
-import.file <- paste(task, ".txt", sep = "")
-output.file <- paste(task, "_raw.csv", sep = "")
+import_file <- paste(task, ".txt", sep = "")
+output_file <- paste(task, "_raw.csv", sep = "")
 ##############
 
 ## Import Data
-data_import <- read_delim(here(import.dir, import.file), "\t",
-                          escape_double = FALSE, trim_ws = TRUE)
+data_import <- read_delim(here(import_dir, import_file), "\t",
+                          escape_double = FALSE, trim_ws = TRUE,
+                          guess_max = 10000)
 
-## Clean up raw data and save
+## Clean up raw data
 data_raw <- data_import %>%
   filter(Blocks == "Real" | Blocks == "End",
          ShowStim.RT > 0 | !is.na(TotalScore)) %>%
@@ -29,7 +30,7 @@ data_raw <- data_import %>%
   mutate(TotalScore = mean(TotalScore, na.rm = TRUE)) %>%
   filter(!is.na(Trial))
 
-## Output Data
-write_csv(data_raw, path = here(output.dir, output.file))
+## Save Data
+write_csv(data_raw, path = here(output_dir, output_file))
 
 rm(list=ls())

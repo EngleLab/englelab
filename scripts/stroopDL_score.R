@@ -1,48 +1,47 @@
 ## Set up ####
 ## Load packages
 library(readr)
-library(dplyr)
 library(here)
+library(dplyr)
 library(datawrangling)
 
 ## Set import/output directories
-import.dir <- "Data Files/Raw Data"
-output.dir <- "Data Files/Scored Data"
-removed.dir <- "Data Files/Scored Data/removed"
+import_dir <- "Data Files/Raw Data"
+output_dir <- "Data Files/Scored Data"
+removed_dir <- "Data Files/Scored Data/removed"
 
 ## Set import/output files
 task <- "StroopDL"
-import.file <- paste(task, "_trial_raw.csv", sep = "")
-output.file <- paste(task, "_Scores.csv", sep = "")
-removed.file <- paste(task, "_removed.csv", sep = "")
+import_file <- paste(task, "_trial_raw.csv", sep = "")
+output_file <- paste(task, "_Scores.csv", sep = "")
+removed_file <- paste(task, "_removed.csv", sep = "")
 
 ## Set Trimming criteria
-acc.criteria <- -3.5
+acc_criteria <- -3.5
 ##############
 
 ## Import Data
-data_import <- read_csv(here(import.dir, import.file))
+data_import <- read_csv(here(import_dir, import_file)) %>%
+  filter(TrialProc == "real")
 
-data_stroopDL <- data_import %>%
-  filter(TrialProc == "real") %>%
-  select(Subject, StroopDL.score = StroopDLTime, StroopMissedDeadlines,
-         StroopDLTotalAccuracy, StroopDLCorrectRT, StroopDLTotalRT) %>%
+## Scores
+data_scores <- data_import %>%
+  select(Subject, contains(task), contains("Time"), contains("Date")) %>%
   distinct()
 
+## Trim outliers
 data_remove <- data_import %>%
   group_by(Subject) %>%
   summarise(ACC.mean = mean(TrialCriteria.Acc, na.rm = TRUE)) %>%
   ungroup() %>%
   center(variables = "ACC.mean", standardize = TRUE) %>%
-  filter(ACC.mean_z < acc.criteria)
+  filter(ACC.mean_z < acc_criteria)
 
-data_stroopDL <- remove_save(data_stroopDL, data_remove,
-                             output.dir = removed.dir,
-                             output.file = removed.file)
+data_scores <- remove_save(data_scores, data_remove,
+                           output.dir = here(removed_dir),
+                           output.file = removed_file)
 
-## Output Data
-write_csv(data_stroopDL, path = here(output.dir, output.file))
-
+## Save Data
+write_csv(data_scores, path = here(output_dir, output_file))
 
 rm(list=ls())
-

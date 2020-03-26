@@ -1,30 +1,29 @@
 ## Set up ####
 ## Load packages
 library(readr)
-library(dplyr)
 library(here)
+library(dplyr)
 
 ## Set import/output directories
-import.dir <- "Data Files/Raw Data"
-output.dir <- "Data Files/Scored Data"
+import_dir <- "Data Files/Raw Data"
+output_dir <- "Data Files/Scored Data"
 
 ## Set import/output files
 task <- "SACT"
-import.file <- paste(task, "_raw.csv", sep = "")
-output.file <- paste(task, "_Scores.csv", sep = "")
+import_file <- paste(task, "_raw.csv", sep = "")
+output_file <- paste(task, "_Scores.csv", sep = "")
 ##############
 
 ## Import Data
-data_import <- read_csv(here(import.dir, import.file))
+data_import <- read_csv(here(import_dir, import_file)) %>%
+  filter(TrialProc == "real")
 
-## Score
-data_sact <- data_import %>%
-  filter(TrialProc == "real") %>%
-  group_by(Subject) %>%
-  summarise(SACT_ACC.mean = mean(Accuracy, na.rm = TRUE))
+## Scores
+data_scores <- data_import %>%
+  select(Subject, contains(task), contains("Time"), contains("Date")) %>%
+  distinct()
 
-## Output Data
-write_csv(data_sact, path = here(output.dir, output.file))
+## Save Data
+write_csv(data_scores, path = here(output_dir, output_file))
 
 rm(list=ls())
-
