@@ -17,7 +17,7 @@
 #' @param flanker Logical. Download script for the flanker task?
 #' @param stroopDL Logical. Download script for the StroopDL task?
 #' @param flankerDL Logical. Download script for the FlankerDL task?
-#' @param va Logical. Download script for the Visual Arrays 4 task?
+#' @param va Logical. Download script for the Visual Arrays task?
 #' @param sact Logical. Download script for the SACT task?
 #' @param path String. Home directory file path
 #' @export
@@ -250,22 +250,22 @@ get_script <- function(type = "raw", to = "R Scripts", overwrite = FALSE,
 
   if (va == TRUE) {
     if (type == "raw" | type == "all") {
-      exists <- file.exists(paste(to, "0_va4_raw.R", sep = "/"))
+      exists <- file.exists(paste(to, "0_visualarrays_raw.R", sep = "/"))
       if (exists == TRUE & overwrite == FALSE) {
         message("Did not download file. 0_va4_raw.R already exists")
       } else {
-        download.file(paste(github_repo, "va4_raw.R", sep = "/"),
-                      paste(to, "0_va4_raw.R", sep = "/"))
+        download.file(paste(github_repo, "visualarrays_raw.R", sep = "/"),
+                      paste(to, "0_visualarrays_raw.R", sep = "/"))
       }
     }
 
     if (type == "score" | type == "all") {
-      exists <- file.exists(paste(to, "1_va4_score.R", sep = "/"))
+      exists <- file.exists(paste(to, "1_visualarrays_score.R", sep = "/"))
       if (exists == TRUE & overwrite == FALSE) {
-        message("Did not download file. 1_va4_score.R already exists")
+        message("Did not download file. 1_visualarrays_score.R already exists")
       } else {
-        download.file(paste(github_repo, "va4_score.R", sep = "/"),
-                      paste(to, "1_va4_score.R", sep = "/"))
+        download.file(paste(github_repo, "visualarrays_score.R", sep = "/"),
+                      paste(to, "1_visualarrays_score.R", sep = "/"))
       }
     }
   }
