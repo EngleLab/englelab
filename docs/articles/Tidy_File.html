@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Download R Scripts • englelab</title>
+<title>Tidy Data Files • englelab</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -19,7 +19,7 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><!-- docsearch --><script src="../docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
 <link href="../docsearch.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Download R Scripts">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Tidy Data Files">
 <meta property="og:description" content="englelab">
 <meta property="og:image" content="https://englelab.github.io/englelab/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -97,60 +97,62 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Download R Scripts</h1>
+      <h1 data-toc-skip>Tidy Data Files</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/EngleLab/englelab/blob/master/vignettes/Download_Scripts.Rmd"><code>vignettes/Download_Scripts.Rmd</code></a></small>
-      <div class="hidden name"><code>Download_Scripts.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/EngleLab/englelab/blob/master/vignettes/Tidy_File.Rmd"><code>vignettes/Tidy_File.Rmd</code></a></small>
+      <div class="hidden name"><code>Tidy_File.Rmd</code></div>
 
     </div>
 
     
     
-<p>The wonderful thing about R scripts is that once you create one for a task you can just keep on using it over and over for that task and share it others who use that task.</p>
-<p>The <code>englelab</code> package has a convenient function to download R scripts for the tasks we host on our <a href="http://englelab.gatech.edu/taskdownloads" target="_blank">website</a></p>
-<div id="get_script" class="section level2">
-<h2 class="hasAnchor">
-<a href="#get_script" class="anchor"></a><code>get_script()</code>
-</h2>
-<p>The first two agruments you should specify is the location you want to download the R Script to (by default set to “R Scripts”) and the type of R Script you want to download.</p>
+<p>The resulting dataframe will contain <strong>both raw trial-level data and scored data</strong>. For the <strong>Complex-Span</strong> tasks, the columns in the data are as follows</p>
+<p><strong>Raw Trial-Level Columns</strong></p>
 <ul>
-<li><p><strong>to</strong>: Save to a folder within your working directory (i.e. “R Scripts”)</p></li>
+<li><p><strong>Subject</strong>: Subject ID column</p></li>
+<li><p><strong>Block</strong>: Block number (1-3)</p></li>
 <li>
-<p><strong>type</strong>: You can download R Scripts:</p>
-<ol style="list-style-type: decimal">
-<li><p>To create tidy raw data files from the messy E-Prime file. <code>type = "raw"</code></p></li>
-<li><p>To create a scored data file from the tidy raw data file. <code>type = "score"</code></p></li>
-</ol>
+<p><strong>Trial</strong>: Within a block, the trial number.</p>
+<p>Trial number refers to an entire set-size sequence (presentation of processing items, memory items, and recall screen)</p>
+</li>
+<li><p><strong>SetSize</strong>: For the trial, the set-size (number of memory items)</p></li>
+<li>
+<p><strong>SubTrial</strong>: Within a trial, there are processing items presented sequentially.</p>
+<p>Sub-Trial refers to this sequential presentation. It also represents the order of responses on the recall screen</p>
+</li>
+<li><p><strong>SubTrialProc</strong>: “Processing” or “Recall” portion of the task</p></li>
+<li><p><strong>RT</strong>: Reaction time</p></li>
+<li><p><strong>Accuracy</strong>: Accuracy (provided for both “Processing” and “Recall”)</p></li>
+<li><p><strong>Response</strong>: The subject’s response (provided for both “Processing” and “Recall”)</p></li>
+<li><p><strong>CorrectResponse</strong>: The correct response (provided for both “Processing” and “Recall”)</p></li>
+</ul>
+<p><strong>Task Scores</strong></p>
+<ul>
+<li><p><strong>Processing.total</strong>: The total number of processing items correctly answered</p></li>
+<li><p><strong>Recall.total</strong>: The total number of recall items correctly answered</p></li>
+<li>
+<p><strong>[Task].Absolute</strong>: The task score using the Absolute Scoring method</p>
+<p>i.e. SymSpan.Absolute or OSpan.Absolute.</p>
+</li>
+<li><p><strong>[Task].Partial</strong>: The task score using the Partial Scoring method</p></li>
+<li><p><strong>[Task].Partial_Block1</strong>: The score on block 1 using the Partial Scoring method</p></li>
+<li><p><strong>[Task].Partial_Block2</strong>: The score on block 2 using the Partial Scoring method</p></li>
+<li><p><strong>[Task].Partial_Block3</strong>: The score on block 3 using the Partial Scoring method</p></li>
+<li>
+<p><strong>[Task].[ProcessingTask]ACC</strong>: Proportion of processing task items correctly answered</p>
+<p>i.e. SymSpan.SymmetryACC or OSpan.MathACC.</p>
+</li>
+<li>
+<p><strong>[Task].Avg[ProcessingTask]Time</strong>: The average time to complete a processing task item</p>
+<p>i.e. SymSpan.AvgSymmetryTime or OSpan.AvgMathTime.</p>
 </li>
 </ul>
-<p>Next, you will want to specify for which tasks you want to download R Scripts for. The options are:</p>
-<ul>
-<li><p><strong>wmc</strong>: Download the scripts for operation span, symmetry span, and rotation span. <code>wmc = TRUE</code></p></li>
-<li><p><strong>ospan</strong>: Download the script for operatoin span. <code>ospan = TRUE</code></p></li>
-<li><p><strong>symspan</strong>: Download the script for symmetry span. <code>symspan = TRUE</code></p></li>
-<li><p><strong>rotspan</strong>: Download the script for rotation span. <code>rotspan = TRUE</code></p></li>
-<li><p><strong>gf</strong>: Download the scripts for ravens, number series, and lettersets <code>gf = TRUE</code></p></li>
-<li><p><strong>rapm</strong>: Download the script for ravens advanaced progressive matrices <code>rapm = TRUE</code></p></li>
-<li><p><strong>numberseries</strong>: Download the script for number series <code>numberseries = TRUE</code></p></li>
-<li><p><strong>lettersets</strong>: Download the script for letter sets <code>lettersets = TRUE</code></p></li>
-<li><p><strong>ac</strong>: Download the scripts for all attention control tasks <code>ac = TRUE</code></p></li>
-<li><p><strong>antisaccade</strong>: Download the script for the antisaccade. <code>antisaccade = TRUE</code></p></li>
-<li><p><strong>va4</strong>: Download the script for the visual arrays. <code>va4 = TRUE</code></p></li>
-<li><p><strong>sact</strong>: Download the script for the sustained attention to cue task. <code>sact = TRUE</code></p></li>
-<li><p><strong>flankerDL</strong>: Download the script for the adaptive flanker deadline. <code>flankerDL = TRUE</code></p></li>
-<li><p><strong>stroopDL</strong>: Download the script for the adaptive stroop deadline. <code>stroopDL = TRUE</code></p></li>
-<li><p><strong>flanker</strong>: Download the script for the traditional RT flanker. <code>flanker = TRUE</code></p></li>
-<li><p><strong>stroop</strong>: Download the script for the traditional RT stroop <code>stroop = TRUE</code></p></li>
-</ul>
 </div>
-  </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
+      </div>
 
 </div>
 
