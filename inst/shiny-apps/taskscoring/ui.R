@@ -52,8 +52,8 @@ fluidPage(
 
       br(),
       p("Warning: This WebApp is still under development and may not work for
-        all of the complex-span tasks. As of 3/4/2020 this WebApp only works for
-        the Advanced Versions of the complex-span tasks."),
+        all of the complex-span tasks. As of 3/29/2020 this WebApp has only been tested for
+        the Advanced Versions and Foster Shortened versions of the complex-span tasks."),
       br(),
       p("This app allows you to easily create two types of data files.
       If, like me, you are scared of the large and overwhelming
