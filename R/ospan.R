@@ -29,7 +29,8 @@ raw_ospan <- function(x, blocks = "", taskVersion = "new"){
                        RT = dplyr::case_when(SubTrialProc=="ProcessingTask" ~ as.double(OPERATION.RT),
                                              SubTrialProc=="Recall" ~ as.double(CollectClick.RT),
                                              TRUE ~ as.double(NA)),
-                       erase = ifelse(SubTrialProc=="Recall" & WordSelection=="clear", 1, NA),
+                       erase = ifelse((SubTrialProc=="Recall" & WordSelection=="clear") |
+                                        (SubTrialProc=="Recall" & WordSelection=="Clear"), 1, NA),
                        erase = zoo::na.locf(erase, fromLast = TRUE, na.rm = FALSE),
                        erase = ifelse(SubTrialProc=="ProcessingTask", NA, erase),
                        remove = dplyr::case_when(SubTrialProc=="Recall" & is.na(WordSelection) ~ 1,
@@ -132,7 +133,8 @@ raw_ospan <- function(x, blocks = "", taskVersion = "new"){
                                              SubTrialProc=="Recall" & Block==1 ~ as.double(CollectClick.RT),
                                              SubTrialProc=="Recall" & Block==2 ~ as.double(CollectClick2.RT),
                                              TRUE ~ as.double(NA)),
-                       erase = ifelse(SubTrialProc=="Recall" & WordSelection=="clear", 1, NA),
+                       erase = ifelse((SubTrialProc=="Recall" & WordSelection=="clear") |
+                                        (SubTrialProc=="Recall" & WordSelection=="Clear"), 1, NA),
                        erase = zoo::na.locf(erase, fromLast = TRUE, na.rm = FALSE),
                        erase = ifelse(SubTrialProc=="ProcessingTask", NA, erase),
                        remove = dplyr::case_when(SubTrialProc=="Recall" & is.na(WordSelection) ~ as.double(1),
@@ -248,7 +250,8 @@ raw_ospan <- function(x, blocks = "", taskVersion = "new"){
                                              SubTrialProc=="Recall" & Block==2 ~ as.double(CollectClick2.RT),
                                              SubTrialProc=="Recall" & Block==3 ~ as.double(CollectClick3.RT),
                                              TRUE ~ as.double(NA)),
-                       erase = ifelse(SubTrialProc=="Recall" & WordSelection=="clear", 1, NA),
+                       erase = ifelse((SubTrialProc=="Recall" & WordSelection=="clear") |
+                                        (SubTrialProc=="Recall" & WordSelection=="Clear"), 1, NA),
                        erase = zoo::na.locf(erase, fromLast = TRUE, na.rm = FALSE),
                        erase = ifelse(SubTrialProc=="ProcessingTask", NA, erase),
                        remove = dplyr::case_when(SubTrialProc=="Recall" & is.na(WordSelection) ~ 1,
