@@ -37,7 +37,7 @@ raw_sact <- function(x, taskVersion = "new"){
     } else if (taskVersion == "old") {
       x <- dplyr::select(x, Subject, TrialProc, Trial, `WaitTime[Trial]`,
                          RT = ResponseRT, Accuracy = Response.ACC,
-                         Response = ResponseMade, SACT.ACC = SACTscore,
+                         Response = ResponseMade, SACT.ACC = SACTAcc,
                          SessionDate, SessionTime)
     }
 
