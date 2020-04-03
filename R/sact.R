@@ -1,17 +1,22 @@
 #' Creates a "tidy" raw dataframe for the SACT task
 #'
 #' @param x dataframe (an imported .emrge file)
+#' @param taskVersion is this a "new" or "old" taskVersion of the task?
 #' @export
 #'
 
-raw_sact <- function(x){
+raw_sact <- function(x, taskVersion = "new"){
   x <- dplyr::rename(x, TrialProc = `Procedure[Trial]`)
   x <- dplyr::filter(x, TrialProc == "TrialProc" |
                        TrialProc == "PracticeTrialProc")
   x <- dplyr::mutate(x,
-                     TrialProc = dplyr::case_when(TrialProc == "TrialProc" ~ "real",
-                                                  TrialProc == "PracticeTrialProc" ~ "pratice"),
-                     AdminTime = AdminTime/1000/60)
+                     TrialProc =
+                       dplyr::case_when(TrialProc == "TrialProc" ~ "real",
+                                        TrialProc == "PracticeTrialProc" ~ "pratice"))
+
+  if (taskVersion == "new") {
+    x <- dplyr::mutate(x, AdminTime = AdminTime/1000/60)
+  }
 
   if ("InstructionsTime" %in% colnames(x)) {
     x <- dplyr::mutate(x,
@@ -24,10 +29,18 @@ raw_sact <- function(x){
                        InstructionsTime, PracticeTime, TaskTime, AdminTime,
                        SessionDate, SessionTime)
   } else {
-    x <- dplyr::select(x, Subject, TrialProc, Trial, WaitTime,
-                       RT = ResponseRT, Accuracy = Response.ACC,
-                       Response = ResponseMade, SACT.ACC = SACTscore, AdminTime,
-                       SessionDate, SessionTime)
+    if (taskVersion == "new") {
+      x <- dplyr::select(x, Subject, TrialProc, Trial, WaitTime,
+                         RT = ResponseRT, Accuracy = Response.ACC,
+                         Response = ResponseMade, SACT.ACC = SACTscore, AdminTime,
+                         SessionDate, SessionTime)
+    } else if (taskVersion == "old") {
+      x <- dplyr::select(x, Subject, TrialProc, Trial, WaitTime,
+                         RT = ResponseRT, Accuracy = Response.ACC,
+                         Response = ResponseMade, SACT.ACC = SACTscore,
+                         SessionDate, SessionTime)
+    }
+
   }
   return(x)
 }

@@ -1,10 +1,11 @@
 #' Creates a "tidy" raw dataframe for the Visual Arrays task
 #'
 #' @param x dataframe (an imported .emrge file)
+#' @param taskVersion is this a "new" or "old" taskVersion of the task?
 #' @export
 #'
 
-raw_visualarrays <- function(x){
+raw_visualarrays <- function(x, taskVersion = "new"){
   x <- dplyr::rename(x, TrialProc = `Procedure[Trial]`)
   x <- dplyr::filter(x, TrialProc == "showproc" |
                        TrialProc == "pracproc")
@@ -31,8 +32,11 @@ raw_visualarrays <- function(x){
                      Hit =
                        dplyr::case_when(CorrectResponse == "different" & Response == "different" ~
                                           1,
-                                        TRUE ~ 0),
-                     AdminTime = AdminTime/1000/60)
+                                        TRUE ~ 0))
+
+  if (taskVersion == "new") {
+    x <- dplyr::mutate(x, AdminTime = AdminTime/1000/60)
+  }
 
   x_score <- dplyr::filter(x, TrialProc == "real")
   x_score <- dplyr::group_by(x_score, Subject, SetSize)
@@ -71,11 +75,20 @@ raw_visualarrays <- function(x){
                        InstructionsTime, PracticeTime, TaskTime,
                        AdminTime, SessionDate, SessionTime)
   } else {
-    x <- dplyr::select(x, Subject, TrialProc, Trial, SetSize,
-                       Accuracy, Response, CorrectResponse,
-                       CorrectRejection, FalseAlarm, Miss, Hit,
-                       A_k.5, VA_k.7, VA_k,
-                       AdminTime, SessionDate, SessionTime)
+    if (taskVersion == "new") {
+      x <- dplyr::select(x, Subject, TrialProc, Trial, SetSize,
+                         Accuracy, Response, CorrectResponse,
+                         CorrectRejection, FalseAlarm, Miss, Hit,
+                         A_k.5, VA_k.7, VA_k,
+                         AdminTime, SessionDate, SessionTime)
+    } else if (taskVersion == "old") {
+      x <- dplyr::select(x, Subject, TrialProc, Trial, SetSize,
+                         Accuracy, Response, CorrectResponse,
+                         CorrectRejection, FalseAlarm, Miss, Hit,
+                         A_k.5, VA_k.7, VA_k,
+                         SessionDate, SessionTime)
+    }
+
   }
 
   return(x)

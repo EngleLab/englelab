@@ -4,10 +4,12 @@
 \alias{raw_sact}
 \title{Creates a "tidy" raw dataframe for the SACT task}
 \usage{
-raw_sact(x)
+raw_sact(x, taskVersion = "new")
 }
 \arguments{
 \item{x}{dataframe (an imported .emrge file)}
+
+\item{taskVersion}{is this a "new" or "old" taskVersion of the task?}
 }
 \description{
 Creates a "tidy" raw dataframe for the SACT task

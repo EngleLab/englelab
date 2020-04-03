@@ -4,10 +4,12 @@
 \alias{raw_visualarrays}
 \title{Creates a "tidy" raw dataframe for the Visual Arrays task}
 \usage{
-raw_visualarrays(x)
+raw_visualarrays(x, taskVersion = "new")
 }
 \arguments{
 \item{x}{dataframe (an imported .emrge file)}
+
+\item{taskVersion}{is this a "new" or "old" taskVersion of the task?}
 }
 \description{
 Creates a "tidy" raw dataframe for the Visual Arrays task
