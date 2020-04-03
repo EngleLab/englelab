@@ -13,10 +13,14 @@ raw_visualarrays <- function(x, taskVersion = "new"){
                      TrialProc = dplyr::case_when(TrialProc == "showproc" ~ "real",
                                                   TrialProc == "pracproc" ~ "practice"),
                      Accuracy = VisResponse.ACC,
-                     Response = dplyr::case_when(VisResponse.RESP == 5 ~ "same",
-                                                 VisResponse.RESP == 6 ~ "different"),
-                     CorrectResponse = dplyr::case_when(VisResponse.CRESP == 5 ~ "same",
-                                                        VisResponse.CRESP == 6 ~ "different"),
+                     Response = dplyr::case_when(VisResponse.RESP == 5 |
+                                                   VisResponse.RESP == "s" ~ "same",
+                                                 VisResponse.RESP == 6 |
+                                                   VisResponse.RESP == "d" ~ "different"),
+                     CorrectResponse = dplyr::case_when(VisResponse.CRESP == 5 |
+                                                          VisResponse.RESP == "s" ~ "same",
+                                                        VisResponse.CRESP == 6 |
+                                                          VisResponse.RESP == "d" ~ "different"),
                      CorrectRejection =
                        dplyr::case_when(CorrectResponse == "same" & Response == "same" ~
                                           1,
