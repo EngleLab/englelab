@@ -79,13 +79,13 @@ raw_visualarrays <- function(x, taskVersion = "new"){
       x <- dplyr::select(x, Subject, TrialProc, Trial, SetSize,
                          Accuracy, Response, CorrectResponse,
                          CorrectRejection, FalseAlarm, Miss, Hit,
-                         A_k.5, VA_k.7, VA_k,
+                         VA_k.5, VA_k.7, VA_k,
                          AdminTime, SessionDate, SessionTime)
     } else if (taskVersion == "old") {
       x <- dplyr::select(x, Subject, TrialProc, Trial, SetSize,
                          Accuracy, Response, CorrectResponse,
                          CorrectRejection, FalseAlarm, Miss, Hit,
-                         A_k.5, VA_k.7, VA_k,
+                         VA_k.5, VA_k.7, VA_k,
                          SessionDate, SessionTime)
     }
 
