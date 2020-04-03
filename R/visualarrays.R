@@ -18,9 +18,9 @@ raw_visualarrays <- function(x, taskVersion = "new"){
                                                  VisResponse.RESP == 6 |
                                                    VisResponse.RESP == "d" ~ "different"),
                      CorrectResponse = dplyr::case_when(VisResponse.CRESP == 5 |
-                                                          VisResponse.RESP == "s" ~ "same",
+                                                          VisResponse.CRESP == "s" ~ "same",
                                                         VisResponse.CRESP == 6 |
-                                                          VisResponse.RESP == "d" ~ "different"),
+                                                          VisResponse.CRESP == "d" ~ "different"),
                      CorrectRejection =
                        dplyr::case_when(CorrectResponse == "same" & Response == "same" ~
                                           1,
