@@ -1,10 +1,11 @@
 #' Creates a "tidy" raw dataframe for the Antisaccade task
 #'
 #' @param x dataframe (an imported .emrge file)
+#' @param version is this a "new" or "old" version of the task?
 #' @export
 #'
 
-raw_antisaccade <- function(x){
+raw_antisaccade <- function(x, version = "new"){
   x <- dplyr::rename(x, TrialProc = `Procedure[Trial]`)
   proc_names <- unique(x$TrialProc)
   if ("pracproc" %in% proc_names) {
@@ -36,8 +37,11 @@ raw_antisaccade <- function(x){
 
   x <- dplyr::mutate(x,
                      Target = dplyr::case_when(!is.na(right_targ) ~ right_targ,
-                                               !is.na(left_targ) ~ left_targ),
-                     AdminTime = AdminTime/1000/60)
+                                               !is.na(left_targ) ~ left_targ))
+
+  if (version == "new") {
+    x <- dplyr::mutate(AdminTime = AdminTime/1000/60)
+  }
 
   x_score <- dplyr::filter(x, TrialProc == "real")
   x_score <- dplyr::group_by(x_score, Subject)
@@ -56,9 +60,16 @@ raw_antisaccade <- function(x){
                        InstructionsTime, PracticeTime, TaskTime, AdminTime,
                        SessionDate, SessionTime)
   } else {
-    x <- dplyr::select(x, Subject, TrialProc, Trial, Accuracy = Mask.ACC,
-                       RT = Mask.RT, Target, FixationDuration = t4, Antisaccade.ACC,
-                       AdminTime, SessionDate, SessionTime)
+    if (version == "new") {
+      x <- dplyr::select(x, Subject, TrialProc, Trial, Accuracy = Mask.ACC,
+                         RT = Mask.RT, Target, FixationDuration = t4, Antisaccade.ACC,
+                         AdminTime, SessionDate, SessionTime)
+    } else if (version == "old") {
+      x <- dplyr::select(x, Subject, TrialProc, Trial, Accuracy = Mask.ACC,
+                         RT = Mask.RT, Target, FixationDuration = t4, Antisaccade.ACC,
+                         SessionDate, SessionTime)
+    }
+
   }
   return(x)
 }
