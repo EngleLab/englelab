@@ -10,7 +10,9 @@ raw_antisaccade <- function(x, version = "new"){
   proc_names <- unique(x$TrialProc)
   if ("pracproc" %in% proc_names) {
     x <- dplyr::group_by(x, Subject)
-    x <- dplyr::mutate(x, zoo::na.locf(AdminTime, fromLast = TRUE))
+    if (version == "new") {
+      x <- dplyr::mutate(x, zoo::na.locf(AdminTime, fromLast = TRUE))
+    }
     x <- dplyr::ungroup(x)
     x <- dplyr::filter(x,
                        TrialProc == "TrialProc" | TrialProc == "pracproc")
