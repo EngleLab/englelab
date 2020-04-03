@@ -44,7 +44,7 @@ get_script(type = "raw", to = "R Scripts", overwrite = FALSE,
 
 \item{flankerDL}{Logical. Download script for the FlankerDL task?}
 
-\item{va}{Logical. Download script for the Visual Arrays 4 task?}
+\item{va}{Logical. Download script for the Visual Arrays task?}
 
 \item{sact}{Logical. Download script for the SACT task?}
 
