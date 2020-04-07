@@ -11,7 +11,7 @@ output_dir <- "Data Files/Scored Data"
 removed_dir <- "Data Files/Scored Data/removed"
 
 ## Set import/output files
-task <- "VisualArrays_4"
+task <- "VAorient_S"
 import_file <- paste(task, "_raw.csv", sep = "")
 output_file <- paste(task, "_Scores.csv", sep = "")
 removed_file <- paste(task, "_removed.csv", sep = "")
