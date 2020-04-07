@@ -10,6 +10,9 @@
 raw_ospan <- function(x, blocks = "", taskVersion = "new"){
   if (taskVersion=="new"){
     x <- dplyr::filter(x, `Procedure[Block]`=="TaskProc")
+    if (!("AvgMathTime" %in% colnames(x))) {
+      x <- dplyr::mutate(x, AvgMathTime = NA)
+    }
   } else if (taskVersion=="old"){
     x <- dplyr::filter(x, `Procedure[Block]`=="SessionProc")
     x <- dplyr::mutate(x, MathACC = NA, AvgMathTime = NA)
