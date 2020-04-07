@@ -38,7 +38,7 @@ raw_sact <- function(x, taskVersion = "new"){
       if ("WaitTime" %in% colnames(x)) {
         x <- dplyr::select(x, Subject, TrialProc, Trial, WaitTime,
                            RT = ResponseRT, Accuracy = Response.ACC,
-                           Response = ResponseMade, SACT.ACC = SACTAcc,
+                           Response = ResponseMade, SACT.ACC,
                            SessionDate, SessionTime)
       } else {
         x <- dplyr::select(x, Subject, TrialProc, Trial, `WaitTime[Trial]`,
