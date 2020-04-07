@@ -12,6 +12,9 @@ raw_rotspan <- function(x, blocks = "", taskVersion = "new"){
     x <- dplyr::mutate(x, RotationACC = NA, AvgRotationTime = NA)
   }
   x <- dplyr::filter(x, `Procedure[Block]`=="realBoth")
+  if (!("AvgRotationTime" %in% colnames(x))) {
+    x <- dplyr::mutate(x, AvgRotationTime = NA)
+  }
 
   if (blocks==1){
     x <- dplyr::mutate(x,
