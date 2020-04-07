@@ -9,7 +9,7 @@ import_dir <- "Data Files/Merged"
 output_dir <- "Data Files"
 
 ## Set import/output files
-task <- "VisualArrays_4"
+task <- "VAorient_S"
 import.file <- paste(task, ".txt", sep = "")
 output.file <- paste(task, "_raw.csv", sep = "")
 ##############
