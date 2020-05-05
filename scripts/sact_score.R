@@ -20,8 +20,11 @@ data_import <- read_csv(here(import_dir, import_file)) %>%
 
 ## Scores
 data_scores <- data_import %>%
-  select(Subject, contains(task), contains("Time"), contains("Date")) %>%
-  distinct()
+  group_by(Subject) %>% 
+  summarise(SACT_ACC.mean = mean(Accuracy, na.rm = TRUE),
+            AdminTime = first(AdminTime),
+            SessionDate = first(SessionDate),
+            SessionTime = first(SessionTime))
 
 ## Save Data
 write_csv(data_scores, path = here(output_dir, output_file))
