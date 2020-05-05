@@ -7,26 +7,26 @@ library(tidyr)
 library(datawrangling)
 
 ## Set Import/Output Directories
-import.dir <- "Data Files/Raw Data"
-output.dir <- "Data Files/Scored Data"
-removed.dir <- "Data Files/Scored Data/removed"
+import_dir <- "Data Files/Raw Data"
+output_dir <- "Data Files/Scored Data"
+removed_dir <- "Data Files/Scored Data/removed"
 
 ## Set Import/Output Filenames
 task <- "taskname"
-import.file <- paste(task, "raw.csv", sep = "_")
-output.file <- paste(task, "Scores.csv", sep = "_")
-removed.file <- paste(task, "_removed.csv", sep = "")
+import_file <- paste(task, "raw.csv", sep = "_")
+output_file <- paste(task, "Scores.csv", sep = "_")
+removed_file <- paste(task, "_removed.csv", sep = "")
 
 ## Set Data Cleaning Params
 acc_criteria <- -3.5
 ###############
 
 #### Import ####
-import <- read_csv(here(import.dir, import.file))
+data_import <- read_csv(here(import_dir, import_file))
 ################
 
 #### Data Cleaning and Scoring ####
-data_scores <- import %>%
+data_scores <- data_import %>%
   filter(TrialProc == "real") %>%
   group_by(Subject, SetSize) %>%
   summarise(CR.n = sum(CorrectRejection, na.rm = TRUE),
@@ -52,12 +52,12 @@ data_remove <- data_import %>%
   filter(ACC.mean < acc_criteria)
 
 data_scores <- remove_save(data_scores, data_remove,
-                           output.dir = here(removed.dir),
-                           output.file = removed.file)
+                           output_dir = here(removed_dir),
+                           output_file = removed_file)
 ###################################
 
 #### Output ####
-write_csv(data, here(output.dir, output.file))
+write_csv(data_scores, here(output_dir, output_file))
 ################
 
 rm(list=ls())
