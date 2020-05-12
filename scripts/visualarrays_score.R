@@ -52,8 +52,8 @@ data_remove <- data_import %>%
   filter(ACC.mean < acc_criteria)
 
 data_scores <- remove_save(data_scores, data_remove,
-                           output_dir = here(removed_dir),
-                           output_file = removed_file)
+                           output.dir = here(removed_dir),
+                           output.file = removed_file)
 ###################################
 
 #### Output ####
