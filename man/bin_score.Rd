@@ -4,9 +4,15 @@
 \alias{bin_score}
 \title{A Binning Function}
 \usage{
-bin_score(x, rt.col = "RT", accuracy.col = "Accuracy",
-  condition.col = "Condition", baseline.condition = "congruent",
-  type = "mean", id = "Subject")
+bin_score(
+  x,
+  rt.col = "RT",
+  accuracy.col = "Accuracy",
+  condition.col = "Condition",
+  baseline.condition = "congruent",
+  type = "mean",
+  id = "Subject"
+)
 }
 \arguments{
 \item{x}{a dataframe with trial level data. Needs to have RT and Accuracy DVs}

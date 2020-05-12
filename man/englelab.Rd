@@ -3,8 +3,4 @@
 \docType{package}
 \name{englelab}
 \alias{englelab}
-\alias{englelab-package}
 \title{englelab}
-\description{
-englelab
-}

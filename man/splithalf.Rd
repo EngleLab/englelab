@@ -4,8 +4,7 @@
 \alias{splithalf}
 \title{Calculate split-half reliability}
 \usage{
-splithalf(x, trial.col = "Trial", value = "", aggregate = NULL,
-  id = "Subject")
+splithalf(x, trial.col = "Trial", value = "", aggregate = NULL, id = "Subject")
 }
 \arguments{
 \item{x}{a dataframe with trial level data}
