@@ -12,7 +12,7 @@ output_dir <- "Data Files/Scored Data"
 removed_dir <- "Data Files/Scored Data/removed"
 
 ## Set Import/Output Filenames
-task <- "taskname"
+task <- "VAorient_S"
 import_file <- paste(task, "raw.csv", sep = "_")
 output_file <- paste(task, "Scores.csv", sep = "_")
 removed_file <- paste(task, "_removed.csv", sep = "")
