@@ -656,10 +656,6 @@ raw_rotspan <- function(x, blocks = "", taskVersion = "new"){
                          RotSpan.Partial_Block1 = RotspanPartialScoreBlock1,
                          RotSpan.Partial_Block2 = RotspanPartialScoreBlock2,
                          RotSpan.Partial_Block3 = RotspanPartialScoreBlock3,
-                         RotSpan.PartialUnit = RotspanPartialUnitScore,
-                         RotSpan.PartialUnit_Block1 = RotspanPartialUnitScoreBlock1,
-                         RotSpan.PartialUnit_Block2 = RotspanPartialUnitScoreBlock2,
-                         RotSpan.PartialUnit_Block3 = RotspanPartialUnitScoreBlock3,
                          RotSpan.RotationACC = RotationACC,
                          RotSpan.AvgRotationTime = AvgRotationTime,
                          SessionDate, SessionTime)
