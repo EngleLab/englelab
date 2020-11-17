@@ -49,7 +49,7 @@ raw_rotspan <- function(x, blocks = "", taskVersion = "new"){
                           .funs = zoo::na.locf, na.rm = FALSE)
     x <- dplyr::group_by(x, Subject, Block, Trial)
     supressMessages({
-      x <- dplyr::mutate_at(x, dplyr::vars(-group_cols()),
+      x <- dplyr::mutate_at(x, dplyr::vars(-dplyr::group_cols()),
                             .funs = zoo::na.locf, na.rm = FALSE)
     })
     x <- dplyr::mutate(x,
@@ -309,7 +309,7 @@ raw_rotspan <- function(x, blocks = "", taskVersion = "new"){
                           .funs = zoo::na.locf, na.rm = FALSE)
     x <- dplyr::group_by(x, Subject, Block, Trial)
     suppressMessages({
-      x <- dplyr::mutate_at(x, dplyr::vars(-group_cols()),
+      x <- dplyr::mutate_at(x, dplyr::vars(-dplyr::group_cols()),
                             .funs = zoo::na.locf, na.rm = FALSE)
     })
     x <- dplyr::mutate(x,
@@ -582,7 +582,7 @@ raw_rotspan <- function(x, blocks = "", taskVersion = "new"){
                           .funs = zoo::na.locf, na.rm = FALSE)
     x <- dplyr::group_by(x, Subject, Block, Trial)
     suppressMessages({
-      x <- dplyr::mutate_at(x, dplyr::vars(-group_cols()),
+      x <- dplyr::mutate_at(x, dplyr::vars(-dplyr::group_cols()),
                             .funs = zoo::na.locf, na.rm = FALSE)
     })
     x <- dplyr::mutate(x,
