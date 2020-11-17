@@ -49,7 +49,8 @@ raw_rotspan <- function(x, blocks = "", taskVersion = "new"){
                           .funs = zoo::na.locf, na.rm = FALSE)
     x <- dplyr::group_by(x, Subject, Block, Trial)
     supressMessages({
-      x <- dplyr::mutate_all(x, .funs = zoo::na.locf, na.rm = FALSE)
+      x <- dplyr::mutate_at(x, vars(-group_cols()),
+                            .funs = zoo::na.locf, na.rm = FALSE)
     })
     x <- dplyr::mutate(x,
                        RT = ifelse(SubTrialProc=="Recall", NA, RT),
@@ -308,7 +309,8 @@ raw_rotspan <- function(x, blocks = "", taskVersion = "new"){
                           .funs = zoo::na.locf, na.rm = FALSE)
     x <- dplyr::group_by(x, Subject, Block, Trial)
     suppressMessages({
-      x <- dplyr::mutate_all(x, .funs = zoo::na.locf, na.rm = FALSE)
+      x <- dplyr::mutate_at(x, vars(-group_cols()),
+                            .funs = zoo::na.locf, na.rm = FALSE)
     })
     x <- dplyr::mutate(x,
                        RT = ifelse(SubTrialProc=="Recall", NA, RT),
@@ -580,7 +582,8 @@ raw_rotspan <- function(x, blocks = "", taskVersion = "new"){
                           .funs = zoo::na.locf, na.rm = FALSE)
     x <- dplyr::group_by(x, Subject, Block, Trial)
     suppressMessages({
-      x <- dplyr::mutate_all(x, .funs = zoo::na.locf, na.rm = FALSE)
+      x <- dplyr::mutate_at(x, vars(-group_cols()),
+                            .funs = zoo::na.locf, na.rm = FALSE)
     })
     x <- dplyr::mutate(x,
                        RT = ifelse(SubTrialProc=="Recall", NA, RT),
