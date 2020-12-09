@@ -2,14 +2,16 @@
 % Please edit documentation in R/symspan.R
 \name{score_symspan}
 \alias{score_symspan}
-\title{Calculate SymSpan scores from a messy raw dataframe}
+\title{Calculate Symmetry Span scores from a messy raw dataframe}
 \usage{
-score_symspan(x, blocks = "")
+score_symspan(x, blocks = "", keep_col = c())
 }
 \arguments{
 \item{x}{dataframe (an imported .emrge file)}
 
 \item{blocks}{number of blocks administered. From 1-3}
+
+\item{keep_col}{List of column names to keep in scored dataframe}
 }
 \description{
 This function skips the 'raw_symspan()' step and therefore

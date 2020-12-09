@@ -824,20 +824,21 @@ raw_rotspan <- function(x, blocks = "", taskVersion = "new", keep_col = c()){
 
 
 
-#' Calculate RotSpan scores from a messy raw dataframe
+#' Calculate Rotation Span scores from a messy raw dataframe
 #'
 #' This function skips the 'raw_rotspan()' step and therefore
 #'     is not advised. However, some researchers may find
 #'     it easier to just skip right to 'score_rotspan()'
 #' @param x dataframe (an imported .emrge file)
 #' @param blocks number of blocks administered. From 1-3
+#' @param keep_col List of column names to keep in scored dataframe
 #' @export
 #'
 
-score_rotspan <- function(x, blocks = ""){
+score_rotspan <- function(x, blocks = "", keep_col = c()){
   if (blocks==1){
     x <- dplyr::filter(x, `Procedure[Block]`=="realBoth")
-    x <- dplyr::select(x, Subject,
+    x <- dplyr::select(x, Subject, keep_col,
                        RotSpan.Absolute = RotspanAbsoluteScore,
                        RotSpan.Partial = RotspanPartialScore,
                        RotSpan.Partial_Block1 = RotspanPartialScoreBlock1,
@@ -846,7 +847,7 @@ score_rotspan <- function(x, blocks = ""){
     x <- dplyr::distinct(x)
   } else if (blocks==2){
     x <- dplyr::filter(x, `Procedure[Block]`=="realBoth")
-    x <- dplyr::select(x, Subject,
+    x <- dplyr::select(x, Subject, keep_col,
                        RotSpan.Absolute = RotspanAbsoluteScore,
                        RotSpan.Partial = RotspanPartialScore,
                        RotSpan.Partial_Block1 = RotspanPartialScoreBlock1,
@@ -856,7 +857,7 @@ score_rotspan <- function(x, blocks = ""){
     x <- dplyr::distinct(x)
   } else if (blocks==3){
     x <- dplyr::filter(x, `Procedure[Block]`=="realBoth")
-    x <- dplyr::select(x, Subject,
+    x <- dplyr::select(x, Subject, keep_col,
                        RotSpan.Absolute = RotspanAbsoluteScore,
                        RotSpan.Partial = RotspanPartialScore,
                        RotSpan.Partial_Block1 = RotspanPartialScoreBlock1,

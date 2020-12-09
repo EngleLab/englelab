@@ -338,20 +338,21 @@ raw_symspan <- function(x, blocks = "", taskVersion = "new", keep_col = c()){
 }
 
 
-#' Calculate SymSpan scores from a messy raw dataframe
+#' Calculate Symmetry Span scores from a messy raw dataframe
 #'
 #' This function skips the 'raw_symspan()' step and therefore
 #'     is not advised. However, some researchers may find
 #'     it easier to just skip right to 'score_symspan()'
 #' @param x dataframe (an imported .emrge file)
 #' @param blocks number of blocks administered. From 1-3
+#' @param keep_col List of column names to keep in scored dataframe
 #' @export
 #'
 
-score_symspan <- function(x, blocks = ""){
+score_symspan <- function(x, blocks = "", keep_col = c()){
   if (blocks==1){
     x <- dplyr::filter(x, `Procedure[Block]`=="TaskProc")
-    x <- dplyr::select(x, Subject,
+    x <- dplyr::select(x, Subject, keep_col,
                        SymSpan.Absolute = SspanAbsoluteScore,
                        SymSpan.Partial = SspanPartialScore,
                        SymSpan.Partial_Block1 = SspanPartialScoreBlock1,
@@ -360,7 +361,7 @@ score_symspan <- function(x, blocks = ""){
     x <- dplyr::distinct(x)
   } else if (blocks==2){
     x <- dplyr::filter(x, `Procedure[Block]`=="TaskProc")
-    x <- dplyr::select(x, Subject,
+    x <- dplyr::select(x, Subject, keep_col,
                        SymSpan.Absolute = SspanAbsoluteScore,
                        SymSpan.Partial = SspanPartialScore,
                        SymSpan.Partial_Block1 = SspanPartialScoreBlock1,
@@ -370,7 +371,7 @@ score_symspan <- function(x, blocks = ""){
     x <- dplyr::distinct(x)
   } else if (blocks==3){
     x <- dplyr::filter(x, `Procedure[Block]`=="TaskProc")
-    x <- dplyr::select(x, Subject,
+    x <- dplyr::select(x, Subject, keep_col,
                        SymSpan.Absolute = SspanAbsoluteScore,
                        SymSpan.Partial = SspanPartialScore,
                        SymSpan.Partial_Block1 = SspanPartialScoreBlock1,

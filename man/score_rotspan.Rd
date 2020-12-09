@@ -2,14 +2,16 @@
 % Please edit documentation in R/rotspan.R
 \name{score_rotspan}
 \alias{score_rotspan}
-\title{Calculate RotSpan scores from a messy raw dataframe}
+\title{Calculate Rotation Span scores from a messy raw dataframe}
 \usage{
-score_rotspan(x, blocks = "")
+score_rotspan(x, blocks = "", keep_col = c())
 }
 \arguments{
 \item{x}{dataframe (an imported .emrge file)}
 
 \item{blocks}{number of blocks administered. From 1-3}
+
+\item{keep_col}{List of column names to keep in scored dataframe}
 }
 \description{
 This function skips the 'raw_rotspan()' step and therefore

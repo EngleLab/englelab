@@ -359,20 +359,21 @@ raw_ospan <- function(x, blocks = "", taskVersion = "new", keep_col = c()){
 }
 
 
-#' Calculate OSpan scores from a messy raw dataframe
+#' Calculate Operation Span scores from a messy raw dataframe
 #'
 #' This function skips the 'raw_ospan()' step and therefore
 #'     is not advised. However, some researchers may find
 #'     it easier to just skip right to 'score_ospan()'
 #' @param x dataframe (an imported .emrge file)
 #' @param blocks number of blocks administered. From 1-3
+#' @param keep_col List of column names to keep in scored dataframe
 #' @export
 #'
 
-score_ospan <- function(x, blocks = ""){
+score_ospan <- function(x, blocks = "", keep_col = c()){
   if (blocks==1){
     x <- dplyr::filter(x, `Procedure[Block]`=="TaskProc")
-    x <- dplyr::select(x, Subject,
+    x <- dplyr::select(x, Subject, keep_col,
                        OSpan.Absolute = OspanAbsoluteScore,
                        OSpan.Partial = OspanPartialScore,
                        OSpan.Partial_Block1 = OspanPartialScoreBlock1,
@@ -381,7 +382,7 @@ score_ospan <- function(x, blocks = ""){
     x <- dplyr::distinct(x)
   } else if (blocks==2){
     x <- dplyr::filter(x, `Procedure[Block]`=="TaskProc")
-    x <- dplyr::select(x, Subject,
+    x <- dplyr::select(x, Subject, keep_col,
                        OSpan.Absolute = OspanAbsoluteScore,
                        OSpan.Partial = OspanPartialScore,
                        OSpan.Partial_Block1 = OspanPartialScoreBlock1,
@@ -391,7 +392,7 @@ score_ospan <- function(x, blocks = ""){
     x <- dplyr::distinct(x)
   } else if (blocks==3){
     x <- dplyr::filter(x, `Procedure[Block]`=="TaskProc")
-    x <- dplyr::select(x, Subject,
+    x <- dplyr::select(x, Subject, keep_col,
                        OSpan.Absolute = OspanAbsoluteScore,
                        OSpan.Partial = OspanPartialScore,
                        OSpan.Partial_Block1 = OspanPartialScoreBlock1,

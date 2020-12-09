@@ -2,14 +2,16 @@
 % Please edit documentation in R/ospan.R
 \name{score_ospan}
 \alias{score_ospan}
-\title{Calculate OSpan scores from a messy raw dataframe}
+\title{Calculate Operation Span scores from a messy raw dataframe}
 \usage{
-score_ospan(x, blocks = "")
+score_ospan(x, blocks = "", keep_col = c())
 }
 \arguments{
 \item{x}{dataframe (an imported .emrge file)}
 
 \item{blocks}{number of blocks administered. From 1-3}
+
+\item{keep_col}{List of column names to keep in scored dataframe}
 }
 \description{
 This function skips the 'raw_ospan()' step and therefore
