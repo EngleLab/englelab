@@ -2,18 +2,20 @@
 % Please edit documentation in R/ospan.R
 \name{raw_ospan}
 \alias{raw_ospan}
-\title{Creates a "tidy" raw dataframe for the OSpan task}
+\title{Creates a "tidy" raw dataframe for the Operation Span task}
 \usage{
-raw_ospan(x, blocks = "", taskVersion = "new")
+raw_ospan(x, blocks = "", taskVersion = "new", keep_col = c())
 }
 \arguments{
-\item{x}{dataframe (an imported .emrge file)}
+\item{x}{dataframe}
 
 \item{blocks}{number of blocks administered. From 1-3}
 
 \item{taskVersion}{old or new version. Old version means the
 Procedure[Block] variable has a different label. (Default = "new")}
+
+\item{keep_col}{List of column names to keep in raw dataframe}
 }
 \description{
-Creates a "tidy" raw dataframe for the OSpan task
+Creates a "tidy" raw dataframe for the Operation Span task
 }

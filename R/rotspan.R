@@ -1,13 +1,14 @@
-#' Creates a "tidy" raw dataframe for the RotSpan task
+#' Creates a "tidy" raw dataframe for the Rotation Span task
 #'
-#' @param x dataframe (an imported .emrge file)
+#' @param x dataframe
 #' @param blocks number of blocks administered. From 1-3
 #' @param taskVersion old or new version. Old version means the
 #'     Procedure[Block] variable has a different label. (Default = "new")
+#' @param keep_col List of column names to keep in raw dataframe
 #' @export
 #'
 
-raw_rotspan <- function(x, blocks = "", taskVersion = "new"){
+raw_rotspan <- function(x, blocks = "", taskVersion = "new", keep_col = c()){
   if(taskVersion=="old"){
     x <- dplyr::mutate(x, RotationACC = NA, AvgRotationTime = NA)
   }
@@ -247,7 +248,7 @@ raw_rotspan <- function(x, blocks = "", taskVersion = "new"){
 
     x <- dplyr::ungroup(x)
     if ("RotspanPartialUnitScore" %in% colnames(x)){
-      x <- dplyr::select(x, Subject, Block, Trial, SetSize = setsz, SubTrial,
+      x <- dplyr::select(x, Subject, keep_col, Block, Trial, SetSize = setsz, SubTrial,
                          SubTrialProc, RT, Accuracy, Response,
                          CorrectResponse, MemoryItem, Processing.total,
                          Recall.total, RotSpan.Absolute = RotspanAbsoluteScore,
@@ -258,7 +259,7 @@ raw_rotspan <- function(x, blocks = "", taskVersion = "new"){
                          RotSpan.AvgRotationTime = AvgRotationTime,
                          SessionDate, SessionTime)
     } else {
-      x <- dplyr::select(x, Subject, Block, Trial, SetSize = setsz, SubTrial,
+      x <- dplyr::select(x, Subject, keep_col, Block, Trial, SetSize = setsz, SubTrial,
                          SubTrialProc, RT, Accuracy, Response,
                          CorrectResponse, MemoryItem, Processing.total,
                          Recall.total, RotSpan.Absolute = RotspanAbsoluteScore,
@@ -508,7 +509,7 @@ raw_rotspan <- function(x, blocks = "", taskVersion = "new"){
     })
     x <- dplyr::ungroup(x)
     if ("RotspanPartialUnitScore" %in% colnames(x)){
-      x <- dplyr::select(x, Subject, Block, Trial, SetSize = setsz, SubTrial,
+      x <- dplyr::select(x, Subject, keep_col, Block, Trial, SetSize = setsz, SubTrial,
                          SubTrialProc, RT, Accuracy, Response,
                          CorrectResponse, MemoryItem, Processing.total,
                          Recall.total, RotSpan.Absolute = RotspanAbsoluteScore,
@@ -523,7 +524,7 @@ raw_rotspan <- function(x, blocks = "", taskVersion = "new"){
                          RotSpan.AvgRotationTime = AvgRotationTime,
                          SessionDate, SessionTime)
     } else {
-      x <- dplyr::select(x, Subject, Block, Trial, SetSize = setsz, SubTrial,
+      x <- dplyr::select(x, Subject, keep_col, Block, Trial, SetSize = setsz, SubTrial,
                          SubTrialProc, RT, Accuracy, Response,
                          CorrectResponse, MemoryItem, Processing.total,
                          Recall.total, RotSpan.Absolute = RotspanAbsoluteScore,
@@ -785,7 +786,7 @@ raw_rotspan <- function(x, blocks = "", taskVersion = "new"){
     })
     x <- dplyr::ungroup(x)
     if ("RotspanPartialUnitScore" %in% colnames(x)){
-      x <- dplyr::select(x, Subject, Block, Trial, SetSize = setsz, SubTrial,
+      x <- dplyr::select(x, Subject, keep_col, Block, Trial, SetSize = setsz, SubTrial,
                          SubTrialProc, RT, Accuracy, Response,
                          CorrectResponse, MemoryItem, Processing.total,
                          Recall.total, RotSpan.Absolute = RotspanAbsoluteScore,
@@ -798,7 +799,7 @@ raw_rotspan <- function(x, blocks = "", taskVersion = "new"){
                          RotSpan.AvgRotationTime = AvgRotationTime,
                          SessionDate, SessionTime)
     } else {
-      x <- dplyr::select(x, Subject, Block, Trial, SetSize = setsz, SubTrial,
+      x <- dplyr::select(x, Subject, keep_col, Block, Trial, SetSize = setsz, SubTrial,
                          SubTrialProc, RT, Accuracy, Response,
                          CorrectResponse, MemoryItem, Processing.total,
                          Recall.total, RotSpan.Absolute = RotspanAbsoluteScore,

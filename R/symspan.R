@@ -1,13 +1,14 @@
-#' Creates a "tidy" raw dataframe for the SymSpan task
+#' Creates a "tidy" raw dataframe for the Symmetry Span task
 #'
-#' @param x dataframe (an imported .emrge file)
+#' @param x dataframe
 #' @param blocks number of blocks administered. From 1-3
 #' @param taskVersion old or new version. Old version means the
 #'     Procedure[Block] variable has a different label. (Default = "new")
+#' @param keep_col List of column names to keep in raw dataframe
 #' @export
 #'
 
-raw_symspan <- function(x, blocks = "", taskVersion = "new"){
+raw_symspan <- function(x, blocks = "", taskVersion = "new", keep_col = c()){
   if (taskVersion=="new"){
     x <- dplyr::filter(x, `Procedure[Block]`=="TaskProc")
     if (!("AvgSymmetryTime" %in% colnames(x))) {
@@ -88,7 +89,7 @@ raw_symspan <- function(x, blocks = "", taskVersion = "new"){
                        Recall.total = stats::ave(Recall.total, FUN = function(x) sum(x, na.rm = TRUE)))
     x <- dplyr::ungroup(x)
     if ("SspanPartialUnitScore" %in% colnames(x)){
-      x <- dplyr::select(x, Subject, Block, Trial, SetSize = setsz, SubTrial, SubTrialProc,
+      x <- dplyr::select(x, Subject, keep_col, Block, Trial, SetSize = setsz, SubTrial, SubTrialProc,
                          RT, Accuracy, Response,
                          CorrectResponse, MemoryItem, Processing.total, Recall.total,
                          SymSpan.Absolute = SspanAbsoluteScore,
@@ -99,7 +100,7 @@ raw_symspan <- function(x, blocks = "", taskVersion = "new"){
                          SymSpan.AvgSymmetryTime = AvgSymmetryTime,
                          SessionDate, SessionTime)
     } else {
-      x <- dplyr::select(x, Subject, Block, Trial, SetSize = setsz, SubTrial, SubTrialProc,
+      x <- dplyr::select(x, Subject, keep_col, Block, Trial, SetSize = setsz, SubTrial, SubTrialProc,
                          RT, Accuracy, Response,
                          CorrectResponse, MemoryItem, Processing.total, Recall.total,
                          SymSpan.Absolute = SspanAbsoluteScore,
@@ -186,7 +187,7 @@ raw_symspan <- function(x, blocks = "", taskVersion = "new"){
                        Recall.total = stats::ave(Recall.total, FUN = function(x) sum(x, na.rm = TRUE)))
     x <- dplyr::ungroup(x)
     if ("SspanPartialUnitScore" %in% colnames(x)){
-      x <- dplyr::select(x, Subject, Block, Trial, SetSize = setsz, SubTrial, SubTrialProc,
+      x <- dplyr::select(x, Subject, keep_col, Block, Trial, SetSize = setsz, SubTrial, SubTrialProc,
                          RT, Accuracy, Response,
                          CorrectResponse, MemoryItem, Processing.total, Recall.total,
                          SymSpan.Absolute = SspanAbsoluteScore,
@@ -201,7 +202,7 @@ raw_symspan <- function(x, blocks = "", taskVersion = "new"){
                          SymSpan.AvgSymmetryTime = AvgSymmetryTime,
                          SessionDate, SessionTime)
     } else {
-      x <- dplyr::select(x, Subject, Block, Trial, SetSize = setsz, SubTrial, SubTrialProc,
+      x <- dplyr::select(x, Subject, keep_col, Block, Trial, SetSize = setsz, SubTrial, SubTrialProc,
                          RT, Accuracy, Response,
                          CorrectResponse, MemoryItem, Processing.total, Recall.total,
                          SymSpan.Absolute = SspanAbsoluteScore,
