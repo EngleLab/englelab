@@ -350,6 +350,18 @@ raw_symspan <- function(x, blocks = "", taskVersion = "new", keep_col = c()){
 #'
 
 score_symspan <- function(x, blocks = "", keep_col = c()){
+  ## To not break from older versions of the package
+  # if ("Running[Trial]" %in% colnames(x)) {
+  #   x <- raw_symspan(x)
+  # }
+  #
+  # x <- dplyr::mutate(Recall.absolute =
+  #                      ifelse(Recall.total != SetSize, 0, Recall.total))
+  # x <- dplyr::select(Subject, Block, Trial, Recall.total, Recall.absolute)
+  # x <- dplyr::distinct()
+  # x <- dplyr::summarise(SymSpan.Absolute = sum(Recall.absolute, na.rm = TRUE),
+  #                       SymSpan.Partial = sum(Recall.total, na.rm = TRUE))
+
   if (blocks==1){
     x <- dplyr::filter(x, `Procedure[Block]`=="TaskProc")
     x <- dplyr::select(x, Subject, keep_col,
