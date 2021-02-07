@@ -17,7 +17,7 @@ raw_rotspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
   if (!("AvgRotationTime" %in% colnames(x))) {
     x <- dplyr::mutate(x, AvgRotationTime = NA)
   }
-
+  x <- rename(x, SetSize = setsz)
   x <-
     dplyr::mutate(x,
                   SubTrialProc =
@@ -119,11 +119,11 @@ raw_rotspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
                      RT = ifelse(SubTrialProc == "Recall", NA, RT),
                      ArrowId = ifelse(SubTrialProc == "Recall", NA, ArrowId),
                      SubTrial = dplyr::row_number())
-  x <- dplyr::filter(x, SubTrial <= (setsz*2))
+  x <- dplyr::filter(x, SubTrial <= (SetSize * 2))
   supressWarnings({
     x <-
       dplyr::mutate(x,
-                    serial.position = SubTrial - setsz,
+                    serial.position = SubTrial - SetSize,
                     ArrowSelection =
                       dplyr::case_when(serial.position == 1 & Box1 == 1 ~ 1,
                                        serial.position == 2 & Box1 == 2 ~ 1,
@@ -313,7 +313,7 @@ raw_rotspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
                       ifelse(Recall.correct == SetSize, Recall.correct, 0))
   })
   x <- dplyr::ungroup(x)
-  x <- dplyr::select(x, Subject, Block, Trial, SetSize = setsz, Recall.correct,
+  x <- dplyr::select(x, Subject, Block, Trial, SetSize, Recall.correct,
                      Processing.correct, SubTrial, SubTrialProc,
                      RT, Accuracy, Response, CorrectResponse, MemoryItem,
                      keep_col, SessionDate, SessionTime)

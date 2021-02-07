@@ -19,7 +19,7 @@ raw_ospan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
     x <- dplyr::filter(x, `Procedure[Block]` == "SessionProc")
     x <- dplyr::mutate(x, MathACC = NA, AvgMathTime = NA)
   }
-
+  x <- rename(x, SetSize = setsz)
   x <-
     dplyr::mutate(x,
                   SubTrialProc =
@@ -136,7 +136,7 @@ raw_ospan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
   x <- dplyr::group_by(x, Subject, Block, Trial)
   x <- dplyr::mutate(x,
                      SubTrial = dplyr::row_number(),
-                     serial.position = SubTrial - setsz,
+                     serial.position = SubTrial - SetSize,
                      position_1 = ifelse(SubTrial == 1, letterstimuli, NA),
                      position_1 = zoo::na.locf(position_1, na.rm = FALSE),
                      position_2 = ifelse(SubTrial == 2, letterstimuli, NA),
@@ -219,7 +219,7 @@ raw_ospan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
                      Absolute.load =
                        ifelse(Recall.correct == SetSize, Recall.correct, 0))
   x <- dplyr::ungroup(x)
-  x <- dplyr::select(x, Subject, Block, Trial, SetSize = setsz, Recall.correct,
+  x <- dplyr::select(x, Subject, Block, Trial, SetSize, Recall.correct,
                      Processing.correct, SubTrial, SubTrialProc,
                      RT, Accuracy, Response, CorrectResponse, MemoryItem,
                      keep_col, SessionDate, SessionTime)

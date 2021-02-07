@@ -19,7 +19,7 @@ raw_symspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
     x <- dplyr::filter(x, `Procedure[Block]` == "SessionProc")
     x <- dplyr::mutate(x, SymmetryACC = NA, AvgSymmetryTime = NA)
   }
-
+  x <- rename(x, SetSize = setsz)
   x <-
     dplyr::mutate(x,
                   SubTrialProc =
@@ -145,7 +145,7 @@ raw_symspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
   x <-
     dplyr::mutate(x,
                   SubTrial = dplyr::row_number(),
-                  serial.position = SubTrial - setsz,
+                  serial.position = SubTrial - SetSize,
                   position_1 = ifelse(SubTrial == 1, MatrixId, NA),
                   position_1 = max(position_1, na.rm = TRUE),
                   position_2 = ifelse(SubTrial == 2, MatrixId, NA),
@@ -221,7 +221,7 @@ raw_symspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
                   Absolute.load =
                     ifelse(Recall.correct == SetSize, Recall.correct, 0))
   x <- dplyr::ungroup(x)
-  x <- dplyr::select(x, Subject, Block, Trial, SetSize = setsz, Recall.correct,
+  x <- dplyr::select(x, Subject, Block, Trial, SetSize, Recall.correct,
                      Processing.correct, SubTrial, SubTrialProc,
                      RT, Accuracy, Response, CorrectResponse, MemoryItem,
                      keep_col, SessionDate, SessionTime)
