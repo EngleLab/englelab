@@ -177,7 +177,7 @@ raw_symspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
                                        as.integer(position_7),
                                      TRUE ~ as.integer(NA)),
                   CorrectResponse =
-                    dplyr::case_when(SubTrialProc == "ProcessingTask", ~
+                    dplyr::case_when(SubTrialProc == "ProcessingTask" ~
                                        as.character(`CorrectAnswer[SubTrial]`),
                                      SubTrialProc == "Recall" ~
                                        as.character(memory_item),
