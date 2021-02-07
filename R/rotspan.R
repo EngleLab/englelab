@@ -313,8 +313,9 @@ raw_rotspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
                       ifelse(Recall.correct == SetSize, Recall.correct, 0))
   })
   x <- dplyr::ungroup(x)
-  x <- dplyr::select(x, Subject, Block, Trial, SetSize, Recall.correct,
-                     Processing.correct, SubTrial, SubTrialProc,
+  x <- dplyr::select(x, Subject, Block, Trial, SetSize, Processing.correct,
+                     Recall.correct, Partial.unit, Absolute.unit,
+                     Partial.load, Absolute.load, SubTrial, SubTrialProc,
                      RT, Accuracy, Response, CorrectResponse, MemoryItem,
                      keep_col, SessionDate, SessionTime)
   x <- dplyr::distinct(x)
