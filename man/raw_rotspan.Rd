@@ -4,17 +4,18 @@
 \alias{raw_rotspan}
 \title{Creates a "tidy" raw dataframe for the Rotation Span task}
 \usage{
-raw_rotspan(x, blocks = "", taskVersion = "new", keep_col = c())
+raw_rotspan(x, blocks = NULL, taskVersion = "new", keep_col = c())
 }
 \arguments{
 \item{x}{dataframe}
 
-\item{blocks}{number of blocks administered. From 1-3}
+\item{blocks}{depricated. No need to indicate number of blocks}
 
-\item{taskVersion}{old or new version. Old version means the
-Procedure[Block] variable has a different label. (Default = "new")}
+\item{taskVersion}{old or new version. Required for different types of
+data files. First try leaving out the argument, if it does not work
+then try taskVersion = "old".}
 
-\item{keep_col}{List of column names to keep in raw dataframe}
+\item{keep_col}{List of extra columns to keep}
 }
 \description{
 Creates a "tidy" raw dataframe for the Rotation Span task

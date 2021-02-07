@@ -7,11 +7,12 @@
 score_ospan(x, blocks = "", keep_col = c())
 }
 \arguments{
-\item{x}{dataframe (an imported .emrge file)}
+\item{x}{dataframe}
 
-\item{blocks}{number of blocks administered. From 1-3}
+\item{blocks}{depricated. No need to indicate number of blocks.
+Use group_by(Subject, Block) instead}
 
-\item{keep_col}{List of column names to keep in scored dataframe}
+\item{keep_col}{List of extra columns to keep}
 }
 \description{
 This function skips the 'raw_ospan()' step and therefore
