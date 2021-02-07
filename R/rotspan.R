@@ -306,11 +306,11 @@ raw_rotspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
                     Recall.correct =
                       stats::ave(Recall.correct,
                                  FUN = function(x) sum(x, na.rm = TRUE)),
-                    Partial.unit = Recall.total / SetSize,
-                    Absolute.unit = ifelse(Recall.total == SetSize, 1, 0),
-                    Partial.load = Recall.total,
+                    Partial.unit = Recall.correct / SetSize,
+                    Absolute.unit = ifelse(Recall.correct == SetSize, 1, 0),
+                    Partial.load = Recall.correct,
                     Absolute.load =
-                      ifelse(Recall.total == SetSize, Recall.total, 0))
+                      ifelse(Recall.correct == SetSize, Recall.correct, 0))
   })
   x <- dplyr::ungroup(x)
   x <- dplyr::select(x, Subject, Block, Trial, SetSize = setsz, Recall.correct,
