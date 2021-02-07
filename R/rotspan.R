@@ -111,7 +111,7 @@ raw_rotspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
   x <- dplyr::mutate_at(x, .vars = c("Subject", "Block", "Trial"),
                         .funs = zoo::na.locf, na.rm = FALSE)
   x <- dplyr::group_by(x, Subject, Block, Trial)
-  supressMessages({
+  suppressMessages({
     x <- dplyr::mutate_at(x, dplyr::vars(-dplyr::group_cols()),
                           .funs = zoo::na.locf, na.rm = FALSE)
   })
@@ -120,7 +120,7 @@ raw_rotspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
                      ArrowId = ifelse(SubTrialProc == "Recall", NA, ArrowId),
                      SubTrial = dplyr::row_number())
   x <- dplyr::filter(x, SubTrial <= (SetSize * 2))
-  supressWarnings({
+  suppressWarnings({
     x <-
       dplyr::mutate(x,
                     serial.position = SubTrial - SetSize,
