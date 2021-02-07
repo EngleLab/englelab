@@ -246,7 +246,7 @@ score_ospan <- function(x, blocks = "", keep_col = c()){
     x <- englelab::raw_ospan(x, keep_col = keep_col)
   }
 
-  x <- dplyr::distinct(x, Subject, Block, Trial, Recall.total, SetSize,
+  x <- dplyr::distinct(x, Subject, Block, Trial, Recall.correct, SetSize,
                        Partial.unit, Absolute.unit, Partial.load, Absolute.load)
   x <- dplyr::summarise(x,
                         OSpan.PartialUnit = sum(Partial.unit) / n(),

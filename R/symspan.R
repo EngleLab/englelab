@@ -248,7 +248,7 @@ score_symspan <- function(x, blocks = NULL, keep_col = c()){
     x <- englelab::raw_symspan(x, keep_col = keep_col)
   }
 
-  x <- dplyr::distinct(x, Subject, Block, Trial, Recall.total, SetSize,
+  x <- dplyr::distinct(x, Subject, Block, Trial, Recall.correct, SetSize,
                        Partial.unit, Absolute.unit, Partial.load, Absolute.load)
   x <- dplyr::summarise(x,
                         SymSpan.PartialUnit = sum(Partial.unit) / n(),
