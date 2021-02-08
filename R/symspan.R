@@ -142,84 +142,87 @@ raw_symspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
 
   x <- dplyr::filter(x, is.na(erase), is.na(remove))
   x <- dplyr::group_by(x, Subject, Block, Trial)
-  x <-
-    dplyr::mutate(x,
-                  SubTrial = dplyr::row_number(),
-                  serial.position = SubTrial - SetSize,
-                  position_1 = ifelse(SubTrial == 1, MatrixId, NA),
-                  position_1 = max(position_1, na.rm = TRUE),
-                  position_2 = ifelse(SubTrial == 2, MatrixId, NA),
-                  position_2 = max(position_2, na.rm = TRUE),
-                  position_3 = ifelse(SubTrial == 3, MatrixId, NA),
-                  position_3 = max(position_3, na.rm = TRUE),
-                  position_4 = ifelse(SubTrial == 4, MatrixId, NA),
-                  position_4 = max(position_4, na.rm = TRUE),
-                  position_5 = ifelse(SubTrial == 5, MatrixId, NA),
-                  position_5 = max(position_5, na.rm = TRUE),
-                  position_6 = ifelse(SubTrial == 6, MatrixId, NA),
-                  position_6 = max(position_6, na.rm = TRUE),
-                  position_7 = ifelse(SubTrial == 7, MatrixId, NA),
-                  position_7 = max(position_7, na.rm = TRUE),
-                  memory_item =
-                    dplyr::case_when(serial.position == 1 ~
-                                       as.integer(position_1),
-                                     serial.position == 2 ~
-                                       as.integer(position_2),
-                                     serial.position == 3 ~
-                                       as.integer(position_3),
-                                     serial.position == 4 ~
-                                       as.integer(position_4),
-                                     serial.position == 5 ~
-                                       as.integer(position_5),
-                                     serial.position == 6 ~
-                                       as.integer(position_6),
-                                     serial.position == 7 ~
-                                       as.integer(position_7),
-                                     TRUE ~ as.integer(NA)),
-                  CorrectResponse =
-                    dplyr::case_when(SubTrialProc == "ProcessingTask" ~
-                                       as.character(`CorrectAnswer[SubTrial]`),
-                                     SubTrialProc == "Recall" ~
-                                       as.character(memory_item),
-                                     TRUE ~ as.character(NA)),
-                  Accuracy =
-                    dplyr::case_when(SubTrialProc == "ProcessingTask" ~
-                                       as.integer(CheckResponse.ACC),
-                                     SubTrialProc == "Recall" &
-                                       CorrectResponse == WordSelection ~
-                                       as.integer(1),
-                                     SubTrialProc == "Recall" &
-                                       CorrectResponse != WordSelection ~
-                                       as.integer(0),
-                                     TRUE ~ as.integer((NA))),
-                  Response =
-                    dplyr::case_when(SubTrialProc == "ProcessingTask" &
-                                       Accuracy == 1 ~ CorrectResponse,
-                                     SubTrialProc == "ProcessingTask" &
-                                       Accuracy == 0 &
-                                       CorrectResponse == "TRUE" ~ "FALSE",
-                                     SubTrialProc == "ProcessingTask" &
-                                       Accuracy == 0 &
-                                       CorrectResponse == "FALSE" ~ "TRUE",
-                                     SubTrialProc == "Recall" ~
-                                       as.character(WordSelection),
-                                     TRUE ~ as.character(NA)),
-                  MemoryItem = MatrixId,
-                  Processing.correct =
-                    ifelse(SubTrialProc == "ProcessingTask", Accuracy, NA),
-                  Processing.correct =
-                    stats::ave(Processing.correct,
-                               FUN = function(x) sum(x, na.rm = TRUE)),
-                  Recall.correct =
-                    ifelse(SubTrialProc == "Recall", Accuracy, NA),
-                  Recall.correct =
-                    stats::ave(Recall.correct,
-                               FUN = function(x) sum(x, na.rm = TRUE)),
-                  Partial.unit = Recall.correct / SetSize,
-                  Absolute.unit = ifelse(Recall.correct == SetSize, 1, 0),
-                  Partial.load = Recall.correct,
-                  Absolute.load =
-                    ifelse(Recall.correct == SetSize, Recall.correct, 0))
+  suppressWarnings({
+    x <-
+      dplyr::mutate(x,
+                    SubTrial = dplyr::row_number(),
+                    serial.position = SubTrial - SetSize,
+                    position_1 = ifelse(SubTrial == 1, MatrixId, NA),
+                    position_1 = max(position_1, na.rm = TRUE),
+                    position_2 = ifelse(SubTrial == 2, MatrixId, NA),
+                    position_2 = max(position_2, na.rm = TRUE),
+                    position_3 = ifelse(SubTrial == 3, MatrixId, NA),
+                    position_3 = max(position_3, na.rm = TRUE),
+                    position_4 = ifelse(SubTrial == 4, MatrixId, NA),
+                    position_4 = max(position_4, na.rm = TRUE),
+                    position_5 = ifelse(SubTrial == 5, MatrixId, NA),
+                    position_5 = max(position_5, na.rm = TRUE),
+                    position_6 = ifelse(SubTrial == 6, MatrixId, NA),
+                    position_6 = max(position_6, na.rm = TRUE),
+                    position_7 = ifelse(SubTrial == 7, MatrixId, NA),
+                    position_7 = max(position_7, na.rm = TRUE),
+                    memory_item =
+                      dplyr::case_when(serial.position == 1 ~
+                                         as.integer(position_1),
+                                       serial.position == 2 ~
+                                         as.integer(position_2),
+                                       serial.position == 3 ~
+                                         as.integer(position_3),
+                                       serial.position == 4 ~
+                                         as.integer(position_4),
+                                       serial.position == 5 ~
+                                         as.integer(position_5),
+                                       serial.position == 6 ~
+                                         as.integer(position_6),
+                                       serial.position == 7 ~
+                                         as.integer(position_7),
+                                       TRUE ~ as.integer(NA)),
+                    CorrectResponse =
+                      dplyr::case_when(SubTrialProc == "ProcessingTask" ~
+                                         as.character(`CorrectAnswer[SubTrial]`),
+                                       SubTrialProc == "Recall" ~
+                                         as.character(memory_item),
+                                       TRUE ~ as.character(NA)),
+                    Accuracy =
+                      dplyr::case_when(SubTrialProc == "ProcessingTask" ~
+                                         as.integer(CheckResponse.ACC),
+                                       SubTrialProc == "Recall" &
+                                         CorrectResponse == WordSelection ~
+                                         as.integer(1),
+                                       SubTrialProc == "Recall" &
+                                         CorrectResponse != WordSelection ~
+                                         as.integer(0),
+                                       TRUE ~ as.integer((NA))),
+                    Response =
+                      dplyr::case_when(SubTrialProc == "ProcessingTask" &
+                                         Accuracy == 1 ~ CorrectResponse,
+                                       SubTrialProc == "ProcessingTask" &
+                                         Accuracy == 0 &
+                                         CorrectResponse == "TRUE" ~ "FALSE",
+                                       SubTrialProc == "ProcessingTask" &
+                                         Accuracy == 0 &
+                                         CorrectResponse == "FALSE" ~ "TRUE",
+                                       SubTrialProc == "Recall" ~
+                                         as.character(WordSelection),
+                                       TRUE ~ as.character(NA)),
+                    MemoryItem = MatrixId,
+                    Processing.correct =
+                      ifelse(SubTrialProc == "ProcessingTask", Accuracy, NA),
+                    Processing.correct =
+                      stats::ave(Processing.correct,
+                                 FUN = function(x) sum(x, na.rm = TRUE)),
+                    Recall.correct =
+                      ifelse(SubTrialProc == "Recall", Accuracy, NA),
+                    Recall.correct =
+                      stats::ave(Recall.correct,
+                                 FUN = function(x) sum(x, na.rm = TRUE)),
+                    Partial.unit = Recall.correct / SetSize,
+                    Absolute.unit = ifelse(Recall.correct == SetSize, 1, 0),
+                    Partial.load = Recall.correct,
+                    Absolute.load =
+                      ifelse(Recall.correct == SetSize, Recall.correct, 0))
+  })
+
   x <- dplyr::ungroup(x)
   x <- dplyr::select(x, Subject, Block, Trial, SetSize, Processing.correct,
                      Recall.correct, Partial.unit, Absolute.unit,

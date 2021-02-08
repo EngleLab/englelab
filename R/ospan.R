@@ -134,90 +134,93 @@ raw_ospan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
 
   x <- dplyr::filter(x, is.na(erase), is.na(remove))
   x <- dplyr::group_by(x, Subject, Block, Trial)
-  x <- dplyr::mutate(x,
-                     SubTrial = dplyr::row_number(),
-                     serial.position = SubTrial - SetSize,
-                     position_1 = ifelse(SubTrial == 1, letterstimuli, NA),
-                     position_1 = zoo::na.locf(position_1, na.rm = FALSE),
-                     position_2 = ifelse(SubTrial == 2, letterstimuli, NA),
-                     position_2 = zoo::na.locf(position_2, na.rm = FALSE),
-                     position_3 = ifelse(SubTrial == 3, letterstimuli, NA),
-                     position_3 = zoo::na.locf(position_3, na.rm = FALSE),
-                     position_4 = ifelse(SubTrial == 4, letterstimuli, NA),
-                     position_4 = zoo::na.locf(position_4, na.rm = FALSE),
-                     position_5 = ifelse(SubTrial == 5, letterstimuli, NA),
-                     position_5 = zoo::na.locf(position_5, na.rm = FALSE),
-                     position_6 = ifelse(SubTrial == 6, letterstimuli, NA),
-                     position_6 = zoo::na.locf(position_6, na.rm = FALSE),
-                     position_7 = ifelse(SubTrial == 7, letterstimuli, NA),
-                     position_7 = zoo::na.locf(position_7, na.rm = FALSE),
-                     position_8 = ifelse(SubTrial == 8, letterstimuli, NA),
-                     position_8 = zoo::na.locf(position_8, na.rm = FALSE),
-                     position_9 = ifelse(SubTrial == 9, letterstimuli, NA),
-                     position_9 = zoo::na.locf(position_9, na.rm = FALSE),
-                     memory_item =
-                       dplyr::case_when(serial.position == 1 ~
-                                          as.character(position_1),
-                                        serial.position == 2 ~
-                                          as.character(position_2),
-                                        serial.position == 3 ~
-                                          as.character(position_3),
-                                        serial.position == 4 ~
-                                          as.character(position_4),
-                                        serial.position == 5 ~
-                                          as.character(position_5),
-                                        serial.position == 6 ~
-                                          as.character(position_6),
-                                        serial.position == 7 ~
-                                          as.character(position_7),
-                                        serial.position == 8 ~
-                                          as.character(position_8),
-                                        serial.position == 9 ~
-                                          as.character(position_9),
-                                        TRUE ~ as.character(NA)),
-                     CorrectResponse =
-                       ifelse(SubTrialProc == "ProcessingTask",
-                              as.character(`CorrectAnswer[SubTrial]`),
-                              ifelse(SubTrialProc == "Recall",
-                                     as.character(memory_item), NA)),
-                     Accuracy =
-                       dplyr::case_when(SubTrialProc == "ProcessingTask" ~
-                                          as.double(OPERATION.ACC),
-                                        SubTrialProc == "Recall" &
-                                          CorrectResponse == WordSelection ~
-                                          as.double(1),
-                                        SubTrialProc == "Recall" &
-                                          CorrectResponse != WordSelection ~
-                                          as.double(0),
-                                        TRUE ~ as.double((NA))),
-                     Response =
-                       dplyr::case_when(SubTrialProc == "ProcessingTask" &
-                                          Accuracy == 1 ~ CorrectResponse,
-                                        SubTrialProc == "ProcessingTask" &
-                                          Accuracy == 0 &
-                                          CorrectResponse == "TRUE" ~ "FALSE",
-                                        SubTrialProc == "ProcessingTask" &
-                                          Accuracy == 0 &
-                                          CorrectResponse == "FALSE" ~ "TRUE",
-                                        SubTrialProc == "Recall" ~
-                                          as.character(WordSelection),
-                                        TRUE ~ as.character(NA)),
-                     MemoryItem = letterstimuli,
-                     Processing.correct =
-                       ifelse(SubTrialProc == "ProcessingTask", Accuracy, NA),
-                     Processing.correct =
-                       stats::ave(Processing.correct,
-                                  FUN = function(x) sum(x, na.rm = TRUE)),
-                     Recall.correct =
-                       ifelse(SubTrialProc == "Recall", Accuracy, NA),
-                     Recall.correct =
-                       stats::ave(Recall.correct,
-                                  FUN = function(x) sum(x, na.rm = TRUE)),
-                     Partial.unit = Recall.correct / SetSize,
-                     Absolute.unit = ifelse(Recall.correct == SetSize, 1, 0),
-                     Partial.load = Recall.correct,
-                     Absolute.load =
-                       ifelse(Recall.correct == SetSize, Recall.correct, 0))
+  suppressWarnings({
+    x <- dplyr::mutate(x,
+                       SubTrial = dplyr::row_number(),
+                       serial.position = SubTrial - SetSize,
+                       position_1 = ifelse(SubTrial == 1, letterstimuli, NA),
+                       position_1 = zoo::na.locf(position_1, na.rm = FALSE),
+                       position_2 = ifelse(SubTrial == 2, letterstimuli, NA),
+                       position_2 = zoo::na.locf(position_2, na.rm = FALSE),
+                       position_3 = ifelse(SubTrial == 3, letterstimuli, NA),
+                       position_3 = zoo::na.locf(position_3, na.rm = FALSE),
+                       position_4 = ifelse(SubTrial == 4, letterstimuli, NA),
+                       position_4 = zoo::na.locf(position_4, na.rm = FALSE),
+                       position_5 = ifelse(SubTrial == 5, letterstimuli, NA),
+                       position_5 = zoo::na.locf(position_5, na.rm = FALSE),
+                       position_6 = ifelse(SubTrial == 6, letterstimuli, NA),
+                       position_6 = zoo::na.locf(position_6, na.rm = FALSE),
+                       position_7 = ifelse(SubTrial == 7, letterstimuli, NA),
+                       position_7 = zoo::na.locf(position_7, na.rm = FALSE),
+                       position_8 = ifelse(SubTrial == 8, letterstimuli, NA),
+                       position_8 = zoo::na.locf(position_8, na.rm = FALSE),
+                       position_9 = ifelse(SubTrial == 9, letterstimuli, NA),
+                       position_9 = zoo::na.locf(position_9, na.rm = FALSE),
+                       memory_item =
+                         dplyr::case_when(serial.position == 1 ~
+                                            as.character(position_1),
+                                          serial.position == 2 ~
+                                            as.character(position_2),
+                                          serial.position == 3 ~
+                                            as.character(position_3),
+                                          serial.position == 4 ~
+                                            as.character(position_4),
+                                          serial.position == 5 ~
+                                            as.character(position_5),
+                                          serial.position == 6 ~
+                                            as.character(position_6),
+                                          serial.position == 7 ~
+                                            as.character(position_7),
+                                          serial.position == 8 ~
+                                            as.character(position_8),
+                                          serial.position == 9 ~
+                                            as.character(position_9),
+                                          TRUE ~ as.character(NA)),
+                       CorrectResponse =
+                         ifelse(SubTrialProc == "ProcessingTask",
+                                as.character(`CorrectAnswer[SubTrial]`),
+                                ifelse(SubTrialProc == "Recall",
+                                       as.character(memory_item), NA)),
+                       Accuracy =
+                         dplyr::case_when(SubTrialProc == "ProcessingTask" ~
+                                            as.double(OPERATION.ACC),
+                                          SubTrialProc == "Recall" &
+                                            CorrectResponse == WordSelection ~
+                                            as.double(1),
+                                          SubTrialProc == "Recall" &
+                                            CorrectResponse != WordSelection ~
+                                            as.double(0),
+                                          TRUE ~ as.double((NA))),
+                       Response =
+                         dplyr::case_when(SubTrialProc == "ProcessingTask" &
+                                            Accuracy == 1 ~ CorrectResponse,
+                                          SubTrialProc == "ProcessingTask" &
+                                            Accuracy == 0 &
+                                            CorrectResponse == "TRUE" ~ "FALSE",
+                                          SubTrialProc == "ProcessingTask" &
+                                            Accuracy == 0 &
+                                            CorrectResponse == "FALSE" ~ "TRUE",
+                                          SubTrialProc == "Recall" ~
+                                            as.character(WordSelection),
+                                          TRUE ~ as.character(NA)),
+                       MemoryItem = letterstimuli,
+                       Processing.correct =
+                         ifelse(SubTrialProc == "ProcessingTask", Accuracy, NA),
+                       Processing.correct =
+                         stats::ave(Processing.correct,
+                                    FUN = function(x) sum(x, na.rm = TRUE)),
+                       Recall.correct =
+                         ifelse(SubTrialProc == "Recall", Accuracy, NA),
+                       Recall.correct =
+                         stats::ave(Recall.correct,
+                                    FUN = function(x) sum(x, na.rm = TRUE)),
+                       Partial.unit = Recall.correct / SetSize,
+                       Absolute.unit = ifelse(Recall.correct == SetSize, 1, 0),
+                       Partial.load = Recall.correct,
+                       Absolute.load =
+                         ifelse(Recall.correct == SetSize, Recall.correct, 0))
+  })
+
   x <- dplyr::ungroup(x)
   x <- dplyr::select(x, Subject, Block, Trial, SetSize, Processing.correct,
                      Recall.correct, Partial.unit, Absolute.unit,
