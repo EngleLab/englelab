@@ -344,7 +344,7 @@ score_rotspan <- function(x, blocks = NULL){
   x_recall <- dplyr::distinct(x, Subject, Block, Trial, Recall.correct, SetSize,
                               Partial.unit, Absolute.unit,
                               Partial.load, Absolute.load)
-  x <- dplyr::summarise(x_recall,
+  x_recall <- dplyr::summarise(x_recall,
                         RotSpan.PartialUnit = sum(Partial.unit) / n(),
                         RotSpan.PartialLoad = sum(Partial.load) / sum(SetSize),
                         RotSpan.AbsoluteUnit = sum(Absolute.unit) / n(),

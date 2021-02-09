@@ -251,7 +251,7 @@ score_ospan <- function(x, blocks = ""){
   x_recall <- dplyr::distinct(x, Subject, Block, Trial, Recall.correct, SetSize,
                               Partial.unit, Absolute.unit,
                               Partial.load, Absolute.load)
-  x <- dplyr::summarise(x_recall,
+  x_recall <- dplyr::summarise(x_recall,
                         OSpan.PartialUnit = sum(Partial.unit) / n(),
                         OSpan.PartialLoad = sum(Partial.load) / sum(SetSize),
                         OSpan.AbsoluteUnit = sum(Absolute.unit) / n(),
