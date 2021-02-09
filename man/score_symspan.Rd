@@ -4,15 +4,13 @@
 \alias{score_symspan}
 \title{Calculate Symmetry Span scores from a messy raw dataframe}
 \usage{
-score_symspan(x, blocks = NULL, keep_col = c())
+score_symspan(x, blocks = NULL)
 }
 \arguments{
 \item{x}{dataframe}
 
 \item{blocks}{depricated. No need to indicate number of blocks.
 Use group_by(Subject, Block) instead}
-
-\item{keep_col}{List of extra columns to keep}
 }
 \description{
 This function skips the 'raw_symspan()' step and therefore

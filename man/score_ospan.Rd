@@ -4,15 +4,13 @@
 \alias{score_ospan}
 \title{Calculate Operation Span scores from a messy raw dataframe}
 \usage{
-score_ospan(x, blocks = "", keep_col = c())
+score_ospan(x, blocks = "")
 }
 \arguments{
 \item{x}{dataframe}
 
 \item{blocks}{depricated. No need to indicate number of blocks.
 Use group_by(Subject, Block) instead}
-
-\item{keep_col}{List of extra columns to keep}
 }
 \description{
 This function skips the 'raw_ospan()' step and therefore

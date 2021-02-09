@@ -242,13 +242,12 @@ raw_symspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
 #' @param x dataframe
 #' @param blocks depricated. No need to indicate number of blocks.
 #'     Use group_by(Subject, Block) instead
-#' @param keep_col List of extra columns to keep
 #' @export
 #'
 
-score_symspan <- function(x, blocks = NULL, keep_col = c()){
+score_symspan <- function(x, blocks = NULL){
   if ("Running[Trial]" %in% colnames(x)) {
-    x <- englelab::raw_symspan(x, keep_col = keep_col)
+    x <- englelab::raw_symspan(x)
   }
 
   x_recall <- dplyr::distinct(x, Subject, Block, Trial, Recall.correct, SetSize,
@@ -263,7 +262,6 @@ score_symspan <- function(x, blocks = NULL, keep_col = c()){
                                  sum(Absolute.load) / sum(SetSize),
                                SymSpan.Trials = n(),
                                SymSpan.MemoryItems = sum(SetSize))
-
   x_processing <- dplyr::filter(x, SubTrialProc == "ProcessingTask")
   x_processing <- dplyr::summarise(x_processing,
                                    Symmetry.RT_mean = mean(RT, na.rm = TRUE),

@@ -240,29 +240,35 @@ raw_ospan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
 #' @param x dataframe
 #' @param blocks depricated. No need to indicate number of blocks.
 #'     Use group_by(Subject, Block) instead
-#' @param keep_col List of extra columns to keep
 #' @export
 #'
 
-score_ospan <- function(x, blocks = "", keep_col = c()){
+score_ospan <- function(x, blocks = ""){
   if ("Running[Trial]" %in% colnames(x)) {
-    x <- englelab::raw_ospan(x, keep_col = keep_col)
+    x <- englelab::raw_ospan(x)
   }
 
-  x <- dplyr::distinct(x, x, Subject, Block, Trial, Recall.correct,SetSize,
-                       Partial.unit, Absolute.unit,
-                       Partial.load, Absolute.load,
-                       Processing.correct, RT)
-  x <- dplyr::mutate(RT = ifelse(SubTrialProc == "ProcessingTask", RT, NA))
-  x <- dplyr::summarise(x,
+  x_recall <- dplyr::distinct(x, Subject, Block, Trial, Recall.correct, SetSize,
+                              Partial.unit, Absolute.unit,
+                              Partial.load, Absolute.load)
+  x <- dplyr::summarise(x_recall,
                         OSpan.PartialUnit = sum(Partial.unit) / n(),
-                        OSpan.AbsoluteUnit = sum(Absolute.unit) / n(),
                         OSpan.PartialLoad = sum(Partial.load) / sum(SetSize),
+                        OSpan.AbsoluteUnit = sum(Absolute.unit) / n(),
                         OSpan.AbsoluteLoad = sum(Absolute.load) / sum(SetSize),
-                        Math.RT_mean = mean(RT, na.rm = TRUE),
-                        Math.RT_sd = sd(RT, na.rm = TRUE),
-                        Math.ACC = sum(Processing.correct, na.rm = TRUE) / n(),
                         OSpan.Trials = n(),
                         OSpan.MemoryItems = sum(SetSize))
+  x_processing <- dplyr::filter(x, SubTrialProc == "ProcessingTask")
+  x_processing <- dplyr::summarise(x_processing,
+                                   Math.RT_mean = mean(RT, na.rm = TRUE),
+                                   Math.RT_sd = sd(RT, na.rm = TRUE),
+                                   Math.ACC = mean(Accuracy, na.rm = TRUE))
+  x <- tryCatch(dplyr::full_join(x_recall, x_processing),
+                error = function(c){
+                  if (!FALSE) {dplyr::bind_cols(x_recall, x_processing)}
+                  else {dplyr::full_join(x_recall, x_processing)}
+                })
+  x <- dplyr::relocate(x, OSpan.Trials, OSpan.MemoryItems,
+                       .after = last_col())
   return(x)
 }

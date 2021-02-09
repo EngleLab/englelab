@@ -4,15 +4,13 @@
 \alias{score_rotspan}
 \title{Calculate Rotation Span scores from a messy raw dataframe}
 \usage{
-score_rotspan(x, blocks = NULL, keep_col = c())
+score_rotspan(x, blocks = NULL)
 }
 \arguments{
 \item{x}{dataframe}
 
 \item{blocks}{depricated. No need to indicate number of blocks.
 Use group_by(Subject, Block) instead}
-
-\item{keep_col}{List of extra columns to keep}
 }
 \description{
 This function skips the 'raw_rotspan()' step and therefore

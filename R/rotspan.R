@@ -333,31 +333,36 @@ raw_rotspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
 #' @param x dataframe
 #' @param blocks depricated. No need to indicate number of blocks.
 #'     Use group_by(Subject, Block) instead
-#' @param keep_col List of extra columns to keep
 #' @export
 #'
 
-score_rotspan <- function(x, blocks = NULL, keep_col = c()){
+score_rotspan <- function(x, blocks = NULL){
   if ("Running[Trial]" %in% colnames(x)) {
-    x <- englelab::raw_rotspan(x, keep_col = keep_col)
+    x <- englelab::raw_rotspan(x)
   }
 
-  x <- dplyr::distinct(x, x, Subject, Block, Trial, Recall.correct,SetSize,
-                       Partial.unit, Absolute.unit,
-                       Partial.load, Absolute.load,
-                       Processing.correct, RT)
-  x <- dplyr::mutate(RT = ifelse(SubTrialProc == "ProcessingTask", RT, NA))
-  x <- dplyr::summarise(x,
+  x_recall <- dplyr::distinct(x, Subject, Block, Trial, Recall.correct, SetSize,
+                              Partial.unit, Absolute.unit,
+                              Partial.load, Absolute.load)
+  x <- dplyr::summarise(x_recall,
                         RotSpan.PartialUnit = sum(Partial.unit) / n(),
-                        RotSpan.AbsoluteUnit = sum(Absolute.unit) / n(),
                         RotSpan.PartialLoad = sum(Partial.load) / sum(SetSize),
+                        RotSpan.AbsoluteUnit = sum(Absolute.unit) / n(),
                         RotSpan.AbsoluteLoad = sum(Absolute.load) / sum(SetSize),
-                        Rotation.RT_mean = mean(RT, na.rm = TRUE),
-                        Rotation.RT_sd = sd(RT, na.rm = TRUE),
-                        Rotation.ACC =
-                          sum(Processing.correct, na.rm = TRUE), n(),
                         RotSpan.Trials = n(),
                         RotSpan.MemoryItems = sum(SetSize))
+  x_processing <- dplyr::filter(x, SubTrialProc == "ProcessingTask")
+  x_processing <- dplyr::summarise(x_processing,
+                                   Rotation.RT_mean = mean(RT, na.rm = TRUE),
+                                   Rotation.RT_sd = sd(RT, na.rm = TRUE),
+                                   Rotation.ACC = mean(Accuracy, na.rm = TRUE))
+  x <- tryCatch(dplyr::full_join(x_recall, x_processing),
+                error = function(c){
+                  if (!FALSE) {dplyr::bind_cols(x_recall, x_processing)}
+                  else {dplyr::full_join(x_recall, x_processing)}
+                })
+  x <- dplyr::relocate(x, RotSpan.Trials, RotSpan.MemoryItems,
+                       .after = last_col())
   return(x)
 }
 
