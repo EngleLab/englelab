@@ -271,7 +271,8 @@ score_symspan <- function(x, blocks = NULL, keep_col = c()){
                                    Symmetry.ACC = mean(Accuracy, na.rm = TRUE))
 
   x <- dplyr::full_join(x_recall, x_processing)
-  x <- dplyr::select(x, dplyr::everything(), SymSpan.Trials, SymSpan.MemoryItems)
+  x <- dplyr::relocate(x, SymSpan.Trials, SymSpan.MemoryItems,
+                       .after = last_col())
   return(x)
 }
 
