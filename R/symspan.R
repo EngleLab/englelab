@@ -256,9 +256,9 @@ score_symspan <- function(x, blocks = NULL, keep_col = c()){
                               Partial.load, Absolute.load)
   x_recall <- dplyr::summarise(x_recall,
                                SymSpan.PartialUnit = sum(Partial.unit) / n(),
-                               SymSpan.AbsoluteUnit = sum(Absolute.unit) / n(),
                                SymSpan.PartialLoad =
                                  sum(Partial.load) / sum(SetSize),
+                               SymSpan.AbsoluteUnit = sum(Absolute.unit) / n(),
                                SymSpan.AbsoluteLoad =
                                  sum(Absolute.load) / sum(SetSize),
                                SymSpan.Trials = n(),
@@ -269,8 +269,11 @@ score_symspan <- function(x, blocks = NULL, keep_col = c()){
                                    Symmetry.RT_mean = mean(RT, na.rm = TRUE),
                                    Symmetry.RT_sd = sd(RT, na.rm = TRUE),
                                    Symmetry.ACC = mean(Accuracy, na.rm = TRUE))
-
-  x <- dplyr::full_join(x_recall, x_processing)
+  tryCatch(dplyr::full_join(x_recall, x_processing),
+           error = function(c){
+             if (!FALSE) {dplyr::bind_cols(x_recall, x_processing)}
+             else {dplyr::full_join(x_recall, x_processing)}
+           })
   x <- dplyr::relocate(x, SymSpan.Trials, SymSpan.MemoryItems,
                        .after = last_col())
   return(x)
