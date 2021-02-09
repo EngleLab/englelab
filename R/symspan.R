@@ -269,11 +269,11 @@ score_symspan <- function(x, blocks = NULL, keep_col = c()){
                                    Symmetry.RT_mean = mean(RT, na.rm = TRUE),
                                    Symmetry.RT_sd = sd(RT, na.rm = TRUE),
                                    Symmetry.ACC = mean(Accuracy, na.rm = TRUE))
-  tryCatch(dplyr::full_join(x_recall, x_processing),
-           error = function(c){
-             if (!FALSE) {dplyr::bind_cols(x_recall, x_processing)}
-             else {dplyr::full_join(x_recall, x_processing)}
-           })
+  x <- tryCatch(dplyr::full_join(x_recall, x_processing),
+                error = function(c){
+                  if (!FALSE) {dplyr::bind_cols(x_recall, x_processing)}
+                  else {dplyr::full_join(x_recall, x_processing)}
+                })
   x <- dplyr::relocate(x, SymSpan.Trials, SymSpan.MemoryItems,
                        .after = last_col())
   return(x)
