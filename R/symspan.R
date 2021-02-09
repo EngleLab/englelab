@@ -268,10 +268,10 @@ score_symspan <- function(x, blocks = NULL, keep_col = c()){
   x_processing <- dplyr::summarise(x_processing,
                                    Symmetry.RT_mean = mean(RT, na.rm = TRUE),
                                    Symmetry.RT_sd = sd(RT, na.rm = TRUE),
-                                   Symmetry.ACC =
-                                     sum(Processing.correct, na.rm = TRUE) / n())
+                                   Symmetry.ACC = mean(Accuracy, na.rm = TRUE))
 
   x <- dplyr::full_join(x_recall, x_processing)
+  x <- dplyr::select(dplyr::everything(), SymSpan.Trials, SymSpan.MemoryItems)
   return(x)
 }
 
