@@ -251,13 +251,20 @@ score_symspan <- function(x, blocks = NULL, keep_col = c()){
     x <- englelab::raw_symspan(x, keep_col = keep_col)
   }
 
-  x <- dplyr::distinct(x, Subject, Block, Trial, Recall.correct, SetSize,
-                       Partial.unit, Absolute.unit, Partial.load, Absolute.load)
+  x <- dplyr::distinct(x, Subject, Block, Trial, Recall.correct,SetSize,
+                       Partial.unit, Absolute.unit,
+                       Partial.load, Absolute.load,
+                       Processing.correct, RT)
+  x <- dplyr::mutate(RT = ifelse(SubTrialProc == "ProcessingTask", RT, NA))
   x <- dplyr::summarise(x,
                         SymSpan.PartialUnit = sum(Partial.unit) / n(),
                         SymSpan.AbsoluteUnit = sum(Absolute.unit) / n(),
                         SymSpan.PartialLoad = sum(Partial.load) / sum(SetSize),
                         SymSpan.AbsoluteLoad = sum(Absolute.load) / sum(SetSize),
+                        Symmetry.RT_mean = mean(RT, na.rm = TRUE),
+                        Symmetry.RT_sd = sd(RT, na.rm = TRUE),
+                        Symmetry.ACC =
+                          sum(Processing.correct, na.rm = TRUE) / n(),
                         SymSpan.Trials = n(),
                         SymSpan.MemoryItems = sum(SetSize))
   return(x)

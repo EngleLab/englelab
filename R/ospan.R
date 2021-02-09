@@ -249,13 +249,19 @@ score_ospan <- function(x, blocks = "", keep_col = c()){
     x <- englelab::raw_ospan(x, keep_col = keep_col)
   }
 
-  x <- dplyr::distinct(x, Subject, Block, Trial, Recall.correct, SetSize,
-                       Partial.unit, Absolute.unit, Partial.load, Absolute.load)
+  x <- dplyr::distinct(x, x, Subject, Block, Trial, Recall.correct,SetSize,
+                       Partial.unit, Absolute.unit,
+                       Partial.load, Absolute.load,
+                       Processing.correct, RT)
+  x <- dplyr::mutate(RT = ifelse(SubTrialProc == "ProcessingTask", RT, NA))
   x <- dplyr::summarise(x,
                         OSpan.PartialUnit = sum(Partial.unit) / n(),
                         OSpan.AbsoluteUnit = sum(Absolute.unit) / n(),
                         OSpan.PartialLoad = sum(Partial.load) / sum(SetSize),
                         OSpan.AbsoluteLoad = sum(Absolute.load) / sum(SetSize),
+                        Math.RT_mean = mean(RT, na.rm = TRUE),
+                        Math.RT_sd = sd(RT, na.rm = TRUE),
+                        Math.ACC = sum(Processing.correct, na.rm = TRUE) / n(),
                         OSpan.Trials = n(),
                         OSpan.MemoryItems = sum(SetSize))
   return(x)

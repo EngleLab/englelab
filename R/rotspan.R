@@ -342,13 +342,20 @@ score_rotspan <- function(x, blocks = NULL, keep_col = c()){
     x <- englelab::raw_rotspan(x, keep_col = keep_col)
   }
 
-  x <- dplyr::distinct(x, Subject, Block, Trial, Recall.correct, SetSize,
-                       Partial.unit, Absolute.unit, Partial.load, Absolute.load)
+  x <- dplyr::distinct(x, x, Subject, Block, Trial, Recall.correct,SetSize,
+                       Partial.unit, Absolute.unit,
+                       Partial.load, Absolute.load,
+                       Processing.correct, RT)
+  x <- dplyr::mutate(RT = ifelse(SubTrialProc == "ProcessingTask", RT, NA))
   x <- dplyr::summarise(x,
                         RotSpan.PartialUnit = sum(Partial.unit) / n(),
                         RotSpan.AbsoluteUnit = sum(Absolute.unit) / n(),
                         RotSpan.PartialLoad = sum(Partial.load) / sum(SetSize),
                         RotSpan.AbsoluteLoad = sum(Absolute.load) / sum(SetSize),
+                        Rotation.RT_mean = mean(RT, na.rm = TRUE),
+                        Rotation.RT_sd = sd(RT, na.rm = TRUE),
+                        Rotation.ACC =
+                          sum(Processing.correct, na.rm = TRUE), n(),
                         RotSpan.Trials = n(),
                         RotSpan.MemoryItems = sum(SetSize))
   return(x)
