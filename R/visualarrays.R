@@ -81,6 +81,7 @@ raw_visualarrays <- function(x, taskVersion = "new"){
 #'
 
 score_visualarrays <- function(x){
+  x <- dplyr::group_by(x, .add = TRUE)
   x <- dplyr::summarise(x,
                         CR.n = sum(CorrectRejection, na.rm = TRUE),
                         FA.n = sum(FalseAlarm, na.rm = TRUE),
