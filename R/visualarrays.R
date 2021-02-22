@@ -87,6 +87,7 @@ score_visualarrays <- function(x){
                         FA.n = sum(FalseAlarm, na.rm = TRUE),
                         M.n = sum(Miss, na.rm = TRUE),
                         H.n = sum(Hit, na.rm = TRUE))
+  x <- dplyr::ungroup(x)
   x <- dplyr::mutate(x,
                      CR = CR.n / (CR.n + FA.n),
                      H = H.n / (H.n + M.n),
