@@ -19,7 +19,7 @@ raw_ospan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
     x <- dplyr::filter(x, `Procedure[Block]` == "SessionProc")
     x <- dplyr::mutate(x, MathACC = NA, AvgMathTime = NA)
   }
-  x <- rename(x, SetSize = setsz)
+  x <- dplyr::rename(x, SetSize = setsz)
   x <-
     dplyr::mutate(x,
                   SubTrialProc =

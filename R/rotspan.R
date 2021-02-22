@@ -17,7 +17,7 @@ raw_rotspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
   if (!("AvgRotationTime" %in% colnames(x))) {
     x <- dplyr::mutate(x, AvgRotationTime = NA)
   }
-  x <- rename(x, SetSize = setsz)
+  x <- dplyr::rename(x, SetSize = setsz)
   x <-
     dplyr::mutate(x,
                   SubTrialProc =

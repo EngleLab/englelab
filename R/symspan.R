@@ -19,7 +19,7 @@ raw_symspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
     x <- dplyr::filter(x, `Procedure[Block]` == "SessionProc")
     x <- dplyr::mutate(x, SymmetryACC = NA, AvgSymmetryTime = NA)
   }
-  x <- rename(x, SetSize = setsz)
+  x <- dplyr::rename(x, SetSize = setsz)
   x <-
     dplyr::mutate(x,
                   SubTrialProc =
