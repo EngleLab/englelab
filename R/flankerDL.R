@@ -12,64 +12,71 @@ raw_flankerDL <- function(x){
   x <- dplyr::filter(x, TrialProc == "TrialProc" |
                        TrialProc == "PracTrialProc1" |
                        TrialProc == "PracTrialProc2")
+  x <- dplyr::group_by(x, Subject)
   x <- dplyr::mutate(x,
-                     TrialProc = dplyr::case_when(TrialProc == "TrialProc" ~ "real",
-                                                  TrialProc == "PracTrialProc1" ~ "practice1",
-                                                  TrialProc == "PracTrialProc2" ~ "practice2"),
-                     Block = dplyr::case_when(TrialProc == "real" ~ TrialList.Cycle,
-                                              TrialProc == "practice1" ~ as.numeric(NA),
-                                              TrialProc == "practice2" ~ as.numeric(NA)),
+                     TrialProc =
+                       dplyr::case_when(TrialProc == "TrialProc" ~
+                                          "real",
+                                        TrialProc == "PracTrialProc1" ~
+                                          "practice1",
+                                        TrialProc == "PracTrialProc2" ~
+                                          "practice2"),
+                     Block = dplyr::case_when(TrialProc == "real" ~
+                                                TrialList.Cycle,
+                                              TrialProc == "practice1" ~
+                                                as.numeric(NA),
+                                              TrialProc == "practice2" ~
+                                                as.numeric(NA)),
                      RT =
-                       dplyr::case_when(TrialProc == "real" & SlideTarget.RT == 0 ~
+                       dplyr::case_when(TrialProc == "real" &
+                                          SlideTarget.RT == 0 ~
                                           MissedDeadline.RT + ResponseDeadline,
-                                        TrialProc == "real" & SlideTarget.RT > 0 ~
-                                          SlideTarget.RT,
-                                        TrialProc == "practice1" ~ PracSlideTarget1.RT,
-                                        TrialProc == "practice2" ~ PracSlideTarget2.RT),
+                                        TrialProc == "real" &
+                                          SlideTarget.RT > 0 ~ SlideTarget.RT,
+                                        TrialProc == "practice1" ~
+                                          PracSlideTarget1.RT,
+                                        TrialProc == "practice2" ~
+                                          PracSlideTarget2.RT),
                      Accuracy =
-                       dplyr::case_when(TrialProc == "real" & is.na(SlideTarget.RESP) ~
+                       dplyr::case_when(TrialProc == "real" &
+                                          is.na(SlideTarget.RESP) ~
                                           MissedDeadline.ACC,
-                                        TrialProc == "real" & !is.na(SlideTarget.RESP) ~
+                                        TrialProc == "real" &
+                                          !is.na(SlideTarget.RESP) ~
                                           SlideTarget.ACC,
-                                        TrialProc == "practice1" ~ PracSlideTarget1.ACC,
-                                        TrialProc == "practice2" ~ PracSlideTarget2.ACC),
+                                        TrialProc == "practice1" ~
+                                          PracSlideTarget1.ACC,
+                                        TrialProc == "practice2" ~
+                                          PracSlideTarget2.ACC),
                      Response =
-                       dplyr::case_when(TrialProc == "real" & is.na(SlideTarget.RESP) ~
+                       dplyr::case_when(TrialProc == "real" &
+                                          is.na(SlideTarget.RESP) ~
                                           MissedDeadline.RESP,
-                                        TrialProc == "real" & !is.na(SlideTarget.RESP) ~
+                                        TrialProc == "real" &
+                                          !is.na(SlideTarget.RESP) ~
                                           SlideTarget.RESP,
-                                        TrialProc == "practice1" ~ PracSlideTarget1.RESP,
-                                        TrialProc == "practice2" ~ PracSlideTarget2.RESP),
+                                        TrialProc == "practice1" ~
+                                          PracSlideTarget1.RESP,
+                                        TrialProc == "practice2" ~
+                                          PracSlideTarget2.RESP),
                      Response = dplyr::case_when(Response == "z" ~ "left",
                                                  Response == "{/}" ~ "right",
                                                  TRUE ~ as.character(NA)),
-                     MissedDeadline = ifelse(TrialProc == "real" & is.na(SlideTarget.RESP),
-                                             1, 0),
-                     TrialCriteria.ACC = dplyr::case_when(TrialProc == "real" ~ SlideTarget.ACC,
-                                                          TrialProc == "practice1" ~ 0,
-                                                          TrialProc == "practice2" ~ 0),
+                     MissedDeadline = ifelse(TrialProc == "real" &
+                                               is.na(SlideTarget.RESP), 1, 0),
+                     TrialCriteria.ACC =
+                       dplyr::case_when(TrialProc == "real" ~ SlideTarget.ACC,
+                                        TrialProc == "practice1" ~ 0,
+                                        TrialProc == "practice2" ~ 0),
                      TargetArrowDirection =
-                       dplyr::case_when(TrialProc == "real"     ~ TargetDirection,
-                                        TrialProc == "practice" ~ TargerDirection),
-                     AdminTime = AdminTime/1000/60)
+                       dplyr::case_when(TrialProc == "real" ~
+                                          TargetDirection,
+                                        TrialProc == "practice" ~
+                                          TargerDirection),
+                     AdminTime = dplyr::last(AdminTime) / 60000)
+  x <- dplyr::ungroup(x)
 
-  if ("InstructionsTime" %in% colnames(x)) {
-    x <- dplyr::mutate(x,
-                       InstructionsTime = InstructionsTime/1000/60,
-                       PracticeTime = PracticeTime/1000/60,
-                       TaskTime = TaskTime/1000/60)
-    x <- dplyr::select(x, Subject, TrialProc, Block, Trial, ResponseDeadline,
-                       Condition = FlankerType, RT, MissedDeadline, Accuracy,
-                       Response, TrialCriteria.ACC, TargetArrowDirection,
-                       FixationDuration, FlankerDLScore = ArrowDLTime,
-                       FlankerMissedDeadlines = ArrowMissedDeadlines,
-                       FlankerDLTotalAccuracy = ArrowDLTotalAccuracy,
-                       FlankerDLCorrectRT = ArrowDLCorrectRT,
-                       FlankerDLTotalRT = ArrowDLTotalRT,
-                       InstructionsTime, PracticeTime, TaskTime,
-                       AdminTime, SessionDate, SessionTime)
-  } else {
-    x <- dplyr::select(x, Subject, TrialProc, Block, Trial, ResponseDeadline,
+  x <- dplyr::select(x, Subject, TrialProc, Block, Trial, ResponseDeadline,
                        Condition = FlankerType, RT, MissedDeadline, Accuracy,
                        Response, TrialCriteria.ACC, TargetArrowDirection,
                        FixationDuration, FlankerDLScore = ArrowDLTime,
@@ -78,7 +85,6 @@ raw_flankerDL <- function(x){
                        FlankerDLCorrectRT = ArrowDLCorrectRT,
                        FlankerDLTotalRT = ArrowDLTotalRT,
                        AdminTime, SessionDate, SessionTime)
-  }
 
   x_block <- dplyr::filter(x, TrialProc == "real")
   x_block <- dplyr::group_by(x, Subject, Block)
@@ -100,19 +106,7 @@ raw_flankerDL <- function(x){
                            ReversalNumb)
 
   x <- merge(x, x_block, by = c("Subject", "TrialProc", "Block"), all = TRUE)
-
-  if ("InstructionsTime" %in% colnames(x)) {
-    x <- dplyr::select(x, Subject, TrialProc, Block, Trial, ResponseDeadline,
-                       Condition, RT, MissedDeadline, Accuracy, Response,
-                       TrialCriteria.ACC, TargetArrowDirection,
-                       FixationDuration, Block.Correct, BlockCriteria.Reach,
-                       Reversal, ReversalNumb, FlankerDLScore,
-                       FlankerMissedDeadlines, FlankerDLTotalAccuracy,
-                       FlankerDLCorrectRT, FlankerDLTotalRT,
-                       InstructionsTime, PracticeTime, TaskTime,
-                       AdminTime, SessionDate, SessionTime)
-  } else {
-    x <- dplyr::select(x, Subject, TrialProc, Block, Trial, ResponseDeadline,
+  x <- dplyr::select(x, Subject, TrialProc, Block, Trial, ResponseDeadline,
                        Condition, RT, MissedDeadline, Accuracy, Response,
                        TrialCriteria.ACC, TargetArrowDirection,
                        FixationDuration, Block.Correct, BlockCriteria.Reach,
@@ -120,8 +114,6 @@ raw_flankerDL <- function(x){
                        FlankerMissedDeadlines, FlankerDLTotalAccuracy,
                        FlankerDLCorrectRT, FlankerDLTotalRT,
                        AdminTime, SessionDate, SessionTime)
-  }
-
 
   return(x)
 }
@@ -137,13 +129,9 @@ raw_flankerDL <- function(x){
 #'
 
 score_flankerDL <- function(x){
-  x <- dplyr::select(x, Subject, FlankerDLTime = ArrowDLTime,
-                     FlankerMissedDeadlines = ArrowMissedDeadlines,
-                     FlankerDLTotalAccuracy = ArrowDLTotalAccuracy,
-                     FlankerDLCorrectRT = ArrowDLCorrectRT,
-                     FlankerDLTotalRT = ArrowDLTotalRT,
-                     AdminTime)
-  x <- dplyr::distinct(x)
-  x <- dplyr::mutate(x, AdminTime = AdminTime/1000/60)
-  return(x)
+  if ("FlankerDLScore" %in% colnames(x)) {
+    message("Depricated. Use raw_flankerDL to get scores for this version of the task")
+  } else {
+
+  }
 }

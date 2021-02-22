@@ -10,89 +10,61 @@ raw_visualarrays <- function(x, taskVersion = "new"){
   x <- dplyr::filter(x, TrialProc == "showproc" |
                        TrialProc == "pracproc")
   x <- dplyr::mutate(x,
-                     TrialProc = dplyr::case_when(TrialProc == "showproc" ~ "real",
-                                                  TrialProc == "pracproc" ~ "practice"),
+                     TrialProc = dplyr::case_when(TrialProc == "showproc" ~
+                                                    "real",
+                                                  TrialProc == "pracproc" ~
+                                                    "practice"),
                      Accuracy = VisResponse.ACC,
-                     Response = dplyr::case_when(VisResponse.RESP == 5 |
-                                                   VisResponse.RESP == "s" ~ "same",
-                                                 VisResponse.RESP == 6 |
-                                                   VisResponse.RESP == "d" ~ "different"),
-                     CorrectResponse = dplyr::case_when(VisResponse.CRESP == 5 |
-                                                          VisResponse.CRESP == "s" ~ "same",
-                                                        VisResponse.CRESP == 6 |
-                                                          VisResponse.CRESP == "d" ~ "different"),
+                     Response =
+                       dplyr::case_when(VisResponse.RESP == 5 |
+                                          VisResponse.RESP == "s" ~ "same",
+                                        VisResponse.RESP == 6 |
+                                          VisResponse.RESP == "d" ~ "different"),
+                     CorrectResponse =
+                       dplyr::case_when(VisResponse.CRESP == 5 |
+                                          VisResponse.CRESP == "s" ~ "same",
+                                        VisResponse.CRESP == 6 |
+                                          VisResponse.CRESP == "d" ~ "different"),
                      CorrectRejection =
-                       dplyr::case_when(CorrectResponse == "same" & Response == "same" ~
-                                          1,
+                       dplyr::case_when(CorrectResponse == "same" &
+                                          Response == "same" ~ 1,
                                         TRUE ~ 0),
                      FalseAlarm =
-                       dplyr::case_when(CorrectResponse == "same" & Response == "different" ~
-                                          1,
+                       dplyr::case_when(CorrectResponse == "same" &
+                                          Response == "different" ~ 1,
                                         TRUE ~ 0),
                      Miss =
-                       dplyr::case_when(CorrectResponse == "different" & Response == "same" ~
-                                          1,
+                       dplyr::case_when(CorrectResponse == "different" &
+                                          Response == "same" ~ 1,
                                         TRUE ~ 0),
                      Hit =
-                       dplyr::case_when(CorrectResponse == "different" & Response == "different" ~
-                                          1,
+                       dplyr::case_when(CorrectResponse == "different" &
+                                          Response == "different" ~ 1,
                                         TRUE ~ 0))
 
-  if (taskVersion == "new") {
-    x <- dplyr::mutate(x, AdminTime = AdminTime/1000/60)
-  }
-
-  x_score <- dplyr::filter(x, TrialProc == "real")
-  x_score <- dplyr::group_by(x_score, Subject, SetSize)
-  x_score <- dplyr::summarise(x_score,
-                              CR = sum(CorrectRejection, na.rm = TRUE),
-                              FA = sum(FalseAlarm, na.rm = TRUE),
-                              M = sum(Miss, na.rm = TRUE),
-                              H = sum(Hit, na.rm = TRUE))
-  x_score <- dplyr::ungroup(x_score)
-  x_score <- dplyr::mutate(x_score,
-                           Different = M + H,
-                           Same = CR + FA,
-                           CR = CR / Same,
-                           FA = FA / Same,
-                           M = M / Different,
-                           H = H / Different,
-                           VA_k = SetSize*(H + CR - 1))
-  x_score <- tidyr::pivot_wider(x_score,
-                                id_cols = "Subject",
-                                names_from = "SetSize",
-                                values_from = "VA_k")
-  x_score <- dplyr::rename(x_score, VA_k.5 = `5`, VA_k.7 = `7`)
-  x_score <- dplyr::mutate(x_score, VA_k = (VA_k.5 + VA_k.7) / 2)
-
-  x <- merge(x, x_score, by = "Subject", all = TRUE)
-
-  if ("InstructionsTime" %in% colnames(x)) {
-    x <- dplyr::mutate(x,
-                       InstructionsTime = InstructionsTime/1000/60,
-                       PracticeTime = PracticeTime/1000/60,
-                       TaskTime = TaskTime/1000/60)
+  if ("AdminTime" %in% colnames(x)) {
+    x <- dplyr::group_by(x, Subject)
+    x <- dplyr::mutate(x, AdminTime = dplyr::last(AdminTime) / 60000)
+    x <- dplyr::ungroup(x)
     x <- dplyr::select(x, Subject, TrialProc, Trial, SetSize,
                        Accuracy, Response, CorrectResponse,
                        CorrectRejection, FalseAlarm, Miss, Hit,
-                       VA_k.5, VA_k.7, VA_k,
-                       InstructionsTime, PracticeTime, TaskTime,
+                       AdminTime, SessionDate, SessionTime)
+  }
+
+  if ("AdminTime" %in% colnames(x)) {
+    x <- dplyr::group_by(x, Subject)
+    x <- dplyr::mutate(x, AdminTime = dplyr::last(AdminTime) / 60000)
+    x <- dplyr::ungroup(x)
+    x <- dplyr::select(x, Subject, TrialProc, Trial, SetSize,
+                       Accuracy, Response, CorrectResponse,
+                       CorrectRejection, FalseAlarm, Miss, Hit,
                        AdminTime, SessionDate, SessionTime)
   } else {
-    if (taskVersion == "new") {
-      x <- dplyr::select(x, Subject, TrialProc, Trial, SetSize,
-                         Accuracy, Response, CorrectResponse,
-                         CorrectRejection, FalseAlarm, Miss, Hit,
-                         VA_k.5, VA_k.7, VA_k,
-                         AdminTime, SessionDate, SessionTime)
-    } else if (taskVersion == "old") {
-      x <- dplyr::select(x, Subject, TrialProc, Trial, SetSize,
-                         Accuracy, Response, CorrectResponse,
-                         CorrectRejection, FalseAlarm, Miss, Hit,
-                         VA_k.5, VA_k.7, VA_k,
-                         SessionDate, SessionTime)
-    }
-
+    x <- dplyr::select(x, Subject, TrialProc, Trial, SetSize,
+                       Accuracy, Response, CorrectResponse,
+                       CorrectRejection, FalseAlarm, Miss, Hit,
+                       SessionDate, SessionTime)
   }
 
   return(x)
@@ -109,56 +81,14 @@ raw_visualarrays <- function(x, taskVersion = "new"){
 #'
 
 score_visualarrays <- function(x){
-  x <- dplyr::rename(x, TrialProc = `Procedure[Trial]`)
-  x <- dplyr::filter(x, TrialProc == "showproc" |
-                       TrialProc == "pracproc")
-  x <- dplyr::mutate(x,
-                     TrialProc = dplyr::case_when(TrialProc == "showproc" ~ "real",
-                                                  TrialProc == "pracproc" ~ "practice"),
-                     Accuracy = VisResponse.ACC,
-                     Response = dplyr::case_when(VisResponse.RESP == 5 ~ "same",
-                                                 VisResponse.RESP == 6 ~ "different"),
-                     CorrectResponse = dplyr::case_when(VisResponse.CRESP == 5 ~ "same",
-                                                        VisResponse.CRESP == 6 ~ "different"),
-                     CorrectRejection =
-                       dplyr::case_when(CorrectResponse == "same" & Response == "same" ~
-                                          1,
-                                        TRUE ~ 0),
-                     FalseAlarm =
-                       dplyr::case_when(CorrectResponse == "same" & Response == "different" ~
-                                          1,
-                                        TRUE ~ 0),
-                     Miss =
-                       dplyr::case_when(CorrectResponse == "different" & Response == "same" ~
-                                          1,
-                                        TRUE ~ 0),
-                     Hit =
-                       dplyr::case_when(CorrectResponse == "different" & Response == "different" ~
-                                          1,
-                                        TRUE ~ 0))
-
-  x <- dplyr::filter(x, TrialProc == "real")
-  x <- dplyr::group_by(x, Subject, SetSize)
   x <- dplyr::summarise(x,
-                        CR = sum(CorrectRejection, na.rm = TRUE),
-                        FA = sum(FalseAlarm, na.rm = TRUE),
-                        M = sum(Miss, na.rm = TRUE),
-                        H = sum(Hit, na.rm = TRUE))
-  x <- dplyr::ungroup(x)
+                        CR.n = sum(CorrectRejection, na.rm = TRUE),
+                        FA.n = sum(FalseAlarm, na.rm = TRUE),
+                        M.n = sum(Miss, na.rm = TRUE),
+                        H.n = sum(Hit, na.rm = TRUE))
   x <- dplyr::mutate(x,
-                     Different = M + H,
-                     Same = CR + FA,
-                     CR = CR / Same,
-                     FA = FA / Same,
-                     M = M / Different,
-                     H = H / Different,
-                     VA_k = SetSize*(H + CR - 1))
-  x <- tidyr::pivot_wider(x,
-                          id_cols = "Subject",
-                          names_from = "SetSize",
-                          values_from = "VA_k")
-  x <- dplyr::rename(x, VA_k.5 = `5`, VA_k.7 = `7`)
-  x <- dplyr::mutate(x, VA_k = (VA_k.5 + VA_k.7) / 2)
-
+                     CR = CR.n / (CR.n + FA.n),
+                     H = H.n / (H.n + M.n),
+                     k = SetSize * (H + CR - 1))
   return(x)
 }

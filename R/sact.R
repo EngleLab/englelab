@@ -11,44 +11,32 @@ raw_sact <- function(x, taskVersion = "new"){
                        TrialProc == "PracticeTrialProc")
   x <- dplyr::mutate(x,
                      TrialProc =
-                       dplyr::case_when(TrialProc == "TrialProc" ~ "real",
-                                        TrialProc == "PracticeTrialProc" ~ "pratice"))
+                       dplyr::case_when(TrialProc == "TrialProc" ~
+                                          "real",
+                                        TrialProc == "PracticeTrialProc" ~
+                                          "pratice"))
 
-  if (taskVersion == "new") {
-    x <- dplyr::mutate(x, AdminTime = AdminTime/1000/60)
-  }
-
-  if ("InstructionsTime" %in% colnames(x)) {
-    x <- dplyr::mutate(x,
-                       InstructionsTime = InstructionsTime/1000/60,
-                       PracticeTime = PracticeTime/1000/60,
-                       TaskTime = TaskTime/1000/60)
+  if ("AdminTime" %in% colnames(x)) {
+    x <- dplyr::group_by(x, Subject)
+    x <- dplyr::mutate(x, AdminTime = dplyr::last(AdminTime) / 60000)
+    x <- dplyr::ungroup(x)
     x <- dplyr::select(x, Subject, TrialProc, Trial, WaitTime,
                        RT = ResponseRT, Accuracy = Response.ACC,
-                       Response = ResponseMade,  SACT.ACC = SACTscore,
-                       InstructionsTime, PracticeTime, TaskTime, AdminTime,
-                       SessionDate, SessionTime)
+                       Response = ResponseMade,
+                       AdminTime, SessionDate, SessionTime)
   } else {
-    if (taskVersion == "new") {
+    if ("WaitTime" %in% colnames(x)) {
       x <- dplyr::select(x, Subject, TrialProc, Trial, WaitTime,
                          RT = ResponseRT, Accuracy = Response.ACC,
-                         Response = ResponseMade, SACT.ACC = SACTscore, AdminTime,
+                         Response = ResponseMade,
                          SessionDate, SessionTime)
-    } else if (taskVersion == "old") {
-      if ("WaitTime" %in% colnames(x)) {
-        x <- dplyr::select(x, Subject, TrialProc, Trial, WaitTime,
-                           RT = ResponseRT, Accuracy = Response.ACC,
-                           Response = ResponseMade,
-                           SessionDate, SessionTime)
-      } else {
-        x <- dplyr::select(x, Subject, TrialProc, Trial, `WaitTime[Trial]`,
-                           RT = ResponseRT, Accuracy = Response.ACC,
-                           Response = ResponseMade, SACT.ACC = SACTAcc,
-                           SessionDate, SessionTime)
-      }
-
+    } else {
+      x <- dplyr::select(x, Subject, TrialProc, Trial,
+                         WaitTime = `WaitTime[Trial]`,
+                         RT = ResponseRT, Accuracy = Response.ACC,
+                         Response = ResponseMade,
+                         SessionDate, SessionTime)
     }
-
   }
   return(x)
 }
@@ -64,8 +52,5 @@ raw_sact <- function(x, taskVersion = "new"){
 #'
 
 score_sact <- function(x){
-  x <- dplyr::select(x, Subject, SACT.ACC = SACTscore, AdminTime)
-  x <- dplyr::distinct(x)
-  x <- dplyr::mutate(x, AdminTime = AdminTime/1000/60)
-  return(x)
+  message("Depricated")
 }
