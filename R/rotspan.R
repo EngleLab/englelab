@@ -38,15 +38,10 @@ raw_rotspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
   blocks <- length(unique(x$Block))
 
   if (blocks == 1) {
-    x <- dplyr::mutate(x, Trial =
-                         dplyr::case_when(Block == 1 ~ BlockList1.Sample,
-                                          TRUE ~ as.numeric(NA)))
+
   } else if (blocks == 2) {
     x <-
       dplyr::mutate(x,
-                    Trial = dplyr::case_when(Block == 1 ~ BlockList1.Sample,
-                                             Block == 2 ~ BlockList2.Sample,
-                                             TRUE ~ as.numeric(NA)),
                     CheckResponse.RT =
                       dplyr::case_when(SubTrialProc == "ProcessingTask" &
                                          Block == 1 ~
@@ -66,10 +61,6 @@ raw_rotspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
   } else if (blocks == 3) {
     x <-
       dplyr::mutate(x,
-                    Trial = dplyr::case_when(Block == 1 ~ BlockList1.Sample,
-                                             Block == 2 ~ BlockList2.Sample,
-                                             Block == 3 ~ BlockList3.Sample,
-                                             TRUE ~ as.numeric(NA)),
                     CheckResponse.RT =
                       dplyr::case_when(SubTrialProc == "ProcessingTask" &
                                          Block == 1 ~
@@ -314,8 +305,8 @@ raw_rotspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
   })
   x <- dplyr::ungroup(x)
   x <- dplyr::select(x, Subject, Block, Trial, SetSize, Processing.correct,
-                     Recall.correct, Partial.unit, Absolute.unit,
-                     Partial.load, Absolute.load, SubTrial, SubTrialProc,
+                     Recall.correct, Partial.unit, Partial.load,
+                     Absolute.unit, Absolute.load, SubTrial, SubTrialProc,
                      RT, Accuracy, Response, CorrectResponse, MemoryItem,
                      keep_col, SessionDate, SessionTime)
   x <- dplyr::distinct(x)
