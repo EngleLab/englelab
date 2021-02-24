@@ -28,8 +28,8 @@ function(input, output) {
 
     if (input$task == "Rotation Span") {
       data$trial <- raw_rotspan(import)
-      data$scores <- group_by(data$trial, Subject) %>%
-        score_rotspan()
+      data$scores <- group_by(data$trial, Subject)
+      data$scores <- score_rotspan(data$scores)
     }
 
     if (input$task == "Antisaccade") {

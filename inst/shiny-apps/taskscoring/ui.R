@@ -5,8 +5,7 @@ library(englelab)
 
 fluidPage(
 
-  titlePanel("Data Processing and Scoring: Complex Span and Attention
-             Control Tasks"),
+  titlePanel("EngleLab WebApp"),
 
   sidebarPanel(
 
@@ -23,10 +22,6 @@ fluidPage(
                             "FlankerDL", "StroopDL", ""),
                 selected = ""),
 
-    numericInput("blocks",
-                 "How many blocks were adminstered? (complex-span tasks only)",
-                 2, min = 1, max = 3),
-
     # Input: actionButton() to defer the rendering of output ----
     # until the user explicitly clicks the button (rather than
     # doing it immediately when inputs change). This is useful if
@@ -39,8 +34,8 @@ fluidPage(
 
     hr(),
     hr(),
-    helpText("Once the tables are displayed, you can download the data to
-             your computer"),
+    helpText("Once the tables are displayed (click ont he tabs to view),
+             you can download the data to your computer"),
     downloadButton("downloadTrialLevel", "Trial Level"),
     downloadButton("downloadScores", "Task Scores")
   ),
@@ -50,14 +45,14 @@ fluidPage(
     tabsetPanel(
       tabPanel("Instructions",
 
-      br(),
-      p("Warning: This WebApp is still under development.
+               br(),
+               p("Warning: This WebApp is still under development.
         Contact jason.tsukahara@gatech.edu for any issues"),
-      br(),
-      p("This app allows you to easily create two types of data files:"),
-      br(),
-      p(strong("1) A trial level data file:")),
-      p("This is basically a cleaned up
+        br(),
+        p("This app allows you to easily create two types of data files:"),
+        br(),
+        p(strong("1) A trial level data file:")),
+        p("This is basically a cleaned up
       version of the extremely messy data file E-Prime produces. It can be
       useful for data storage, sharing, and calculating reliability
       estimates in your data."),
@@ -72,24 +67,23 @@ fluidPage(
       p(strong("1. Choose a file to upload")),
       p("This file should be a merged E-Prime file (.emrg) exported as a .txt
       file. See this YouTube video on",
-        a("how to create a merged E-Prime file",
-          href = "https://www.youtube.com/watch?v=rQOg7ECK2Kw",
-          target = "_blank")),
+      a("how to create a merged E-Prime file",
+        href = "https://www.youtube.com/watch?v=rQOg7ECK2Kw",
+        target = "_blank")),
       p("To export the merged E-Prime file to a .txt file See these
         instructions on", a("How to Export E-Prime files to .txt",
-        href = "https://support.pstnet.com/hc/en-us/articles/115012298367-E-DATAAID-Exporting-Data-22832-",
-        target = "_blank"), ". You need to follow the 'Export Data to StatView' instructions AND",
+                            href = "https://support.pstnet.com/hc/en-us/articles/115012298367-E-DATAAID-Exporting-Data-22832-",
+                            target = "_blank"), ". You need to follow the 'Export Data to StatView' instructions AND",
         strong("uncheck Unicode")),
       p(strong("2. Select which task the data corresponds to")),
       p("Right now only newly downloaded versions of the complex span
         tasks are supported. If you modified the task it is not guaranteed
         to work (it will depend on how you modified it)."),
-      p(strong("3. Select how many blocks you administered (complex-span tasks only)")),
-      p(strong("4. Click on Run")),
+      p(strong("3. Click on Run")),
       p("Once you click on Run it may take a few minutes to process the data
         and display the tables. You can see a display of the two types of
         data files by selecting the Tabs above."),
-      p(strong("5. Download the data files")),
+      p(strong("4. Download the data files")),
       p("Click on the download buttons to download the data files. You will
         have to wait for the tables to be displayed before they are
         ready for download."),
@@ -99,7 +93,9 @@ fluidPage(
 
       p("Visit ", a("https://englelab.github.io/englelab/",
                     href = "https://englelab.github.io/englelab/",
-                    target = "_blank"), "for more information"),
+                    target = "_blank"), " for more information"),
+
+      ),
 
       tabPanel("Trial Level", tableOutput("trialLevel")),
       tabPanel("Task Scores", tableOutput("score"))
