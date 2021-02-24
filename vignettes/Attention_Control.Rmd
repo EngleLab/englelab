@@ -12,11 +12,11 @@ There are two sets of functions for the attention control tasks:
 
 -   `score_`
 
-    *Only the visual arrays task has a `score_` function because the scoring for the other tasks are simply a summary statistic (mean) on performance (accuracy)*
+*Only the visual arrays task has a `score_` function because the scoring for the other tasks are simply a summary statistic (mean) on performance (accuracy)*
 
 The `raw_` functions will create a tidy raw data file for the task with relevant columns for you to calculate task scores and other performance measures on the task.
 
-The `score_` functions will create a scored data file for the task from the output provided by the `raw_` functions. To allow for greater flexibility, the `score_` functions will need to be used with `dplyr::group_by()`.
+The `score_` functions will create a scored data file for the task from the output provided by the `raw_` functions.
 
 ## `raw_` functions
 
@@ -61,9 +61,9 @@ data_scores <- data_raw %>%
 
 ## Calculate Reliability
 
-Any time you use a measure of individual differences it is critical to provide reliability estimates from your sample. Here is a demonstration of how to do so with the complex-span tasks.
+Any time you use a measure of individual differences it is critical to provide reliability estimates from your sample. Here is a demonstration of how to do so with the visual arrays task.
 
-Reliability estimates should be calculated based on the trial level data that was used to calculated an aggregated score for the task. For instance, if you calculated complex-span scores using the the partial-credit load scoring method then you should calculate reliability based on the `Partial.load` scores in the raw data.
+Reliability estimates should be calculated based on the trial level data that was used to calculated an aggregated score for the task. In the visual arrays task, *k* scores are calculated for each set-size separately and then aggregated. One way to calculate reliability for this task would be to split trials up into even and odd, for each set-size separately. Then calculate *k* scores for even and odd trials, for each set-size, and aggregate even trial *k* scores over the two set-sizes and do the same for odd trial *k* scores. Then calculate spearman-brown corrected split-half reliability.
 
 ### Split-Half
 
@@ -73,8 +73,9 @@ library(dplyr)
 library(tidyr)
 
 splithalf <- data_raw %>%
+  group_by(Subject, SetSize) %>%
   mutate(Split = ifelse(Trial %% 2, "odd", "even")) %>%
-  group_by(Subject, Split) %>%
+  group_by(Subject, SetSize, Split) %>%
   score_visualarrays() %>%
   pivot_wider(id_cols = "Subject",
               names_from = c("SetSize", "Split"),
