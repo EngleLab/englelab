@@ -4,12 +4,12 @@
 \alias{raw_antisaccade}
 \title{Creates a "tidy" raw dataframe for the Antisaccade task}
 \usage{
-raw_antisaccade(x, taskVersion = "new")
+raw_antisaccade(x, taskVersion = NULL)
 }
 \arguments{
 \item{x}{dataframe (an imported .emrge file)}
 
-\item{taskVersion}{is this a "new" or "old" taskVersion of the task?}
+\item{taskVersion}{depricated. Doesn't do anything anymore}
 }
 \description{
 Creates a "tidy" raw dataframe for the Antisaccade task

@@ -12,17 +12,13 @@ get_script(
   symspan = FALSE,
   ospan = FALSE,
   rotspan = FALSE,
-  gf = FALSE,
-  rapm = FALSE,
-  numberseries = FALSE,
-  lettersets = FALSE,
   ac = FALSE,
   antisaccade = FALSE,
   stroop = FALSE,
   flanker = FALSE,
   stroopDL = FALSE,
   flankerDL = FALSE,
-  va = FALSE,
+  visualarrays = FALSE,
   sact = FALSE,
   path = "./"
 )
@@ -40,14 +36,6 @@ get_script(
 
 \item{rotspan}{Logical. Download script for the rotation span task?}
 
-\item{gf}{Logical. Dowload scripts for the gf taks?}
-
-\item{rapm}{Logical. Download script for ravens advanced progressive matrices?}
-
-\item{numberseries}{Logical. Download script for number series?}
-
-\item{lettersets}{Logical. Download script for letter sets?}
-
 \item{ac}{Logical. Download scripts for all the attention taks?}
 
 \item{antisaccade}{Logical. Download script for the antisaccade task?}
@@ -60,7 +48,7 @@ get_script(
 
 \item{flankerDL}{Logical. Download script for the FlankerDL task?}
 
-\item{va}{Logical. Download script for the Visual Arrays task?}
+\item{visualarrays}{Logical. Download script for the Visual Arrays task?}
 
 \item{sact}{Logical. Download script for the SACT task?}
 
