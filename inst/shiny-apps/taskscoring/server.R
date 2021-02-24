@@ -15,39 +15,54 @@ function(input, output) {
                          escape_double = FALSE, trim_ws = TRUE)
 
     if (input$task == "Operation Span") {
-      data$trial <- raw_ospan(import, blocks = input$blocks)
-      data$scores <- select(data$trial, Subject, OSpan.Absolute:SessionTime)
-      data$scores <- distinct(data$scores)
+      data$trial <- raw_ospan(import)
+      data$scores <- group_by(data$trial, Subject) %>%
+        score_ospan()
     }
 
     if (input$task == "Symmetry Span") {
-      data$trial <- raw_symspan(import, blocks = input$blocks)
-      data$scores <- select(data$trial, Subject, SymSpan.Absolute:SessionTime)
-      data$scores <- distinct(data$scores)
+      data$trial <- raw_symspan(import)
+      data$scores <- group_by(data$trial, Subject) %>%
+        score_symspan()
     }
 
     if (input$task == "Rotation Span") {
-      data$trial <- raw_rotspan(import, blocks = input$blocks)
-      data$scores <- select(data$trial, Subject, RotSpan.Absolute:SessionTime)
-      data$scores <- distinct(data$scores)
+      data$trial <- raw_rotspan(import)
+      data$scores <- group_by(data$trial, Subject) %>%
+        score_rotspan()
     }
 
     if (input$task == "Antisaccade") {
       data$trial <- raw_antisaccade(import)
-      data$scores <- select(data$trial, Subject, Antisaccade.ACC, AdminTime)
-      data$scores <- distinct(data$scores)
+      data$scores <- filter(data$trial, TrialProc == "real") %>%
+        group_by(Subject) %>%
+        summarise(Antisaccade.ACC = mean(Accuracy, na.rm = TRUE),
+                  Antisaccade.RT = mean(RT, na.rm = TRUE),
+                  AdminTime = first(AdminTime),
+                  SessionDate = first(SessionDate),
+                  SessionTime = first(SessionTime))
     }
 
     if (input$task == "Visual Arrays") {
       data$trial <- raw_visualarrays(import)
-      data$scores <- select(data$trial, Subject, VA_k, AdminTime)
-      data$scores <- distinct(data$scores)
+      data$scores <- filter(data$trial, TrialProc == "real") %>%
+        group_by(Subject) %>%
+        score_visualarrays() %>%
+        pivot_wider(id_cols = "Subject",
+                    names_from = "SetSize",
+                    names_prefix = "VAorient_S.k_",
+                    values_from = "k") %>%
+        mutate(VAorient_S.k = (VAorient_S.k_5 + VAorient_S.k_7) / 2)
     }
 
     if (input$task == "SACT") {
       data$trial <- raw_sact(import)
-      data$scores <- select(data$trial, Subject, SACT.ACC, AdminTime)
-      data$scores <- distinct(data$scores)
+      data$scores <- filter(data$trial, TrialProc == "real") %>%
+        group_by(Subject) %>%
+        summarise(SACT.acc = mean(Accuracy, na.rm = TRUE),
+                  AdminTime = first(AdminTime),
+                  SessionDate = first(SessionDate),
+                  SessionTime = first(SessionTime))
     }
 
     if (input$task == "FlankerDL") {

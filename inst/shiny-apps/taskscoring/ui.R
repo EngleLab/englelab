@@ -51,18 +51,15 @@ fluidPage(
       tabPanel("Instructions",
 
       br(),
-      p("Warning: This WebApp is still under development and may not work for
-        all of the complex-span tasks. As of 3/29/2020 this WebApp has only been tested for
-        the Advanced Versions and Foster Shortened versions of the complex-span tasks."),
+      p("Warning: This WebApp is still under development.
+        Contact jason.tsukahara@gatech.edu for any issues"),
       br(),
-      p("This app allows you to easily create two types of data files.
-      If, like me, you are scared of the large and overwhelming
-      file E-Prime produces for these tasks, then you will find this app useful."),
+      p("This app allows you to easily create two types of data files:"),
       br(),
       p(strong("1) A trial level data file:")),
       p("This is basically a cleaned up
       version of the extremely messy data file E-Prime produces. It can be
-      useful for data storage, sharing, and calculating cronbach's alpha
+      useful for data storage, sharing, and calculating reliability
       estimates in your data."),
       br(),
       p(strong("2) A task scores data file:")),
@@ -100,51 +97,10 @@ fluidPage(
       hr(),
       hr(),
 
-      h3(strong("Description of Columns in Complex-Span Task Data Files")),
-      br(),
-      h4(strong("Trial Level Data")),
-      p(strong("Subject: "), "Subject ID column"),
-      p(strong("Block"), "Block number (1-3)"),
-      p(strong("Trial"), "Within a block, the trial number."),
-      p("Trial number refers to an entire set-size sequence (presentation of
-        processing items, memory items, and recall screen)"),
-      p(strong("SetSize"), "For the trial, the set-size (number of memory items)"),
-      p(strong("SubTrial"), "Within a trial, there are processing items
-        presented sequentially"),
-      p("Sub-Trial refers to this sequential presentation. It also represents
-        the order of responses on the recall screen"),
-      p(strong("SubTrialProc"), "Processing or Recall portion of the task"),
-      p(strong("RT"), "Reaction time"),
-      p(strong("Accuracy"), "Accuracy (provided for both Processing and Recall)"),
-      p(strong("Response"), "The subject's response (provided for both
-        Processing and Recall)"),
-      p(strong("CorrectResponse"), "The correct response (provided for both
-        Processing and Recall)"),
+      p("Visit ", a("https://englelab.github.io/englelab/",
+                    href = "https://englelab.github.io/englelab/",
+                    target = "_blank"), "for more information"),
 
-      br(),
-
-      h4(strong("Task Scores Data")),
-      p(strong("Processing.total"), "The total number of processing items
-        correctly answered"),
-      p(strong("Recall.total"), "The total number of recall items
-        correctly answered"),
-      p(strong("[Task].Absolute"), "The task score using the Absolute
-        Scoring method"),
-      p("i.e. SymSpan.Absolute or OSpan.Absolute."),
-      p(strong("[Task].Partial"), "The task score using the Partial
-        Scoring method"),
-      p(strong("[Task]..Partial_Block1"), "The score on block 1 using the
-        Partial Scoring method"),
-      p(strong("[Task].Partial_Block2"), "The score on block 2 using the
-        Partial Scoring method"),
-      p(strong("[Task].[ProcessingTask].ACC"), "Proportion of processing task
-        items correctly answered"),
-      p("i.e. SymSpan.SymmetryACC or OSpan.MathACC."),
-      p(strong("[Task].Avg[ProcessingTask].Time"), "The average time to
-        complete a processing task item"),
-      p("i.e. SymSpan.AvgSymmetryTime or OSpan.AvgMathTime.")
-
-        ),
       tabPanel("Trial Level", tableOutput("trialLevel")),
       tabPanel("Task Scores", tableOutput("score"))
     )
