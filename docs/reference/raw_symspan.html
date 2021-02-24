@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Creates a "tidy" raw dataframe for the SymSpan task — raw_symspan • englelab</title>
+<title>Creates a "tidy" raw dataframe for the Symmetry Span task — raw_symspan • englelab</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,8 +52,8 @@
 
 
 
-<meta property="og:title" content="Creates a "tidy" raw dataframe for the SymSpan task — raw_symspan" />
-<meta property="og:description" content="Creates a &quot;tidy&quot; raw dataframe for the SymSpan task" />
+<meta property="og:title" content="Creates a "tidy" raw dataframe for the Symmetry Span task — raw_symspan" />
+<meta property="og:description" content="Creates a &quot;tidy&quot; raw dataframe for the Symmetry Span task" />
 <meta property="og:image" content="https://englelab.github.io/englelab/logo.png" />
 
 
@@ -109,12 +109,18 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Download_Scripts.html">Download R Scripts</a>
+      <a href="../articles/Attention_Control.html">Attention Control Tasks</a>
     </li>
     <li>
-      <a href="../articles/Tidy_File.html">Tidy Data Files</a>
+      <a href="../articles/Complex_Span.html">Complex Span Tasks</a>
+    </li>
+    <li>
+      <a href="../articles/Download_Scripts.html">Download R Scripts</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -143,32 +149,37 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Creates a "tidy" raw dataframe for the SymSpan task</h1>
+    <h1>Creates a "tidy" raw dataframe for the Symmetry Span task</h1>
     <small class="dont-index">Source: <a href='https://github.com/EngleLab/englelab/blob/master/R/symspan.R'><code>R/symspan.R</code></a></small>
     <div class="hidden name"><code>raw_symspan.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Creates a "tidy" raw dataframe for the SymSpan task</p>
+    <p>Creates a "tidy" raw dataframe for the Symmetry Span task</p>
     </div>
 
-    <pre class="usage"><span class='fu'>raw_symspan</span>(<span class='no'>x</span>, <span class='kw'>blocks</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>taskVersion</span> <span class='kw'>=</span> <span class='st'>"new"</span>)</pre>
+    <pre class="usage"><span class='fu'>raw_symspan</span>(<span class='kw'>x</span>, blocks = <span class='kw'>NULL</span>, taskVersion = <span class='st'>"new"</span>, keep_col = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>())</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>dataframe (an imported .emrge file)</p></td>
+      <td><p>dataframe</p></td>
     </tr>
     <tr>
       <th>blocks</th>
-      <td><p>number of blocks administered. From 1-3</p></td>
+      <td><p>depricated. No need to indicate number of blocks</p></td>
     </tr>
     <tr>
       <th>taskVersion</th>
-      <td><p>old or new version. Old version means the
-Procedure[Block] variable has a different label. (Default = "new")</p></td>
+      <td><p>old or new version. Required for different types of
+data files. First try leaving out the argument, if it does not work
+then try taskVersion = "old".</p></td>
+    </tr>
+    <tr>
+      <th>keep_col</th>
+      <td><p>List of extra columns to keep</p></td>
     </tr>
     </table>
 
@@ -188,7 +199,7 @@ Procedure[Block] variable has a different label. (Default = "new")</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

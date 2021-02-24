@@ -63,12 +63,18 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/Download_Scripts.html">Download R Scripts</a>
+      <a href="../articles/Attention_Control.html">Attention Control Tasks</a>
     </li>
     <li>
-      <a href="../articles/Tidy_File.html">Tidy Data Files</a>
+      <a href="../articles/Complex_Span.html">Complex Span Tasks</a>
+    </li>
+    <li>
+      <a href="../articles/Download_Scripts.html">Download R Scripts</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -94,7 +100,8 @@
 
       
 
-      </header><div class="row">
+      </header><script src="Download_Scripts_files/header-attrs-2.5/header-attrs.js"></script><link href="Download_Scripts_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="Download_Scripts_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Download R Scripts</h1>
@@ -107,41 +114,41 @@
 
     
     
-<p>The wonderful thing about R scripts is that once you create one for a task you can just keep on using it over and over for that task and share it others who use that task.</p>
-<p>The <code>englelab</code> package has a convenient function to download R scripts for the tasks we host on our <a href="http://englelab.gatech.edu/taskdownloads" target="_blank">website</a></p>
+<p>The <code>englelab</code> package has a convenient function to download template R scripts for the tasks we host on our <a href="http://englelab.gatech.edu/taskdownloads" target="_blank">website</a></p>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="kw">englelab</span>::<span class="fu"><a href="../reference/get_script.html">get_script</a></span>(type = <span class="st">"raw"</span>, to = <span class="st">"R Scripts"</span>,
+                     ospan = <span class="fl">TRUE</span>, symspan = <span class="fl">TRUE</span>, rotspan = <span class="fl">TRUE</span>,
+                     antisaccade = <span class="fl">TRUE</span>, visualarrays = <span class="fl">TRUE</span>, sact = <span class="fl">TRUE</span>,
+                     flankerDL = <span class="fl">TRUE</span>, stroopDL = <span class="fl">TRUE</span>)
+</pre></div>
 <div id="get_script" class="section level2">
 <h2 class="hasAnchor">
 <a href="#get_script" class="anchor"></a><code>get_script()</code>
 </h2>
-<p>The first two agruments you should specify is the location you want to download the R Script to (by default set to “R Scripts”) and the type of R Script you want to download.</p>
+<p>The first two arguments you should specify is the type of R Script you want to download and the location you want to download the R Script to (by default set to “R Scripts”).</p>
 <ul>
-<li><p><strong>to</strong>: Save to a folder within your working directory (i.e. “R Scripts”)</p></li>
 <li>
 <p><strong>type</strong>: You can download R Scripts:</p>
 <ol style="list-style-type: decimal">
-<li><p>To create tidy raw data files from the messy E-Prime file. <code>type = "raw"</code></p></li>
-<li><p>To create a scored data file from the tidy raw data file. <code>type = "score"</code></p></li>
+<li><p><code>type = "raw"</code> To download R scripts to create tidy raw data files</p></li>
+<li><p><code>type = "score"</code> To download R scripts to create scored data files</p></li>
+<li><p><code>type = "all"</code> To download both types of R scripts</p></li>
 </ol>
 </li>
+<li><p><strong>to</strong>: Save to a folder within your project directory (i.e. “R Scripts”)</p></li>
 </ul>
-<p>Next, you will want to specify for which tasks you want to download R Scripts for. The options are:</p>
+<p>Next, you will want to specify the tasks you want to download R Scripts for. The options are:</p>
 <ul>
 <li><p><strong>wmc</strong>: Download the scripts for operation span, symmetry span, and rotation span. <code>wmc = TRUE</code></p></li>
 <li><p><strong>ospan</strong>: Download the script for operatoin span. <code>ospan = TRUE</code></p></li>
 <li><p><strong>symspan</strong>: Download the script for symmetry span. <code>symspan = TRUE</code></p></li>
 <li><p><strong>rotspan</strong>: Download the script for rotation span. <code>rotspan = TRUE</code></p></li>
-<li><p><strong>gf</strong>: Download the scripts for ravens, number series, and lettersets <code>gf = TRUE</code></p></li>
-<li><p><strong>rapm</strong>: Download the script for ravens advanaced progressive matrices <code>rapm = TRUE</code></p></li>
-<li><p><strong>numberseries</strong>: Download the script for number series <code>numberseries = TRUE</code></p></li>
-<li><p><strong>lettersets</strong>: Download the script for letter sets <code>lettersets = TRUE</code></p></li>
 <li><p><strong>ac</strong>: Download the scripts for all attention control tasks <code>ac = TRUE</code></p></li>
 <li><p><strong>antisaccade</strong>: Download the script for the antisaccade. <code>antisaccade = TRUE</code></p></li>
-<li><p><strong>va4</strong>: Download the script for the visual arrays. <code>va4 = TRUE</code></p></li>
+<li><p><strong>visualarrays</strong>: Download the script for the visual arrays. <code>va = TRUE</code></p></li>
 <li><p><strong>sact</strong>: Download the script for the sustained attention to cue task. <code>sact = TRUE</code></p></li>
 <li><p><strong>flankerDL</strong>: Download the script for the adaptive flanker deadline. <code>flankerDL = TRUE</code></p></li>
 <li><p><strong>stroopDL</strong>: Download the script for the adaptive stroop deadline. <code>stroopDL = TRUE</code></p></li>
-<li><p><strong>flanker</strong>: Download the script for the traditional RT flanker. <code>flanker = TRUE</code></p></li>
-<li><p><strong>stroop</strong>: Download the script for the traditional RT stroop <code>stroop = TRUE</code></p></li>
 </ul>
 </div>
   </div>
@@ -161,7 +168,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

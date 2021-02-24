@@ -16,9 +16,6 @@ reference:
   - raw_ospan
   - raw_symspan
   - raw_rotspan
-  - raw_rapm
-  - raw_numberseries
-  - raw_lettersets
   - raw_antisaccade
   - raw_visualarrays
   - raw_sact
@@ -29,18 +26,11 @@ reference:
   - score_ospan
   - score_symspan
   - score_rotspan
-  - score_rapm
-  - score_numberseries
-  - score_lettersets
   - score_antisaccade
   - score_visualarrays
   - score_sact
   - score_flankerDL
   - score_stroopDL
-- title: Calculate Reliability Estimates
-  contents:
-  - cronbach_alpha
-  - splithalf
 - title: Combine Reaction Time and Accuracy
   contents:
   - bin_score

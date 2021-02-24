@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>englelab — englelab • englelab</title>
+<title>Changelog • englelab</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,7 +52,7 @@
 
 
 
-<meta property="og:title" content="englelab — englelab" />
+<meta property="og:title" content="Changelog" />
 <meta property="og:image" content="https://englelab.github.io/englelab/logo.png" />
 
 
@@ -72,7 +72,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-topic">
+    <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -148,23 +148,37 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>englelab</h1>
-    <small class="dont-index">Source: <a href='https://github.com/EngleLab/englelab/blob/master/R/englelab-package.r'><code>R/englelab-package.r</code></a></small>
-    <div class="hidden name"><code>englelab.Rd</code></div>
+      <h1 data-toc-skip>Changelog <small></small></h1>
+      <small>Source: <a href='https://github.com/EngleLab/englelab/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div class="ref-description">
-    </div>
-
-
-
-
+    <div id="englelab-v100" class="section level1">
+<h1 class="page-header" data-toc-text="1.0.0">
+<a href="#englelab-v100" class="anchor"></a>englelab v1.0.0</h1>
+<p>Updated: 24 February, 2021</p>
+<ul>
+<li><p><strong>This is a major update and will break previous versions</strong> (<em>my apologies</em>)</p></li>
+<li><p><strong>This is the first major release and will hopefully be stable after this</strong></p></li>
+<li><p>The <code>raw_</code> functions work pretty much the same and might not break from previous versions</p></li>
+<li><p>The <code>score_</code> functions will break and have been made to be more flexible, such as using them to calculate alternate span scores and reliability estimates.</p></li>
+<li><p>The <code>score_</code> functions need to be used with <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">dplyr::group_by()</a></code> and so can be thought of as similar to <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">dplyr::summarise()</a></code></p></li>
+<li>
+<p>See new Vignettes explaining this all:</p>
+<ul>
+<li><p><a href="https://englelab.github.io/englelab/articles/Complex_Span.html">Complex Span Tasks</a></p></li>
+<li><p><a href="https://englelab.github.io/englelab/articles/Attention_Control.html">Attention Control Tasks</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
   </div>
+
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
+
 </div>
 
 

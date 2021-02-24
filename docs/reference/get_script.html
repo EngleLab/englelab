@@ -109,12 +109,18 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Download_Scripts.html">Download R Scripts</a>
+      <a href="../articles/Attention_Control.html">Attention Control Tasks</a>
     </li>
     <li>
-      <a href="../articles/Tidy_File.html">Tidy Data Files</a>
+      <a href="../articles/Complex_Span.html">Complex Span Tasks</a>
+    </li>
+    <li>
+      <a href="../articles/Download_Scripts.html">Download R Scripts</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -152,12 +158,24 @@
     <p>This function will download R script templates for tasks commonly used in the EngleLab</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_script</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"raw"</span>, <span class='kw'>to</span> <span class='kw'>=</span> <span class='st'>"R Scripts"</span>, <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>wmc</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>symspan</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ospan</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>rotspan</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>gf</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>rapm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>numberseries</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>lettersets</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ac</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>antisaccade</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>stroop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>flanker</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>stroopDL</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>flankerDL</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>va</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>sact</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"./"</span>)</pre>
+    <pre class="usage"><span class='fu'>get_script</span>(
+  type = <span class='st'>"raw"</span>,
+  to = <span class='st'>"R Scripts"</span>,
+  overwrite = <span class='fl'>FALSE</span>,
+  wmc = <span class='fl'>FALSE</span>,
+  symspan = <span class='fl'>FALSE</span>,
+  ospan = <span class='fl'>FALSE</span>,
+  rotspan = <span class='fl'>FALSE</span>,
+  ac = <span class='fl'>FALSE</span>,
+  antisaccade = <span class='fl'>FALSE</span>,
+  stroop = <span class='fl'>FALSE</span>,
+  flanker = <span class='fl'>FALSE</span>,
+  stroopDL = <span class='fl'>FALSE</span>,
+  flankerDL = <span class='fl'>FALSE</span>,
+  visualarrays = <span class='fl'>FALSE</span>,
+  sact = <span class='fl'>FALSE</span>,
+  path = <span class='st'>"./"</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -187,22 +205,6 @@
       <td><p>Logical. Download script for the rotation span task?</p></td>
     </tr>
     <tr>
-      <th>gf</th>
-      <td><p>Logical. Dowload scripts for the gf taks?</p></td>
-    </tr>
-    <tr>
-      <th>rapm</th>
-      <td><p>Logical. Download script for ravens advanced progressive matrices?</p></td>
-    </tr>
-    <tr>
-      <th>numberseries</th>
-      <td><p>Logical. Download script for number series?</p></td>
-    </tr>
-    <tr>
-      <th>lettersets</th>
-      <td><p>Logical. Download script for letter sets?</p></td>
-    </tr>
-    <tr>
       <th>ac</th>
       <td><p>Logical. Download scripts for all the attention taks?</p></td>
     </tr>
@@ -227,8 +229,8 @@
       <td><p>Logical. Download script for the FlankerDL task?</p></td>
     </tr>
     <tr>
-      <th>va</th>
-      <td><p>Logical. Download script for the Visual Arrays 4 task?</p></td>
+      <th>visualarrays</th>
+      <td><p>Logical. Download script for the Visual Arrays task?</p></td>
     </tr>
     <tr>
       <th>sact</th>
@@ -256,7 +258,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

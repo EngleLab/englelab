@@ -63,12 +63,18 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/Download_Scripts.html">Download R Scripts</a>
+      <a href="articles/Attention_Control.html">Attention Control Tasks</a>
     </li>
     <li>
-      <a href="articles/Tidy_File.html">Tidy Data Files</a>
+      <a href="articles/Complex_Span.html">Complex Span Tasks</a>
+    </li>
+    <li>
+      <a href="articles/Download_Scripts.html">Download R Scripts</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="news/index.html">Changelog</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -101,12 +107,12 @@
 <a href="#englelab-" class="anchor"></a>englelab <img src="reference/figures/logo_small.png" align="right">
 </h1></div>
 <p>This package contains various functions for processing and scoring complex-span and attention control tasks downloaded from the <a href="http://englelab.gatech.edu" target="_blank"><b>EngleLab</b></a></p>
-<p>The tasks are programmed in E-Prime, and unfortunately the resulting data file (<strong>.edat</strong>) the program produces is not easy to work with. The column names may not make any sense to you, there are way too many columns, the values in the columns are not always clear, and more messy issues. Even if you are not using R for data analysis you still may find this package useful.</p>
-<p>Currently there are only functions for the <strong>Advanced versions</strong> and <strong>Foster Shortened versions</strong> of the complex-span tasks and functions for all the <strong>Attention Control</strong> tasks.</p>
+<p>The tasks are programmed in E-Prime, and unfortunately the resulting data file (<strong>.edat</strong>) the program produces is not easy to work with. The column names may not make any sense to you, there are way too many columns, the values in the columns are not always clear, and more messy issues.</p>
+<p>Currently there are functions for the <strong>Advanced versions</strong> and <strong>Foster Shortened versions</strong> of the complex-span tasks and functions for all the <strong>Attention Control</strong> tasks.</p>
 <div id="non-r-users" class="section level2">
 <h2 class="hasAnchor">
 <a href="#non-r-users" class="anchor"></a>Non-R Users</h2>
-<p>For those of you that do not use R for processing and analyzing data, we have developed a point-and-click GUI to process and score data files from the tasks.</p>
+<p>For non-R users, we created a point-and-click GUI to process and score data files from the tasks.</p>
 <div id="web-app-for-englelab-data-processing-and-scoring" class="section level4">
 <h4 class="hasAnchor">
 <a href="#web-app-for-englelab-data-processing-and-scoring" class="anchor"></a><a href="https://englelab.shinyapps.io/taskscoring/" target="_blank"><b>Web App for EngleLab Data Processing and Scoring</b></a>
@@ -117,7 +123,9 @@
 <div id="install" class="section level2">
 <h2 class="hasAnchor">
 <a href="#install" class="anchor"></a>Install</h2>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"EngleLab/englelab"</span>)</pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="kw">devtools</span>::<span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"EngleLab/englelab"</span>)
+</pre></div>
 </div>
 <div id="data-preparation" class="section level2">
 <h2 class="hasAnchor">
@@ -129,44 +137,36 @@
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
-<p>Once you have the data file imported into R as a dataframe object, you can then use the functions to easily create clean and tidy raw data files for the tasks. Depending on your sample size, these functions may actually take a little while to execute.</p>
-<p><strong>Example with Operation Span</strong>: <code><a href="reference/raw_ospan.html">raw_ospan()</a></code></p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">readr</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">englelab</span>)
+<p><strong>Symmetry Span Example</strong></p>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://readr.tidyverse.org">readr</a></span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org">dplyr</a></span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/EngleLab/englelab">englelab</a></span>)
 
 <span class="co">## Import</span>
-<span class="no">import</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_delim</a></span>(<span class="st">"import/OSpan.txt"</span>, <span class="st">"\t"</span>,
-                     <span class="kw">escape_double</span> <span class="kw">=</span> <span class="fl">FALSE</span>, <span class="kw">trim_ws</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-
+<span class="kw">data_import</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_delim</a></span>(<span class="st">"import/SymSpan.txt"</span>, <span class="st">"\t"</span>, 
+                          escape_double = <span class="fl">FALSE</span>, trim_ws = <span class="fl">TRUE</span>)
+                     
 <span class="co">## Raw</span>
-<span class="no">data</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/raw_ospan.html">raw_ospan</a></span>(<span class="no">import</span>, <span class="kw">blocks</span> <span class="kw">=</span> <span class="fl">2</span>)
+<span class="kw">data_raw</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/raw_symspan.html">raw_symspan</a></span>(<span class="kw">data_import</span>)
 
-<span class="co">## Output</span>
-<span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span>(<span class="no">data</span>, <span class="st">"output/OSpan_raw.txt"</span>)</pre></div>
-<p><strong>Symmetry Span</strong>: <code><a href="reference/raw_symspan.html">raw_symspan()</a></code></p>
-<p><strong>Rotation Span</strong>: <code><a href="reference/raw_rotspan.html">raw_rotspan()</a></code></p>
-<p><strong>Antisaccade</strong>: <code><a href="reference/raw_antisaccade.html">raw_antisaccade()</a></code></p>
-<p><strong>Visual Arrays</strong>: <code><a href="reference/raw_visualarrays.html">raw_visualarrays()</a></code></p>
-<p><strong>SACT</strong>: <code><a href="reference/raw_sact.html">raw_sact()</a></code></p>
-<p><strong>FlankerDL</strong>: <code><a href="reference/raw_flankerDL.html">raw_flankerDL()</a></code></p>
-<p><strong>StroopDL</strong>: <code><a href="reference/raw_stroopDL.html">raw_stroopDL()</a></code></p>
-</div>
-<div id="download-r-scripts" class="section level2">
-<h2 class="hasAnchor">
-<a href="#download-r-scripts" class="anchor"></a>Download R Scripts</h2>
-<p>Instead of creating your own R scripts from scratch you can download scripts to score each of the tasks. With these downloaded scripts you should only have to change the import/output directories and filenames.</p>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">englelab</span>)
-<span class="fu"><a href="reference/get_script.html">get_script</a></span>(<span class="kw">type</span> <span class="kw">=</span> <span class="st">"raw"</span>, <span class="kw">to</span> <span class="kw">=</span> <span class="st">"R Scripts"</span>,
-           <span class="kw">ospan</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">symspan</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">rotspan</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
-           <span class="kw">antisaccade</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">va</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">sact</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
-           <span class="kw">flankerDL</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">stroopDL</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></div>
+<span class="co">## Score</span>
+<span class="kw">data_score</span> <span class="op">&lt;-</span> <span class="kw">data_raw</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="kw">Subject</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="reference/score_symspan.html">score_symspan</a></span>()
+</pre></div>
+<p><strong>See Articles:</strong></p>
+<ul>
+<li><p><a href="https://englelab.github.io/englelab/articles/Complex_Span.html">Complex Span Tasks</a></p></li>
+<li><p><a href="https://englelab.github.io/englelab/articles/Attention_Control.html">Attention Control Tasks</a></p></li>
+<li><p><a href="https://englelab.github.io/englelab/articles/Download_Scripts.html">Download R Scripts</a></p></li>
+</ul>
 </div>
 <div id="troubleshooting" class="section level2">
 <h2 class="hasAnchor">
 <a href="#troubleshooting" class="anchor"></a>Troubleshooting</h2>
-<p>If you are having any difficulties using the functions or R scripts please contact Jason Tsukahara at <a href="mailto:jason.tsukahara@gatech.edu" class="email">jason.tsukahara@gatech.edu</a></p>
+<p>If you are having any difficulties with this package please contact Jason Tsukahara at <a href="mailto:jason.tsukahara@gatech.edu">jason.tsukahara@gatech.edu</a></p>
 <hr>
-<p>See <a href="https://englelab.github.io/englelab/reference/index.html">References</a> for more information about the other functions in this package</p>
 </div>
 <div id="citation" class="section level2">
 <h2 class="hasAnchor">
@@ -211,7 +211,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
