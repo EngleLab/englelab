@@ -6,23 +6,29 @@ title: "Download R Scripts"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-The wonderful thing about R scripts is that once you create one for a task you can just keep on using it over and over for that task and share it others who use that task. 
+The `englelab` package has a convenient function to download template R scripts for the tasks we host on our [website](http://englelab.gatech.edu/taskdownloads){target="_blank"}
 
-The `englelab` package has a convenient function to download R scripts for the tasks we host on our [website](http://englelab.gatech.edu/taskdownloads){target="_blank"}
+```{r eval=FALSE}
+englelab::get_script(type = "raw", to = "R Scripts",
+                     ospan = TRUE, symspan = TRUE, rotspan = TRUE,
+                     antisaccade = TRUE, va = TRUE, sact = TRUE,
+                     flankerDL = TRUE, stroopDL = TRUE)
+```
+
 
 ## `get_script()`
 
-The first two agruments you should specify is the location you want to download the R Script to (by default set to "R Scripts") and the type of R Script you want to download.
-
-- __to__: Save to a folder within your working directory (i.e. "R Scripts")
+The first two arguments you should specify is the type of R Script you want to download and the location you want to download the R Script to (by default set to "R Scripts").
 
 - __type__: You can download R Scripts:
 
-    1. To create tidy raw data files from the messy E-Prime file. `type = "raw"`
+    1. `type = "raw"` To create tidy raw data files from the messy E-Prime file. 
     
-    2. To create a scored data file from the tidy raw data file. `type = "score"`
+    2. `type = "score"` To create a scored data file from the tidy raw data file.
+
+- __to__: Save to a folder within your project directory (i.e. "R Scripts")
     
-Next, you will want to specify for which tasks you want to download R Scripts for. The options are:
+Next, you will want to specify the tasks you want to download R Scripts for. The options are:
 
 - __wmc__: Download the scripts for operation span, symmetry span, and rotation span. `wmc = TRUE`
 
@@ -32,29 +38,17 @@ Next, you will want to specify for which tasks you want to download R Scripts fo
 
 - __rotspan__: Download the script for rotation span. `rotspan = TRUE`
 
-- __gf__: Download the scripts for ravens, number series, and lettersets `gf = TRUE`
-
-- __rapm__: Download the script for ravens advanaced progressive matrices `rapm = TRUE`
-
-- __numberseries__: Download the script for number series `numberseries = TRUE`
-
-- __lettersets__: Download the script for letter sets `lettersets = TRUE`
-
 - __ac__: Download the scripts for all attention control tasks `ac = TRUE`
 
 - __antisaccade__: Download the script for the antisaccade. `antisaccade = TRUE`
 
-- __va4__: Download the script for the visual arrays. `va4 = TRUE`
+- __va__: Download the script for the visual arrays. `va = TRUE`
 
 - __sact__: Download the script for the sustained attention to cue task. `sact = TRUE`
 
 - __flankerDL__: Download the script for the adaptive flanker deadline. `flankerDL = TRUE`
 
 - __stroopDL__: Download the script for the adaptive stroop deadline. `stroopDL = TRUE`
-
-- __flanker__: Download the script for the traditional RT flanker. `flanker = TRUE`
-
-- __stroop__: Download the script for the traditional RT stroop `stroop = TRUE`
 
 
 

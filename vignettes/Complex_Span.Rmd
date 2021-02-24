@@ -1,0 +1,182 @@
+---
+title: "Complex Span Tasks"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+There are two sets of functions for each complex-span task:
+
+-   `raw_`
+
+-   `score_`
+
+The `raw_` functions will create a tidy raw data file for the task with relevant columns for you to calculate task scores and other performance measures on the task.
+
+The `score_` functions will create a scored data file for the task from the output provided by the `raw_` functions. To allow for greater flexibility (see Calculating reliability below), the `score_` functions will need to be used with `dplyr::group_by()`.
+
+## `raw_` functions
+
+-   `raw_ospan()`
+
+-   `raw_symspan()`
+
+-   `raw_rotspan()`
+
+```{r eval=FALSE}
+data_raw <- raw_symspan(data_import)
+```
+
+Both trial and subtrial level variables are provided by the `raw_` functions.
+
+A trial consists of the completion of alternating processing subtasks (e.g., symmetry judgments) and the presentation of memory items followed by a recall of the memory items.
+
+Subtrial level performance is provided by the `raw_` functions. This includes the accuracy and reaction time for each individual processing subtask and the accuracy for each individual recalled memory item within a single trial.
+
+Trial level performance includes a sum of the number of processing subtasks answered correctly on that trial and the the sum of memory items correctly recalled in their serial order. In addition, there are four additional trial level scores (e.g., Partial.unit) provided to make it easier to use alternative scoring methods for the complex-span tasks. For more details on each of the scoring methods see <a href="https://englelab.gatech.edu/articles/2005/working-memory-span-tasks-a-methodological-review-and-user27s-guide.pdf" target="_blank">Conway et al. (2005)</a>
+
+### Columns outputted by `raw_` functions
+
+-   **Subject**: Subject ID column
+
+-   **Block**: Block number (1-3)
+
+-   **Trial**: Trial number
+
+    Trial number refers to an entire set-size sequence (alternating presentation of processing subtasks and memory items followed by the recall response)
+
+-   **SetSize**: The set-size for a given trial (number of memory items presented)
+
+-   **Processing.correct**: Sum of the number of processing subtasks answered correctly
+
+-   **Recall.total**: Total number of memory items correctly recalled
+
+-   **Partial.unit**: Trial-level scores needed to calculate complex-span scores based on the partial-credit unit scoring method.
+
+-   **Partial.load**: Trial-level scores needed to calculate complex-span scores based on the partial-credit load scoring method.
+
+-   **Absolute.unit**: Trial-level scores needed to calculate complex-span scores based on the all-or-nothing unit scoring method.
+
+-   **Absolute.load**: Trial-level scores needed to calculate complex-span scores based on the all-or-nothing load scoring method.
+
+-   **SubTrial**: Within a trial, there are multiple processing tasks/memory items followed by a recall response
+
+    Sub-Trial refers to this sequential presentation. It also represents the order of responses made on the recall screen
+
+-   **SubTrialProc**: "Processing" or "Recall" portion of the task
+
+-   **RT**: Reaction time
+
+-   **Accuracy**: Accuracy (provided for both "Processing" and "Recall")
+
+-   **Response**: The subject's response (provided for both "Processing" and "Recall")
+
+-   **CorrectResponse**: The correct response (provided for both "Processing" and "Recall")
+
+-   **Memory Item**: The memory item that was presented.
+
+-   **keep_col**: You can specify any additional columns to be preserved in the output with `keep_col = c()`
+
+## `score_` functions
+
+-   `score_ospan()`
+
+-   `score_symspan()`
+
+-   `score_rotspan()`
+
+Based on the output provided by the `raw_` functions, the `score_` functions will calculate task level scores on both the processing task and the memory task. In order to allow for more flexibility with using the `score_` functions, they will need to be combined with `dplyr::group_by()`.
+
+```{r eval=FALSE}
+library(englelab)
+library(dplyr)
+library(tidyr)
+
+data_raw <- raw_symspan(data_import)
+
+data_scores <- data_raw %>%
+  group_by(Subject) %>%
+  score_symspan()
+
+## Alternatively, to get block level performance
+data_scores <- data_raw %>%
+  group_by(Subject, Block) %>%
+  score_symspan() %>%
+  pivot_wider(id_cols = "Subject",
+              names_from = "Block",
+              names_prefix = "Block",
+              values_from = contains("SymSpan"))
+```
+
+### Columns outputted by `score_` functions
+
+For more details on how each score is calculated see <a href="https://englelab.gatech.edu/articles/2005/working-memory-span-tasks-a-methodological-review-and-user27s-guide.pdf" target="_blank">Conway et al. (2005)</a>
+
+-   **Subject**: Subject ID column
+
+-   **[Task].PartialUnit**: Partial-credit unit score
+
+    *i.e. SymSpan.PartialUnit or RotSpan.PartialUnit*
+
+-   **[Task].PartialLoad**: Partial-credit load score
+
+-   **[Task].AbsoluteUnit**: All-or-nothing unit score
+
+-   **[Task].AbsoluteLoad**: All-or-nothing load score
+
+-   **[ProcessingTask].RT_mean**: Average reaction time on the processing task
+
+    *i.e. Symmetry.RT_mean or Rotation.RT_mean*
+
+-   **[ProcessingTask].RT_sd**: Standard deviation of reaction times on the processing task
+
+-   **[ProcessingTask].ACC**: Average accuracy on the processing task
+
+-   **[Task].Trial**: Total number of trials used to calculate the score for that row
+
+-   **[Task].MemoryItems**: Total number of memory items used to calculate the score for that row
+
+## Calculate Reliability
+
+Any time you use a measure of individual differences it is critical to provide reliability estimates from your sample. Here is a demonstration of how to do so with the complex-span tasks.
+
+Reliability estimates should be calculated based on the trial level data that was used to calculated an aggregated score for the task. For instance, if you calculated complex-span scores using the the partial-credit load scoring method then you should calculate reliability based on the `Partial.load` scores in the raw data.
+
+### Split-Half
+
+```{r eval=FALSE}
+library(englelab)
+library(dplyr)
+library(tidyr)
+
+splithalf <- data_raw %>%
+  mutate(Split = ifelse(Trial %% 2, "odd", "even")) %>%
+  group_by(Subject, Split) %>%
+  score_symspan() %>%
+  pivot_wider(id_cols = "Subject",
+              names_from = "Split",
+              values_from = contains("SymSpan")) %>%
+  summarise(r_partial.load = 
+              cor(SymSpan.PartialLoad_odd, SymSpan.PartialLoad_even)) %>%
+  mutate(r_partial.load = 
+           (2 * r_partial.load) / (1 + r_partial.load))
+```
+
+### Cronbach's Alpha
+
+```{r eval=FALSE}
+library(dplyr)
+library(tidyr)
+library(psych) # alpha()
+
+cronbachalpha <- data_raw %>%
+  distinct(Subject, Trial, .keep_all = TRUE) %>%
+  pivot_wider(id_cols = "Subject",
+              names_from = "Trial",
+              values_from = contains("Partial.load")) %>%
+  alpha()
+
+## The cronbach alpha value can then be accessed: 
+cronbachalpha$total$std.alpha
+```

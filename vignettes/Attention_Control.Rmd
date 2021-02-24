@@ -1,0 +1,87 @@
+---
+title: "Attention Control Tasks"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+There are two sets of functions for the attention control tasks:
+
+-   `raw_`
+
+-   `score_`
+
+    *Only the visual arrays task has a `score_` function because the scoring for the other tasks are simply a summary statistic (mean) on performance (accuracy)*
+
+The `raw_` functions will create a tidy raw data file for the task with relevant columns for you to calculate task scores and other performance measures on the task.
+
+The `score_` functions will create a scored data file for the task from the output provided by the `raw_` functions. To allow for greater flexibility, the `score_` functions will need to be used with `dplyr::group_by()`.
+
+## `raw_` functions
+
+-   `raw_antisaccade()`
+
+-   `raw_sact()`
+
+-   `raw_flankerDL()`
+
+-   `raw_stroopDL()`
+
+-   `raw_visualarrays()`
+
+```{r eval=FALSE}
+data_raw <- raw_antisaccade(data_import)
+```
+
+Trial level variables are provided by the `raw_` functions.
+
+## `score_` functions
+
+-   `score_visualarrays()`
+
+Based on the output provided by the `raw_` functions, the `score_` functions will calculate task level scores. In order to allow for more flexibility with using the `score_` functions, they will need to be combined with `dplyr::group_by()`.
+
+```{r eval=FALSE}
+library(englelab)
+library(dplyr)
+library(tidyr)
+
+data_raw <- raw_visualarrays(data_import)
+
+data_scores <- data_raw %>%
+  group_by(Subject) %>%
+  score_visualarrays() %>%
+  pivot_wider(id_cols = "Subject",
+              names_from = "SetSize",
+              names_prefix = "VAorient_S.k_",
+              values_from = "k") %>%
+  mutate(VAorient_S_k = (VAorient_S.k_5 + VAorient_S.k_7) / 2)
+```
+
+## Calculate Reliability
+
+Any time you use a measure of individual differences it is critical to provide reliability estimates from your sample. Here is a demonstration of how to do so with the complex-span tasks.
+
+Reliability estimates should be calculated based on the trial level data that was used to calculated an aggregated score for the task. For instance, if you calculated complex-span scores using the the partial-credit load scoring method then you should calculate reliability based on the `Partial.load` scores in the raw data.
+
+### Split-Half
+
+```{r eval=FALSE}
+library(englelab)
+library(dplyr)
+library(tidyr)
+
+splithalf <- data_raw %>%
+  mutate(Split = ifelse(Trial %% 2, "odd", "even")) %>%
+  group_by(Subject, Split) %>%
+  score_visualarrays() %>%
+  pivot_wider(id_cols = "Subject",
+              names_from = c("SetSize", "Split"),
+              names_prefix = "k_",
+              values_from = "k") %>%
+  mutate(VAorient_S.k_even = (k_5_even + k_7_even) / 2,
+         VAorient_S.k_odd = (k_5_odd + k_7_odd) / 2) %>%
+  summarise(r_VA.k = cor(VAorient_S.k_even, VAorient_S.k_odd)) %>%
+  mutate(r_VA.k = (2 * r_VA.k) / (1 + r_VA.k))
+```
