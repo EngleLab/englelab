@@ -32,6 +32,7 @@ data_scores <- data_import %>%
 
 #### Calculate Reliability ####
 splithalf <- data_import %>%
+  group_by(Subject) %>%
   mutate(Split = ifelse(Trial %% 2, "odd", "even")) %>%
   group_by(Subject, Split) %>%
   score_symspan() %>%

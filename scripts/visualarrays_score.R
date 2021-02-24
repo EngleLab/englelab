@@ -37,6 +37,7 @@ data_scores <- data_import %>%
 
 #### Calculate Reliability ####
 splithalf <- data_raw %>%
+  group_by(Subject, SetSize) %>%
   mutate(Split = ifelse(Trial %% 2, "odd", "even")) %>%
   group_by(Subject, Split) %>%
   score_visualarrays() %>%
