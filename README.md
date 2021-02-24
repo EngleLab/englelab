@@ -2,7 +2,7 @@
 
 This package contains various functions for processing and scoring complex-span and attention control tasks downloaded from the <a href = "http://englelab.gatech.edu" target = "_blank"><b>EngleLab</b></a>
 
-The tasks are programmed in E-Prime, and unfortunately the resulting data file (**.edat**) the program produces is not easy to work with. The column names may not make any sense to you, there are way too many columns, the values in the columns are not always clear, and more messy issues.
+The tasks are programmed in E-Prime and the resulting data file (**.edat**) the program produces is not easy to work with. The column names may not make any sense to you, there are way too many columns, the values in the columns are not always clear, and other messy issues.
 
 Currently there are functions for the **Advanced versions** and **Foster Shortened versions** of the complex-span tasks and functions for all the **Attention Control** tasks.
 
