@@ -8,7 +8,7 @@ Currently there are functions for the **Advanced versions** and **Foster Shorten
 
 ## Non-R Users
 
-Alternatively, we created a point-and-click GUI to process and score data files from the tasks.
+For non-R users, we created a point-and-click GUI to process and score data files from the tasks.
 
 #### <a href = "https://englelab.shinyapps.io/taskscoring/" target = "_blank"><b>Web App for EngleLab Data Processing and Scoring</b></a>
 

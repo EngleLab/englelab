@@ -3,10 +3,6 @@
 #' This function will download R script templates for tasks commonly used in the EngleLab
 #' @param type String. Do you want to download "raw" or "score" task template files?
 #' @param to a directory where to download R scripts
-#' @param gf Logical. Dowload scripts for the gf taks?
-#' @param rapm Logical. Download script for ravens advanced progressive matrices?
-#' @param numberseries Logical. Download script for number series?
-#' @param lettersets Logical. Download script for letter sets?
 #' @param wmc Logical. Download scripts for the wmc taks?
 #' @param ospan Logical. Download script for the operation span task?
 #' @param symspan Logical. Download script for the symmetry span task?
@@ -17,7 +13,7 @@
 #' @param flanker Logical. Download script for the flanker task?
 #' @param stroopDL Logical. Download script for the StroopDL task?
 #' @param flankerDL Logical. Download script for the FlankerDL task?
-#' @param va Logical. Download script for the Visual Arrays task?
+#' @param visualarrays Logical. Download script for the Visual Arrays task?
 #' @param sact Logical. Download script for the SACT task?
 #' @param path String. Home directory file path
 #' @export
@@ -25,9 +21,8 @@
 
 get_script <- function(type = "raw", to = "R Scripts", overwrite = FALSE,
                      wmc = FALSE, symspan = FALSE, ospan = FALSE, rotspan = FALSE,
-                     gf = FALSE, rapm = FALSE, numberseries = FALSE, lettersets = FALSE,
                      ac = FALSE, antisaccade = FALSE, stroop = FALSE, flanker = FALSE,
-                     stroopDL = FALSE, flankerDL = FALSE, va = FALSE,
+                     stroopDL = FALSE, flankerDL = FALSE, visualarrays = FALSE,
                      sact = FALSE, path = "./"){
 
   ## Setup ####
@@ -38,15 +33,10 @@ get_script <- function(type = "raw", to = "R Scripts", overwrite = FALSE,
   if (!dir.exists(to)) dir.create(to)
   if (is.null(type)) type <- "none"
 
-  if (wmc == TRUE & type != "score") {
+  if (wmc == TRUE) {
     symspan <- TRUE
     ospan <- TRUE
     rotspan <- TRUE
-  }
-  if (gf == TRUE & type != "score") {
-    rapm <- TRUE
-    numberseries <- TRUE
-    lettersets <- TRUE
   }
   if (ac == TRUE) {
     antisaccade <- TRUE
@@ -54,218 +44,162 @@ get_script <- function(type = "raw", to = "R Scripts", overwrite = FALSE,
     stroop <- TRUE
     stroopDL <- TRUE
     flankerDL <- TRUE
-    va <- TRUE
+    visualarrays <- TRUE
     sact <- TRUE
   }
   #####
 
   ## Download task templates
   if (symspan == TRUE) {
-    exists <- file.exists(paste(to, "0_symspan_raw.R", sep = "/"))
-    if (exists == TRUE & overwrite == FALSE) {
-      message("Did not download file. 0_symspan_raw.R already exists")
-    } else {
-      download.file(paste(github_repo, "symspan_raw.R", sep = "/"),
-                    paste(to, "0_symspan_raw.R", sep = "/"))
-    }
-  }
-  if (ospan == TRUE) {
-    exists <- file.exists(paste(to, "0_ospan_raw.R", sep = "/"))
-    if (exists == TRUE & overwrite == FALSE) {
-      message("Did not download file. 0_ospan_raw.R already exists")
-    } else {
-      download.file(paste(github_repo, "ospan_raw.R", sep = "/"),
-                    paste(to, "0_ospan_raw.R", sep = "/"))
-    }
-  }
-  if (rotspan == TRUE) {
-    exists <- file.exists(paste(to, "0_rotspan_raw.R", sep = "/"))
-    if (exists == TRUE & overwrite == FALSE) {
-      message("Did not download file. 0_rotspan_raw.R already exists")
-    } else {
-      download.file(paste(github_repo, "rotspan_raw.R", sep = "/"),
-                    paste(to, "0_rotspan_raw.R", sep = "/"))
-    }
-  }
-  if (wmc == TRUE) {
-    if (type == "score" | type == "all") {
-      exists <- file.exists(paste(to, "1_wmc_score.R", sep = "/"))
+    if (type == "raw" | type == "all") {
+      exists <- file.exists(paste(to, "symspan_raw.R", sep = "/"))
       if (exists == TRUE & overwrite == FALSE) {
-        message("Did not download file. 1_wmc_score.R already exists")
+        message("Did not download file. symspan_raw.R already exists")
       } else {
-        download.file(paste(github_repo, "wmc_score.R", sep = "/"),
-                      paste(to, "1_wmc_score.R", sep = "/"))
+        download.file(paste(github_repo, "symspan_raw.R", sep = "/"),
+                      paste(to, "symspan_raw.R", sep = "/"))
+      }
+    }
+
+    if (type == "score" | type == "all") {
+      exists <- file.exists(paste(to, "symspan_score.R", sep = "/"))
+      if (exists == TRUE & overwrite == FALSE) {
+        message("Did not download file. symspan_score.R already exists")
+      } else {
+        download.file(paste(github_repo, "symspan_score.R", sep = "/"),
+                      paste(to, "symspan_score.R", sep = "/"))
       }
     }
   }
 
-  if (rapm == TRUE) {
-    exists <- file.exists(paste(to, "0_rapm_raw.R", sep = "/"))
-    if (exists == TRUE & overwrite == FALSE) {
-      message("Did not download file. 0_rapm_raw.R already exists")
-    } else {
-      download.file(paste(github_repo, "rapm_raw.R", sep = "/"),
-                    paste(to, "0_rapm_raw.R", sep = "/"))
-    }
-  }
-  if (numberseries == TRUE) {
-    exists <- file.exists(paste(to, "0_numberseries_raw.R", sep = "/"))
-    if (exists == TRUE & overwrite == FALSE) {
-      message("Did not download file. 0_numberseries_raw.R already exists")
-    } else {
-      download.file(paste(github_repo, "numberseries_raw.R", sep = "/"),
-                    paste(to, "0_numberseries_raw.R", sep = "/"))
-    }
-  }
-  if (lettersets == TRUE) {
-    exists <- file.exists(paste(to, "0_lettersets_raw.R", sep = "/"))
-    if (exists == TRUE & overwrite == FALSE) {
-      message("Did not download file. 0_lettersets_raw.R already exists")
-    } else {
-      download.file(paste(github_repo, "lettersets_raw.R", sep = "/"),
-                    paste(to, "0_lettersets_raw.R", sep = "/"))
-    }
-  }
-  if (gf == TRUE) {
-    if (type == "score" | type == "all") {
-      exists <- file.exists(paste(to, "1_gf_score.R", sep = "/"))
+  if (rotspan == TRUE) {
+    if (type == "raw" | type == "all") {
+      exists <- file.exists(paste(to, "rotspan_raw.R", sep = "/"))
       if (exists == TRUE & overwrite == FALSE) {
-        message("Did not download file. 1_gf_score.R already exists")
+        message("Did not download file. rotspan_raw.R already exists")
       } else {
-        download.file(paste(github_repo, "gf_score.R", sep = "/"),
-                      paste(to, "1_gf_score.R", sep = "/"))
+        download.file(paste(github_repo, "rotspan_raw.R", sep = "/"),
+                      paste(to, "rotspan_raw.R", sep = "/"))
+      }
+    }
+
+    if (type == "score" | type == "all") {
+      exists <- file.exists(paste(to, "rotspan_score.R", sep = "/"))
+      if (exists == TRUE & overwrite == FALSE) {
+        message("Did not download file. rotspan_score.R already exists")
+      } else {
+        download.file(paste(github_repo, "rotspan_score.R", sep = "/"),
+                      paste(to, "rotspan_score.R", sep = "/"))
+      }
+    }
+  }
+
+  if (ospan == TRUE) {
+    if (type == "raw" | type == "all") {
+      exists <- file.exists(paste(to, "ospan_raw.R", sep = "/"))
+      if (exists == TRUE & overwrite == FALSE) {
+        message("Did not download file. ospan_raw.R already exists")
+      } else {
+        download.file(paste(github_repo, "ospan_raw.R", sep = "/"),
+                      paste(to, "ospan_raw.R", sep = "/"))
+      }
+    }
+
+    if (type == "score" | type == "all") {
+      exists <- file.exists(paste(to, "ospan_score.R", sep = "/"))
+      if (exists == TRUE & overwrite == FALSE) {
+        message("Did not download file. ospan_score.R already exists")
+      } else {
+        download.file(paste(github_repo, "ospan_score.R", sep = "/"),
+                      paste(to, "ospan_score.R", sep = "/"))
       }
     }
   }
 
   if (antisaccade == TRUE) {
     if (type == "raw" | type == "all") {
-      exists <- file.exists(paste(to, "0_antisaccade_raw.R", sep = "/"))
+      exists <- file.exists(paste(to, "antisaccade_raw.R", sep = "/"))
       if (exists == TRUE & overwrite == FALSE) {
-        message("Did not download file. 0_antisaccade_raw.R already exists")
+        message("Did not download file. antisaccade_raw.R already exists")
       } else {
         download.file(paste(github_repo, "antisaccade_raw.R", sep = "/"),
-                      paste(to, "0_antisaccade_raw.R", sep = "/"))
+                      paste(to, "antisaccade_raw.R", sep = "/"))
       }
     }
 
     if (type == "score" | type == "all") {
-      exists <- file.exists(paste(to, "1_antisaccade_score.R", sep = "/"))
+      exists <- file.exists(paste(to, "antisaccade_score.R", sep = "/"))
       if (exists == TRUE & overwrite == FALSE) {
-        message("Did not download file. 1_antisaccade_score.R already exists")
+        message("Did not download file. antisaccade_score.R already exists")
       } else {
         download.file(paste(github_repo, "antisaccade_score.R", sep = "/"),
-                      paste(to, "1_antisaccade_score.R", sep = "/"))
-      }
-    }
-  }
-
-  if (stroop == TRUE) {
-    if (type == "raw" | type == "all") {
-      exists <- file.exists(paste(to, "0_stroop_raw.R", sep = "/"))
-      if (exists == TRUE & overwrite == FALSE) {
-        message("Did not download file. 0_stroop_raw.R already exists")
-      } else {
-        download.file(paste(github_repo, "stroop_raw.R", sep = "/"),
-                      paste(to, "0_stroop_raw.R", sep = "/"))
-      }
-    }
-
-    if (type == "score" | type == "all") {
-      exists <- file.exists(paste(to, "1_stroop_score.R", sep = "/"))
-      if (exists == TRUE & overwrite == FALSE) {
-        message("Did not download file. 1_stroop_score.R already exists")
-      } else {
-        download.file(paste(github_repo, "stroop_score.R", sep = "/"),
-                      paste(to, "1_stroop_score.R", sep = "/"))
+                      paste(to, "antisaccade_score.R", sep = "/"))
       }
     }
   }
 
   if (stroopDL == TRUE) {
     if (type == "raw" | type == "all") {
-      exists <- file.exists(paste(to, "0_stroopDL_raw.R", sep = "/"))
+      exists <- file.exists(paste(to, "stroopDL_raw.R", sep = "/"))
       if (exists == TRUE & overwrite == FALSE) {
-        message("Did not download file. 0_stroopDL_raw.R already exists")
+        message("Did not download file. stroopDL_raw.R already exists")
       } else {
         download.file(paste(github_repo, "stroopDL_raw.R", sep = "/"),
-                      paste(to, "0_stroopDL_raw.R", sep = "/"))
+                      paste(to, "stroopDL_raw.R", sep = "/"))
       }
     }
 
     if (type == "score" | type == "all") {
-      exists <- file.exists(paste(to, "1_stroopDL_score.R", sep = "/"))
+      exists <- file.exists(paste(to, "stroopDL_score.R", sep = "/"))
       if (exists == TRUE & overwrite == FALSE) {
-        message("Did not download file. 1_stroopDL_score.R already exists")
+        message("Did not download file. stroopDL_score.R already exists")
       } else {
         download.file(paste(github_repo, "stroopDL_score.R", sep = "/"),
-                      paste(to, "1_stroopDL_score.R", sep = "/"))
-      }
-    }
-  }
-
-  if (flanker == TRUE) {
-    if (type == "raw" | type == "all") {
-      exists <- file.exists(paste(to, "0_flanker_raw.R", sep = "/"))
-      if (exists == TRUE & overwrite == FALSE) {
-        message("Did not download file. 0_flanker_raw.R already exists")
-      } else {
-        download.file(paste(github_repo, "flanker_raw.R", sep = "/"),
-                      paste(to, "0_flanker_raw.R", sep = "/"))
-      }
-    }
-
-    if (type == "score" | type == "all") {
-      exists <- file.exists(paste(to, "1_flanker_score.R", sep = "/"))
-      if (exists == TRUE & overwrite == FALSE) {
-        message("Did not download file. 1_flanker_score.R already exists")
-      } else {
-        download.file(paste(github_repo, "flanker_score.R", sep = "/"),
-                      paste(to, "1_flanker_score.R", sep = "/"))
+                      paste(to, "stroopDL_score.R", sep = "/"))
       }
     }
   }
 
   if (flankerDL == TRUE) {
     if (type == "raw" | type == "all") {
-      exists <- file.exists(paste(to, "0_flankerDL_raw.R", sep = "/"))
+      exists <- file.exists(paste(to, "flankerDL_raw.R", sep = "/"))
       if (exists == TRUE & overwrite == FALSE) {
-        message("Did not download file. 0_flankerDL_raw.R already exists")
+        message("Did not download file. flankerDL_raw.R already exists")
       } else {
         download.file(paste(github_repo, "flankerDL_raw.R", sep = "/"),
-                      paste(to, "0_flankerDL_raw.R", sep = "/"))
+                      paste(to, "flankerDL_raw.R", sep = "/"))
       }
     }
 
     if (type == "score" | type == "all") {
-      exists <- file.exists(paste(to, "1_flankerDL_score.R", sep = "/"))
+      exists <- file.exists(paste(to, "flankerDL_score.R", sep = "/"))
       if (exists == TRUE & overwrite == FALSE) {
-        message("Did not download file. 1_flankerDL_score.R already exists")
+        message("Did not download file. flankerDL_score.R already exists")
       } else {
         download.file(paste(github_repo, "flankerDL_score.R", sep = "/"),
-                      paste(to, "1_flankerDL_score.R", sep = "/"))
+                      paste(to, "flankerDL_score.R", sep = "/"))
       }
     }
   }
 
-  if (va == TRUE) {
+  if (visualarrays == TRUE) {
     if (type == "raw" | type == "all") {
-      exists <- file.exists(paste(to, "0_visualarrays_raw.R", sep = "/"))
+      exists <- file.exists(paste(to, "visualarrays_raw.R", sep = "/"))
       if (exists == TRUE & overwrite == FALSE) {
-        message("Did not download file. 0_va4_raw.R already exists")
+        message("Did not download file. visualarrays_raw.R already exists")
       } else {
         download.file(paste(github_repo, "visualarrays_raw.R", sep = "/"),
-                      paste(to, "0_visualarrays_raw.R", sep = "/"))
+                      paste(to, "visualarrays_raw.R", sep = "/"))
       }
     }
 
     if (type == "score" | type == "all") {
-      exists <- file.exists(paste(to, "1_visualarrays_score.R", sep = "/"))
+      exists <- file.exists(paste(to, "visualarrays_score.R", sep = "/"))
       if (exists == TRUE & overwrite == FALSE) {
-        message("Did not download file. 1_visualarrays_score.R already exists")
+        message("Did not download file. visualarrays_score.R already exists")
       } else {
         download.file(paste(github_repo, "visualarrays_score.R", sep = "/"),
-                      paste(to, "1_visualarrays_score.R", sep = "/"))
+                      paste(to, "visualarrays_score.R", sep = "/"))
       }
     }
   }
@@ -282,12 +216,12 @@ get_script <- function(type = "raw", to = "R Scripts", overwrite = FALSE,
     }
 
     if (type == "score" | type == "all") {
-      exists <- file.exists(paste(to, "1_sact_score.R", sep = "/"))
+      exists <- file.exists(paste(to, "sact_score.R", sep = "/"))
       if (exists == TRUE & overwrite == FALSE) {
-        message("Did not download file. 1_sact_score.R already exists")
+        message("Did not download file. sact_score.R already exists")
       } else {
         download.file(paste(github_repo, "sact_score.R", sep = "/"),
-                      paste(to, "1_sact_score.R", sep = "/"))
+                      paste(to, "sact_score.R", sep = "/"))
       }
     }
   }

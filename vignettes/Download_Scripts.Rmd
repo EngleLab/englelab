@@ -11,7 +11,7 @@ The `englelab` package has a convenient function to download template R scripts 
 ```{r eval=FALSE}
 englelab::get_script(type = "raw", to = "R Scripts",
                      ospan = TRUE, symspan = TRUE, rotspan = TRUE,
-                     antisaccade = TRUE, va = TRUE, sact = TRUE,
+                     antisaccade = TRUE, visualarrays = TRUE, sact = TRUE,
                      flankerDL = TRUE, stroopDL = TRUE)
 ```
 
@@ -22,9 +22,11 @@ The first two arguments you should specify is the type of R Script you want to d
 
 - __type__: You can download R Scripts:
 
-    1. `type = "raw"` To create tidy raw data files from the messy E-Prime file. 
+    1. `type = "raw"` To download R scripts to create tidy raw data files 
     
-    2. `type = "score"` To create a scored data file from the tidy raw data file.
+    2. `type = "score"` To download R scripts to create scored data files
+    
+    3. `type = "all"` To download both types of R scripts
 
 - __to__: Save to a folder within your project directory (i.e. "R Scripts")
     
@@ -42,7 +44,7 @@ Next, you will want to specify the tasks you want to download R Scripts for. The
 
 - __antisaccade__: Download the script for the antisaccade. `antisaccade = TRUE`
 
-- __va__: Download the script for the visual arrays. `va = TRUE`
+- __visualarrays__: Download the script for the visual arrays. `va = TRUE`
 
 - __sact__: Download the script for the sustained attention to cue task. `sact = TRUE`
 
