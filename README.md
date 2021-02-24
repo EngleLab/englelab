@@ -1,22 +1,22 @@
-# englelab <img src = "man/figures/logo_small.png" align = "right" />
+# englelab <img src="man/figures/logo_small.png" align="right"/>
 
 This package contains various functions for processing and scoring complex-span and attention control tasks downloaded from the <a href = "http://englelab.gatech.edu" target = "_blank"><b>EngleLab</b></a>
 
-The tasks are programmed in E-Prime, and unfortunately the resulting data file (**.edat**) the program produces is not easy to work with. The column names may not make any sense to you, there are way too many columns, the values in the columns are not always clear, and more messy issues. Even if you are not using R for data analysis you still may find this package useful.
+The tasks are programmed in E-Prime, and unfortunately the resulting data file (**.edat**) the program produces is not easy to work with. The column names may not make any sense to you, there are way too many columns, the values in the columns are not always clear, and more messy issues.
 
-Currently there are only functions for the **Advanced versions** and **Foster Shortened versions** of the complex-span tasks and functions for all the **Attention Control** tasks.
+Currently there are functions for the **Advanced versions** and **Foster Shortened versions** of the complex-span tasks and functions for all the **Attention Control** tasks.
 
 ## Non-R Users
 
-For those of you that do not use R for processing and analyzing data, we have developed a point-and-click GUI to process and score data files from the tasks. 
+Alternatively, we created a point-and-click GUI to process and score data files from the tasks.
 
 #### <a href = "https://englelab.shinyapps.io/taskscoring/" target = "_blank"><b>Web App for EngleLab Data Processing and Scoring</b></a>
 
-----
+------------------------------------------------------------------------
 
 ## Install
 
-```r
+``` r
 devtools::install_github("EngleLab/englelab")
 ```
 
@@ -30,61 +30,40 @@ You can then import the .txt merged file into R. `readr::read_delim()`
 
 ## Usage
 
-Once you have the data file imported into R as a dataframe object, you can then use the functions to easily create clean and tidy raw data files for the tasks. Depending on your sample size, these functions may actually take a little while to execute.
+**Symmetry Span Example**
 
-**Example with Operation Span**: `raw_ospan()`
-
-```r
+``` r
 library(readr)
+library(dplyr)
 library(englelab)
 
 ## Import
-import <- read_delim("import/OSpan.txt", "\t", 
-                     escape_double = FALSE, trim_ws = TRUE)
+data_import <- read_delim("import/SymSpan.txt", "\t", 
+                          escape_double = FALSE, trim_ws = TRUE)
                      
 ## Raw
-data <- raw_ospan(import, blocks = 2)
+data_raw <- raw_symspan(data_import)
 
-## Output
-write_csv(data, "output/OSpan_raw.txt")
+## Score
+data_score <- data_raw %>%
+  group_by(Subject) %>%
+  score_symspan()
 ```
 
-**Symmetry Span**: `raw_symspan()`
+**See Articles:**
 
-**Rotation Span**: `raw_rotspan()`
+-   [Complex Span Tasks](https://englelab.github.io/englelab/articles/Complex_Span.html)
 
-**Antisaccade**: `raw_antisaccade()`
+-   [Attention Control Tasks](https://englelab.github.io/englelab/articles/Attention_Control.html)
 
-**Visual Arrays**: `raw_visualarrays()`
-
-**SACT**: `raw_sact()`
-
-**FlankerDL**: `raw_flankerDL()`
-
-**StroopDL**: `raw_stroopDL()`
-
-## Download R Scripts
-
-Instead of creating your own R scripts from scratch you can download scripts to score each of the tasks. With these downloaded scripts you should only have to change the import/output directories and filenames.
-
-```r
-library(englelab)
-get_script(type = "raw", to = "R Scripts",
-           ospan = TRUE, symspan = TRUE, rotspan = TRUE,
-           antisaccade = TRUE, va = TRUE, sact = TRUE,
-           flankerDL = TRUE, stroopDL = TRUE)
-```
+-   [Download R Scripts](https://englelab.github.io/englelab/articles/Download_Scripts.html)
 
 ## Troubleshooting
 
-If you are having any difficulties using the functions or R scripts please contact Jason Tsukahara at jason.tsukahara@gatech.edu 
-     
-----
+If you are having any difficulties with this package please contact Jason Tsukahara at [jason.tsukahara\@gatech.edu](mailto:jason.tsukahara@gatech.edu)
 
-See [References](https://englelab.github.io/englelab/reference/index.html) for more information about the other functions in this package
+------------------------------------------------------------------------
 
 ## Citation
 
-> Tsukahara, J.S. (2018). englelab: An R Package for Processing Complex-Span and Attention Control Tasks Downloaded from the EngleLab. Retrieved from https://englelab.github.io/englelab/
-
-
+> Tsukahara, J.S. (2018). englelab: An R Package for Processing Complex-Span and Attention Control Tasks Downloaded from the EngleLab. Retrieved from <https://englelab.github.io/englelab/>
