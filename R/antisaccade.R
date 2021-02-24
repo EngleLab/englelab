@@ -48,11 +48,11 @@ raw_antisaccade <- function(x, taskVersion = NULL){
     x <- dplyr::ungroup(x)
     x <- dplyr::select(x, Subject, TrialProc, Trial, Accuracy = Mask.ACC,
                        RT = Mask.RT, Target, FixationDuration = t4,
-                       Antisaccade.ACC, AdminTime, SessionDate, SessionTime)
+                       AdminTime, SessionDate, SessionTime)
   } else {
     x <- dplyr::select(x, Subject, TrialProc, Trial, Accuracy = Mask.ACC,
                        RT = Mask.RT, Target, FixationDuration = t4,
-                       Antisaccade.ACC, SessionDate, SessionTime)
+                       SessionDate, SessionTime)
   }
   return(x)
 }
