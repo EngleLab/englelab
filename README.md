@@ -6,12 +6,6 @@ The tasks are programmed in E-Prime and the resulting data file (**.edat**) the 
 
 Currently there are functions for the **Advanced versions** and **Foster Shortened versions** of the complex-span tasks and functions for all the **Attention Control** tasks.
 
-## Non-R Users
-
-For non-R users, we created a point-and-click GUI to process and score data files from the tasks.
-
-#### <a href = "https://englelab.shinyapps.io/taskscoring/" target = "_blank"><b>Web App for EngleLab Data Processing and Scoring</b></a>
-
 ------------------------------------------------------------------------
 
 ## Install
@@ -58,6 +52,12 @@ data_score <- data_raw %>%
 
 -   [Download R Scripts](https://englelab.github.io/englelab/articles/Download_Scripts.html)
 
+## Non-R Users
+
+For non-R users, we created a point-and-click GUI to process and score data files from the tasks.
+
+#### <a href = "https://englelab.shinyapps.io/taskscoring/" target = "_blank"><b>Web App for englelab</b></a>
+
 ## Troubleshooting
 
 If you are having any difficulties with this package please contact Jason Tsukahara at [jason.tsukahara\@gatech.edu](mailto:jason.tsukahara@gatech.edu)
@@ -66,4 +66,6 @@ If you are having any difficulties with this package please contact Jason Tsukah
 
 ## Citation
 
-> Tsukahara, J.S. (2018). englelab: An R Package for Processing Complex-Span and Attention Control Tasks Downloaded from the EngleLab. Retrieved from <https://englelab.github.io/englelab/>
+[![DOI](https://zenodo.org/badge/151780396.svg)](https://zenodo.org/badge/latestdoi/151780396)
+
+> Tsukahara, J.S. (2021). englelab: An R package for processing complex-span and attention control tasks downloaded from the EngleLab (v1.0.0). <http://doi.org/10.5281/zenodo.4560818>
