@@ -15,8 +15,7 @@ output_file <- paste(task, "_Scores.csv", sep = "")
 ##############
 
 #### Import Data ####
-data_import <- read_csv(here(import_dir, import_file)) %>%
-  filter(TrialProc == "real")
+data_import <- read_csv(here(import_dir, import_file))
 #####################
 
 #### Score Data ####

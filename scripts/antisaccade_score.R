@@ -22,8 +22,8 @@ data_import <- read_csv(here(import_dir, import_file)) %>%
 #### Score Data ####
 data_scores <- data_import %>%
   group_by(Subject) %>%
-  summarise(Antisaccade.acc = mean(Accuracy, na.rm = TRUE),
-            Antisaccade.rt = mean(RT, na.rm = TRUE),
+  summarise(Antisaccade.ACC = mean(Accuracy, na.rm = TRUE),
+            Antisaccade.RT = mean(RT, na.rm = TRUE),
             AdminTime = first(AdminTime),
             SessionDate = first(SessionDate),
             SessionTime = first(SessionTime))
@@ -39,16 +39,16 @@ splithalf <- data_import %>%
   group_by(Subject) %>%
   mutate(Split = ifelse(Trial %% 2, "odd", "even")) %>%
   group_by(Subject, Split) %>%
-  summarise(Antisaccade.acc = mean(Accuracy, na.rm = TRUE)) %>%
+  summarise(Antisaccade.ACC = mean(Accuracy, na.rm = TRUE)) %>%
   pivot_wider(id_cols = "Subject",
               names_from = "Split",
-              values_from = "Antisaccade.acc") %>%
+              values_from = "Antisaccade.ACC") %>%
   summarise(r_antisaccade.acc =
               cor(Antisaccade.acc_odd, Antisaccade.acc_even)) %>%
   mutate(r_antisaccade.acc =
            (2 * r_antisaccade.acc) / (1 + r_antisaccade.acc))
 
-data_scores$Antisaccade.acc_splithalf <- splithalf$r_antisaccade.acc
+data_scores$Antisaccade.ACC_splithalf <- splithalf$r_antisaccade.acc
 
 cronbachalpha <- data_import %>%
   distinct(Subject, Trial, .keep_all = TRUE) %>%
