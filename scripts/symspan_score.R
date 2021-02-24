@@ -3,59 +3,56 @@
 library(readr)
 library(here)
 library(dplyr)
+library(englelab)
 
 ## Set import/output directories
-import_dir <- "Data Files/Raw Data"
-output_dir <- "Data Files/Scored Data"
+import_dir <- "Data Files/Merged"
+output_dir <- "Data Files"
 
 ## Set import/output files
-task <- "SACT"
+task <- "SymSpan"
 import_file <- paste(task, "_raw.csv", sep = "")
 output_file <- paste(task, "_Scores.csv", sep = "")
 ##############
 
 #### Import Data ####
-data_import <- read_csv(here(import_dir, import_file)) %>%
-  filter(TrialProc == "real")
+data_import <- read_csv(here(import_dir, import_file))
 #####################
 
 #### Score Data ####
 data_scores <- data_import %>%
   group_by(Subject) %>%
-  summarise(SACT.acc = mean(Accuracy, na.rm = TRUE),
-            AdminTime = first(AdminTime),
-            SessionDate = first(SessionDate),
-            SessionTime = first(SessionTime))
+  score_symspan()
 ####################
 
 #### Clean Data ####
-# remove problematic subjects based on some criteria
-# remove outliers based on accuracy
+# remove problematic subjects based on processing task accuracy
+# remove outliers based on span score
 ####################
 
 #### Calculate Reliability ####
 splithalf <- data_import %>%
   mutate(Split = ifelse(Trial %% 2, "odd", "even")) %>%
   group_by(Subject, Split) %>%
-  summarise(SACT.acc = mean(Accuracy, na.rm = TRUE)) %>%
+  score_symspan() %>%
   pivot_wider(id_cols = "Subject",
               names_from = "Split",
-              values_from = "SACT.acc") %>%
-  summarise(r_sact.acc =
-              cor(SACT.acc_odd, SACT.acc_even)) %>%
-  mutate(r_sact.acc =
-           (2 * r_sact.acc) / (1 + r_sact.acc))
+              values_from = contains("SymSpan")) %>%
+  summarise(r_partial.load =
+              cor(SymSpan.PartialLoad_odd, SymSpan.PartialLoad_even)) %>%
+  mutate(r_partial.load =
+           (2 * r_partial.load) / (1 + r_partial.load))
 
-data_scores$SACT.acc_splithalf <- splithalf$r_sact.acc
+data_scores$SymSpan.PartialLoad_splithalf <- splithalf$r_partial.load
 
 cronbachalpha <- data_import %>%
   distinct(Subject, Trial, .keep_all = TRUE) %>%
   pivot_wider(id_cols = "Subject",
               names_from = "Trial",
-              values_from = "Accuracy") %>%
+              values_from = contains("Partial.load")) %>%
   alpha()
 
-data_scores$SACT.acc_cronbachalpha <- cronbachalpha$total.std.alpha
+data_scores$SymSpan.PartialLoad_cronbachalpha <- cronbachalpha$total.std.alpha
 ###############################
 
 #### Output ####

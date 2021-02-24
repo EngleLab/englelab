@@ -1,60 +1,56 @@
-#### Setup ####
-## Load Packages
-library(here)
+## Set up ####
+## Load packages
 library(readr)
+library(here)
 library(dplyr)
-library(tidyr)
-library(datawrangling)
 
-## Set Import/Output Directories
+## Set import/output directories
 import_dir <- "Data Files/Raw Data"
 output_dir <- "Data Files/Scored Data"
-removed_dir <- "Data Files/Scored Data/removed"
 
-## Set Import/Output Filenames
+## Set import/output files
 task <- "VAorient_S"
-import_file <- paste(task, "raw.csv", sep = "_")
-output_file <- paste(task, "Scores.csv", sep = "_")
-removed_file <- paste(task, "_removed.csv", sep = "")
+import_file <- paste(task, "_raw.csv", sep = "")
+output_file <- paste(task, "_Scores.csv", sep = "")
+##############
 
-## Set Data Cleaning Params
-acc_criteria <- -3.5
-###############
+#### Import Data ####
+data_import <- read_csv(here(import_dir, import_file)) %>%
+  filter(TrialProc == "real")
+#####################
 
-#### Import ####
-data_import <- read_csv(here(import_dir, import_file))
-################
-
-#### Data Cleaning and Scoring ####
+#### Score Data ####
 data_scores <- data_import %>%
-  filter(TrialProc == "real") %>%
-  group_by(Subject, SetSize) %>%
-  summarise(CR.n = sum(CorrectRejection, na.rm = TRUE),
-            FA.n = sum(FalseAlarm, na.rm = TRUE),
-            M.n = sum(Miss, na.rm = TRUE),
-            H.n = sum(Hit, na.rm = TRUE)) %>%
-  ungroup() %>%
-  mutate(CR = CR.n / (CR.n + FA.n),
-         H = H.n / (H.n + M.n),
-         k = SetSize * (H + CR -1)) %>%
+  group_by(Subject) %>%
+  score_visualarrays() %>%
   pivot_wider(id_cols = "Subject",
               names_from = "SetSize",
-              values_from = "k",
-              names_prefix = "k.") %>%
-  mutate(VA_k = (k.5 + k.7) / 2)
+              names_prefix = "VAorient_S.k_",
+              values_from = "k") %>%
+  mutate(VAorient_S.k = (VAorient_S.k_5 + VAorient_S.k_7) / 2)
+####################
 
-## Remove problematic subjects
-data_remove <- data_import %>%
-  group_by(Subject) %>%
-  summarise(ACC.mean = mean(Accuracy, na.rm = TRUE)) %>%
-  ungroup() %>%
-  center(variables = "ACC.mean", standardize = TRUE) %>%
-  filter(ACC.mean < acc_criteria)
+#### Clean Data ####
+# remove problematic subjects based on some criteria
+# remove outliers based on accuracy
+####################
 
-data_scores <- remove_save(data_scores, data_remove,
-                           output.dir = here(removed_dir),
-                           output.file = removed_file)
-###################################
+#### Calculate Reliability ####
+splithalf <- data_raw %>%
+  mutate(Split = ifelse(Trial %% 2, "odd", "even")) %>%
+  group_by(Subject, Split) %>%
+  score_visualarrays() %>%
+  pivot_wider(id_cols = "Subject",
+              names_from = c("SetSize", "Split"),
+              names_prefix = "k_",
+              values_from = "k") %>%
+  mutate(VAorient_S.k_even = (k_5_even + k_7_even) / 2,
+         VAorient_S.k_odd = (k_5_odd + k_7_odd) / 2) %>%
+  summarise(r_VA.k = cor(VAorient_S.k_even, VAorient_S.k_odd)) %>%
+  mutate(r_VA.k = (2 * r_VA.k) / (1 + r_VA.k))
+
+data_scores$VAorient_S.k_splithalf <- splithalf$r_VA.k
+###############################
 
 #### Output ####
 write_csv(data_scores, here(output_dir, output_file))

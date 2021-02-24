@@ -14,30 +14,18 @@ import_file <- paste(task, ".txt", sep = "")
 output_file <- paste(task, "_raw.csv", sep = "")
 ##############
 
-## Import Data
+#### Import Data ####
 data_import <- read_delim(here(import_dir, import_file), "\t",
                           escape_double = FALSE, trim_ws = TRUE,
                           guess_max = 10000)
+#####################
 
-## Clean up raw data
-data_raw <- data_import %>%
-  rename(TrialProc = `Procedure[Trial]`)
-  filter(TrialProc == "TrialProc" |
-           TrialProc == "pracproc") %>%
-  group_by(Subject) %>%
-  mutate(TrialProc = case_when(TrialProc == "TrialProc" ~ "real",
-                               TrialProc == "pracproc" ~ "practice"),
-         Trial = case_when(TrialProc == "real" ~ TrialList.Sample,
-                           TrialProc == "practice" ~ practice.Sample),
-         Target = case_when(!is.na(right_targ) ~ right_targ,
-                            !is.na(left_targ) ~ left_targ),
-         StartTime = min(Wait2.OnsetTime, na.rm = TRUE),
-         FinishTime = max(Mask.RTTime, na.rm = TRUE),
-         AdminTime = (FinishTime - StartTime) / 60000) %>%
-  select(Subject, TrialProc, Trial, Accuracy = Mask.ACC, RT = Mask.RT, Target,
-         FixationDuration = t4, AdminTime, SessionDate, SessionTime)
+#### Tidy raw data ####
+data_raw <- raw_antisaccade(data_import)
+#######################
 
-## Save Data
-write_csv(data_raw, path = here(output_dir, output_file))
+#### Output ####
+write_csv(data_raw, here(output_dir, output_file))
+################
 
 rm(list=ls())

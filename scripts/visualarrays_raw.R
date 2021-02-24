@@ -1,50 +1,27 @@
-#### Setup ####
+## Set up ####
 ## Load packages
-library(here)
 library(readr)
-library(dplyr)
+library(here)
+library(englelab)
 
-## Set Import/Output Directories
+## Set import/output directories
 import_dir <- "Data Files/Merged"
 output_dir <- "Data Files"
 
-## Set Import/Output Filenames
-task <- "taskname"
+## Set import/output files
+task <- "VAorient_S"
 import_file <- paste(task, ".txt", sep = "")
-output_file <- paste(task, "raw.csv", sep = "_")
-################
+output_file <- paste(task, "_raw.csv", sep = "")
+##############
 
-#### Import ####
-data_import <- read_delim(here(import_dir, import_file),
-                     "\t", escape_double = FALSE, trim_ws = TRUE)
-################
+#### Import Data ####
+data_import <- read_delim(here(import_dir, import_file), "\t",
+                          escape_double = FALSE, trim_ws = TRUE,
+                          guess_max = 10000)
+#####################
 
 #### Tidy raw data ####
-data_raw <- data_import %>%
-  rename(TrialProc = `Procedure[Trial]`) %>%
-  filter(TrialProc == "showproc" | TrialProc == "pracproc") %>%
-  mutate(TrialProc = case_when(TrialProc == "showproc" ~ "real",
-                               TrialProc == "pracproc" ~ "practice"),
-         Response = case_when(VisResponse.RESP == 5 ~ "same",
-                              VisResponse.RESP == 6 ~ "different",
-                              TRUE ~ as.character(NA)),
-         CorrectResponse = case_when(VisResponse.CRESP == 5 ~ "same",
-                                     VisResponse.CRESP == 6 ~ "different"),
-         CorrectRejection = case_when(CorrectResponse == "same" & 
-                                        Response == "same" ~ 1,
-                                      TRUE ~ 0),
-         FalseAlarm = case_when(CorrectResponse == "same" & 
-                                  Response == "different" ~ 1,
-                                TRUE ~ 0),
-         Miss = case_when(CorrectResponse == "different" & 
-                            Response == "same" ~ 1,
-                          TRUE ~ 0),
-         Hit = case_when(CorrectResponse == "different" & 
-                           Response == "different" ~ 1,
-                         TRUE ~ 0)) %>%
-  select(Subject, TrialProc, Trial, SetSize, Accuracy = VisResponse.ACC, 
-         Response, CorrectResponse, CorrectRejection, FalseAlarm, Miss, Hit, 
-         SessionDate, SessionTime)
+data_raw <- raw_visualarrays(data_import)
 #######################
 
 #### Output ####

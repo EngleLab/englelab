@@ -14,20 +14,53 @@ import_file <- paste(task, "_raw.csv", sep = "")
 output_file <- paste(task, "_Scores.csv", sep = "")
 ##############
 
-## Import Data
+#### Import Data ####
 data_import <- read_csv(here(import_dir, import_file)) %>%
   filter(TrialProc == "real")
+#####################
 
-## Scores
+#### Score Data ####
 data_scores <- data_import %>%
   group_by(Subject) %>%
-  summarise(Antisaccade_ACC.mean = mean(Accuracy, na.rm = TRUE), 
-            Antisaccade_RT.mean = mean(RT, na.rm = TRUE),
+  summarise(Antisaccade.acc = mean(Accuracy, na.rm = TRUE),
+            Antisaccade.rt = mean(RT, na.rm = TRUE),
             AdminTime = first(AdminTime),
             SessionDate = first(SessionDate),
             SessionTime = first(SessionTime))
+####################
 
-## Save Data
-write_csv(data_scores, path = here(output_dir, output_file))
+#### Clean Data ####
+# remove problematic subjects based on some criteria
+# remove outliers based on accuracy
+####################
+
+#### Calculate Reliability ####
+splithalf <- data_import %>%
+  mutate(Split = ifelse(Trial %% 2, "odd", "even")) %>%
+  group_by(Subject, Split) %>%
+  summarise(Antisaccade.acc = mean(Accuracy, na.rm = TRUE)) %>%
+  pivot_wider(id_cols = "Subject",
+              names_from = "Split",
+              values_from = "Antisaccade.acc") %>%
+  summarise(r_antisaccade.acc =
+              cor(Antisaccade.acc_odd, Antisaccade.acc_even)) %>%
+  mutate(r_antisaccade.acc =
+           (2 * r_antisaccade.acc) / (1 + r_antisaccade.acc))
+
+data_scores$Antisaccade.acc_splithalf <- splithalf$r_antisaccade.acc
+
+cronbachalpha <- data_import %>%
+  distinct(Subject, Trial, .keep_all = TRUE) %>%
+  pivot_wider(id_cols = "Subject",
+              names_from = "Trial",
+              values_from = "Accuracy") %>%
+  alpha()
+
+data_scores$Antisaccade.acc_cronbachalpha <- cronbachalpha$total.std.alpha
+###############################
+
+#### Output ####
+write_csv(data_scores, here(output_dir, output_file))
+################
 
 rm(list=ls())
