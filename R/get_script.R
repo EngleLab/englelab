@@ -206,12 +206,12 @@ get_script <- function(type = "raw", to = "R Scripts", overwrite = FALSE,
 
   if (sact == TRUE) {
     if (type == "raw" | type == "all") {
-      exists <- file.exists(paste(to, "0_sact_raw.R", sep = "/"))
+      exists <- file.exists(paste(to, "sact_raw.R", sep = "/"))
       if (exists == TRUE & overwrite == FALSE) {
-        message("Did not download file. 0_sact_raw.R already exists")
+        message("Did not download file. sact_raw.R already exists")
       } else {
         download.file(paste(github_repo, "sact_raw.R", sep = "/"),
-                      paste(to, "0_sact_raw.R", sep = "/"))
+                      paste(to, "sact_raw.R", sep = "/"))
       }
     }
 
