@@ -34,7 +34,8 @@ fluidPage(
 
     hr(),
     hr(),
-    helpText("Once the tables are displayed (click ont he tabs to view),
+    helpText("Once the tables are displayed (click ont the 'Trial Level' and
+             'Task Scores' tabs to view),
              you can download the data to your computer"),
     downloadButton("downloadTrialLevel", "Trial Level"),
     downloadButton("downloadScores", "Task Scores")
