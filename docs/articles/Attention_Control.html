@@ -117,13 +117,11 @@
 <p>There are two sets of functions for the attention control tasks:</p>
 <ul>
 <li><p><code>raw_</code></p></li>
-<li>
-<p><code>score_</code></p>
-<p><em>Only the visual arrays task has a <code>score_</code> function because the scoring for the other tasks are simply a summary statistic (mean) on performance (accuracy)</em></p>
-</li>
+<li><p><code>score_</code></p></li>
 </ul>
+<p><em>Only the visual arrays task has a <code>score_</code> function because the scoring for the other tasks are simply a summary statistic (mean) on performance (accuracy)</em></p>
 <p>The <code>raw_</code> functions will create a tidy raw data file for the task with relevant columns for you to calculate task scores and other performance measures on the task.</p>
-<p>The <code>score_</code> functions will create a scored data file for the task from the output provided by the <code>raw_</code> functions. To allow for greater flexibility, the <code>score_</code> functions will need to be used with <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">dplyr::group_by()</a></code>.</p>
+<p>The <code>score_</code> functions will create a scored data file for the task from the output provided by the <code>raw_</code> functions.</p>
 <div id="raw_-functions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#raw_-functions" class="anchor"></a><code>raw_</code> functions</h2>
@@ -166,8 +164,8 @@
 <div id="calculate-reliability" class="section level2">
 <h2 class="hasAnchor">
 <a href="#calculate-reliability" class="anchor"></a>Calculate Reliability</h2>
-<p>Any time you use a measure of individual differences it is critical to provide reliability estimates from your sample. Here is a demonstration of how to do so with the complex-span tasks.</p>
-<p>Reliability estimates should be calculated based on the trial level data that was used to calculated an aggregated score for the task. For instance, if you calculated complex-span scores using the the partial-credit load scoring method then you should calculate reliability based on the <code>Partial.load</code> scores in the raw data.</p>
+<p>Any time you use a measure of individual differences it is critical to provide reliability estimates from your sample. Here is a demonstration of how to do so with the visual arrays task.</p>
+<p>Reliability estimates should be calculated based on the trial level data that was used to calculated an aggregated score for the task. In the visual arrays task, <em>k</em> scores are calculated for each set-size separately and then aggregated. One way to calculate reliability for this task would be to split trials up into even and odd, for each set-size separately. Then calculate <em>k</em> scores for even and odd trials, for each set-size, and aggregate even trial <em>k</em> scores over the two set-sizes and do the same for odd trial <em>k</em> scores. Then calculate spearman-brown corrected split-half reliability.</p>
 <div id="split-half" class="section level3">
 <h3 class="hasAnchor">
 <a href="#split-half" class="anchor"></a>Split-Half</h3>
@@ -177,8 +175,9 @@
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://tidyr.tidyverse.org">tidyr</a></span>)
 
 <span class="kw">splithalf</span> <span class="op">&lt;-</span> <span class="kw">data_raw</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="kw">Subject</span>, <span class="kw">SetSize</span>) <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(Split = <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(<span class="kw">Trial</span> <span class="op">%%</span> <span class="fl">2</span>, <span class="st">"odd"</span>, <span class="st">"even"</span>)) <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="kw">Subject</span>, <span class="kw">Split</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="kw">Subject</span>, <span class="kw">SetSize</span>, <span class="kw">Split</span>) <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/score_visualarrays.html">score_visualarrays</a></span>() <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span>(id_cols = <span class="st">"Subject"</span>,
               names_from = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"SetSize"</span>, <span class="st">"Split"</span>),
