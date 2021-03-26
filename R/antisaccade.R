@@ -47,11 +47,11 @@ raw_antisaccade <- function(x, taskVersion = NULL){
     x <- dplyr::mutate(x, AdminTime = dplyr::last(AdminTime) / 60000)
     x <- dplyr::ungroup(x)
     x <- dplyr::select(x, Subject, TrialProc, Trial, Accuracy = Mask.ACC,
-                       RT = Mask.RT, Target, FixationDuration = t4,
+                       RT = Mask.RT, Target, FixationDuration,
                        AdminTime, SessionDate, SessionTime)
   } else {
     x <- dplyr::select(x, Subject, TrialProc, Trial, Accuracy = Mask.ACC,
-                       RT = Mask.RT, Target, FixationDuration = t4,
+                       RT = Mask.RT, Target, FixationDuration,
                        SessionDate, SessionTime)
   }
   return(x)
