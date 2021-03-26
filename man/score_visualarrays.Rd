@@ -10,7 +10,6 @@ score_visualarrays(x)
 \item{x}{dataframe (an imported .emrge file)}
 }
 \description{
-This function skips the 'raw_visualarrays()' step and therefore
-    is not advised. However, some researchers may find
-    it easier to just skip right to 'score_visualarrays()'
+This function will calculate a k score from the raw data
+outputed by raw_visualarrays().
 }
