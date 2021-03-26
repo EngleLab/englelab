@@ -1,6 +1,7 @@
 library(shiny)
 library(readr)
 library(dplyr)
+library(tidyr)
 library(englelab)
 
 fluidPage(
