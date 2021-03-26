@@ -52,7 +52,8 @@ function(input, output) {
                     names_from = "SetSize",
                     names_prefix = "VAorient_S.k_",
                     values_from = "k") %>%
-        mutate(VAorient_S.k = (VAorient_S.k_5 + VAorient_S.k_7) / 2)
+        mutate(VAorient_S.k = (VAorient_S.k_5 + VAorient_S.k_7) / 2) %>%
+        select(Subject, VAorient_S.k, VAorient_S.k_5, VAorient_S.k_7)
     }
 
     if (input$task == "SACT") {
