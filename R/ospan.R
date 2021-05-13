@@ -244,17 +244,14 @@ score_ospan <- function(x, blocks = ""){
                               Partial.unit, Absolute.unit,
                               Partial.load, Absolute.load)
   x_recall <- dplyr::summarise(x_recall,
-                        OSpan.PartialUnit = sum(Partial.unit) / n(),
-                        OSpan.PartialLoad = sum(Partial.load) / sum(SetSize),
-                        OSpan.AbsoluteUnit = sum(Absolute.unit) / n(),
-                        OSpan.AbsoluteLoad = sum(Absolute.load) / sum(SetSize),
-                        OSpan.Trials = n(),
-                        OSpan.MemoryItems = sum(SetSize))
-  x_recall <- dplyr::mutate(x_recall,
-                            OSpan.PartialScore = OSpan.MemoryItems * OSpan.PartialLoad,
-                            OSpan.AbsoluteScore = OSpan.MemoryItems * OSpan.AbsoluteLoad)
-  x_recall <- dplyr::relocate(x_recall, OSpan.Trials, OSpan.MemoryItems,
-                              .after = OSpan.AbsoluteScore)
+                               Ospan.PartialScore = sum(Recall.correct),
+                               OSpan.PartialUnit = sum(Partial.unit) / n(),
+                               OSpan.PartialLoad = sum(Partial.load) / sum(SetSize),
+                               Ospan.AbsoluteScore = sum(Absolute.load),
+                               OSpan.AbsoluteUnit = sum(Absolute.unit) / n(),
+                               OSpan.AbsoluteLoad = sum(Absolute.load) / sum(SetSize),
+                               OSpan.Trials = n(),
+                               OSpan.MemoryItems = sum(SetSize))
   x_processing <- dplyr::filter(x, SubTrialProc == "ProcessingTask")
   x_processing <- dplyr::summarise(x_processing,
                                    Math.RT_mean = mean(RT, na.rm = TRUE),

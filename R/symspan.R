@@ -246,19 +246,16 @@ score_symspan <- function(x, blocks = NULL){
                               Partial.unit, Absolute.unit,
                               Partial.load, Absolute.load)
   x_recall <- dplyr::summarise(x_recall,
+                               SymSpan.PartialScore = sum(Recall.correct),
                                SymSpan.PartialUnit = sum(Partial.unit) / n(),
                                SymSpan.PartialLoad =
                                  sum(Partial.load) / sum(SetSize),
+                               SymSpan.AbsoluteScore = sum(Absolute.load),
                                SymSpan.AbsoluteUnit = sum(Absolute.unit) / n(),
                                SymSpan.AbsoluteLoad =
                                  sum(Absolute.load) / sum(SetSize),
                                SymSpan.Trials = n(),
                                SymSpan.MemoryItems = sum(SetSize))
-  x_recall <- dplyr::mutate(x_recall,
-                            SymSpan.PartialScore = SymSpan.MemoryItems * SymSpan.PartialLoad,
-                            SymSpan.AbsoluteScore = SymSpan.MemoryItems * SymSpan.AbsoluteLoad)
-  x_recall <- dplyr::relocate(x_recall, SymSpan.Trials, SymSpan.MemoryItems,
-                              .after = SymSpan.AbsoluteScore)
   x_processing <- dplyr::filter(x, SubTrialProc == "ProcessingTask")
   x_processing <- dplyr::summarise(x_processing,
                                    Symmetry.RT_mean = mean(RT, na.rm = TRUE),
