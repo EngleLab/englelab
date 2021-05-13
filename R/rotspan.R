@@ -336,12 +336,19 @@ score_rotspan <- function(x, blocks = NULL){
                               Partial.unit, Absolute.unit,
                               Partial.load, Absolute.load)
   x_recall <- dplyr::summarise(x_recall,
-                        RotSpan.PartialUnit = sum(Partial.unit) / n(),
-                        RotSpan.PartialLoad = sum(Partial.load) / sum(SetSize),
-                        RotSpan.AbsoluteUnit = sum(Absolute.unit) / n(),
-                        RotSpan.AbsoluteLoad = sum(Absolute.load) / sum(SetSize),
-                        RotSpan.Trials = n(),
-                        RotSpan.MemoryItems = sum(SetSize))
+                               RotSpan.PartialUnit = sum(Partial.unit) / n(),
+                               RotSpan.PartialLoad =
+                                 sum(Partial.load) / sum(SetSize),
+                               RotSpan.AbsoluteUnit = sum(Absolute.unit) / n(),
+                               RotSpan.AbsoluteLoad =
+                                 sum(Absolute.load) / sum(SetSize),
+                               RotSpan.Trials = n(),
+                               RotSpan.MemoryItems = sum(SetSize))
+  x_recall <- dplyr::mutate(x_recall,
+                            RotSpan.PartialScore = RotSpan.MemoryItems * RotSpan.PartialLoad,
+                            RotSpan.AbsoluteScore = RotSpan.MemoryItems * RotSpan.AbsoluteLoad)
+  x_recall <- dplyr::relocate(x_recall, RotSpan.Trials, RotSpan.MemoryItems,
+                              .after = RotSpan.AbsoluteScore)
   x_processing <- dplyr::filter(x, SubTrialProc == "ProcessingTask")
   x_processing <- dplyr::summarise(x_processing,
                                    Rotation.RT_mean = mean(RT, na.rm = TRUE),

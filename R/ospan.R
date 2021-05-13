@@ -250,6 +250,11 @@ score_ospan <- function(x, blocks = ""){
                         OSpan.AbsoluteLoad = sum(Absolute.load) / sum(SetSize),
                         OSpan.Trials = n(),
                         OSpan.MemoryItems = sum(SetSize))
+  x_recall <- dplyr::mutate(x_recall,
+                            OSpan.PartialScore = OSpan.MemoryItems * OSpan.PartialLoad,
+                            OSpan.AbsoluteScore = OSpan.MemoryItems * OSpan.AbsoluteLoad)
+  x_recall <- dplyr::relocate(x_recall, OSpan.Trials, OSpan.MemoryItems,
+                              .after = OSpan.AbsoluteScore)
   x_processing <- dplyr::filter(x, SubTrialProc == "ProcessingTask")
   x_processing <- dplyr::summarise(x_processing,
                                    Math.RT_mean = mean(RT, na.rm = TRUE),
