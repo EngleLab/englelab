@@ -1,3 +1,11 @@
+# englelab v1.0.1
+
+Updated: 12 May, 2021
+
+-   Minor update only
+
+-   Adds PartialScore and AbsoluteScore variables to score\_ functions output for complex-span tasks
+
 # englelab v1.0.0
 
 Updated: 24 February, 2021

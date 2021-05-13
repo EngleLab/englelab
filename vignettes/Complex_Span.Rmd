@@ -74,7 +74,7 @@ Trial level performance includes a sum of the number of processing subtasks answ
 
 -   **CorrectResponse**: The correct response (provided for both "Processing" and "Recall")
 
--   **Memory Item**: The memory item that was presented.
+-   **MemoryItem**: The memory item that was presented.
 
 -   **keep_col**: You can specify any additional columns to be preserved in the output with `keep_col = c()`
 
@@ -113,13 +113,19 @@ data_scores <- data_raw %>%
 
 For more details on how each score is calculated see <a href="https://englelab.gatech.edu/articles/2005/working-memory-span-tasks-a-methodological-review-and-user27s-guide.pdf" target="_blank">Conway et al. (2005)</a>
 
+We advise using the **PartialScore** as this tends to have the highest reliability.
+
 -   **Subject**: Subject ID column
+
+-   **[Task].PartialScore**: Partial scoring method (*sum of Recall.correct*)
 
 -   **[Task].PartialUnit**: Partial-credit unit score
 
     *i.e. SymSpan.PartialUnit or RotSpan.PartialUnit*
 
 -   **[Task].PartialLoad**: Partial-credit load score
+
+-   **[Task].AbsoluteScore**: Absolute scoring method (*sum of Absolute.load*)
 
 -   **[Task].AbsoluteUnit**: All-or-nothing unit score
 
@@ -159,7 +165,7 @@ splithalf <- data_raw %>%
               names_from = "Split",
               values_from = contains("SymSpan")) %>%
   summarise(r_partial.load = 
-              cor(SymSpan.PartialLoad_odd, SymSpan.PartialLoad_even)) %>%
+              cor(SymSpan.PartialScore_odd, SymSpan.PartialScore_even)) %>%
   mutate(r_partial.load = 
            (2 * r_partial.load) / (1 + r_partial.load))
 ```
@@ -175,7 +181,7 @@ cronbachalpha <- data_raw %>%
   distinct(Subject, Trial, .keep_all = TRUE) %>%
   pivot_wider(id_cols = "Subject",
               names_from = "Trial",
-              values_from = contains("Partial.load")) %>%
+              values_from = contains("Recall.correct")) %>%
   alpha()
 
 ## The cronbach alpha value can then be accessed: 
