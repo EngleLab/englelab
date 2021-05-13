@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">englelab</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
       </span>
     </div>
 
@@ -162,7 +162,7 @@
 <li><p><strong>Accuracy</strong>: Accuracy (provided for both “Processing” and “Recall”)</p></li>
 <li><p><strong>Response</strong>: The subject’s response (provided for both “Processing” and “Recall”)</p></li>
 <li><p><strong>CorrectResponse</strong>: The correct response (provided for both “Processing” and “Recall”)</p></li>
-<li><p><strong>Memory Item</strong>: The memory item that was presented.</p></li>
+<li><p><strong>MemoryItem</strong>: The memory item that was presented.</p></li>
 <li><p><strong>keep_col</strong>: You can specify any additional columns to be preserved in the output with <code>keep_col = c()</code></p></li>
 </ul>
 </div>
@@ -200,13 +200,16 @@
 <h3 class="hasAnchor">
 <a href="#columns-outputted-by-score_-functions" class="anchor"></a>Columns outputted by <code>score_</code> functions</h3>
 <p>For more details on how each score is calculated see <a href="https://englelab.gatech.edu/articles/2005/working-memory-span-tasks-a-methodological-review-and-user27s-guide.pdf" target="_blank">Conway et al. (2005)</a></p>
+<p>We advise using the <strong>PartialScore</strong> as this tends to have the highest reliability.</p>
 <ul>
 <li><p><strong>Subject</strong>: Subject ID column</p></li>
+<li><p><strong>[Task].PartialScore</strong>: Partial scoring method (<em>sum of Recall.correct</em>)</p></li>
 <li>
 <p><strong>[Task].PartialUnit</strong>: Partial-credit unit score</p>
 <p><em>i.e. SymSpan.PartialUnit or RotSpan.PartialUnit</em></p>
 </li>
 <li><p><strong>[Task].PartialLoad</strong>: Partial-credit load score</p></li>
+<li><p><strong>[Task].AbsoluteScore</strong>: Absolute scoring method (<em>sum of Absolute.load</em>)</p></li>
 <li><p><strong>[Task].AbsoluteUnit</strong>: All-or-nothing unit score</p></li>
 <li><p><strong>[Task].AbsoluteLoad</strong>: All-or-nothing load score</p></li>
 <li>
@@ -242,7 +245,7 @@
               names_from = <span class="st">"Split"</span>,
               values_from = <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">contains</a></span>(<span class="st">"SymSpan"</span>)) <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(r_partial.load = 
-              <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span>(<span class="kw">SymSpan.PartialLoad_odd</span>, <span class="kw">SymSpan.PartialLoad_even</span>)) <span class="op">%&gt;%</span>
+              <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span>(<span class="kw">SymSpan.PartialScore_odd</span>, <span class="kw">SymSpan.PartialScore_even</span>)) <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(r_partial.load = 
            (<span class="fl">2</span> <span class="op">*</span> <span class="kw">r_partial.load</span>) <span class="op">/</span> (<span class="fl">1</span> <span class="op">+</span> <span class="kw">r_partial.load</span>))
 </pre></div>
@@ -259,7 +262,7 @@
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span>(<span class="kw">Subject</span>, <span class="kw">Trial</span>, .keep_all = <span class="fl">TRUE</span>) <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span>(id_cols = <span class="st">"Subject"</span>,
               names_from = <span class="st">"Trial"</span>,
-              values_from = <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">contains</a></span>(<span class="st">"Partial.load"</span>)) <span class="op">%&gt;%</span>
+              values_from = <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">contains</a></span>(<span class="st">"Recall.correct"</span>)) <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/psych/man/alpha.html">alpha</a></span>()
 
 <span class="co">## The cronbach alpha value can then be accessed: </span>
