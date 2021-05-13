@@ -63,6 +63,8 @@ fluidPage(
       p("This file has one row per subject, and columns with various scores
         calculated from the task."),
 
+      p("For complex span tasks, we advise using the .PartialScore as this tends to have the highest reliability."),
+
       hr(),
 
       h3(strong("Instructions")),
