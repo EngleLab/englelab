@@ -49,7 +49,11 @@ fluidPage(
     hr(),
     helpText("Download the data files to your computer"),
     downloadButton("downloadTrialLevel", "Trial Level"),
-    downloadButton("downloadScores", "Task Scores")
+    downloadButton("downloadScores", "Task Scores"),
+    hr(),
+    hr(),
+    helpText("If the app 'disconnects from server' then refresh the page and try again."),
+    helpText("If you cannot get the app to work contact: Jason Tsukahara (jason.tsukahara@gatech.edu) for support")
   ),
 
   # Main panel for displaying outputs ----

@@ -32,6 +32,7 @@ function(input, output) {
 
       if (input$task == "Symmetry Span") {
         data$trial <- raw_symspan(import)
+        rm(import)
         data$scores <- group_by(data$trial, Subject) %>%
           score_symspan()
       }
