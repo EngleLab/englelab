@@ -54,9 +54,16 @@ fluidPage(
     hr(),
     helpText("If the app 'disconnects from server' then refresh the
              page and try again."),
-    helpText("You can also try running the app in R (see instructions below."),
+    helpText("You can also try running the app in R (see instructions below)."),
     helpText("If you cannot get the app to work contact:
-             Jason Tsukahara (jason.tsukahara@gatech.edu) for support")
+             Jason Tsukahara (jason.tsukahara@gatech.edu) for support."),
+    hr(),
+    hr(),
+    helpText("If you use this WebApp, then please cite the englelab
+              R package in publications."),
+    helpText("Tsukahara, J.S. (2021). englelab: An R package for processing
+        complex-span and attention control tasks downloaded from the
+        EngleLab (v1.0.1). http://doi.org/10.5281/zenodo.4757606"),
   ),
 
   # Main panel for displaying outputs ----
@@ -145,14 +152,6 @@ fluidPage(
       code("library(englelab)"),
       br(),
       code("shiny::runApp()"),
-      hr(),
-
-      h3(strong("Citation")),
-      p("If you use this WebApp, then please cite the englelab
-        R package in publications."),
-      p("Tsukahara, J.S. (2021). englelab: An R package for processing
-        complex-span and attention control tasks downloaded from the
-        EngleLab (v1.0.1). http://doi.org/10.5281/zenodo.4757606"),
 
       hr(),
       hr(),
