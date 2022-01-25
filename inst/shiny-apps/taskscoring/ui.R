@@ -52,8 +52,11 @@ fluidPage(
     downloadButton("downloadScores", "Task Scores"),
     hr(),
     hr(),
-    helpText("If the app 'disconnects from server' then refresh the page and try again."),
-    helpText("If you cannot get the app to work contact: Jason Tsukahara (jason.tsukahara@gatech.edu) for support")
+    helpText("If the app 'disconnects from server' then refresh the
+             page and try again."),
+    helpText("You can also try running the app in R (see instructions below."),
+    helpText("If you cannot get the app to work contact:
+             Jason Tsukahara (jason.tsukahara@gatech.edu) for support")
   ),
 
   # Main panel for displaying outputs ----
@@ -72,12 +75,18 @@ fluidPage(
       version of the extremely messy data file E-Prime produces. It can be
       useful for data storage, sharing, and calculating reliability
       estimates in your data."),
+      p(a("Description of columns for Complex-Span Tasks",
+          href = "https://englelab.github.io/englelab/articles/Complex_Span.html#columns-outputted-by-raw_-functions",
+          target = "_blank")),
       br(),
       p(strong("2) A task scores data file:")),
       p("This file has one row per subject, and columns with various scores
         calculated from the task."),
-
-      p("For complex span tasks, we advise using the .PartialScore as this tends to have the highest reliability."),
+      p(a("Description of columns for Complex-Span Tasks",
+          href = "https://englelab.github.io/englelab/articles/Complex_Span.html#columns-outputted-by-score_-functions",
+          target = "_blank")),
+      p("For complex span tasks, we advise using the .PartialScore as this
+        tends to have the highest reliability."),
 
       hr(),
 
@@ -91,7 +100,8 @@ fluidPage(
       p("To export the merged E-Prime file to a .txt file See these
         instructions on", a("How to Export E-Prime files to .txt",
                             href = "https://support.pstnet.com/hc/en-us/articles/115012298367-E-DATAAID-Exporting-Data-22832-",
-                            target = "_blank"), ". You need to follow the 'Export Data to StatView' instructions AND",
+                            target = "_blank"),
+        ". You need to follow the 'Export Data to StatView' instructions AND",
         strong("uncheck Unicode")),
       p(strong("2. Select which task the data corresponds to")),
       p("Right now only newly downloaded versions of the complex span
@@ -105,6 +115,44 @@ fluidPage(
       p("Click on the download buttons to download the data files. You will
         have to wait for the tables to be displayed before they are
         ready for download."),
+      hr(),
+
+      h3(strong("Run the app in R")),
+      p("If you are having difficulty getting the WebApp to run in a broswer,
+        then you can also run the app in R. This method does not require an
+        internet connection."),
+      p(strong("1. Install R and/or RStudio")),
+      p("If you do not have R or RStudio installed, then you will first need
+        to install these programs."),
+      p(a("Install R (select the 0-Cloud option)",
+          href = "https://cran.r-project.org/mirrors.html",
+          target = "_blank")),
+      p(a("Install RStudio",
+          href = "https://www.rstudio.com/products/rstudio/download/#download",
+          target = "_blank")),
+      br(),
+      p(strong("2. Install the englelab R package")),
+      p("In the R or RStudio console window: "),
+      code("install.packages(\"devtools\")"),
+      br(),
+      code("install.packages(\"shiny\")"),
+      br(),
+      code("devtools::install_github(\"EngleLab/englelab\")"),
+      br(),
+      br(),
+      p("Restart R or RStudio after installing the englelab R Package"),
+      p(strong("3. Run the app")),
+      code("library(englelab)"),
+      br(),
+      code("shiny::runApp()"),
+      hr(),
+
+      h3(strong("Citation")),
+      p("If you use this WebApp, then please cite the englelab
+        R package in publications."),
+      p("Tsukahara, J.S. (2021). englelab: An R package for processing
+        complex-span and attention control tasks downloaded from the
+        EngleLab (v1.0.1). http://doi.org/10.5281/zenodo.4757606"),
 
       hr(),
       hr(),

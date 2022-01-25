@@ -90,7 +90,7 @@ function(input, output) {
       }
 
       if (!is.null(data$trial)) {
-        message$status <- "Done! Click on the 'Trial Level' and 'Task Scores' tabs to view the data. Tables may take a few seconds to display"
+        message$status <- "Done! Click on the 'Trial Level' and 'Task Scores' tabs to view the data. Tables may take a minute to display"
       }
     }
   })
