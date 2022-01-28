@@ -83,13 +83,15 @@ raw_stroopDL <- function(x){
                      Hue = dplyr::case_when(TrialProc == "real" ~ hue,
                                             TrialProc == "practice1" ~ pracHUE,
                                             TrialProc == "practice2" ~ pracHUE),
-                     AdminTime = dplyr::last(AdminTime) / 60000)
+                     StartTime = min(pracSTIM.OnsetTime, na.rm = TRUE),
+                     FinishTime = max(stim.RTTime, na.rm = TRUE),
+                     AdminTime = (FinishTime - StartTime) / 60000)
   x <- dplyr::ungroup(x)
 
   x <- dplyr::select(x, Subject, TrialProc, Block, Trial, ResponseDeadline,
                      Condition, RT, MissedDeadline, Accuracy,
                      Response, TrialCriteria.ACC, Word, Hue,
-                     FixationDuration, StroopDLScore,
+                     FixationDuration, StroopDLScore = StroopDLTime,
                      StroopMissedDeadlines, StroopDLTotalAccuracy,
                      StroopDLCorrectRT, StroopDLTotalRT,
                      AdminTime, SessionDate, SessionTime)
