@@ -144,7 +144,7 @@ raw_stroopDL <- function(x){
 
 score_stroopDL <- function(x){
   if ("StroopDLScore" %in% colnames(x)) {
-    message("Depricated. Use raw_flankerDL to get scores for this version of the task")
+    message("Depricated. Use raw_stroopDL to get scores for this version of the task")
   } else {
 
   }
