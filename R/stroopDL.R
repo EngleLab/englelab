@@ -10,13 +10,13 @@ raw_stroopDL <- function(x){
                      ResponseDeadline = `StroopDuration[SubTrial]`,
                      FixationDuration = `DurationOfFixation[SubTrial]`)
   x <- dplyr::filter(x, TrialProc == "BlockProc" |
-                       TrialProc == "stroopPRAC1" |
+                       TrialProc == "stroopPRAC" |
                        TrialProc == "stroopPRAC2")
   x <- dplyr::group_by(x, Subject)
   x <- dplyr::mutate(x,
                      TrialProc = dplyr::case_when(TrialProc == "BlockProc" ~
                                                     "real",
-                                                  TrialProc == "stroopPRAC1" ~
+                                                  TrialProc == "stroopPRAC" ~
                                                     "practice1",
                                                   TrialProc == "stroopPRAC2" ~
                                                     "practice2"),
