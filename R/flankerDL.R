@@ -73,7 +73,9 @@ raw_flankerDL <- function(x){
                                           TargetDirection,
                                         TrialProc == "practice" ~
                                           TargerDirection),
-                     AdminTime = dplyr::last(AdminTime) / 60000)
+                     StartTime = min(PracSlideFixationStart.OnsetTime, na.rm = TRUE),
+                     FinishTime = max(SlideFixationEnd1.OnsetTime, na.rm = TRUE),
+                     AdminTime = (FinishTime - StartTime) / 60000)
   x <- dplyr::ungroup(x)
 
   x <- dplyr::select(x, Subject, TrialProc, Block, Trial, ResponseDeadline,
