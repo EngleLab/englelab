@@ -10,22 +10,20 @@ raw_flankerDL <- function(x){
                      ResponseDeadline = ArrowDuration,
                      FixationDuration = DurationOfFixation)
   x <- dplyr::filter(x, TrialProc == "TrialProc" |
-                       TrialProc == "PracTrialProc1" |
-                       TrialProc == "PracTrialProc2")
+                       TrialProc == "PracTrialProc" |
+                       TrialProc == "MapTrialProc")
   x <- dplyr::group_by(x, Subject)
   x <- dplyr::mutate(x,
                      TrialProc =
                        dplyr::case_when(TrialProc == "TrialProc" ~
                                           "real",
-                                        TrialProc == "PracTrialProc1" ~
-                                          "practice1",
-                                        TrialProc == "PracTrialProc2" ~
-                                          "practice2"),
+                                        TrialProc == "MapTrialProc" ~
+                                          "practice",
+                                        TrialProc == "PracTrialProc" ~
+                                          "practice"),
                      Block = dplyr::case_when(TrialProc == "real" ~
                                                 TrialList.Cycle,
-                                              TrialProc == "practice1" ~
-                                                as.numeric(NA),
-                                              TrialProc == "practice2" ~
+                                              TrialProc == "practice" ~
                                                 as.numeric(NA)),
                      RT =
                        dplyr::case_when(TrialProc == "real" &
@@ -33,10 +31,8 @@ raw_flankerDL <- function(x){
                                           MissedDeadline.RT + ResponseDeadline,
                                         TrialProc == "real" &
                                           SlideTarget.RT > 0 ~ SlideTarget.RT,
-                                        TrialProc == "practice1" ~
-                                          PracSlideTarget1.RT,
-                                        TrialProc == "practice2" ~
-                                          PracSlideTarget2.RT),
+                                        TrialProc == "practice" ~
+                                          PracSlideTarget1.RT),
                      Accuracy =
                        dplyr::case_when(TrialProc == "real" &
                                           is.na(SlideTarget.RESP) ~
@@ -44,10 +40,8 @@ raw_flankerDL <- function(x){
                                         TrialProc == "real" &
                                           !is.na(SlideTarget.RESP) ~
                                           SlideTarget.ACC,
-                                        TrialProc == "practice1" ~
-                                          PracSlideTarget1.ACC,
-                                        TrialProc == "practice2" ~
-                                          PracSlideTarget2.ACC),
+                                        TrialProc == "practice" ~
+                                          PracSlideTarget1.ACC),
                      Response =
                        dplyr::case_when(TrialProc == "real" &
                                           is.na(SlideTarget.RESP) ~
@@ -55,10 +49,8 @@ raw_flankerDL <- function(x){
                                         TrialProc == "real" &
                                           !is.na(SlideTarget.RESP) ~
                                           SlideTarget.RESP,
-                                        TrialProc == "practice1" ~
-                                          PracSlideTarget1.RESP,
-                                        TrialProc == "practice2" ~
-                                          PracSlideTarget2.RESP),
+                                        TrialProc == "practice" ~
+                                          PracSlideTarget1.RESP),
                      Response = dplyr::case_when(Response == "z" ~ "left",
                                                  Response == "{/}" ~ "right",
                                                  TRUE ~ as.character(NA)),
@@ -66,8 +58,7 @@ raw_flankerDL <- function(x){
                                                is.na(SlideTarget.RESP), 1, 0),
                      TrialCriteria.ACC =
                        dplyr::case_when(TrialProc == "real" ~ SlideTarget.ACC,
-                                        TrialProc == "practice1" ~ 0,
-                                        TrialProc == "practice2" ~ 0),
+                                        TrialProc == "practice" ~ 0),
                      TargetArrowDirection =
                        dplyr::case_when(TrialProc == "real" ~
                                           TargetDirection,
