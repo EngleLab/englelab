@@ -48,7 +48,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -80,7 +80,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/EngleLab/englelab/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -100,8 +100,7 @@
 
       
 
-      </header><script src="Attention_Control_files/header-attrs-2.5/header-attrs.js"></script><link href="Attention_Control_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="Attention_Control_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="Attention_Control_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Attention Control Tasks</h1>
@@ -132,9 +131,8 @@
 <li><p><code><a href="../reference/raw_stroopDL.html">raw_stroopDL()</a></code></p></li>
 <li><p><code><a href="../reference/raw_visualarrays.html">raw_visualarrays()</a></code></p></li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw">data_raw</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/raw_antisaccade.html">raw_antisaccade</a></span>(<span class="kw">data_import</span>)
-</pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">data_raw</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/raw_antisaccade.html">raw_antisaccade</a></span><span class="op">(</span><span class="va">data_import</span><span class="op">)</span></code></pre></div>
 <p>Trial level variables are provided by the <code>raw_</code> functions.</p>
 </div>
 <div id="score_-functions" class="section level2">
@@ -144,22 +142,21 @@
 <li><code><a href="../reference/score_visualarrays.html">score_visualarrays()</a></code></li>
 </ul>
 <p>Based on the output provided by the <code>raw_</code> functions, the <code>score_</code> functions will calculate task level scores. In order to allow for more flexibility with using the <code>score_</code> functions, they will need to be combined with <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">dplyr::group_by()</a></code>.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/EngleLab/englelab">englelab</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org">dplyr</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://tidyr.tidyverse.org">tidyr</a></span>)
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EngleLab/englelab">englelab</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span>
 
-<span class="kw">data_raw</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/raw_visualarrays.html">raw_visualarrays</a></span>(<span class="kw">data_import</span>)
+<span class="va">data_raw</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/raw_visualarrays.html">raw_visualarrays</a></span><span class="op">(</span><span class="va">data_import</span><span class="op">)</span>
 
-<span class="kw">data_scores</span> <span class="op">&lt;-</span> <span class="kw">data_raw</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="kw">Subject</span>) <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/score_visualarrays.html">score_visualarrays</a></span>() <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span>(id_cols = <span class="st">"Subject"</span>,
-              names_from = <span class="st">"SetSize"</span>,
-              names_prefix = <span class="st">"VAorient_S.k_"</span>,
-              values_from = <span class="st">"k"</span>) <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(VAorient_S_k = (<span class="kw">VAorient_S.k_5</span> <span class="op">+</span> <span class="kw">VAorient_S.k_7</span>) <span class="op">/</span> <span class="fl">2</span>)
-</pre></div>
+<span class="va">data_scores</span> <span class="op">&lt;-</span> <span class="va">data_raw</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Subject</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/score_visualarrays.html">score_visualarrays</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>id_cols <span class="op">=</span> <span class="st">"Subject"</span>,
+              names_from <span class="op">=</span> <span class="st">"SetSize"</span>,
+              names_prefix <span class="op">=</span> <span class="st">"VAorient_S.k_"</span>,
+              values_from <span class="op">=</span> <span class="st">"k"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>VAorient_S_k <span class="op">=</span> <span class="op">(</span><span class="va">VAorient_S.k_5</span> <span class="op">+</span> <span class="va">VAorient_S.k_7</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="calculate-reliability" class="section level2">
 <h2 class="hasAnchor">
@@ -169,25 +166,24 @@
 <div id="split-half" class="section level3">
 <h3 class="hasAnchor">
 <a href="#split-half" class="anchor"></a>Split-Half</h3>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/EngleLab/englelab">englelab</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org">dplyr</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://tidyr.tidyverse.org">tidyr</a></span>)
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EngleLab/englelab">englelab</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span>
 
-<span class="kw">splithalf</span> <span class="op">&lt;-</span> <span class="kw">data_raw</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="kw">Subject</span>, <span class="kw">SetSize</span>) <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(Split = <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(<span class="kw">Trial</span> <span class="op">%%</span> <span class="fl">2</span>, <span class="st">"odd"</span>, <span class="st">"even"</span>)) <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="kw">Subject</span>, <span class="kw">SetSize</span>, <span class="kw">Split</span>) <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/score_visualarrays.html">score_visualarrays</a></span>() <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span>(id_cols = <span class="st">"Subject"</span>,
-              names_from = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"SetSize"</span>, <span class="st">"Split"</span>),
-              names_prefix = <span class="st">"k_"</span>,
-              values_from = <span class="st">"k"</span>) <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(VAorient_S.k_even = (<span class="kw">k_5_even</span> <span class="op">+</span> <span class="kw">k_7_even</span>) <span class="op">/</span> <span class="fl">2</span>,
-         VAorient_S.k_odd = (<span class="kw">k_5_odd</span> <span class="op">+</span> <span class="kw">k_7_odd</span>) <span class="op">/</span> <span class="fl">2</span>) <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(r_VA.k = <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span>(<span class="kw">VAorient_S.k_even</span>, <span class="kw">VAorient_S.k_odd</span>)) <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(r_VA.k = (<span class="fl">2</span> <span class="op">*</span> <span class="kw">r_VA.k</span>) <span class="op">/</span> (<span class="fl">1</span> <span class="op">+</span> <span class="kw">r_VA.k</span>))
-</pre></div>
+<span class="va">splithalf</span> <span class="op">&lt;-</span> <span class="va">data_raw</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Subject</span>, <span class="va">SetSize</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Split <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">Trial</span> <span class="op">%%</span> <span class="fl">2</span>, <span class="st">"odd"</span>, <span class="st">"even"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Subject</span>, <span class="va">SetSize</span>, <span class="va">Split</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/score_visualarrays.html">score_visualarrays</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>id_cols <span class="op">=</span> <span class="st">"Subject"</span>,
+              names_from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"SetSize"</span>, <span class="st">"Split"</span><span class="op">)</span>,
+              names_prefix <span class="op">=</span> <span class="st">"k_"</span>,
+              values_from <span class="op">=</span> <span class="st">"k"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>VAorient_S.k_even <span class="op">=</span> <span class="op">(</span><span class="va">k_5_even</span> <span class="op">+</span> <span class="va">k_7_even</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span>,
+         VAorient_S.k_odd <span class="op">=</span> <span class="op">(</span><span class="va">k_5_odd</span> <span class="op">+</span> <span class="va">k_7_odd</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>r_VA.k <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">VAorient_S.k_even</span>, <span class="va">VAorient_S.k_odd</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>r_VA.k <span class="op">=</span> <span class="op">(</span><span class="fl">2</span> <span class="op">*</span> <span class="va">r_VA.k</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="va">r_VA.k</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
   </div>

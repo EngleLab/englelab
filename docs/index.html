@@ -48,7 +48,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -80,7 +80,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/EngleLab/englelab/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -113,9 +113,8 @@
 <div id="install" class="section level2">
 <h2 class="hasAnchor">
 <a href="#install" class="anchor"></a>Install</h2>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw">devtools</span>::<span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"EngleLab/englelab"</span>)
-</pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"EngleLab/englelab"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="data-preparation" class="section level2">
 <h2 class="hasAnchor">
@@ -128,23 +127,22 @@
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
 <p><strong>Symmetry Span Example</strong></p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://readr.tidyverse.org">readr</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org">dplyr</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/EngleLab/englelab">englelab</a></span>)
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readr.tidyverse.org">readr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EngleLab/englelab">englelab</a></span><span class="op">)</span>
 
 <span class="co">## Import</span>
-<span class="kw">data_import</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_delim</a></span>(<span class="st">"import/SymSpan.txt"</span>, <span class="st">"\t"</span>, 
-                          escape_double = <span class="fl">FALSE</span>, trim_ws = <span class="fl">TRUE</span>)
+<span class="va">data_import</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_delim</a></span><span class="op">(</span><span class="st">"import/SymSpan.txt"</span>, <span class="st">"\t"</span>, 
+                          escape_double <span class="op">=</span> <span class="cn">FALSE</span>, trim_ws <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
                      
 <span class="co">## Raw</span>
-<span class="kw">data_raw</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/raw_symspan.html">raw_symspan</a></span>(<span class="kw">data_import</span>)
+<span class="va">data_raw</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/raw_symspan.html">raw_symspan</a></span><span class="op">(</span><span class="va">data_import</span><span class="op">)</span>
 
 <span class="co">## Score</span>
-<span class="kw">data_score</span> <span class="op">&lt;-</span> <span class="kw">data_raw</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="kw">Subject</span>) <span class="op">%&gt;%</span>
-  <span class="fu"><a href="reference/score_symspan.html">score_symspan</a></span>()
-</pre></div>
+<span class="va">data_score</span> <span class="op">&lt;-</span> <span class="va">data_raw</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Subject</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="reference/score_symspan.html">score_symspan</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><strong>See Articles:</strong></p>
 <ul>
 <li><p><a href="https://englelab.github.io/englelab/articles/Complex_Span.html">Complex Span Tasks</a></p></li>
