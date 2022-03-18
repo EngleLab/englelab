@@ -10,15 +10,31 @@
 #'
 
 raw_ospan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
-  if (taskVersion == "new"){
+
+  exit_task_error <- FALSE
+
+  if (taskVersion == "new") {
     x <- dplyr::filter(x, `Procedure[Block]` == "TaskProc")
     if (!("AvgMathTime" %in% colnames(x))) {
       x <- dplyr::mutate(x, AvgMathTime = NA)
     }
-  } else if (taskVersion == "old"){
+  } else if (taskVersion == "old") {
     x <- dplyr::filter(x, `Procedure[Block]` == "SessionProc")
     x <- dplyr::mutate(x, MathACC = NA, AvgMathTime = NA)
   }
+
+  if (!("AvgMathTime" %in% colnames(x))) {
+    x <- dplyr::mutate(x, AvgMathTime = NA)
+  }
+
+  if (NA %in% unique(x$`Running[Trial]`)) {
+    x <- tidyr::fill(x, `Running[Trial]`, .direction = "down")
+    x <- dplyr::mutate(x, `Procedure[SubTrial]` =
+                         ifelse(is.na(`Procedure[SubTrial]`),
+                                "recall", `Procedure[SubTrial]`))
+    exit_task_error <- TRUE
+  }
+
   x <- dplyr::rename(x, SetSize = setsz)
   x <-
     dplyr::mutate(x,
@@ -39,7 +55,7 @@ raw_ospan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
 
   blocks <- length(unique(x$Block))
 
-  if (blocks == 1){
+  if (blocks == 1) {
 
   } else if (blocks == 2) {
     x <-
@@ -125,6 +141,20 @@ raw_ospan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
                                 AvgMathTime == "?", NA, AvgMathTime))
 
   x <- dplyr::filter(x, is.na(erase), is.na(remove))
+
+  if (exit_task_error == TRUE) {
+    x <- dplyr::group_by(x, Subject, Block, Trial, SubTrialProc)
+    x <- dplyr::mutate(x,
+                       SubTrial = dplyr::row_number(),
+                       SetSize =
+                         dplyr::case_when(is.na(SetSize) &
+                                            SubTrialProc == "ProcessingTask" ~
+                                            as.double(max(SubTrial)),
+                                          TRUE ~ as.double(SetSize)))
+    x <- dplyr::ungroup(x)
+    x <- tidyr::fill(x, SetSize, .direction = "down")
+  }
+
   x <- dplyr::group_by(x, Subject, Block, Trial)
   suppressWarnings({
     x <- dplyr::mutate(x,
@@ -235,7 +265,7 @@ raw_ospan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
 #' @export
 #'
 
-score_ospan <- function(x, blocks = ""){
+score_ospan <- function(x, blocks = "") {
   if ("Running[Trial]" %in% colnames(x)) {
     x <- englelab::raw_ospan(x)
   }
