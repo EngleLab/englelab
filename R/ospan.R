@@ -14,6 +14,10 @@ raw_ospan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
   exit_task_error <- FALSE
 
   if (taskVersion == "new") {
+    x <- dplyr::mutate(x,
+                       `Procedure[Block]` =
+                         ifelse(is.na(`Procedure[Block]`),
+                                "TaskProc", `Procedure[Block]`))
     x <- dplyr::filter(x, `Procedure[Block]` == "TaskProc")
     if (!("AvgMathTime" %in% colnames(x))) {
       x <- dplyr::mutate(x, AvgMathTime = NA)
