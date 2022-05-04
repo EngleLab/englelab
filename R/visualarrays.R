@@ -83,16 +83,14 @@ score_visualarrays <- function(x, taskname = "VAorient_S"){
                           M.n = sum(Miss, na.rm = TRUE),
                           H.n = sum(Hit, na.rm = TRUE),
                           ACC = mean(Accuracy, na.rm = TRUE),
-                          AdminTime = dplyr::first(AdminTime)
-                          )
+                          AdminTime = dplyr::first(AdminTime))
   } else {
     x <- dplyr::summarise(x,
                           CR.n = sum(CorrectRejection, na.rm = TRUE),
                           FA.n = sum(FalseAlarm, na.rm = TRUE),
                           M.n = sum(Miss, na.rm = TRUE),
                           H.n = sum(Hit, na.rm = TRUE),
-                          ACC = mean(Accuracy, na.rm = TRUE)
-                          )
+                          ACC = mean(Accuracy, na.rm = TRUE))
   }
 
   x <- dplyr::ungroup(x)
@@ -101,16 +99,23 @@ score_visualarrays <- function(x, taskname = "VAorient_S"){
                      FalseAlarms = FA.n / (CR.n + FA.n),
                      Hits = H.n / (H.n + M.n),
                      Misses = M.n / (H.n + M.n),
-                     k = SetSize * (Hits - FalseAlarms)
-                     )
+                     k = SetSize * (Hits - FalseAlarms))
   x <- dplyr::select(x, -CR.n, -FA.n, -M.n, -H.n)
 
-  x <- tidyr::pivot_wider(x, id_cols = Subject,
+  if ("AdminTime" %in% colnames(x)) {
+    x <- tidyr::pivot_wider(x, id_cols = Subject,
+                            names_from = SetSize,
+                            names_glue = "{SetSize}.{.value}",
+                            values_from = c(k, ACC, CorrectRejections, FalseAlarms,
+                                            Hits, Misses, AdminTime)
+    )
+  } else {
+    x <- tidyr::pivot_wider(x, id_cols = Subject,
                           names_from = SetSize,
                           names_glue = "{SetSize}.{.value}",
                           values_from = c(k, ACC, CorrectRejections, FalseAlarms,
-                                          Hits, Misses)
-                          )
+                                          Hits, Misses))
+  }
   x <- dplyr::rowwise(x)
   x <- dplyr::mutate(x,
                      k = mean(c(`3.k`, `5.k`)),
@@ -119,27 +124,22 @@ score_visualarrays <- function(x, taskname = "VAorient_S"){
                        mean(c(`3.CorrectRejections`, `5.CorrectRejections`)),
                      FalseAlarms = mean(c(`3.FalseAlarms`, `5.FalseAlarms`)),
                      Hits = mean(c(`3.Hits`, `5.Hits`)),
-                     Misses = mean(c(`3.Misses`, `5.Misses`))
-                     )
+                     Misses = mean(c(`3.Misses`, `5.Misses`)))
   x <- dplyr::ungroup(x)
   x <- dplyr::relocate(x, k, `5.k`, `3.k`, .after = Subject)
   x <- dplyr::relocate(x, ACC, `5.ACC`, `3.ACC`, .after = `3.k`)
   x <- dplyr::relocate(x,
                        CorrectRejections, `5.CorrectRejections`, `3.CorrectRejections`,
-                       .after = `3.ACC`
-                       )
+                       .after = `3.ACC`)
   x <- dplyr::relocate(x,
                        FalseAlarms, `5.FalseAlarms`, `3.FalseAlarms`,
-                       .after = `3.CorrectRejections`
-                       )
+                       .after = `3.CorrectRejections`)
   x <- dplyr::relocate(x,
                        Hits, `5.Hits`, `3.Hits`,
-                       .after = `3.FalseAlarms`
-                       )
+                       .after = `3.FalseAlarms`)
   x <- dplyr::relocate(x,
                        Misses, `5.Misses`, `3.Misses`,
-                       .after = `3.Hits`
-                       )
-  x <- dplyr::rename_with(x, ~paste(taskname, ., sep = ""), -Subject)
+                       .after = `3.Hits`)
+  x <- dplyr::rename_with(x, ~paste(taskname, ., sep = "."), -Subject)
   return(x)
 }
