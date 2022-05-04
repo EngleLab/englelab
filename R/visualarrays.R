@@ -7,12 +7,12 @@
 
 raw_visualarrays <- function(x, taskVersion = "new"){
   x <- dplyr::rename(x, TrialProc = `Procedure[Trial]`)
-  x <- dplyr::filter(x, TrialProc == "showproc" |
-                       TrialProc == "pracproc")
   x <- dplyr::mutate(x,
                      TrialProc = dplyr::case_when(TrialProc == "showproc" ~
                                                     "real",
                                                   TrialProc == "pracproc" ~
+                                                    "practice",
+                                                  TrialProc == "PracProc" ~
                                                     "practice"),
                      Accuracy = VisResponse.ACC,
                      Response =
@@ -66,6 +66,9 @@ raw_visualarrays <- function(x, taskVersion = "new"){
                        CorrectRejection, FalseAlarm, Miss, Hit,
                        SessionDate, SessionTime)
   }
+
+  x <- dplyr::filter(x, TrialProc == "real" |
+                       TrialProc == "practice")
 
   return(x)
 }
