@@ -74,15 +74,38 @@ raw_visualarrays <- function(x, taskVersion = "new"){
 
 score_visualarrays <- function(x){
   x <- dplyr::group_by(x, SetSize, .add = TRUE)
-  x <- dplyr::summarise(x,
-                        CR.n = sum(CorrectRejection, na.rm = TRUE),
-                        FA.n = sum(FalseAlarm, na.rm = TRUE),
-                        M.n = sum(Miss, na.rm = TRUE),
-                        H.n = sum(Hit, na.rm = TRUE))
+
+  if ("AdminTime" %in% colnames(x)) {
+    x <- dplyr::summarise(x,
+                          CR.n = sum(CorrectRejection, na.rm = TRUE),
+                          FA.n = sum(FalseAlarm, na.rm = TRUE),
+                          M.n = sum(Miss, na.rm = TRUE),
+                          H.n = sum(Hit, na.rm = TRUE),
+                          Accuracy = mean(Accuracy, na.rm = TRUE),
+                          AdminTime = dplyr::first(AdminTime)
+                          )
+  } else {
+    x <- dplyr::summarise(x,
+                          CR.n = sum(CorrectRejection, na.rm = TRUE),
+                          FA.n = sum(FalseAlarm, na.rm = TRUE),
+                          M.n = sum(Miss, na.rm = TRUE),
+                          H.n = sum(Hit, na.rm = TRUE),
+                          Accuracy = mean(Accuracy, na.rm = TRUE)
+                          )
+  }
+
   x <- dplyr::ungroup(x)
   x <- dplyr::mutate(x,
-                     CR = CR.n / (CR.n + FA.n),
-                     H = H.n / (H.n + M.n),
-                     k = SetSize * (H + CR - 1))
+                     CorrectRejections = CR.n / (CR.n + FA.n),
+                     FalseAlarms = FA.n / (CR.n + FA.n),
+                     Hits = H.n / (H.n + M.n),
+                     Misses = M.n / (H.n + M.n),
+                     k = SetSize * (H + CR - 1)
+                     )
+  x <- dplyr::select(x, -CR.n, -FA.n, -M.n, -H.n)
+  x <- dplyr::relocate(x, k, Accuracy,
+                       CorrectRejections, FalseAlarms, Hits, Misses,
+                       .after = SetSize
+                       )
   return(x)
 }
