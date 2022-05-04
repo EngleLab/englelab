@@ -100,7 +100,7 @@ score_visualarrays <- function(x){
                      FalseAlarms = FA.n / (CR.n + FA.n),
                      Hits = H.n / (H.n + M.n),
                      Misses = M.n / (H.n + M.n),
-                     k = SetSize * (H + CR - 1)
+                     k = SetSize * (Hits + CorrectRejections - 1)
                      )
   x <- dplyr::select(x, -CR.n, -FA.n, -M.n, -H.n)
   x <- dplyr::relocate(x, k, Accuracy,
