@@ -4,10 +4,12 @@
 \alias{score_visualarrays}
 \title{Calculate Visual Array k scores from a messy raw dataframe}
 \usage{
-score_visualarrays(x)
+score_visualarrays(x, taskname = "VAorient_S")
 }
 \arguments{
 \item{x}{dataframe (an imported .emrge file)}
+
+\item{taskname}{string to add as a prefix to columns}
 }
 \description{
 This function will calculate a k score from the raw data
