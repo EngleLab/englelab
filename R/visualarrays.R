@@ -107,8 +107,9 @@ score_visualarrays <- function(x, taskname = "VAorient_S"){
                             names_from = SetSize,
                             names_glue = "{SetSize}.{.value}",
                             values_from = c(k, ACC, CorrectRejections, FalseAlarms,
-                                            Hits, Misses, AdminTime)
-    )
+                                            Hits, Misses, AdminTime))
+    x <- dplyr::select(x, -last_col())
+    x <- dplyr::rename(x, AdminTime = last_col())
   } else {
     x <- tidyr::pivot_wider(x, id_cols = Subject,
                           names_from = SetSize,
@@ -140,6 +141,9 @@ score_visualarrays <- function(x, taskname = "VAorient_S"){
   x <- dplyr::relocate(x,
                        Misses, `5.Misses`, `3.Misses`,
                        .after = `3.Hits`)
+
   x <- dplyr::rename_with(x, ~paste(taskname, ., sep = "."), -Subject)
+  x <- dplyr::rename_with(x,
+                          ~stringr::str_replace(., "\\.", "_"), matches("[1-9]"))
   return(x)
 }
