@@ -50,16 +50,6 @@ raw_visualarrays <- function(x, taskVersion = "new"){
                        Accuracy, Response, CorrectResponse,
                        CorrectRejection, FalseAlarm, Miss, Hit,
                        AdminTime, SessionDate, SessionTime)
-  }
-
-  if ("AdminTime" %in% colnames(x)) {
-    x <- dplyr::group_by(x, Subject)
-    x <- dplyr::mutate(x, AdminTime = dplyr::last(AdminTime) / 60000)
-    x <- dplyr::ungroup(x)
-    x <- dplyr::select(x, Subject, TrialProc, Trial, SetSize,
-                       Accuracy, Response, CorrectResponse,
-                       CorrectRejection, FalseAlarm, Miss, Hit,
-                       AdminTime, SessionDate, SessionTime)
   } else {
     x <- dplyr::select(x, Subject, TrialProc, Trial, SetSize,
                        Accuracy, Response, CorrectResponse,
