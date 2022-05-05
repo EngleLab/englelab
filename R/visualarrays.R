@@ -125,31 +125,32 @@ score_visualarrays <- function(x, taskname = "VAorient_S"){
                               c(k, ACC, CorrectRejections, FalseAlarms,
                                 Hits, Misses))
   }
-  x <- dplyr::rowwise(x)
   x <- dplyr::mutate(x,
-                     k = mean(c(`3.k`, `5.k`)),
-                     ACC = mean(c(`3.ACC`, `5.ACC`)),
+                     k = rowMeans(dplyr::across(dplyr::contains("k"))),
+                     ACC = rowMeans(dplyr::across(dplyr::contains("ACC"))),
                      CorrectRejections =
-                       mean(c(`3.CorrectRejections`, `5.CorrectRejections`)),
-                     FalseAlarms = mean(c(`3.FalseAlarms`, `5.FalseAlarms`)),
-                     Hits = mean(c(`3.Hits`, `5.Hits`)),
-                     Misses = mean(c(`3.Misses`, `5.Misses`)))
+                       rowMeans(dplyr::across(
+                         dplyr::contains("CorrectRejections"))),
+                     FalseAlarms =
+                       rowMeans(dplyr::across(dplyr::contains("FalseAlarms"))),
+                     Hits = rowMeans(dplyr::across(dplyr::contains("Hits"))),
+                     Misses = rowMeans(dplyr::across(dplyr::contains("Misses"))))
   x <- dplyr::ungroup(x)
-  x <- dplyr::relocate(x, k, `5.k`, `3.k`, .after = Subject)
-  x <- dplyr::relocate(x, ACC, `5.ACC`, `3.ACC`, .after = `3.k`)
   x <- dplyr::relocate(x,
-                       CorrectRejections, `5.CorrectRejections`, `3.CorrectRejections`,
-                       .after = `3.ACC`)
+                       Misses, dplyr::contains("Misses"),
+                       .before = AdminTime)
   x <- dplyr::relocate(x,
-                       FalseAlarms, `5.FalseAlarms`, `3.FalseAlarms`,
-                       .after = `3.CorrectRejections`)
+                       Hits, dplyr::contains("Hits"),
+                       .before = Misses)
   x <- dplyr::relocate(x,
-                       Hits, `5.Hits`, `3.Hits`,
-                       .after = `3.FalseAlarms`)
+                       FalseAlarms, dplyr::contains("FalseAlarms"),
+                       .before = Hits)
   x <- dplyr::relocate(x,
-                       Misses, `5.Misses`, `3.Misses`,
-                       .after = `3.Hits`)
-
+                       CorrectRejections, dplyr::contains("CorrectRejections"),
+                       .before = FalseAlarms)
+  x <- dplyr::relocate(x, ACC, dplyr::contains("ACC"),
+                       .before = CorrectRejections)
+  x <- dplyr::relocate(x, k, contains("k"), .after = Subject)
   x <- dplyr::rename_with(x, ~paste(taskname, ., sep = "."), -Subject)
   x <- dplyr::rename_with(x,
                           ~stringr::str_replace(., "\\.", "_"), matches("[1-9]"))
