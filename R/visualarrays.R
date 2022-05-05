@@ -75,6 +75,10 @@ raw_visualarrays <- function(x, taskVersion = "new"){
 
 score_visualarrays <- function(x, taskname = "VAorient_S"){
   x <- dplyr::group_by(x, Subject, SetSize, .add = TRUE)
+  grouped_vars <- colnames(dplyr::group_keys(x))
+  grouped_vars <- grouped_vars[which(grouped_vars != "Subject")]
+  grouped_vars_names <- paste("{", grouped_vars, "}", sep = "")
+  grouped_vars_names <- stringr::str_flatten(grouped_vars_names, "_")
 
   if ("AdminTime" %in% colnames(x)) {
     x <- dplyr::summarise(x,
@@ -104,18 +108,22 @@ score_visualarrays <- function(x, taskname = "VAorient_S"){
 
   if ("AdminTime" %in% colnames(x)) {
     x <- tidyr::pivot_wider(x, id_cols = Subject,
-                            names_from = SetSize,
-                            names_glue = "{SetSize}.{.value}",
-                            values_from = c(k, ACC, CorrectRejections, FalseAlarms,
-                                            Hits, Misses, AdminTime))
-    x <- dplyr::select(x, -last_col())
-    x <- dplyr::rename(x, AdminTime = last_col())
+                            names_from = grouped_vars,
+                            names_glue =
+                              paste(grouped_vars_names, "{.value}", sep = "."),
+                            values_from =
+                              c(k, ACC, CorrectRejections, FalseAlarms,
+                                Hits, Misses, AdminTime))
+    x <- dplyr::select(x, -dplyr::last_col())
+    x <- dplyr::rename(x, AdminTime = dplyr::last_col())
   } else {
     x <- tidyr::pivot_wider(x, id_cols = Subject,
-                          names_from = SetSize,
-                          names_glue = "{SetSize}.{.value}",
-                          values_from = c(k, ACC, CorrectRejections, FalseAlarms,
-                                          Hits, Misses))
+                            names_from = grouped_vars,
+                            names_glue =
+                              paste(grouped_vars_names, "{.value}", sep = "."),
+                            values_from =
+                              c(k, ACC, CorrectRejections, FalseAlarms,
+                                Hits, Misses))
   }
   x <- dplyr::rowwise(x)
   x <- dplyr::mutate(x,
