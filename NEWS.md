@@ -1,3 +1,11 @@
+# englelab v1.0.2
+
+Updated: 5 May, 2022
+
+- Minor update only
+
+- Updated `score_visualarrays()`. Added a `taskname = ` argument for different types of visual arrays tasks
+
 # englelab v1.0.1
 
 Updated: 12 May, 2021
