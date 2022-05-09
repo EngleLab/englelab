@@ -115,8 +115,8 @@ score_visualarrays <- function(x, taskname = "VAorient_S", id_col = "Subject"){
                             values_from =
                               c(k, ACC, CorrectRejections, FalseAlarms,
                                 Hits, Misses, AdminTime))
-    x <- dplyr::select(x, -dplyr::last_col())
     x <- dplyr::rename(x, AdminTime = dplyr::last_col())
+    x <- dplyr::select(x, -dplyr::contains(".AdminTime"))
   } else {
     x <- tidyr::pivot_wider(x, id_cols = id_col,
                             names_from = grouped_vars,
