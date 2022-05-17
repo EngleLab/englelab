@@ -2,6 +2,7 @@
 
 export(bin_score)
 export(cronbach_alpha)
+export(edit_distance)
 export(get_script)
 export(raw_antisaccade)
 export(raw_flankerDL)
