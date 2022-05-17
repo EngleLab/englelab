@@ -10,12 +10,12 @@
 #'
 
 raw_symspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
-  if (taskVersion == "new"){
+  if (taskVersion == "new") {
     x <- dplyr::filter(x, `Procedure[Block]` == "TaskProc")
     if (!("AvgSymmetryTime" %in% colnames(x))) {
       x <- dplyr::mutate(x, AvgSymmetryTime = NA)
     }
-  } else if (taskVersion == "old"){
+  } else if (taskVersion == "old") {
     x <- dplyr::filter(x, `Procedure[Block]` == "SessionProc")
     x <- dplyr::mutate(x, SymmetryACC = NA, AvgSymmetryTime = NA)
   }
@@ -39,7 +39,7 @@ raw_symspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
 
   blocks <- length(unique(x$Block))
 
-  if (blocks == 1){
+  if (blocks == 1) {
 
   } else if (blocks == 2) {
     x <-
@@ -222,6 +222,36 @@ raw_symspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
                      RT, Accuracy, Response, CorrectResponse, MemoryItem,
                      keep_col, SessionDate, SessionTime)
   x <- dplyr::distinct(x)
+  x <- dplyr::group_by(x, Subject, Block, Trial, SubTrialProc)
+  x <- dplyr::mutate(x, SubTrial = dplyr::row_number())
+
+  # add columns with sequence of target memory and recall items
+  x_tr <- dplyr::mutate(x,
+                        MemoryItem = LETTERS[MemoryItem],
+                        Response =
+                          dplyr::case_when(is.na(Response) ~ as.character(NA),
+                                           Response == "TRUE" ~ "TRUE",
+                                           Response == "FALSE" ~ "FALSE",
+                                           Response == "blank" ~ "-",
+                                           TRUE ~ LETTERS[as.numeric(Response)]))
+  x_tr <- dplyr::group_by(x_tr, Subject, Block, Trial, SubTrialProc)
+  x_tr <- dplyr::mutate(x_tr, SubTrial = dplyr::row_number())
+  x_tr <- dplyr::ungroup(x_tr)
+  x_tr <- tidyr::pivot_wider(x_tr,
+                             id_cols = c(Subject, Block, Trial),
+                             names_from = c(SubTrialProc, SubTrial),
+                             values_from = c(MemoryItem, Response))
+  x_tr <- tidyr::unite(x_tr, "MemoryTargets",
+                       dplyr::contains("MemoryItem_ProcessingTask"),
+                       sep = "", na.rm = TRUE)
+  x_tr <- tidyr::unite(x_tr, "Recalled",
+                       dplyr::contains("Response_Recall"),
+                       sep = "", na.rm = TRUE)
+  x_tr <- dplyr::select(x_tr, Subject, Block, Trial, MemoryTargets, Recalled)
+
+  x <- merge(x, x_tr, by = c("Subject", "Block", "Trial"))
+  x <- dplyr::relocate(x, MemoryTargets, Recalled, .after = SetSize)
+
   return(x)
 }
 
