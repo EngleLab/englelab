@@ -252,6 +252,11 @@ raw_symspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
   x <- merge(x, x_tr, by = c("Subject", "Block", "Trial"))
   x <- dplyr::relocate(x, MemoryTargets, Recalled, .after = SetSize)
 
+  # add columns for edit distance load and unit scores
+  x <- englelab::edit_distance(x)
+  x <- dplyr::relocate(x, EditDistance.unit, EditDistance.load,
+                       .after = Absolute.load)
+
   return(x)
 }
 
