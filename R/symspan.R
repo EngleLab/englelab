@@ -225,7 +225,7 @@ raw_symspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
   x <- dplyr::group_by(x, Subject, Block, Trial, SubTrialProc)
   x <- dplyr::mutate(x, SubTrial = dplyr::row_number())
 
-  # add columns with sequence of target memory and recall items
+  # add columns with sequence of target memory and recalled items
   x_tr <- dplyr::mutate(x,
                         MemoryItem = LETTERS[MemoryItem],
                         Response =

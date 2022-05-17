@@ -254,6 +254,33 @@ raw_ospan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
                      RT, Accuracy, Response, CorrectResponse, MemoryItem,
                      keep_col, SessionDate, SessionTime)
   x <- dplyr::distinct(x)
+
+  # add columns with sequence of target memory and recalled items
+  x_tr <- dplyr::mutate(x,
+                        Response =
+                          dplyr::case_when(is.na(Response) ~ as.character(NA),
+                                           Response == "TRUE" ~ "TRUE",
+                                           Response == "FALSE" ~ "FALSE",
+                                           Response == "blank" ~ "-",
+                                           TRUE ~ Response))
+  x_tr <- dplyr::group_by(x_tr, Subject, Block, Trial, SubTrialProc)
+  x_tr <- dplyr::mutate(x_tr, SubTrial = dplyr::row_number())
+  x_tr <- dplyr::ungroup(x_tr)
+  x_tr <- tidyr::pivot_wider(x_tr,
+                             id_cols = c(Subject, Block, Trial),
+                             names_from = c(SubTrialProc, SubTrial),
+                             values_from = c(MemoryItem, Response))
+  x_tr <- tidyr::unite(x_tr, "MemoryTargets",
+                       dplyr::contains("MemoryItem_ProcessingTask"),
+                       sep = "", na.rm = TRUE)
+  x_tr <- tidyr::unite(x_tr, "Recalled",
+                       dplyr::contains("Response_Recall"),
+                       sep = "", na.rm = TRUE)
+  x_tr <- dplyr::select(x_tr, Subject, Block, Trial, MemoryTargets, Recalled)
+
+  x <- merge(x, x_tr, by = c("Subject", "Block", "Trial"))
+  x <- dplyr::relocate(x, MemoryTargets, Recalled, .after = SetSize)
+
   return(x)
 }
 
