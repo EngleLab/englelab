@@ -13,13 +13,15 @@
 edit_distance <- function(x, target = "MemoryTargets", recall = "Recalled"){
 
   x <- dplyr::mutate(x,
-                     distance = stringdist::stringdist(get(target), get(recall),
+                     recall_new = stringr::str_remove(get(recall), "-"),
+                     distance = stringdist::stringdist(get(target),
+                                                       get(recall_new),
                                                        method = "dl"),
                      EditDistance.unit =
                        (nchar(get(target)) - distance) / nchar(get(target)),
                      EditDistance.load =
                        nchar(get(target)) - distance)
-  x <- dplyr::select(x, -distance)
+  x <- dplyr::select(x, -distance, -recall_new)
 
   return(x)
 }
