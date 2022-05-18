@@ -1,3 +1,24 @@
+# englelab v1.0.3
+
+Updated: 17 May, 2022
+
+- Minor update only
+
+- Added some extra columns to the output of `raw_symspan()`, `raw_rotspan()`, and `raw_ospan()`
+
+    - MemoryTargets and Recalled to more easily see and analyze the sequence of memory items
+    and the sequence of recalled items on each trial.
+
+    - EditDistance.unit and EditDistance.load calculate the trial scores based on 
+    the edit distance scoring method. See Gonthier et al. (2022, under review).
+    
+    - Got rid of Recall.correct as it was redundant with Partial.load
+    
+- Added extra columns to the output of `score_symspan()`, `score_rotspan()`, and `score_ospan()`
+
+    - EditDistanceScore, EditDistanceUnit, and EditDistanceLoad for scores based on 
+    the edit distance scoring method. See Gonthier et al. (2022, under review).
+
 # englelab v1.0.2
 
 Updated: 5 May, 2022

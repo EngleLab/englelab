@@ -48,9 +48,15 @@ Trial level performance includes a sum of the number of processing subtasks answ
 
 -   **SetSize**: The set-size for a given trial (number of memory items presented)
 
+-   **MemoryTargets**: The sequence of target memory items on the trial. Re-coded in alphabet order for numeric values.
+
+-   **Recalled**: The sequence of recalled items. Re-coded into alphabet order for numeric values. Blank resonses shown as "-"
+
 -   **Processing.correct**: Sum of the number of processing subtasks answered correctly
 
--   **Recall.total**: Total number of memory items correctly recalled
+-   **EditDistance.unit**: Trial-level scores needed to calculate complex-span scoers based on the edit distance unit scoring method
+
+-   **EditDistance.load**: Trial-level scores needed to calculate complex-span scoers based on the edit distance unit scoring method
 
 -   **Partial.unit**: Trial-level scores needed to calculate complex-span scores based on the partial-credit unit scoring method.
 
@@ -117,27 +123,33 @@ We advise using the **PartialScore** as this tends to have the highest reliabili
 
 -   **Subject**: Subject ID column
 
+-   **[Task].EditDistanceScore**: Edit Distance scoring method (*sum of EditDistance.load*)
+
+    *i.e. SymSpan.EditDistanceScore or RotSpan.EditDistanceScore*
+
+-   **[Task].EditDistanceUnit**: Edit Distance unit score (*mean of EditDistance.unit*)
+
+-   **[Task].EditDistanceLoad**: Edit Distance load score (*sum of EditDistance.load divided by Total number of memory items*)
+
 -   **[Task].PartialScore**: Partial scoring method (*sum of Recall.correct*)
 
--   **[Task].PartialUnit**: Partial-credit unit score
+-   **[Task].PartialUnit**: Partial-credit unit score (*mean of Partial.unit*)
 
-    *i.e. SymSpan.PartialUnit or RotSpan.PartialUnit*
-
--   **[Task].PartialLoad**: Partial-credit load score
+-   **[Task].PartialLoad**: Partial-credit load score (*sum of Partial.load divided by Total number of memory items*)
 
 -   **[Task].AbsoluteScore**: Absolute scoring method (*sum of Absolute.load*)
 
--   **[Task].AbsoluteUnit**: All-or-nothing unit score
+-   **[Task].AbsoluteUnit**: All-or-nothing unit score (*mean of Absolute.unit*)
 
--   **[Task].AbsoluteLoad**: All-or-nothing load score
+-   **[Task].AbsoluteLoad**: All-or-nothing load score (*sum of Absolute.load divided by Total number of memory items*)
+
+-   **[ProcessingTask].ACC**: Average accuracy on the processing task
+
+    *i.e. Symmetry.ACC or Rotation.ACC*
 
 -   **[ProcessingTask].RT_mean**: Average reaction time on the processing task
 
-    *i.e. Symmetry.RT_mean or Rotation.RT_mean*
-
 -   **[ProcessingTask].RT_sd**: Standard deviation of reaction times on the processing task
-
--   **[ProcessingTask].ACC**: Average accuracy on the processing task
 
 -   **[Task].Trial**: Total number of trials used to calculate the score for that row
 
