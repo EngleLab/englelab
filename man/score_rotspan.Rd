@@ -13,7 +13,5 @@ score_rotspan(x, blocks = NULL)
 Use group_by(Subject, Block) instead}
 }
 \description{
-This function skips the 'raw_rotspan()' step and therefore
-    is not advised. However, some researchers may find
-    it easier to just skip right to 'score_rotspan()'
+Calculate Rotation Span scores from a messy raw dataframe
 }

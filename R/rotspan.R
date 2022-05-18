@@ -341,7 +341,10 @@ raw_rotspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
   # add columns for edit distance load and unit scores
   x <- englelab::edit_distance(x)
   x <- dplyr::relocate(x, EditDistance.unit, EditDistance.load,
-                       .after = Absolute.load)
+                       .after = Processing.correct)
+
+  # remove Recall.correct. It is redundant with Partial.load
+  x <- dplyr::select(x, -Recall.correct)
 
   return(x)
 }
@@ -351,9 +354,6 @@ raw_rotspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
 
 #' Calculate Rotation Span scores from a messy raw dataframe
 #'
-#' This function skips the 'raw_rotspan()' step and therefore
-#'     is not advised. However, some researchers may find
-#'     it easier to just skip right to 'score_rotspan()'
 #' @param x dataframe
 #' @param blocks depricated. No need to indicate number of blocks.
 #'     Use group_by(Subject, Block) instead
@@ -365,25 +365,30 @@ score_rotspan <- function(x, blocks = NULL){
     x <- englelab::raw_rotspan(x)
   }
 
-  x_recall <- dplyr::distinct(x, Subject, Block, Trial, Recall.correct, SetSize,
+  x_recall <- dplyr::distinct(x, Subject, Block, Trial, SetSize,
+                              EditDistance.unit, EditDistance.load,
                               Partial.unit, Partial.load,
                               Absolute.unit, Absolute.load)
   x_recall <- dplyr::summarise(x_recall,
-                               RotSpan.PartialScore = sum(Recall.correct),
-                               RotSpan.PartialUnit = sum(Partial.unit) / n(),
+                               RotSpan.EditDistanceScore = sum(EditDistance.load),
+                               RotSpan.EditDistanceUnit = mean(EditDistance.unit),
+                               RotSpan.EditDistanceLoad =
+                                 sum(EditDistance.load) / sum(SetSize),
+                               RotSpan.PartialScore = sum(Partial.load),
+                               RotSpan.PartialUnit = mean(Partial.unit),
                                RotSpan.PartialLoad =
                                  sum(Partial.load) / sum(SetSize),
                                RotSpan.AbsoluteScore = sum(Absolute.load),
-                               RotSpan.AbsoluteUnit = sum(Absolute.unit) / n(),
+                               RotSpan.AbsoluteUnit = mean(Absolute.unit),
                                RotSpan.AbsoluteLoad =
                                  sum(Absolute.load) / sum(SetSize),
                                RotSpan.Trials = n(),
                                RotSpan.MemoryItems = sum(SetSize))
   x_processing <- dplyr::filter(x, SubTrialProc == "ProcessingTask")
   x_processing <- dplyr::summarise(x_processing,
+                                   Rotation.ACC = mean(Accuracy, na.rm = TRUE),
                                    Rotation.RT_mean = mean(RT, na.rm = TRUE),
-                                   Rotation.RT_sd = sd(RT, na.rm = TRUE),
-                                   Rotation.ACC = mean(Accuracy, na.rm = TRUE))
+                                   Rotation.RT_sd = sd(RT, na.rm = TRUE))
   x <- tryCatch(dplyr::full_join(x_recall, x_processing),
                 error = function(c){
                   if (!FALSE) {dplyr::bind_cols(x_recall, x_processing)}

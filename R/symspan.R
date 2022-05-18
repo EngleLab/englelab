@@ -255,17 +255,16 @@ raw_symspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
   # add columns for edit distance load and unit scores
   x <- englelab::edit_distance(x)
   x <- dplyr::relocate(x, EditDistance.unit, EditDistance.load,
-                       .after = Absolute.load)
+                       .after = Processing.correct)
 
+  # remove Recall.correct. It is redundant with Partial.load
+  x <- dplyr::select(x, -Recall.correct)
   return(x)
 }
 
 
 #' Calculate Symmetry Span scores from a messy raw dataframe
 #'
-#' This function skips the 'raw_symspan()' step and therefore
-#'     is not advised. However, some researchers may find
-#'     it easier to just skip right to 'score_symspan()'
 #' @param x dataframe
 #' @param blocks depricated. No need to indicate number of blocks.
 #'     Use group_by(Subject, Block) instead
@@ -277,25 +276,30 @@ score_symspan <- function(x, blocks = NULL){
     x <- englelab::raw_symspan(x)
   }
 
-  x_recall <- dplyr::distinct(x, Subject, Block, Trial, Recall.correct, SetSize,
-                              Partial.unit, Absolute.unit,
-                              Partial.load, Absolute.load)
+  x_recall <- dplyr::distinct(x, Subject, Block, Trial, SetSize,
+                              EditDistance.unit, EditDistance.load,
+                              Partial.unit, Partial.load,
+                              Absolute.unit, Absolute.load)
   x_recall <- dplyr::summarise(x_recall,
-                               SymSpan.PartialScore = sum(Recall.correct),
-                               SymSpan.PartialUnit = sum(Partial.unit) / n(),
+                               SymSpan.EditDistanceScore = sum(EditDistance.load),
+                               SymSpan.EditDistanceUnit = mean(EditDistance.unit),
+                               SymSpan.EditDistanceLoad =
+                                 sum(EditDistance.load) / sum(SetSize),
+                               SymSpan.PartialScore = sum(Partial.load),
+                               SymSpan.PartialUnit = mean(Partial.unit),
                                SymSpan.PartialLoad =
                                  sum(Partial.load) / sum(SetSize),
                                SymSpan.AbsoluteScore = sum(Absolute.load),
-                               SymSpan.AbsoluteUnit = sum(Absolute.unit) / n(),
+                               SymSpan.AbsoluteUnit = mean(Absolute.unit),
                                SymSpan.AbsoluteLoad =
                                  sum(Absolute.load) / sum(SetSize),
                                SymSpan.Trials = n(),
                                SymSpan.MemoryItems = sum(SetSize))
   x_processing <- dplyr::filter(x, SubTrialProc == "ProcessingTask")
   x_processing <- dplyr::summarise(x_processing,
+                                   Symmetry.ACC = mean(Accuracy, na.rm = TRUE),
                                    Symmetry.RT_mean = mean(RT, na.rm = TRUE),
-                                   Symmetry.RT_sd = sd(RT, na.rm = TRUE),
-                                   Symmetry.ACC = mean(Accuracy, na.rm = TRUE))
+                                   Symmetry.RT_sd = sd(RT, na.rm = TRUE))
   x <- tryCatch(dplyr::full_join(x_recall, x_processing),
                 error = function(c){
                   if (!FALSE) {dplyr::bind_cols(x_recall, x_processing)}

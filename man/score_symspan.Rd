@@ -13,7 +13,5 @@ score_symspan(x, blocks = NULL)
 Use group_by(Subject, Block) instead}
 }
 \description{
-This function skips the 'raw_symspan()' step and therefore
-    is not advised. However, some researchers may find
-    it easier to just skip right to 'score_symspan()'
+Calculate Symmetry Span scores from a messy raw dataframe
 }

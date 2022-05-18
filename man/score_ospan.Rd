@@ -13,7 +13,5 @@ score_ospan(x, blocks = "")
 Use group_by(Subject, Block) instead}
 }
 \description{
-This function skips the 'raw_ospan()' step and therefore
-    is not advised. However, some researchers may find
-    it easier to just skip right to 'score_ospan()'
+Calculate Operation Span scores from a messy raw dataframe
 }
