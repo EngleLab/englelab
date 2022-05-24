@@ -135,10 +135,11 @@ score_visualarrays <- function(x, taskname = "VAorient_S"){
                        rowMeans(dplyr::across(dplyr::contains("FalseAlarms"))),
                      Hits = rowMeans(dplyr::across(dplyr::contains("Hits"))),
                      Misses = rowMeans(dplyr::across(dplyr::contains("Misses"))))
+
   x <- dplyr::ungroup(x)
   x <- dplyr::relocate(x,
                        Misses, dplyr::contains("Misses"),
-                       .before = AdminTime)
+                       .before = last_col())
   x <- dplyr::relocate(x,
                        Hits, dplyr::contains("Hits"),
                        .before = Misses)
