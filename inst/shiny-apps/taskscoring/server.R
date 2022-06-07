@@ -57,14 +57,8 @@ function(input, output) {
       if (input$task == "Visual Arrays") {
         data$trial <- raw_visualarrays(import)
         data$scores <- filter(data$trial, TrialProc == "real") %>%
-          group_by(Subject) %>%
-          score_visualarrays() %>%
-          pivot_wider(id_cols = "Subject",
-                      names_from = "SetSize",
-                      names_prefix = "VAorient_S.k_",
-                      values_from = "k") %>%
-          mutate(VAorient_S.k = (VAorient_S.k_5 + VAorient_S.k_7) / 2) %>%
-          select(Subject, VAorient_S.k, VAorient_S.k_5, VAorient_S.k_7)
+          group_by(Subject, SetSize) %>%
+          score_visualarrays(taskname = "VAorient_S")
       }
 
       if (input$task == "SACT") {
