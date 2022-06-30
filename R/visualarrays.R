@@ -2,10 +2,11 @@
 #'
 #' @param x dataframe (an imported .emrge file)
 #' @param taskVersion is this a "new" or "old" taskVersion of the task?
+#' @param include_cols include additional columns
 #' @export
 #'
 
-raw_visualarrays <- function(x, taskVersion = "new"){
+raw_visualarrays <- function(x, taskVersion = "new", include_cols = c()){
   x <- dplyr::rename(x, TrialProc = `Procedure[Trial]`)
   x <- dplyr::mutate(x,
                      TrialProc = dplyr::case_when(TrialProc == "showproc" ~
@@ -49,12 +50,12 @@ raw_visualarrays <- function(x, taskVersion = "new"){
     x <- dplyr::select(x, Subject, TrialProc, Trial, SetSize,
                        Accuracy, Response, CorrectResponse,
                        CorrectRejection, FalseAlarm, Miss, Hit,
-                       AdminTime, SessionDate, SessionTime)
+                       include_cols, AdminTime, SessionDate, SessionTime)
   } else {
     x <- dplyr::select(x, Subject, TrialProc, Trial, SetSize,
                        Accuracy, Response, CorrectResponse,
                        CorrectRejection, FalseAlarm, Miss, Hit,
-                       SessionDate, SessionTime)
+                       include_cols, SessionDate, SessionTime)
   }
 
   x <- dplyr::filter(x, TrialProc == "real" |
@@ -70,13 +71,13 @@ raw_visualarrays <- function(x, taskVersion = "new"){
 #' outputed by raw_visualarrays().
 #' @param x dataframe (an imported .emrge file)
 #' @param taskname string to add as a prefix to columns
+#' @param id_col Subject id column
 #' @export
 #'
 
-score_visualarrays <- function(x, taskname = "VAorient_S"){
-  x <- dplyr::group_by(x, Subject, SetSize, .add = TRUE)
+score_visualarrays <- function(x, taskname = "VAorient_S", id_col = "Subject"){
   grouped_vars <- colnames(dplyr::group_keys(x))
-  grouped_vars <- grouped_vars[which(grouped_vars != "Subject")]
+  grouped_vars <- grouped_vars[which(grouped_vars != id_col)]
   grouped_vars_names <- paste("{", grouped_vars, "}", sep = "")
   grouped_vars_names <- stringr::str_flatten(grouped_vars_names, "_")
 
@@ -107,17 +108,17 @@ score_visualarrays <- function(x, taskname = "VAorient_S"){
   x <- dplyr::select(x, -CR.n, -FA.n, -M.n, -H.n)
 
   if ("AdminTime" %in% colnames(x)) {
-    x <- tidyr::pivot_wider(x, id_cols = Subject,
+    x <- tidyr::pivot_wider(x, id_cols = id_col,
                             names_from = grouped_vars,
                             names_glue =
                               paste(grouped_vars_names, "{.value}", sep = "."),
                             values_from =
                               c(k, ACC, CorrectRejections, FalseAlarms,
                                 Hits, Misses, AdminTime))
-    x <- dplyr::select(x, -dplyr::last_col())
     x <- dplyr::rename(x, AdminTime = dplyr::last_col())
+    x <- dplyr::select(x, -dplyr::contains(".AdminTime"))
   } else {
-    x <- tidyr::pivot_wider(x, id_cols = Subject,
+    x <- tidyr::pivot_wider(x, id_cols = id_col,
                             names_from = grouped_vars,
                             names_glue =
                               paste(grouped_vars_names, "{.value}", sep = "."),
@@ -151,8 +152,8 @@ score_visualarrays <- function(x, taskname = "VAorient_S"){
                        .before = FalseAlarms)
   x <- dplyr::relocate(x, ACC, dplyr::contains("ACC"),
                        .before = CorrectRejections)
-  x <- dplyr::relocate(x, k, contains("k"), .after = Subject)
-  x <- dplyr::rename_with(x, ~paste(taskname, ., sep = "."), -Subject)
+  x <- dplyr::relocate(x, k, contains("k"), .after = id_col)
+  x <- dplyr::rename_with(x, ~paste(taskname, ., sep = "."), -id_col)
   x <- dplyr::rename_with(x,
                           ~stringr::str_replace(., "\\.", "_"), matches("[1-9]"))
   return(x)

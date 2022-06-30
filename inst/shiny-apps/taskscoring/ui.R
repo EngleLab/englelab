@@ -151,7 +151,7 @@ fluidPage(
       p(strong("3. Run the app")),
       code("library(englelab)"),
       br(),
-      code("shiny::runApp()"),
+      code("englelab::runApp()"),
 
       hr(),
       hr(),
