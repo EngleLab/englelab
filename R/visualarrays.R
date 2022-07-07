@@ -16,6 +16,7 @@ raw_visualarrays <- function(x, taskVersion = "new", include_cols = c()){
                                                   TrialProc == "PracProc" ~
                                                     "practice"),
                      Accuracy = VisResponse.ACC,
+                     RT = VisResponse.RT,
                      Response =
                        dplyr::case_when(VisResponse.RESP == 5 |
                                           VisResponse.RESP == "s" ~ "same",
@@ -48,12 +49,12 @@ raw_visualarrays <- function(x, taskVersion = "new", include_cols = c()){
     x <- dplyr::mutate(x, AdminTime = dplyr::last(AdminTime) / 60000)
     x <- dplyr::ungroup(x)
     x <- dplyr::select(x, Subject, TrialProc, Trial, SetSize,
-                       Accuracy, Response, CorrectResponse,
+                       Accuracy, RT, Response, CorrectResponse,
                        CorrectRejection, FalseAlarm, Miss, Hit,
                        include_cols, AdminTime, SessionDate, SessionTime)
   } else {
     x <- dplyr::select(x, Subject, TrialProc, Trial, SetSize,
-                       Accuracy, Response, CorrectResponse,
+                       Accuracy, RT, Response, CorrectResponse,
                        CorrectRejection, FalseAlarm, Miss, Hit,
                        include_cols, SessionDate, SessionTime)
   }
