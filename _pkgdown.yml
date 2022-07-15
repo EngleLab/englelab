@@ -2,7 +2,7 @@ url: https://englelab.github.io/englelab/
 
 authors:
   Jason Tsukahara:
-    href: http://englelab.gatech.edu/jason.html
+    href: https://englelab.gatech.edu/jason
 
 template:
   params:
@@ -31,9 +31,19 @@ reference:
   - score_sact
   - score_flankerDL
   - score_stroopDL
-- title: Combine Reaction Time and Accuracy
+- title: Other Scoring Functions
   contents:
+  - composite
+  - edit_distance
   - bin_score
+- title: Join or Bind Multiple Files
+  - files_join
+  - files_bind
+- title: Data Cleaning
+  - duplicates_check
+  - remove_outliers
+  - remove_latent
+  - center
 - title: Download Template Scripts
   contents:
   - get_script

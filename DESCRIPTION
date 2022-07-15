@@ -8,6 +8,8 @@ Authors@R: c(
     )
 Description: This package will help with scoring certain tasks commonly used by the EngleLab
 Imports: 
+    readr,
+    plyr,
     dplyr,
     tidyr,
     stringr,

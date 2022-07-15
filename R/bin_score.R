@@ -1,4 +1,4 @@
-#' A Binning Function
+#' Calculate Bin Scores
 #'
 #' Calculates Bin scores using the method suggested in [insert citation here]
 #' @param x a dataframe with trial level data. Needs to have RT and Accuracy DVs

@@ -2,7 +2,7 @@
 % Please edit documentation in R/bin_score.R
 \name{bin_score}
 \alias{bin_score}
-\title{A Binning Function}
+\title{Calculate Bin Scores}
 \usage{
 bin_score(
   x,
