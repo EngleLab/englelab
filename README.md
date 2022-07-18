@@ -6,6 +6,8 @@ The tasks are programmed in E-Prime and the resulting data file (**.edat**) the 
 
 Currently there are functions for the **Advanced versions** and **Foster Shortened versions** of the complex-span tasks and functions for all the **Attention Control** tasks.
 
+There are also functions to assist in processing and cleaning the data. These include joining multiple files `files_join()` in the same directory into on data file, or calculating composite scores `composite()` from a group of variables.
+
 ------------------------------------------------------------------------
 
 ## Install
