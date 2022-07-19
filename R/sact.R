@@ -1,11 +1,15 @@
-#' Creates a "tidy" raw dataframe for the SACT task
+#' Raw Tidy Data for SACT
 #'
-#' @param x dataframe (an imported .emrge file)
-#' @param taskVersion is this a "new" or "old" taskVersion of the task?
+#' Converts the messy e-prime data file into a tidy raw data file that is
+#' easy to work with.
+#'
+#' @param x dataframe
+#' @param include_col c(): list of additional columns to include
 #' @export
 #'
 
-raw_sact <- function(x, taskVersion = "new"){
+raw_sact <- function(x, include_col = c()) {
+
   x <- dplyr::rename(x, TrialProc = `Procedure[Trial]`)
   x <- dplyr::filter(x, TrialProc == "TrialProc" |
                        TrialProc == "PracticeTrialProc")
@@ -23,34 +27,21 @@ raw_sact <- function(x, taskVersion = "new"){
     x <- dplyr::select(x, Subject, TrialProc, Trial, WaitTime,
                        RT = ResponseRT, Accuracy = Response.ACC,
                        Response = ResponseMade,
-                       AdminTime, SessionDate, SessionTime)
+                       include_col, AdminTime, SessionDate, SessionTime)
   } else {
     if ("WaitTime" %in% colnames(x)) {
       x <- dplyr::select(x, Subject, TrialProc, Trial, WaitTime,
                          RT = ResponseRT, Accuracy = Response.ACC,
                          Response = ResponseMade,
-                         SessionDate, SessionTime)
+                         include_col, SessionDate, SessionTime)
     } else {
       x <- dplyr::select(x, Subject, TrialProc, Trial,
                          WaitTime = `WaitTime[Trial]`,
                          RT = ResponseRT, Accuracy = Response.ACC,
                          Response = ResponseMade,
-                         SessionDate, SessionTime)
+                         include_col, SessionDate, SessionTime)
     }
   }
+
   return(x)
-}
-
-
-#' Calculate SACT accuracy scores from a messy raw dataframe
-#'
-#' This function skips the 'raw_sact()' step and therefore
-#'     is not advised. However, some researchers may find
-#'     it easier to just skip right to 'score_sact()'
-#' @param x dataframe (an imported .emrge file)
-#' @export
-#'
-
-score_sact <- function(x){
-  message("Depricated")
 }

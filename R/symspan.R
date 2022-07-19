@@ -1,24 +1,31 @@
-#' Creates a "tidy" raw dataframe for the Symmetry Span task
+#' Raw Tidy Data for Symmetry Span
+#'
+#' Converts the messy e-prime data file into a tidy raw data file that is
+#' easy to work with.
 #'
 #' @param x dataframe
-#' @param blocks depricated. No need to indicate number of blocks
+#' @param include_col c(): list of additional columns to include
 #' @param taskVersion old or new version. Required for different types of
-#'     data files. First try leaving out the argument, if it does not work
+#'     data files from older or newer versions of the complex-span tasks.
+#'     First leave out the argument, if it does not work
 #'     then try taskVersion = "old".
-#' @param keep_col List of extra columns to keep
 #' @export
 #'
 
-raw_symspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
+raw_symspan <- function(x, include_col = c(), taskVersion = "new") {
+
   if (taskVersion == "new") {
     x <- dplyr::filter(x, `Procedure[Block]` == "TaskProc")
     if (!("AvgSymmetryTime" %in% colnames(x))) {
       x <- dplyr::mutate(x, AvgSymmetryTime = NA)
     }
-  } else if (taskVersion == "old") {
+  }
+
+  if (taskVersion == "old") {
     x <- dplyr::filter(x, `Procedure[Block]` == "SessionProc")
     x <- dplyr::mutate(x, SymmetryACC = NA, AvgSymmetryTime = NA)
   }
+
   x <- dplyr::rename(x, SetSize = setsz)
   x <-
     dplyr::mutate(x,
@@ -105,6 +112,8 @@ raw_symspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
                                          as.integer(CheckResponse2.ACC),
                                        TRUE ~ as.integer((NA))))
   }
+
+  x <- dtplyr::lazy_dt(x)
   x <- dplyr::group_by(x, Subject, Block, Trial)
   x <- dplyr::mutate(x,
                      RT =
@@ -113,12 +122,14 @@ raw_symspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
                                         SubTrialProc == "Recall" ~
                                           as.double(CollectClick.RT),
                                         TRUE ~ as.double(NA)),
-                     erase = ifelse(SubTrialProc == "Recall" &
-                                      WordSelection == "clear", 1, NA),
+                     erase =
+                       ifelse(SubTrialProc == "Recall" &
+                                WordSelection == "clear", 1, as.numeric(NA)),
                      erase =
                        zoo::na.locf(erase, fromLast = TRUE, na.rm = FALSE),
                      erase =
-                       ifelse(SubTrialProc == "ProcessingTask", NA, erase),
+                       ifelse(SubTrialProc == "ProcessingTask",
+                              as.numeric(NA), erase),
                      remove =
                        dplyr::case_when(SubTrialProc == "Recall" &
                                           is.na(WordSelection) ~ 1,
@@ -130,7 +141,8 @@ raw_symspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
                                         TRUE ~ as.numeric(NA)),
                      AvgSymmetryTime =
                        ifelse(!is.na(AvgSymmetryTime) &
-                                AvgSymmetryTime == "?", NA, AvgSymmetryTime))
+                                AvgSymmetryTime == "?",
+                              as.numeric(NA), AvgSymmetryTime))
 
   x <- dplyr::filter(x, is.na(erase), is.na(remove))
   x <- dplyr::group_by(x, Subject, Block, Trial)
@@ -139,19 +151,19 @@ raw_symspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
       dplyr::mutate(x,
                     SubTrial = dplyr::row_number(),
                     serial.position = SubTrial - SetSize,
-                    position_1 = ifelse(SubTrial == 1, MatrixId, NA),
+                    position_1 = ifelse(SubTrial == 1, MatrixId, as.numeric(NA)),
                     position_1 = max(position_1, na.rm = TRUE),
-                    position_2 = ifelse(SubTrial == 2, MatrixId, NA),
+                    position_2 = ifelse(SubTrial == 2, MatrixId, as.numeric(NA)),
                     position_2 = max(position_2, na.rm = TRUE),
-                    position_3 = ifelse(SubTrial == 3, MatrixId, NA),
+                    position_3 = ifelse(SubTrial == 3, MatrixId, as.numeric(NA)),
                     position_3 = max(position_3, na.rm = TRUE),
-                    position_4 = ifelse(SubTrial == 4, MatrixId, NA),
+                    position_4 = ifelse(SubTrial == 4, MatrixId, as.numeric(NA)),
                     position_4 = max(position_4, na.rm = TRUE),
-                    position_5 = ifelse(SubTrial == 5, MatrixId, NA),
+                    position_5 = ifelse(SubTrial == 5, MatrixId, as.numeric(NA)),
                     position_5 = max(position_5, na.rm = TRUE),
-                    position_6 = ifelse(SubTrial == 6, MatrixId, NA),
+                    position_6 = ifelse(SubTrial == 6, MatrixId, as.numeric(NA)),
                     position_6 = max(position_6, na.rm = TRUE),
-                    position_7 = ifelse(SubTrial == 7, MatrixId, NA),
+                    position_7 = ifelse(SubTrial == 7, MatrixId, as.numeric(NA)),
                     position_7 = max(position_7, na.rm = TRUE),
                     memory_item =
                       dplyr::case_when(serial.position == 1 ~
@@ -199,12 +211,14 @@ raw_symspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
                                        TRUE ~ as.character(NA)),
                     MemoryItem = MatrixId,
                     Processing.correct =
-                      ifelse(SubTrialProc == "ProcessingTask", Accuracy, NA),
+                      ifelse(SubTrialProc == "ProcessingTask",
+                             Accuracy, as.numeric(NA)),
                     Processing.correct =
                       stats::ave(Processing.correct,
                                  FUN = function(x) sum(x, na.rm = TRUE)),
                     Recall.correct =
-                      ifelse(SubTrialProc == "Recall", Accuracy, NA),
+                      ifelse(SubTrialProc == "Recall",
+                             Accuracy, as.numeric(NA)),
                     Recall.correct =
                       stats::ave(Recall.correct,
                                  FUN = function(x) sum(x, na.rm = TRUE)),
@@ -215,12 +229,13 @@ raw_symspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
                       ifelse(Recall.correct == SetSize, Recall.correct, 0))
   })
 
+  x <- dplyr::as_tibble(x)
   x <- dplyr::ungroup(x)
   x <- dplyr::select(x, Subject, Block, Trial, SetSize, Processing.correct,
                      Recall.correct, Partial.unit, Partial.load,
                      Absolute.unit, Absolute.load, SubTrial, SubTrialProc,
                      RT, Accuracy, Response, CorrectResponse, MemoryItem,
-                     keep_col, SessionDate, SessionTime)
+                     include_col, SessionDate, SessionTime)
   x <- dplyr::distinct(x)
   x <- dplyr::group_by(x, Subject, Block, Trial, SubTrialProc)
   x <- dplyr::mutate(x, SubTrial = dplyr::row_number())
@@ -263,15 +278,15 @@ raw_symspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
 }
 
 
-#' Calculate Symmetry Span scores from a messy raw dataframe
+#' Calculate Symmetry Span Scores
 #'
+#' Calculate various span scores from the output of `raw_symspan()`
 #' @param x dataframe
-#' @param blocks depricated. No need to indicate number of blocks.
-#'     Use group_by(Subject, Block) instead
 #' @export
 #'
 
-score_symspan <- function(x, blocks = NULL){
+score_symspan <- function(x) {
+
   if ("Running[Trial]" %in% colnames(x)) {
     x <- englelab::raw_symspan(x)
   }
@@ -306,7 +321,8 @@ score_symspan <- function(x, blocks = NULL){
                   else {dplyr::full_join(x_recall, x_processing)}
                 })
   x <- dplyr::relocate(x, SymSpan.Trials, SymSpan.MemoryItems,
-                       .after = last_col())
+                       .after = dplyr::last_col())
+
   return(x)
 }
 

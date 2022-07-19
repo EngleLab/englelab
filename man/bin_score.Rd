@@ -6,10 +6,10 @@
 \usage{
 bin_score(
   x,
-  rt.col = "RT",
-  accuracy.col = "Accuracy",
-  condition.col = "Condition",
-  baseline.condition = "congruent",
+  rt = "RT",
+  accuracy = "Accuracy",
+  condition = "Condition",
+  baseline = "congruent",
   type = "mean",
   id = "Subject"
 )
@@ -17,22 +17,34 @@ bin_score(
 \arguments{
 \item{x}{a dataframe with trial level data. Needs to have RT and Accuracy DVs}
 
-\item{rt.col}{Column name in dataframe that contains the reaction time data}
+\item{rt}{Column name in dataframe that contains the reaction time data}
 
-\item{accuracy.col}{Column name in dataframe that contains the accuracy data}
+\item{accuracy}{Column name in dataframe that contains the accuracy data}
 
-\item{condition.col}{Column name in dataframe that contains the trial condition type}
+\item{condition}{Column name in dataframe that contains the trial condition type}
 
-\item{baseline.condition}{The values that specify the baseline condition}
+\item{baseline}{The values that specify the baseline condition}
 
 \item{type}{How should Bin trials be aggregated, "sum" or "mean" (Default: "mean")}
 
 \item{id}{Column name in dataframe that contains the subject identifiers}
 }
 \description{
-Calculates Bin scores using the method suggested in [insert citation here]
+Calculates Bin scores using the method suggested in
+Hughes et al. (2014) and Draheim et al. (2016)
 }
-\examples{
-bin_score(data, RT.label = "RT", Accuracy.label = "Accuracy", Condition.label = "TrialType", Subject.label = "Subject")
+\section{References}{
+
+
+Draheim, C., Hicks, K. L., & Engle, R. W. (2016). Combining reaction time
+and accuracy: The relationship between working memory capacity and task
+switching as a case example. Perspectives on Psychological Science, 11(1),
+133–155. https://doi.org/10.1177/1745691615596990
+
+Hughes, M. M., Linck, J. A., Bowles, A. R., Koeth, J. T., & Bunting, M. F.
+(2014). Alternatives to switch-cost scoring in the task-switching paradigm:
+Their reliability and increased validity. Behavior Research Methods, 46(3),
+702–721. https://doi.org/10.3758/s13428-013-0411-5
 }
+
 \keyword{bin}

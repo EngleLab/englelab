@@ -1,11 +1,15 @@
-#' Creates a "tidy" raw dataframe for the Antisaccade task
+#' Raw Tidy Data for Antisaccade
 #'
-#' @param x dataframe (an imported .emrge file)
-#' @param taskVersion depricated. Doesn't do anything anymore
+#' Converts the messy e-prime data file into a tidy raw data file that is
+#' easy to work with.
+#'
+#' @param x dataframe
+#' @param include_col c(): list of additional columns to include
 #' @export
 #'
 
-raw_antisaccade <- function(x, taskVersion = NULL){
+raw_antisaccade <- function(x, include_col = c()) {
+
   x <- dplyr::rename(x, TrialProc = `Procedure[Trial]`)
   proc_names <- unique(x$TrialProc)
   if ("pracproc" %in% proc_names) {
@@ -48,25 +52,12 @@ raw_antisaccade <- function(x, taskVersion = NULL){
     x <- dplyr::ungroup(x)
     x <- dplyr::select(x, Subject, TrialProc, Trial, Accuracy = Mask.ACC,
                        RT = Mask.RT, Target, FixationDuration,
-                       AdminTime, SessionDate, SessionTime)
+                       include_col, AdminTime, SessionDate, SessionTime)
   } else {
     x <- dplyr::select(x, Subject, TrialProc, Trial, Accuracy = Mask.ACC,
                        RT = Mask.RT, Target, FixationDuration,
-                       SessionDate, SessionTime)
+                       include_col, SessionDate, SessionTime)
   }
+
   return(x)
-}
-
-
-#' Calculate Antisaccacde accuracy scores from a messy raw dataframe
-#'
-#' This function skips the 'raw_antisaccade()' step and therefore
-#'     is not advised. However, some researchers may find
-#'     it easier to just skip right to 'score_antisaccade()'
-#' @param x dataframe (an imported .emrge file)
-#' @export
-#'
-
-score_antisaccade <- function(x){
-  message("Depricated")
 }

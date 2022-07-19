@@ -2,17 +2,16 @@
 % Please edit documentation in R/visualarrays.R
 \name{raw_visualarrays}
 \alias{raw_visualarrays}
-\title{Creates a "tidy" raw dataframe for the Visual Arrays task}
+\title{Raw Tidy Data for Visual Arrays}
 \usage{
-raw_visualarrays(x, taskVersion = "new", include_cols = c())
+raw_visualarrays(x, include_col = c())
 }
 \arguments{
-\item{x}{dataframe (an imported .emrge file)}
+\item{x}{dataframe}
 
-\item{taskVersion}{is this a "new" or "old" taskVersion of the task?}
-
-\item{include_cols}{include additional columns}
+\item{include_col}{list of additional columns to include}
 }
 \description{
-Creates a "tidy" raw dataframe for the Visual Arrays task
+Converts the messy e-prime data file into a tidy raw data file that is
+easy to work with.
 }

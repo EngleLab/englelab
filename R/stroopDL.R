@@ -1,10 +1,15 @@
-#' Creates a "tidy" raw dataframe for the StroopDL task
+#' Raw Tidy Data for StroopDL
 #'
-#' @param x dataframe (an imported .emrge file)
+#' Converts the messy e-prime data file into a tidy raw data file that is
+#' easy to work with.
+#'
+#' @param x dataframe
+#' @param include_col c(): list of additional columns to include
 #' @export
 #'
 
-raw_stroopDL <- function(x){
+raw_stroopDL <- function(x, include_col = c()) {
+
   x <- dplyr::rename(x,
                      TrialProc = `Procedure[Trial]`,
                      ResponseDeadline = `StroopDuration[SubTrial]`,
@@ -127,26 +132,44 @@ raw_stroopDL <- function(x){
                      Reversal, ReversalNumb, StroopDLScore,
                      StroopMissedDeadlines, StroopDLTotalAccuracy,
                      StroopDLCorrectRT, StroopDLTotalRT,
-                     AdminTime, SessionDate, SessionTime)
+                     include_col, AdminTime, SessionDate, SessionTime)
 
   return(x)
 }
 
 
-#' Calculate StroopDL threshold scores from a messy raw dataframe
+#' Calculate StroopDL Scores
 #'
-#' This function skips the 'raw_stroopDL()' step and therefore
-#'     is not advised. However, some researchers may find
-#'     it easier to just skip right to 'score_stroopDL()'
-#' @param x dataframe (an imported .emrge file)
+#' Calculate various threshold scores from the output of `raw_stroopDL()`
+#' For the StroopDL version 2, there are a few options for how to calculate the
+#' response deadline threshold. The default is to include all options.
+#' Alternatively, only specific options can be included with the threshold
+#' argument (e.g., threshold = c("Last 4 Reversals", "Last Trial)).
+#'
+#' @section Threshold Scores (version 2 only):
+#'
+#' Last n Reversals: add description
+#'
+#' Last Trial: add description
+#'
+#' All Reversals: add description
+#'
+#' Overall Median: add description
+#'
+#' @param x dataframe
+#' @param threshold What threshold options to include
 #' @export
 #'
 
-score_stroopDL <- function(x){
+score_stroopDL <- function(x, threshold = "all") {
+
   if ("StroopDLScore" %in% colnames(x)) {
     message("Depricated. Use raw_stroopDL to get scores for this version of the task")
-  } else {
+  }
+
+  if ("Something" %in% colnames(x)) {
 
   }
+
   return(x)
 }

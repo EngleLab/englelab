@@ -1,15 +1,18 @@
-#' Creates a "tidy" raw dataframe for the Operation Span task
+#' Raw Tidy Data for Symmetry Span
+#'
+#' Converts the messy e-prime data file into a tidy raw data file that is
+#' easy to work with.
 #'
 #' @param x dataframe
-#' @param blocks depricated. No need to indicate number of blocks
+#' @param include_col c(): list of additional columns to include
 #' @param taskVersion old or new version. Required for different types of
-#'     data files. First try leaving out the argument, if it does not work
+#'     data files from older or newer versions of the complex-span tasks.
+#'     First leave out the argument, if it does not work
 #'     then try taskVersion = "old".
-#' @param keep_col List of extra columns to keep
 #' @export
 #'
 
-raw_ospan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
+raw_ospan <- function(x, include_col = c(), taskVersion = "new") {
 
   exit_task_error <- FALSE
 
@@ -115,6 +118,8 @@ raw_ospan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
                                          Block == 3 ~ as.double(OPERATION2.ACC),
                                        TRUE ~ as.double((NA))))
   }
+
+  x <- dtplyr::lazy_dt(x)
   x <- dplyr::group_by(x, Subject, Block, Trial)
   x <- dplyr::mutate(x,
                      RT =
@@ -126,11 +131,13 @@ raw_ospan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
                      erase = ifelse((SubTrialProc == "Recall" &
                                        WordSelection == "clear") |
                                       (SubTrialProc == "Recall" &
-                                         WordSelection == "Clear"), 1, NA),
+                                         WordSelection == "Clear"),
+                                    1, as.numeric(NA)),
                      erase =
                        zoo::na.locf(erase, fromLast = TRUE, na.rm = FALSE),
                      erase =
-                       ifelse(SubTrialProc == "ProcessingTask", NA, erase),
+                       ifelse(SubTrialProc == "ProcessingTask",
+                              as.numeric(NA), erase),
                      remove =
                        dplyr::case_when(SubTrialProc == "Recall" &
                                           is.na(WordSelection) ~ 1,
@@ -142,7 +149,8 @@ raw_ospan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
                                         TRUE ~ as.double(NA)),
                      AvgMathTime =
                        ifelse(!is.na(AvgMathTime) &
-                                AvgMathTime == "?", NA, AvgMathTime))
+                                AvgMathTime == "?",
+                              as.numeric(NA), AvgMathTime))
 
   x <- dplyr::filter(x, is.na(erase), is.na(remove))
 
@@ -164,23 +172,32 @@ raw_ospan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
     x <- dplyr::mutate(x,
                        SubTrial = dplyr::row_number(),
                        serial.position = SubTrial - SetSize,
-                       position_1 = ifelse(SubTrial == 1, letterstimuli, NA),
+                       position_1 =
+                         ifelse(SubTrial == 1, letterstimuli, as.numeric(NA)),
                        position_1 = zoo::na.locf(position_1, na.rm = FALSE),
-                       position_2 = ifelse(SubTrial == 2, letterstimuli, NA),
+                       position_2 =
+                         ifelse(SubTrial == 2, letterstimuli, as.numeric(NA)),
                        position_2 = zoo::na.locf(position_2, na.rm = FALSE),
-                       position_3 = ifelse(SubTrial == 3, letterstimuli, NA),
+                       position_3 =
+                         ifelse(SubTrial == 3, letterstimuli, as.numeric(NA)),
                        position_3 = zoo::na.locf(position_3, na.rm = FALSE),
-                       position_4 = ifelse(SubTrial == 4, letterstimuli, NA),
+                       position_4 =
+                         ifelse(SubTrial == 4, letterstimuli, as.numeric(NA)),
                        position_4 = zoo::na.locf(position_4, na.rm = FALSE),
-                       position_5 = ifelse(SubTrial == 5, letterstimuli, NA),
+                       position_5 =
+                         ifelse(SubTrial == 5, letterstimuli, as.numeric(NA)),
                        position_5 = zoo::na.locf(position_5, na.rm = FALSE),
-                       position_6 = ifelse(SubTrial == 6, letterstimuli, NA),
+                       position_6 =
+                         ifelse(SubTrial == 6, letterstimuli, as.numeric(NA)),
                        position_6 = zoo::na.locf(position_6, na.rm = FALSE),
-                       position_7 = ifelse(SubTrial == 7, letterstimuli, NA),
+                       position_7 =
+                         ifelse(SubTrial == 7, letterstimuli, as.numeric(NA)),
                        position_7 = zoo::na.locf(position_7, na.rm = FALSE),
-                       position_8 = ifelse(SubTrial == 8, letterstimuli, NA),
+                       position_8 =
+                         ifelse(SubTrial == 8, letterstimuli, as.numeric(NA)),
                        position_8 = zoo::na.locf(position_8, na.rm = FALSE),
-                       position_9 = ifelse(SubTrial == 9, letterstimuli, NA),
+                       position_9 =
+                         ifelse(SubTrial == 9, letterstimuli, as.numeric(NA)),
                        position_9 = zoo::na.locf(position_9, na.rm = FALSE),
                        memory_item =
                          dplyr::case_when(serial.position == 1 ~
@@ -206,7 +223,8 @@ raw_ospan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
                          ifelse(SubTrialProc == "ProcessingTask",
                                 as.character(`CorrectAnswer[SubTrial]`),
                                 ifelse(SubTrialProc == "Recall",
-                                       as.character(memory_item), NA)),
+                                       as.character(memory_item),
+                                       as.character(NA))),
                        Accuracy =
                          dplyr::case_when(SubTrialProc == "ProcessingTask" ~
                                             as.double(OPERATION.ACC),
@@ -231,12 +249,14 @@ raw_ospan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
                                           TRUE ~ as.character(NA)),
                        MemoryItem = letterstimuli,
                        Processing.correct =
-                         ifelse(SubTrialProc == "ProcessingTask", Accuracy, NA),
+                         ifelse(SubTrialProc == "ProcessingTask",
+                                Accuracy, as.numeric(NA)),
                        Processing.correct =
                          stats::ave(Processing.correct,
                                     FUN = function(x) sum(x, na.rm = TRUE)),
                        Recall.correct =
-                         ifelse(SubTrialProc == "Recall", Accuracy, NA),
+                         ifelse(SubTrialProc == "Recall",
+                                Accuracy, as.numeric(NA)),
                        Recall.correct =
                          stats::ave(Recall.correct,
                                     FUN = function(x) sum(x, na.rm = TRUE)),
@@ -247,6 +267,7 @@ raw_ospan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
                          ifelse(Recall.correct == SetSize, Recall.correct, 0))
   })
 
+  x <- dplyr::as_tibble(x)
   x <- dplyr::ungroup(x)
   x <- dplyr::select(x, Subject, Block, Trial, SetSize, Processing.correct,
                      Recall.correct, Partial.unit, Partial.load,
@@ -293,15 +314,15 @@ raw_ospan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
 }
 
 
-#' Calculate Operation Span scores from a messy raw dataframe
+#' Calculate Operation Span Scores
 #'
+#' Calculate various span scores from the output of `raw_ospan()`
 #' @param x dataframe
-#' @param blocks depricated. No need to indicate number of blocks.
-#'     Use group_by(Subject, Block) instead
 #' @export
 #'
 
-score_ospan <- function(x, blocks = "") {
+score_ospan <- function(x) {
+
   if ("Running[Trial]" %in% colnames(x)) {
     x <- englelab::raw_ospan(x)
   }
@@ -333,6 +354,7 @@ score_ospan <- function(x, blocks = "") {
                   else {dplyr::full_join(x_recall, x_processing)}
                 })
   x <- dplyr::relocate(x, OSpan.Trials, OSpan.MemoryItems,
-                       .after = last_col())
+                       .after = dplyr::last_col())
+
   return(x)
 }

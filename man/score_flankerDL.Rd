@@ -2,15 +2,31 @@
 % Please edit documentation in R/flankerDL.R
 \name{score_flankerDL}
 \alias{score_flankerDL}
-\title{Calculate FlankerDL threshold scores from a messy raw dataframe}
+\title{Calculate FlankerDL Scores}
 \usage{
 score_flankerDL(x)
 }
 \arguments{
-\item{x}{dataframe (an imported .emrge file)}
+\item{x}{dataframe}
+
+\item{threshold}{What threshold options to include}
 }
 \description{
-This function skips the 'raw_flankerDL()' step and therefore
-    is not advised. However, some researchers may find
-    it easier to just skip right to 'score_flankerDL()'
+Calculate various threshold scores from the output of `raw_flankerDL()`
+For the FlankerDL version 2, there are a few options for how to calculate the
+response deadline threshold. The default is to include all options.
+Alternatively, only specific options can be included with the threshold
+argument (e.g., threshold = c("Last 4 Reversals", "Last Trial)).
 }
+\section{Threshold Scores (version 2 only)}{
+
+
+Last n Reversals: add description
+
+Last Trial: add description
+
+All Reversals: add description
+
+Overall Median: add description
+}
+

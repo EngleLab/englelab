@@ -2,15 +2,16 @@
 % Please edit documentation in R/sact.R
 \name{raw_sact}
 \alias{raw_sact}
-\title{Creates a "tidy" raw dataframe for the SACT task}
+\title{Raw Tidy Data for SACT}
 \usage{
-raw_sact(x, taskVersion = "new")
+raw_sact(x, include_col = c())
 }
 \arguments{
-\item{x}{dataframe (an imported .emrge file)}
+\item{x}{dataframe}
 
-\item{taskVersion}{is this a "new" or "old" taskVersion of the task?}
+\item{include_col}{c(): list of additional columns to include}
 }
 \description{
-Creates a "tidy" raw dataframe for the SACT task
+Converts the messy e-prime data file into a tidy raw data file that is
+easy to work with.
 }

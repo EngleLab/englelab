@@ -2,15 +2,31 @@
 % Please edit documentation in R/stroopDL.R
 \name{score_stroopDL}
 \alias{score_stroopDL}
-\title{Calculate StroopDL threshold scores from a messy raw dataframe}
+\title{Calculate StroopDL Scores}
 \usage{
-score_stroopDL(x)
+score_stroopDL(x, threshold = "all")
 }
 \arguments{
-\item{x}{dataframe (an imported .emrge file)}
+\item{x}{dataframe}
+
+\item{threshold}{What threshold options to include}
 }
 \description{
-This function skips the 'raw_stroopDL()' step and therefore
-    is not advised. However, some researchers may find
-    it easier to just skip right to 'score_stroopDL()'
+Calculate various threshold scores from the output of `raw_stroopDL()`
+For the StroopDL version 2, there are a few options for how to calculate the
+response deadline threshold. The default is to include all options.
+Alternatively, only specific options can be included with the threshold
+argument (e.g., threshold = c("Last 4 Reversals", "Last Trial)).
 }
+\section{Threshold Scores (version 2 only)}{
+
+
+Last n Reversals: add description
+
+Last Trial: add description
+
+All Reversals: add description
+
+Overall Median: add description
+}
+

@@ -2,13 +2,16 @@
 % Please edit documentation in R/flankerDL.R
 \name{raw_flankerDL}
 \alias{raw_flankerDL}
-\title{Creates a "tidy" raw dataframe for the FlankerDL task}
+\title{Raw Tidy Data for FlankerDL}
 \usage{
-raw_flankerDL(x)
+raw_flankerDL(x, include_col = c())
 }
 \arguments{
-\item{x}{dataframe (an imported .emrge file)}
+\item{x}{dataframe}
+
+\item{include_col}{c(): list of additional columns to include}
 }
 \description{
-Creates a "tidy" raw dataframe for the FlankerDL task
+Converts the messy e-prime data file into a tidy raw data file that is
+easy to work with.
 }

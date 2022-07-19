@@ -2,13 +2,16 @@
 % Please edit documentation in R/stroopDL.R
 \name{raw_stroopDL}
 \alias{raw_stroopDL}
-\title{Creates a "tidy" raw dataframe for the StroopDL task}
+\title{Raw Tidy Data for StroopDL}
 \usage{
-raw_stroopDL(x)
+raw_stroopDL(x, include_col = c())
 }
 \arguments{
-\item{x}{dataframe (an imported .emrge file)}
+\item{x}{dataframe}
+
+\item{include_col}{c(): list of additional columns to include}
 }
 \description{
-Creates a "tidy" raw dataframe for the StroopDL task
+Converts the messy e-prime data file into a tidy raw data file that is
+easy to work with.
 }

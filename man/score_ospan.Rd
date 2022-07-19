@@ -2,16 +2,13 @@
 % Please edit documentation in R/ospan.R
 \name{score_ospan}
 \alias{score_ospan}
-\title{Calculate Operation Span scores from a messy raw dataframe}
+\title{Calculate Operation Span Scores}
 \usage{
-score_ospan(x, blocks = "")
+score_ospan(x)
 }
 \arguments{
 \item{x}{dataframe}
-
-\item{blocks}{depricated. No need to indicate number of blocks.
-Use group_by(Subject, Block) instead}
 }
 \description{
-Calculate Operation Span scores from a messy raw dataframe
+Calculate various span scores from the output of `raw_ospan()`
 }

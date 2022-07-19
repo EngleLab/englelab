@@ -1,12 +1,14 @@
-#' Creates a "tidy" raw dataframe for the Visual Arrays task
+#' Raw Tidy Data for Visual Arrays
 #'
-#' @param x dataframe (an imported .emrge file)
-#' @param taskVersion is this a "new" or "old" taskVersion of the task?
-#' @param include_cols include additional columns
+#' Converts the messy e-prime data file into a tidy raw data file that is
+#' easy to work with.
+#'
+#' @param x dataframe
+#' @param include_col list of additional columns to include
 #' @export
 #'
 
-raw_visualarrays <- function(x, taskVersion = "new", include_cols = c()){
+raw_visualarrays <- function(x, include_col = c()) {
   x <- dplyr::rename(x, TrialProc = `Procedure[Trial]`)
   x <- dplyr::mutate(x,
                      TrialProc = dplyr::case_when(TrialProc == "showproc" ~
@@ -51,12 +53,12 @@ raw_visualarrays <- function(x, taskVersion = "new", include_cols = c()){
     x <- dplyr::select(x, Subject, TrialProc, Trial, SetSize,
                        Accuracy, RT, Response, CorrectResponse,
                        CorrectRejection, FalseAlarm, Miss, Hit,
-                       include_cols, AdminTime, SessionDate, SessionTime)
+                       include_col, AdminTime, SessionDate, SessionTime)
   } else {
     x <- dplyr::select(x, Subject, TrialProc, Trial, SetSize,
                        Accuracy, RT, Response, CorrectResponse,
                        CorrectRejection, FalseAlarm, Miss, Hit,
-                       include_cols, SessionDate, SessionTime)
+                       include_col, SessionDate, SessionTime)
   }
 
   x <- dplyr::filter(x, TrialProc == "real" |
@@ -66,17 +68,18 @@ raw_visualarrays <- function(x, taskVersion = "new", include_cols = c()){
 }
 
 
-#' Calculate Visual Array k scores from a messy raw dataframe
+#' Calculate Visual Array k Scores
 #'
-#' This function will calculate a k score from the raw data
-#' outputed by raw_visualarrays().
-#' @param x dataframe (an imported .emrge file)
-#' @param taskname string to add as a prefix to columns
-#' @param id_col Subject id column
+#' Calculate Visual Array k scores from the output of `raw_visualarrays()`
+#' @param x dataframe
+#' @param id_col Subject id column name (required)
+#' @param taskname string to add as a prefix to columns. Useful if your task
+#'     includes multiple conditions (excluding set size)
 #' @export
 #'
 
-score_visualarrays <- function(x, taskname = "VAorient_S", id_col = "Subject"){
+score_visualarrays <- function(x, id_col = "Subject", taskname = "VAorient_S") {
+
   grouped_vars <- colnames(dplyr::group_keys(x))
   grouped_vars <- grouped_vars[which(grouped_vars != id_col)]
   grouped_vars_names <- paste("{", grouped_vars, "}", sep = "")
@@ -89,6 +92,7 @@ score_visualarrays <- function(x, taskname = "VAorient_S", id_col = "Subject"){
                           M.n = sum(Miss, na.rm = TRUE),
                           H.n = sum(Hit, na.rm = TRUE),
                           ACC = mean(Accuracy, na.rm = TRUE),
+                          RT = mean(RT, na.rm = TRUE),
                           AdminTime = dplyr::first(AdminTime))
   } else {
     x <- dplyr::summarise(x,
@@ -96,7 +100,8 @@ score_visualarrays <- function(x, taskname = "VAorient_S", id_col = "Subject"){
                           FA.n = sum(FalseAlarm, na.rm = TRUE),
                           M.n = sum(Miss, na.rm = TRUE),
                           H.n = sum(Hit, na.rm = TRUE),
-                          ACC = mean(Accuracy, na.rm = TRUE))
+                          ACC = mean(Accuracy, na.rm = TRUE),
+                          RT = mean(RT, na.rm = TRUE))
   }
 
   x <- dplyr::ungroup(x)
@@ -114,7 +119,7 @@ score_visualarrays <- function(x, taskname = "VAorient_S", id_col = "Subject"){
                             names_glue =
                               paste(grouped_vars_names, "{.value}", sep = "."),
                             values_from =
-                              c(k, ACC, CorrectRejections, FalseAlarms,
+                              c(k, ACC, RT, CorrectRejections, FalseAlarms,
                                 Hits, Misses, AdminTime))
     x <- dplyr::rename(x, AdminTime = dplyr::last_col())
     x <- dplyr::select(x, -dplyr::contains(".AdminTime"))
@@ -124,12 +129,13 @@ score_visualarrays <- function(x, taskname = "VAorient_S", id_col = "Subject"){
                             names_glue =
                               paste(grouped_vars_names, "{.value}", sep = "."),
                             values_from =
-                              c(k, ACC, CorrectRejections, FalseAlarms,
+                              c(k, ACC, RT, CorrectRejections, FalseAlarms,
                                 Hits, Misses))
   }
   x <- dplyr::mutate(x,
                      k = rowMeans(dplyr::across(dplyr::contains("k"))),
                      ACC = rowMeans(dplyr::across(dplyr::contains("ACC"))),
+                     RT = rowMeans(dplyr::across(dplyr::contains("RT"))),
                      CorrectRejections =
                        rowMeans(dplyr::across(
                          dplyr::contains("CorrectRejections"))),
@@ -153,9 +159,12 @@ score_visualarrays <- function(x, taskname = "VAorient_S", id_col = "Subject"){
                        .before = FalseAlarms)
   x <- dplyr::relocate(x, ACC, dplyr::contains("ACC"),
                        .before = CorrectRejections)
+  x <- dplyr::relocate(x, RT, dplyr::contains("RT"),
+                       .after = ACC)
   x <- dplyr::relocate(x, k, contains("k"), .after = id_col)
   x <- dplyr::rename_with(x, ~paste(taskname, ., sep = "."), -id_col)
   x <- dplyr::rename_with(x,
                           ~stringr::str_replace(., "\\.", "_"), matches("[1-9]"))
+
   return(x)
 }

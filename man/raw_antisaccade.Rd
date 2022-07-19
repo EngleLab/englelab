@@ -2,15 +2,16 @@
 % Please edit documentation in R/antisaccade.R
 \name{raw_antisaccade}
 \alias{raw_antisaccade}
-\title{Creates a "tidy" raw dataframe for the Antisaccade task}
+\title{Raw Tidy Data for Antisaccade}
 \usage{
-raw_antisaccade(x, taskVersion = NULL)
+raw_antisaccade(x, include_col = c())
 }
 \arguments{
-\item{x}{dataframe (an imported .emrge file)}
+\item{x}{dataframe}
 
-\item{taskVersion}{depricated. Doesn't do anything anymore}
+\item{include_col}{c(): list of additional columns to include}
 }
 \description{
-Creates a "tidy" raw dataframe for the Antisaccade task
+Converts the messy e-prime data file into a tidy raw data file that is
+easy to work with.
 }

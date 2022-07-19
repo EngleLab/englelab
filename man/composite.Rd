@@ -32,5 +32,5 @@ values and still calculate a composite}
 }
 \description{
 Create a composite factor from a list of variables. A composite factor can be
-formed using a mean, sum, or factor analysis.
+formed using a mean, sum, factor analysis, or principal components.
 }

@@ -2,16 +2,13 @@
 % Please edit documentation in R/rotspan.R
 \name{score_rotspan}
 \alias{score_rotspan}
-\title{Calculate Rotation Span scores from a messy raw dataframe}
+\title{Calculate Rotation Span Scores}
 \usage{
-score_rotspan(x, blocks = NULL)
+score_rotspan(x)
 }
 \arguments{
 \item{x}{dataframe}
-
-\item{blocks}{depricated. No need to indicate number of blocks.
-Use group_by(Subject, Block) instead}
 }
 \description{
-Calculate Rotation Span scores from a messy raw dataframe
+Calculate various span scores from the output of `raw_rotspan()`
 }

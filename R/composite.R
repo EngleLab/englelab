@@ -1,7 +1,7 @@
 #' Create a Composite Factor
 #'
 #' Create a composite factor from a list of variables. A composite factor can be
-#' formed using a mean, sum, or factor analysis.
+#' formed using a mean, sum, factor analysis, or principal components.
 #' @param x data frame
 #' @param name Name of the new composite variable
 #' @param variables c() of columns to average together to create the composite

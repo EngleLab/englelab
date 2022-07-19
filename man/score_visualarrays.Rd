@@ -2,18 +2,18 @@
 % Please edit documentation in R/visualarrays.R
 \name{score_visualarrays}
 \alias{score_visualarrays}
-\title{Calculate Visual Array k scores from a messy raw dataframe}
+\title{Calculate Visual Array k Scores}
 \usage{
-score_visualarrays(x, taskname = "VAorient_S", id_col = "Subject")
+score_visualarrays(x, id_col = "Subject", taskname = "VAorient_S")
 }
 \arguments{
-\item{x}{dataframe (an imported .emrge file)}
+\item{x}{dataframe}
 
-\item{taskname}{string to add as a prefix to columns}
+\item{id_col}{Subject id column name (required)}
 
-\item{id_col}{Subject id column}
+\item{taskname}{string to add as a prefix to columns. Useful if your task
+includes multiple conditions (excluding set size)}
 }
 \description{
-This function will calculate a k score from the raw data
-outputed by raw_visualarrays().
+Calculate Visual Array k scores from the output of `raw_visualarrays()`
 }

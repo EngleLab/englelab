@@ -2,21 +2,21 @@
 % Please edit documentation in R/ospan.R
 \name{raw_ospan}
 \alias{raw_ospan}
-\title{Creates a "tidy" raw dataframe for the Operation Span task}
+\title{Raw Tidy Data for Symmetry Span}
 \usage{
-raw_ospan(x, blocks = NULL, taskVersion = "new", keep_col = c())
+raw_ospan(x, include_col = c(), taskVersion = "new")
 }
 \arguments{
 \item{x}{dataframe}
 
-\item{blocks}{depricated. No need to indicate number of blocks}
+\item{include_col}{c(): list of additional columns to include}
 
 \item{taskVersion}{old or new version. Required for different types of
-data files. First try leaving out the argument, if it does not work
+data files from older or newer versions of the complex-span tasks.
+First leave out the argument, if it does not work
 then try taskVersion = "old".}
-
-\item{keep_col}{List of extra columns to keep}
 }
 \description{
-Creates a "tidy" raw dataframe for the Operation Span task
+Converts the messy e-prime data file into a tidy raw data file that is
+easy to work with.
 }

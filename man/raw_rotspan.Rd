@@ -2,21 +2,21 @@
 % Please edit documentation in R/rotspan.R
 \name{raw_rotspan}
 \alias{raw_rotspan}
-\title{Creates a "tidy" raw dataframe for the Rotation Span task}
+\title{Raw Tidy Data for Rotation Span}
 \usage{
-raw_rotspan(x, blocks = NULL, taskVersion = "new", keep_col = c())
+raw_rotspan(x, include_col = c(), taskVersion = "new")
 }
 \arguments{
 \item{x}{dataframe}
 
-\item{blocks}{depricated. No need to indicate number of blocks}
+\item{include_col}{c(): list of additional columns to include}
 
 \item{taskVersion}{old or new version. Required for different types of
-data files. First try leaving out the argument, if it does not work
+data files from older or newer versions of the complex-span tasks.
+First leave out the argument, if it does not work
 then try taskVersion = "old".}
-
-\item{keep_col}{List of extra columns to keep}
 }
 \description{
-Creates a "tidy" raw dataframe for the Rotation Span task
+Converts the messy e-prime data file into a tidy raw data file that is
+easy to work with.
 }

@@ -2,16 +2,13 @@
 % Please edit documentation in R/symspan.R
 \name{score_symspan}
 \alias{score_symspan}
-\title{Calculate Symmetry Span scores from a messy raw dataframe}
+\title{Calculate Symmetry Span Scores}
 \usage{
-score_symspan(x, blocks = NULL)
+score_symspan(x)
 }
 \arguments{
 \item{x}{dataframe}
-
-\item{blocks}{depricated. No need to indicate number of blocks.
-Use group_by(Subject, Block) instead}
 }
 \description{
-Calculate Symmetry Span scores from a messy raw dataframe
+Calculate various span scores from the output of `raw_symspan()`
 }

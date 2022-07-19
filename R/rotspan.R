@@ -1,22 +1,27 @@
-#' Creates a "tidy" raw dataframe for the Rotation Span task
+#' Raw Tidy Data for Rotation Span
+#'
+#' Converts the messy e-prime data file into a tidy raw data file that is
+#' easy to work with.
 #'
 #' @param x dataframe
-#' @param blocks depricated. No need to indicate number of blocks
+#' @param include_col c(): list of additional columns to include
 #' @param taskVersion old or new version. Required for different types of
-#'     data files. First try leaving out the argument, if it does not work
+#'     data files from older or newer versions of the complex-span tasks.
+#'     First leave out the argument, if it does not work
 #'     then try taskVersion = "old".
-#' @param keep_col List of extra columns to keep
 #' @export
 #'
 
-raw_rotspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
-  if(taskVersion == "old"){
+raw_rotspan <- function(x, include_col = c(), taskVersion = "new") {
+
+  if (taskVersion == "old") {
     x <- dplyr::mutate(x, RotationACC = NA, AvgRotationTime = NA)
   }
   x <- dplyr::filter(x, `Procedure[Block]` == "realBoth")
   if (!("AvgRotationTime" %in% colnames(x))) {
     x <- dplyr::mutate(x, AvgRotationTime = NA)
   }
+
   x <- dplyr::rename(x, SetSize = setsz)
   x <-
     dplyr::mutate(x,
@@ -84,6 +89,8 @@ raw_rotspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
                                          as.integer(CheckResponse2.ACC),
                                        TRUE ~ as.integer((NA))))
   }
+
+  x <- dtplyr::lazy_dt(x)
   x <- dplyr::group_by(x, Subject, Block, Trial)
   x <- dplyr::mutate(x,
                      RT =
@@ -92,7 +99,8 @@ raw_rotspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
                                         TRUE ~ as.double(NA)),
                      AvgRotationTime =
                        ifelse(!is.na(AvgRotationTime) &
-                                AvgRotationTime == "?", NA, AvgRotationTime))
+                                AvgRotationTime == "?",
+                              as.numeric, AvgRotationTime))
 
   x <- dplyr::group_by(x, Subject, Block, Trial)
   x <- dplyr::do(x, dplyr::add_row(.,
@@ -107,8 +115,9 @@ raw_rotspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
                           .funs = zoo::na.locf, na.rm = FALSE)
   })
   x <- dplyr::mutate(x,
-                     RT = ifelse(SubTrialProc == "Recall", NA, RT),
-                     ArrowId = ifelse(SubTrialProc == "Recall", NA, ArrowId),
+                     RT = ifelse(SubTrialProc == "Recall", as.numeric(NA), RT),
+                     ArrowId =
+                       ifelse(SubTrialProc == "Recall", as.numeric(NA), ArrowId),
                      SubTrial = dplyr::row_number())
   x <- dplyr::filter(x, SubTrial <= (SetSize * 2))
   suppressWarnings({
@@ -229,19 +238,19 @@ raw_rotspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
                                        serial.position == 6 & Box16 == 6 ~ 16,
                                        serial.position == 7 & Box16 == 7 ~ 16,
                                        TRUE ~ as.numeric(NA)),
-                    position_1 = ifelse(SubTrial == 1, ArrowId, NA),
+                    position_1 = ifelse(SubTrial == 1, ArrowId, as.numeric(NA)),
                     position_1 = max(position_1, na.rm = TRUE),
-                    position_2 = ifelse(SubTrial == 2, ArrowId, NA),
+                    position_2 = ifelse(SubTrial == 2, ArrowId, as.numeric(NA)),
                     position_2 = max(position_2, na.rm = TRUE),
-                    position_3 = ifelse(SubTrial == 3, ArrowId, NA),
+                    position_3 = ifelse(SubTrial == 3, ArrowId, as.numeric(NA)),
                     position_3 = max(position_3, na.rm = TRUE),
-                    position_4 = ifelse(SubTrial == 4, ArrowId, NA),
+                    position_4 = ifelse(SubTrial == 4, ArrowId, as.numeric(NA)),
                     position_4 = max(position_4, na.rm = TRUE),
-                    position_5 = ifelse(SubTrial == 5, ArrowId, NA),
+                    position_5 = ifelse(SubTrial == 5, ArrowId, as.numeric(NA)),
                     position_5 = max(position_5, na.rm = TRUE),
-                    position_6 = ifelse(SubTrial == 6, ArrowId, NA),
+                    position_6 = ifelse(SubTrial == 6, ArrowId, as.numeric(NA)),
                     position_6 = max(position_6, na.rm = TRUE),
-                    position_7 = ifelse(SubTrial == 7, ArrowId, NA),
+                    position_7 = ifelse(SubTrial == 7, ArrowId, as.numeric(NA)),
                     position_7 = max(position_7, na.rm = TRUE),
                     memory_item =
                       dplyr::case_when(serial.position == 1 ~
@@ -263,7 +272,7 @@ raw_rotspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
                       ifelse(SubTrialProc == "ProcessingTask",
                              as.character(`correctAnswer[SubTrial]`),
                              ifelse(SubTrialProc == "Recall",
-                                    as.character(memory_item), NA)),
+                                    as.character(memory_item), as.character(NA))),
                     Accuracy =
                       dplyr::case_when(SubTrialProc == "ProcessingTask" ~
                                          as.integer(CheckResponse.ACC),
@@ -288,12 +297,14 @@ raw_rotspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
                                        TRUE ~ as.character(NA)),
                     MemoryItem = ArrowId,
                     Processing.correct =
-                      ifelse(SubTrialProc == "ProcessingTask", Accuracy, NA),
+                      ifelse(SubTrialProc == "ProcessingTask",
+                             Accuracy, as.numeric(NA)),
                     Processing.correct =
                       stats::ave(Processing.correct,
                                  FUN = function(x) sum(x, na.rm = TRUE)),
                     Recall.correct =
-                      ifelse(SubTrialProc == "Recall", Accuracy, NA),
+                      ifelse(SubTrialProc == "Recall",
+                             Accuracy, as.numeric(NA)),
                     Recall.correct =
                       stats::ave(Recall.correct,
                                  FUN = function(x) sum(x, na.rm = TRUE)),
@@ -303,12 +314,14 @@ raw_rotspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
                     Absolute.load =
                       ifelse(Recall.correct == SetSize, Recall.correct, 0))
   })
+
+  x <- dplyr::as_tibble(x)
   x <- dplyr::ungroup(x)
   x <- dplyr::select(x, Subject, Block, Trial, SetSize, Processing.correct,
                      Recall.correct, Partial.unit, Partial.load,
                      Absolute.unit, Absolute.load, SubTrial, SubTrialProc,
                      RT, Accuracy, Response, CorrectResponse, MemoryItem,
-                     keep_col, SessionDate, SessionTime)
+                     include_col, SessionDate, SessionTime)
   x <- dplyr::distinct(x)
 
   # add columns with sequence of target memory and recalled items
@@ -352,15 +365,16 @@ raw_rotspan <- function(x, blocks = NULL, taskVersion = "new", keep_col = c()){
 
 
 
-#' Calculate Rotation Span scores from a messy raw dataframe
+#' Calculate Rotation Span Scores
 #'
+#' Calculate various span scores from the output of `raw_rotspan()`
 #' @param x dataframe
-#' @param blocks depricated. No need to indicate number of blocks.
-#'     Use group_by(Subject, Block) instead
 #' @export
 #'
 
-score_rotspan <- function(x, blocks = NULL){
+score_rotspan <- function(x)
+  {
+
   if ("Running[Trial]" %in% colnames(x)) {
     x <- englelab::raw_rotspan(x)
   }
@@ -395,7 +409,8 @@ score_rotspan <- function(x, blocks = NULL){
                   else {dplyr::full_join(x_recall, x_processing)}
                 })
   x <- dplyr::relocate(x, RotSpan.Trials, RotSpan.MemoryItems,
-                       .after = last_col())
+                       .after = dplyr::last_col())
+
   return(x)
 }
 
