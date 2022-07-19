@@ -1,7 +1,7 @@
 Package: englelab
 Type: Package
 Title: EngleLab R Functions
-Version: 1.0.3
+Version: 1.1.0
 Authors@R: c(
     person("Jason", "Tsukahara", , "jason.tsukahara@gatech.edu", 
     role = c("aut", "cre"),
