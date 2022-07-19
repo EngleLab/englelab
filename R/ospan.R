@@ -119,7 +119,6 @@ raw_ospan <- function(x, include_col = c(), taskVersion = "new") {
                                        TRUE ~ as.double((NA))))
   }
 
-  x <- dtplyr::lazy_dt(x)
   x <- dplyr::group_by(x, Subject, Block, Trial)
   x <- dplyr::mutate(x,
                      RT =
@@ -267,7 +266,6 @@ raw_ospan <- function(x, include_col = c(), taskVersion = "new") {
                          ifelse(Recall.correct == SetSize, Recall.correct, 0))
   })
 
-  x <- dplyr::as_tibble(x)
   x <- dplyr::ungroup(x)
   x <- dplyr::select(x, Subject, Block, Trial, SetSize, Processing.correct,
                      Recall.correct, Partial.unit, Partial.load,
