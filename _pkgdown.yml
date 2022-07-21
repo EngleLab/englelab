@@ -36,14 +36,10 @@ reference:
   - composite
   - edit_distance
   - bin_score
-- title: Join or Bind Multiple Files
-  - files_join
-  - files_bind
+  - center
 - title: Data Cleaning
-  - duplicates_check
   - remove_outliers
   - remove_latent
-  - center
 - title: Download Template Scripts
   contents:
   - get_script
