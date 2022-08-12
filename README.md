@@ -66,4 +66,3 @@ If you are having any difficulties with this package please contact Jason Tsukah
 
 [![DOI](https://zenodo.org/badge/151780396.svg)](https://zenodo.org/badge/latestdoi/151780396)
 
-> Tsukahara, J.S. (2021). englelab: An R package for processing complex-span and attention control tasks downloaded from the EngleLab (v1.0.1). <http://doi.org/10.5281/zenodo.4757606>
