@@ -1,6 +1,6 @@
 #' Raw Tidy Data for Antisaccade
 #'
-#' Converts the messy e-prime data file into a tidy raw data file that is
+#' Converts a messy e-prime data file into a tidy raw data file that is
 #' easy to work with.
 #'
 #' @param x dataframe
