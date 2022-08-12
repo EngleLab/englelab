@@ -12,6 +12,6 @@ raw_antisaccade(x, include_col = c())
 \item{include_col}{c(): list of additional columns to include}
 }
 \description{
-Converts the messy e-prime data file into a tidy raw data file that is
+Converts a messy e-prime data file into a tidy raw data file that is
 easy to work with.
 }
