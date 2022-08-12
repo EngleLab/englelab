@@ -21,7 +21,6 @@ Default is NULL and will add a _c for non-standardized and
 _z for standardized z-scores.}
 }
 \description{
-Center variables around the mean. To create z-scores,
-specify standardize = TRUE
+Center or standardize variables around the mean.
 A new column will be created with the centered values.
 }
