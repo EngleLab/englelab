@@ -1,12 +1,15 @@
 #' Replace Outlier Scores
 #'
-#' This function will replace outliers variable(s) based on a zscore cutoff
+#' This function will replace outliers based on a z-score cutoff
+#'
 #' @param x dataframe
 #' @param variables variables c() to be trimmed
-#' @param cutoff zscore cutoff to use for trimming (default: 3.5)
+#' @param cutoff z-score cutoff to use for trimming (default: 3.5)
 #' @param with What value should the trimmed values be replaced with.
 #'     (default: replace = "NA")
 #' @param id If variables = "all", then need to supply the subject ID variable
+#'     (default: id = "Subject")
+#' @param output_file A file path and file name to save a dataframe of outliers to
 #' @export
 #'
 
