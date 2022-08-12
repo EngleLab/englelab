@@ -370,8 +370,12 @@ raw_rotspan <- function(x, include_col = c(), taskVersion = "new") {
 #' @export
 #'
 
-score_rotspan <- function(x)
-  {
+score_rotspan <- function(x) {
+
+  message("If you use the Edit Distance scores, then cite: ",
+          "Gonthier, C. (2022). An easy way to improve scoring of memory span tasks ",
+          "The edit distance, beyond “correct recall in the correct serial position.” ",
+          "Behavior Research Methods, 16. https://doi.org/10.3758/s13428-022-01908-2")
 
   if ("Running[Trial]" %in% colnames(x)) {
     x <- englelab::raw_rotspan(x)
