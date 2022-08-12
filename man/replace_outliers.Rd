@@ -11,13 +11,16 @@ replace_outliers(x, variables = c(), cutoff = 3.5, with = "NA", id = "Subject")
 
 \item{variables}{variables c() to be trimmed}
 
-\item{cutoff}{zscore cutoff to use for trimming (default: 3.5)}
+\item{cutoff}{z-score cutoff to use for trimming (default: 3.5)}
 
 \item{with}{What value should the trimmed values be replaced with.
 (default: replace = "NA")}
 
-\item{id}{If variables = "all", then need to supply the subject ID variable}
+\item{id}{If variables = "all", then need to supply the subject ID variable
+(default: id = "Subject")}
+
+\item{output_file}{A file path and file name to save a dataframe of outliers to}
 }
 \description{
-This function will replace outliers variable(s) based on a zscore cutoff
+This function will replace outliers based on a z-score cutoff
 }
