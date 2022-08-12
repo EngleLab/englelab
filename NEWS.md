@@ -1,8 +1,20 @@
-# englelab v1.0.3
+# englelab v1.1.0
 
-Updated: 17 May, 2022
+Updated: 12 August, 2022
 
-- Minor update only
+- Major update
+
+- Added new functions to assist in processing and cleaning data.
+
+- `center()` to calculate z-score or centered scores for a list of variables
+
+- `composiste()` to calculate a composite score for a group of variables. Composites can be calculated using different methods:
+
+    - mean, sum, factor analysis, or principal components
+    
+- `replace_outliers()` to replace outlier values with missing or some other method (e.g., mean). There is an option to save the outlier values to a data file to store a log of what rows in the data were removed.
+
+- `remove_missing()` to remove subjects with too much missing data on a group of tasks for any given construct. 
 
 - Added some extra columns to the output of `raw_symspan()`, `raw_rotspan()`, and `raw_ospan()`
 
@@ -10,14 +22,16 @@ Updated: 17 May, 2022
     and the sequence of recalled items on each trial.
 
     - EditDistance.unit and EditDistance.load calculate the trial scores based on 
-    the edit distance scoring method. See Gonthier et al. (2022, under review).
+    the edit distance scoring method. See Gonthier et al. (2022).
     
     - Got rid of Recall.correct as it was redundant with Partial.load
     
 - Added extra columns to the output of `score_symspan()`, `score_rotspan()`, and `score_ospan()`
 
     - EditDistanceScore, EditDistanceUnit, and EditDistanceLoad for scores based on 
-    the edit distance scoring method. See Gonthier et al. (2022, under review).
+    the edit distance scoring method. See Gonthier et al. (2022).
+    
+Gonthier, C. (2022). An easy way to improve scoring of memory span tasks: The edit distance, beyond “correct recall in the correct serial position.” Behavior Research Methods, 16. https://doi.org/10.3758/s13428-022-01908-2
 
 # englelab v1.0.2
 

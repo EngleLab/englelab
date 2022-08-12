@@ -32,9 +32,9 @@ Both trial and subtrial level variables are provided by the `raw_` functions.
 
 A trial consists of the completion of alternating processing subtasks (e.g., symmetry judgments) and the presentation of memory items followed by a recall of the memory items.
 
-Subtrial level performance is provided by the `raw_` functions. This includes the accuracy and reaction time for each individual processing subtask and the accuracy for each individual recalled memory item within a single trial.
+Subtrial level performance includes the accuracy and reaction time for each individual processing subtask and the accuracy for each individual recalled memory item within a single trial.
 
-Trial level performance includes a sum of the number of processing subtasks answered correctly on that trial and the the sum of memory items correctly recalled in their serial order. In addition, there are four additional trial level scores (e.g., Partial.unit) provided to make it easier to use alternative scoring methods for the complex-span tasks. For more details on each of the scoring methods see <a href="https://englelab.gatech.edu/articles/2005/working-memory-span-tasks-a-methodological-review-and-user27s-guide.pdf" target="_blank">Conway et al. (2005)</a>
+Trial level performance includes a sum of the number of processing subtasks answered correctly on that trial and the the sum of memory items correctly recalled in their serial order. In addition, there are additional trial level scores (e.g., Partial.unit) provided to make it easier to use alternative scoring methods for the complex-span tasks. For more details on each of the scoring methods see <a href="https://englelab.gatech.edu/articles/2005/working-memory-span-tasks-a-methodological-review-and-user27s-guide.pdf" target="_blank">Conway et al. (2005)</a>
 
 ### Columns outputted by `raw_` functions
 
@@ -54,9 +54,9 @@ Trial level performance includes a sum of the number of processing subtasks answ
 
 -   **Processing.correct**: Sum of the number of processing subtasks answered correctly
 
--   **EditDistance.unit**: Trial-level scores needed to calculate complex-span scoers based on the edit distance unit scoring method
+-   **EditDistance.unit**: Trial-level scores needed to calculate complex-span scoers based on the edit distance unit scoring method (Gonthier, 2022)
 
--   **EditDistance.load**: Trial-level scores needed to calculate complex-span scoers based on the edit distance unit scoring method
+-   **EditDistance.load**: Trial-level scores needed to calculate complex-span scoers based on the edit distance unit scoring method (Gonthier, 2022)
 
 -   **Partial.unit**: Trial-level scores needed to calculate complex-span scores based on the partial-credit unit scoring method.
 
@@ -117,19 +117,19 @@ data_scores <- data_raw %>%
 
 ### Columns outputted by `score_` functions
 
-For more details on how each score is calculated see <a href="https://englelab.gatech.edu/articles/2005/working-memory-span-tasks-a-methodological-review-and-user27s-guide.pdf" target="_blank">Conway et al. (2005)</a>
+For more details on how each score is calculated see <a href="https://englelab.gatech.edu/articles/2005/working-memory-span-tasks-a-methodological-review-and-user27s-guide.pdf" target="_blank">Conway et al. (2005)</a> and Gonthier (2022)
 
-We advise using the **PartialScore** as this tends to have the highest reliability.
+We advise using the **PartialScore** or **EditDistanceScore** as these tend to have the highest reliability. If you use the Edit Distance scores, then please cite Gontier (2022).
 
 -   **Subject**: Subject ID column
 
--   **[Task].EditDistanceScore**: Edit Distance scoring method (*sum of EditDistance.load*)
+-   **[Task].EditDistanceScore**: Edit Distance scoring method (*sum of EditDistance.load*) (Gonthier, 2022)
 
     *i.e. SymSpan.EditDistanceScore or RotSpan.EditDistanceScore*
 
--   **[Task].EditDistanceUnit**: Edit Distance unit score (*mean of EditDistance.unit*)
+-   **[Task].EditDistanceUnit**: Edit Distance unit score (*mean of EditDistance.unit*) (Gonthier, 2022)
 
--   **[Task].EditDistanceLoad**: Edit Distance load score (*sum of EditDistance.load divided by Total number of memory items*)
+-   **[Task].EditDistanceLoad**: Edit Distance load score (*sum of EditDistance.load divided by Total number of memory items*) (Gonthier, 2022)
 
 -   **[Task].PartialScore**: Partial scoring method (*sum of Recall.correct*)
 
@@ -176,10 +176,8 @@ splithalf <- data_raw %>%
   pivot_wider(id_cols = "Subject",
               names_from = "Split",
               values_from = contains("SymSpan")) %>%
-  summarise(r_partial.load = 
-              cor(SymSpan.PartialScore_odd, SymSpan.PartialScore_even)) %>%
-  mutate(r_partial.load = 
-           (2 * r_partial.load) / (1 + r_partial.load))
+  summarise(r = cor(SymSpan.PartialScore_odd, SymSpan.PartialScore_even)) %>%
+  mutate(r = (2 * r) / (1 + r))
 ```
 
 ### Cronbach's Alpha
@@ -199,3 +197,10 @@ cronbachalpha <- data_raw %>%
 ## The cronbach alpha value can then be accessed: 
 cronbachalpha$total$std.alpha
 ```
+
+## References
+
+Conway, A. R. A., Kane, M. J., Bunting, M. F., Hambrick, Z. D., Wilhelm, O., & Engle, R. W. (2005). Working memory span tasks: A methodological review and user’s guide. Psychonomic Bulletin & Review, 12(5), 769–786.
+
+Gonthier, C. (2022). An easy way to improve scoring of memory span tasks: The edit distance, beyond “correct recall in the correct serial position.” Behavior Research Methods, 16. https://doi.org/10.3758/s13428-022-01908-2
+

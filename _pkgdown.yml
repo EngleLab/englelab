@@ -39,7 +39,7 @@ reference:
   - center
 - title: Data Cleaning
   - remove_outliers
-  - remove_latent
+  - remove_missing
 - title: Download Template Scripts
   contents:
   - get_script
