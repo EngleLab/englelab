@@ -2,8 +2,6 @@
 
 This package contains various functions for processing and scoring complex-span and attention control tasks downloaded from the <a href = "http://englelab.gatech.edu" target = "_blank"><b>EngleLab</b></a>
 
-The tasks are programmed in E-Prime and the resulting data file (**.edat**) the program produces is not easy to work with. The column names may not make any sense to you, there are way too many columns, the values in the columns are not always clear, and other messy issues.
-
 Currently there are functions for the **Advanced versions** and **Foster Shortened versions** of the complex-span tasks and functions for the **Attention Control** tasks.
 
 There are also functions to assist in processing and cleaning the data. These include dealing with outliers with `replace_outliers()`, calculating composite scores from a group of variables with `composite()`, and removing those with too much missing data on a construct with `remove_missing()`.
@@ -51,8 +49,6 @@ data_score <- data_raw %>%
 -   [Complex Span Tasks](https://englelab.github.io/englelab/articles/Complex_Span.html)
 
 -   [Attention Control Tasks](https://englelab.github.io/englelab/articles/Attention_Control.html)
-
--   [Download R Scripts](https://englelab.github.io/englelab/articles/Download_Scripts.html)
 
 ## Non-R Users
 

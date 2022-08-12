@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "if you are using this in your work, then please cite this R package"
+authors:
+  - given-names: Jason S.
+    family-names: Tsukahara
+title: "englelab: An R package for processing complex-span and attention control tasks downloaded from the EngleLab (v1.1.0)"
+version: 1.1.0
+doi: 10.5281/zenodo.6986954
+date-released: 2022-08-12
