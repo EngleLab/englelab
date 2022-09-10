@@ -61,9 +61,9 @@ fluidPage(
     hr(),
     helpText("If you use this WebApp, then please cite the englelab
               R package in publications."),
-    helpText("Tsukahara, J.S. (2021). englelab: An R package for processing
-        complex-span and attention control tasks downloaded from the
-        EngleLab (v1.0.1). http://doi.org/10.5281/zenodo.4757606"),
+    helpText("Tsukahara, Jason S. (2022). englelab: An R package for processing
+             complex-span and attention control tasks downloaded from the
+             EngleLab (1.1.0). Zenodo. https://doi.org/10.5281/zenodo.6987145"),
   ),
 
   # Main panel for displaying outputs ----

@@ -2,8 +2,6 @@
 
 This package contains various functions for processing and scoring complex-span and attention control tasks downloaded from the <a href = "http://englelab.gatech.edu" target = "_blank"><b>EngleLab</b></a>
 
-The tasks are programmed in E-Prime and the resulting data file (**.edat**) the program produces is not easy to work with. The column names may not make any sense to you, there are way too many columns, the values in the columns are not always clear, and other messy issues.
-
 Currently there are functions for the **Advanced versions** and **Foster Shortened versions** of the complex-span tasks and functions for the **Attention Control** tasks.
 
 There are also functions to assist in processing and cleaning the data. These include dealing with outliers with `replace_outliers()`, calculating composite scores from a group of variables with `composite()`, and removing those with too much missing data on a construct with `remove_missing()`.
@@ -52,8 +50,6 @@ data_score <- data_raw %>%
 
 -   [Attention Control Tasks](https://englelab.github.io/englelab/articles/Attention_Control.html)
 
--   [Download R Scripts](https://englelab.github.io/englelab/articles/Download_Scripts.html)
-
 ## Non-R Users
 
 For non-R users, we created a point-and-click GUI to process and score data files from the tasks.
@@ -68,6 +64,9 @@ If you are having any difficulties with this package please contact Jason Tsukah
 
 ## Citation
 
+If you use this R package in your research, then please cite
+
 [![DOI](https://zenodo.org/badge/151780396.svg)](https://zenodo.org/badge/latestdoi/151780396)
 
-> Tsukahara, J.S. (2021). englelab: An R package for processing complex-span and attention control tasks downloaded from the EngleLab (v1.0.1). <http://doi.org/10.5281/zenodo.4757606>
+Tsukahara, Jason S. (2022). englelab: An R package for processing complex-span and attention control tasks downloaded from the EngleLab (1.1.0). Zenodo. https://doi.org/10.5281/zenodo.6987145
+

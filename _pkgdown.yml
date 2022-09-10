@@ -26,9 +26,7 @@ reference:
   - score_ospan
   - score_symspan
   - score_rotspan
-  - score_antisaccade
   - score_visualarrays
-  - score_sact
   - score_flankerDL
   - score_stroopDL
 - title: Other Scoring Functions
@@ -38,7 +36,8 @@ reference:
   - bin_score
   - center
 - title: Data Cleaning
-  - remove_outliers
+  contents:
+  - replace_outliers
   - remove_missing
 - title: Download Template Scripts
   contents:

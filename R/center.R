@@ -1,7 +1,6 @@
 #' Center Variables
 #'
-#' Center variables around the mean. To create z-scores,
-#' specify standardize = TRUE
+#' Center or standardize variables around the mean.
 #' A new column will be created with the centered values.
 #' @param x dataframe
 #' @param variables c() of columns to standardize
