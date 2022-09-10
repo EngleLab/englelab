@@ -92,8 +92,6 @@ fluidPage(
       p(a("Description of columns for Complex-Span Tasks",
           href = "https://englelab.github.io/englelab/articles/Complex_Span.html#columns-outputted-by-score_-functions",
           target = "_blank")),
-      p("For complex span tasks, we advise using the .PartialScore as this
-        tends to have the highest reliability."),
 
       hr(),
 
@@ -149,8 +147,6 @@ fluidPage(
       br(),
       p("Restart R or RStudio after installing the englelab R Package"),
       p(strong("3. Run the app")),
-      code("library(englelab)"),
-      br(),
       code("englelab::runApp()"),
 
       hr(),

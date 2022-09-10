@@ -50,13 +50,8 @@ library(tidyr)
 data_raw <- raw_visualarrays(data_import)
 
 data_scores <- data_raw %>%
-  group_by(Subject) %>%
-  score_visualarrays() %>%
-  pivot_wider(id_cols = "Subject",
-              names_from = "SetSize",
-              names_prefix = "VAorient_S.k_",
-              values_from = "k") %>%
-  mutate(VAorient_S_k = (VAorient_S.k_5 + VAorient_S.k_7) / 2)
+  group_by(Subject, SetSize) %>%
+  score_visualarrays(taskname = "VAorient_S")
 ```
 
 ## Calculate Reliability
@@ -75,14 +70,12 @@ library(tidyr)
 splithalf <- data_raw %>%
   group_by(Subject, SetSize) %>%
   mutate(Split = ifelse(Trial %% 2, "odd", "even")) %>%
-  group_by(Subject, SetSize, Split) %>%
-  score_visualarrays() %>%
-  pivot_wider(id_cols = "Subject",
-              names_from = c("SetSize", "Split"),
-              names_prefix = "k_",
-              values_from = "k") %>%
-  mutate(VAorient_S.k_even = (k_5_even + k_7_even) / 2,
-         VAorient_S.k_odd = (k_5_odd + k_7_odd) / 2) %>%
-  summarise(r_VA.k = cor(VAorient_S.k_even, VAorient_S.k_odd)) %>%
-  mutate(r_VA.k = (2 * r_VA.k) / (1 + r_VA.k))
+  group_by(Subject, Split, SetSize) %>%
+  score_visualarrays(taskname = "VAorient_S") %>%
+  rowwise() %>%
+  mutate(even = mean(c(VAorient_S_even_3.k, VAorient_S_even_5.k), na.rm = TRUE),
+         odd = mean(c(VAorient_S_odd_3.k, VAorient_S_odd_5.k), na.rm = TRUE)) %>%
+  ungroup() %>%
+  summarise(r = cor(even, odd)) %>%
+  mutate(r = (2 * r) / (1 + r))
 ```

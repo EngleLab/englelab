@@ -90,7 +90,6 @@ raw_rotspan <- function(x, include_col = c(), taskVersion = "new") {
                                        TRUE ~ as.integer((NA))))
   }
 
-  x <- dtplyr::lazy_dt(x)
   x <- dplyr::group_by(x, Subject, Block, Trial)
   x <- dplyr::mutate(x,
                      RT =
@@ -315,7 +314,6 @@ raw_rotspan <- function(x, include_col = c(), taskVersion = "new") {
                       ifelse(Recall.correct == SetSize, Recall.correct, 0))
   })
 
-  x <- dplyr::as_tibble(x)
   x <- dplyr::ungroup(x)
   x <- dplyr::select(x, Subject, Block, Trial, SetSize, Processing.correct,
                      Recall.correct, Partial.unit, Partial.load,
@@ -372,8 +370,12 @@ raw_rotspan <- function(x, include_col = c(), taskVersion = "new") {
 #' @export
 #'
 
-score_rotspan <- function(x)
-  {
+score_rotspan <- function(x) {
+
+  message("If you use the Edit Distance scores, then cite: ",
+          "Gonthier, C. (2022). An easy way to improve scoring of memory span tasks ",
+          "The edit distance, beyond “correct recall in the correct serial position.” ",
+          "Behavior Research Methods, 16. https://doi.org/10.3758/s13428-022-01908-2")
 
   if ("Running[Trial]" %in% colnames(x)) {
     x <- englelab::raw_rotspan(x)

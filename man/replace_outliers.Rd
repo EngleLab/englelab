@@ -27,11 +27,12 @@ replace_outliers(
 
 \item{variables}{variables c() to be trimmed}
 
-\item{cutoff}{zscore cutoff to use for trimming (default: 3.5)}
+\item{cutoff}{z-score cutoff to use for trimming (default: 3.5)}
 
 \item{with}{What value should the trimmed values be replaced with.
 (default: replace = "NA")}
 
+<<<<<<< HEAD
 \item{id}{If variables = "all", then need to supply the subject ID variable}
 
 \item{log_file}{the file path and name for where to save a log file to}
@@ -43,4 +44,13 @@ This function will remove problematic subjects based on a filter criteria
 and save them to a log data file.
 
 This function will replace outliers variable(s) based on a zscore cutoff
+=======
+\item{id}{If variables = "all", then need to supply the subject ID variable
+(default: id = "Subject")}
+
+\item{output_file}{A file path and file name to save a dataframe of outliers to}
+}
+\description{
+This function will replace outliers based on a z-score cutoff
+>>>>>>> 3251ba6ac67f89bb784727ba14f411aa7ceede41
 }

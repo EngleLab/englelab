@@ -6,10 +6,10 @@
 #'     e.g., list(WMC = c("OSpan", "RotSpan", SymSpan"))
 #' @param missing_allowed Proportion of tasks allowed to be missing
 #' @param id Subject ID variable
-#' @export remove_latent
+#' @export
 #'
 
-remove_latent <- function(x,
+remove_missing <- function(x,
                           factor_list = list(),
                           missing_allowed = 1,
                           id = "Subject") {
