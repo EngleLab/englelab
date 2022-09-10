@@ -20,6 +20,7 @@ Imports:
     psych,
     zoo,
     shiny,
+    rlang,
 URL: https://github.com/EngleLab/englelab, https://englelab.github.io/englelab/
 BugReports: https://github.com/EngleLab/englelab/issues
 Encoding: UTF-8

@@ -7,6 +7,7 @@
 #' @param with What value should the trimmed values be replaced with.
 #'     (default: replace = "NA")
 #' @param id If variables = "all", then need to supply the subject ID variable
+#' @param log_file the file path and name for where to save a log file to
 #' @export
 #'
 
@@ -14,7 +15,8 @@ replace_outliers <- function(x,
                              variables = c(),
                              cutoff = 3.5,
                              with = "NA",
-                             id = "Subject") {
+                             id = "Subject",
+                             log_file = NULL) {
   col_order <- colnames(x)
   if ("all" %in% variables) {
     variables <- colnames(x)[which(colnames(x) != id)]
@@ -87,9 +89,9 @@ replace_outliers <- function(x,
     }
   }
 
-  if (!is.null(output_file)) {
+  if (!is.null(log_file)) {
     outliers <- dplyr::anti_join(x, x_replace)
-    readr::write_csv(outliers, output_file)
+    readr::write_csv(outliers, log_file)
   }
 
   x_replace <- x_replace[col_order]
