@@ -137,39 +137,3 @@ raw_stroopDL <- function(x, include_col = c()) {
   return(x)
 }
 
-
-#' Calculate StroopDL Scores
-#'
-#' Calculate various threshold scores from the output of `raw_stroopDL()`
-#' For the StroopDL version 2, there are a few options for how to calculate the
-#' response deadline threshold. The default is to include all options.
-#' Alternatively, only specific options can be included with the threshold
-#' argument (e.g., threshold = c("Last 4 Reversals", "Last Trial)).
-#'
-#' @section Threshold Scores (version 2 only):
-#'
-#' Last n Reversals: add description
-#'
-#' Last Trial: add description
-#'
-#' All Reversals: add description
-#'
-#' Overall Median: add description
-#'
-#' @param x dataframe
-#' @param threshold What threshold options to include
-#' @export
-#'
-
-score_stroopDL <- function(x, threshold = "all") {
-
-  if ("StroopDLScore" %in% colnames(x)) {
-    message("Depricated. Use raw_stroopDL to get scores for this version of the task")
-  }
-
-  if ("Something" %in% colnames(x)) {
-
-  }
-
-  return(x)
-}

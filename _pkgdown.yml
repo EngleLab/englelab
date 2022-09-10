@@ -27,8 +27,6 @@ reference:
   - score_symspan
   - score_rotspan
   - score_visualarrays
-  - score_flankerDL
-  - score_stroopDL
 - title: Other Scoring Functions
   contents:
   - composite
@@ -37,6 +35,7 @@ reference:
   - center
 - title: Data Cleaning
   contents:
+  - remove_problematic
   - replace_outliers
   - remove_missing
 - title: Download Template Scripts
