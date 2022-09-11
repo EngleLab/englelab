@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • englelab</title>
+<title>Remove Problematic Subjects — remove_problematic • englelab</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,7 +52,9 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Remove Problematic Subjects — remove_problematic" />
+<meta property="og:description" content="This function will remove problematic subjects based on a filter criteria
+and save them to a log data file." />
 <meta property="og:image" content="https://englelab.github.io/englelab/logo.png" />
 
 
@@ -72,7 +74,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -143,208 +145,39 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Remove Problematic Subjects</h1>
+    <small class="dont-index">Source: <a href='https://github.com/EngleLab/englelab/blob/master/R/remove_problematic.R'><code>R/remove_problematic.R</code></a></small>
+    <div class="hidden name"><code>remove_problematic.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>This function will remove problematic subjects based on a filter criteria
+and save them to a log data file.</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>remove_problematic</span><span class='op'>(</span><span class='va'>x</span>, filter <span class='op'>=</span> <span class='st'>""</span>, log_file <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-tidy-raw-data" class="hasAnchor"><a href="#section-tidy-raw-data" class="anchor"></a>Tidy Raw Data</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="raw_ospan.html">raw_ospan()</a></code> </p>
-        </td>
-        <td><p>Raw Tidy Data for Symmetry Span</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="raw_symspan.html">raw_symspan()</a></code> </p>
-        </td>
-        <td><p>Raw Tidy Data for Symmetry Span</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="raw_rotspan.html">raw_rotspan()</a></code> </p>
-        </td>
-        <td><p>Raw Tidy Data for Rotation Span</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="raw_antisaccade.html">raw_antisaccade()</a></code> </p>
-        </td>
-        <td><p>Raw Tidy Data for Antisaccade</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="raw_visualarrays.html">raw_visualarrays()</a></code> </p>
-        </td>
-        <td><p>Raw Tidy Data for Visual Arrays</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="raw_sact.html">raw_sact()</a></code> </p>
-        </td>
-        <td><p>Raw Tidy Data for SACT</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="raw_flankerDL.html">raw_flankerDL()</a></code> </p>
-        </td>
-        <td><p>Raw Tidy Data for FlankerDL</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="raw_stroopDL.html">raw_stroopDL()</a></code> </p>
-        </td>
-        <td><p>Raw Tidy Data for StroopDL</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-score-tasks" class="hasAnchor"><a href="#section-score-tasks" class="anchor"></a>Score Tasks</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="score_ospan.html">score_ospan()</a></code> </p>
-        </td>
-        <td><p>Calculate Operation Span Scores</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="score_symspan.html">score_symspan()</a></code> </p>
-        </td>
-        <td><p>Calculate Symmetry Span Scores</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="score_rotspan.html">score_rotspan()</a></code> </p>
-        </td>
-        <td><p>Calculate Rotation Span Scores</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="score_visualarrays.html">score_visualarrays()</a></code> </p>
-        </td>
-        <td><p>Calculate Visual Array k Scores</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-other-scoring-functions" class="hasAnchor"><a href="#section-other-scoring-functions" class="anchor"></a>Other Scoring Functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="composite.html">composite()</a></code> </p>
-        </td>
-        <td><p>Create a Composite Factor</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="edit_distance.html">edit_distance()</a></code> </p>
-        </td>
-        <td><p>Calculates EditDistance.unit and EditDistance.load scores</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="bin_score.html">bin_score()</a></code> </p>
-        </td>
-        <td><p>Calculate Bin Scores</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="center.html">center()</a></code> </p>
-        </td>
-        <td><p>Center Variables</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-data-cleaning" class="hasAnchor"><a href="#section-data-cleaning" class="anchor"></a>Data Cleaning</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="remove_problematic.html">remove_problematic()</a></code> </p>
-        </td>
-        <td><p>Remove Problematic Subjects</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="replace_outliers.html">replace_outliers()</a></code> </p>
-        </td>
-        <td><p>Replace Outlier Scores</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="remove_missing.html">remove_missing()</a></code> </p>
-        </td>
-        <td><p>Subject Missing Data Removal</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-download-template-scripts" class="hasAnchor"><a href="#section-download-template-scripts" class="anchor"></a>Download Template Scripts</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="get_script.html">get_script()</a></code> </p>
-        </td>
-        <td><p>Download template R scripts</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>dataframe</p></td>
+    </tr>
+    <tr>
+      <th>filter</th>
+      <td><p>an expression passed on to dplyr:filter()</p></td>
+    </tr>
+    <tr>
+      <th>log_file</th>
+      <td><p>the file path and name for where to save a log file to</p></td>
+    </tr>
     </table>
-  </div>
 
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>

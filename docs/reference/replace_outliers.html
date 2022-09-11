@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Remove Problematic Subjects — replace_outliers • englelab</title>
+<title>Replace Outlier Scores — replace_outliers • englelab</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,10 +52,8 @@
 
 
 
-<meta property="og:title" content="Remove Problematic Subjects — replace_outliers" />
-<meta property="og:description" content="This function will remove problematic subjects based on a filter criteria
-and save them to a log data file.
-This function will replace outliers based on a z-score cutoff" />
+<meta property="og:title" content="Replace Outlier Scores — replace_outliers" />
+<meta property="og:description" content="This function will replace outliers based on a z-score cutoff" />
 <meta property="og:image" content="https://englelab.github.io/englelab/logo.png" />
 
 
@@ -148,27 +146,16 @@ This function will replace outliers based on a z-score cutoff" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Remove Problematic Subjects</h1>
-    <small class="dont-index">Source: <a href='https://github.com/EngleLab/englelab/blob/master/R/remove_problematic.R'><code>R/remove_problematic.R</code></a>, <a href='https://github.com/EngleLab/englelab/blob/master/R/replace_outliers.R'><code>R/replace_outliers.R</code></a></small>
+    <h1>Replace Outlier Scores</h1>
+    <small class="dont-index">Source: <a href='https://github.com/EngleLab/englelab/blob/master/R/replace_outliers.R'><code>R/replace_outliers.R</code></a></small>
     <div class="hidden name"><code>replace_outliers.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function will remove problematic subjects based on a filter criteria
-and save them to a log data file.</p>
-<p>This function will replace outliers based on a z-score cutoff</p>
+    <p>This function will replace outliers based on a z-score cutoff</p>
     </div>
 
     <pre class="usage"><span class='fu'>replace_outliers</span><span class='op'>(</span>
-  <span class='va'>x</span>,
-  variables <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>)</span>,
-  cutoff <span class='op'>=</span> <span class='fl'>3.5</span>,
-  with <span class='op'>=</span> <span class='st'>"NA"</span>,
-  id <span class='op'>=</span> <span class='st'>"Subject"</span>,
-  log_file <span class='op'>=</span> <span class='cn'>NULL</span>
-<span class='op'>)</span>
-
-<span class='fu'>replace_outliers</span><span class='op'>(</span>
   <span class='va'>x</span>,
   variables <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>)</span>,
   cutoff <span class='op'>=</span> <span class='fl'>3.5</span>,
@@ -204,10 +191,6 @@ and save them to a log data file.</p>
     <tr>
       <th>log_file</th>
       <td><p>the file path and name for where to save a log file to</p></td>
-    </tr>
-    <tr>
-      <th>filter</th>
-      <td><p>an expression passed on to dplyr:filter()</p></td>
     </tr>
     </table>
 
