@@ -9,7 +9,7 @@
 #' @export
 #'
 
-replace_outliers <- function(x,
+remove_problematic <- function(x,
                              filter = "",
                              log_file = NULL) {
 
