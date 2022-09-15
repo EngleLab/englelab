@@ -172,31 +172,31 @@ raw_ospan <- function(x, include_col = c(), taskVersion = "new") {
                        SubTrial = dplyr::row_number(),
                        serial.position = SubTrial - SetSize,
                        position_1 =
-                         ifelse(SubTrial == 1, letterstimuli, as.numeric(NA)),
+                         ifelse(SubTrial == 1, letterstimuli, as.character(NA)),
                        position_1 = zoo::na.locf(position_1, na.rm = FALSE),
                        position_2 =
-                         ifelse(SubTrial == 2, letterstimuli, as.numeric(NA)),
+                         ifelse(SubTrial == 2, letterstimuli, as.character(NA)),
                        position_2 = zoo::na.locf(position_2, na.rm = FALSE),
                        position_3 =
-                         ifelse(SubTrial == 3, letterstimuli, as.numeric(NA)),
+                         ifelse(SubTrial == 3, letterstimuli, as.character(NA)),
                        position_3 = zoo::na.locf(position_3, na.rm = FALSE),
                        position_4 =
-                         ifelse(SubTrial == 4, letterstimuli, as.numeric(NA)),
+                         ifelse(SubTrial == 4, letterstimuli, as.character(NA)),
                        position_4 = zoo::na.locf(position_4, na.rm = FALSE),
                        position_5 =
-                         ifelse(SubTrial == 5, letterstimuli, as.numeric(NA)),
+                         ifelse(SubTrial == 5, letterstimuli, as.character(NA)),
                        position_5 = zoo::na.locf(position_5, na.rm = FALSE),
                        position_6 =
-                         ifelse(SubTrial == 6, letterstimuli, as.numeric(NA)),
+                         ifelse(SubTrial == 6, letterstimuli, as.character(NA)),
                        position_6 = zoo::na.locf(position_6, na.rm = FALSE),
                        position_7 =
-                         ifelse(SubTrial == 7, letterstimuli, as.numeric(NA)),
+                         ifelse(SubTrial == 7, letterstimuli, as.character(NA)),
                        position_7 = zoo::na.locf(position_7, na.rm = FALSE),
                        position_8 =
-                         ifelse(SubTrial == 8, letterstimuli, as.numeric(NA)),
+                         ifelse(SubTrial == 8, letterstimuli, as.character(NA)),
                        position_8 = zoo::na.locf(position_8, na.rm = FALSE),
                        position_9 =
-                         ifelse(SubTrial == 9, letterstimuli, as.numeric(NA)),
+                         ifelse(SubTrial == 9, letterstimuli, as.character(NA)),
                        position_9 = zoo::na.locf(position_9, na.rm = FALSE),
                        memory_item =
                          dplyr::case_when(serial.position == 1 ~
