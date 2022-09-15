@@ -339,7 +339,7 @@ score_ospan <- function(x) {
                                OSpan.EditDistanceUnit = mean(EditDistance.unit),
                                OSpan.EditDistanceLoad =
                                  sum(EditDistance.load) / sum(SetSize),
-                               Ospan.PartialScore = sum(Partial.load),
+                               OSpan.PartialScore = sum(Partial.load),
                                OSpan.PartialUnit = mean(Partial.unit),
                                OSpan.PartialLoad =
                                  sum(Partial.load) / sum(SetSize),
