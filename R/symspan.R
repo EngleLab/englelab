@@ -328,5 +328,3 @@ score_symspan <- function(x) {
 
   return(x)
 }
-
-

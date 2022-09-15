@@ -331,6 +331,7 @@ score_ospan <- function(x) {
   }
 
   x_recall <- dplyr::distinct(x, Subject, Block, Trial, SetSize,
+                              EditDistance.unit, EditDistance.load,
                               Partial.unit, Partial.load,
                               Absolute.unit, Absolute.load)
   x_recall <- dplyr::summarise(x_recall,
@@ -340,10 +341,12 @@ score_ospan <- function(x) {
                                  sum(EditDistance.load) / sum(SetSize),
                                Ospan.PartialScore = sum(Partial.load),
                                OSpan.PartialUnit = mean(Partial.unit),
-                               OSpan.PartialLoad = sum(Partial.load) / sum(SetSize),
+                               OSpan.PartialLoad =
+                                 sum(Partial.load) / sum(SetSize),
                                Ospan.AbsoluteScore = sum(Absolute.load),
                                OSpan.AbsoluteUnit = mean(Absolute.unit),
-                               OSpan.AbsoluteLoad = sum(Absolute.load) / sum(SetSize),
+                               OSpan.AbsoluteLoad =
+                                 sum(Absolute.load) / sum(SetSize),
                                OSpan.Trials = n(),
                                OSpan.MemoryItems = sum(SetSize))
   x_processing <- dplyr::filter(x, SubTrialProc == "ProcessingTask")
