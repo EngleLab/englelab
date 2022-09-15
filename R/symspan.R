@@ -311,7 +311,7 @@ score_symspan <- function(x) {
                                SymSpan.AbsoluteUnit = mean(Absolute.unit),
                                SymSpan.AbsoluteLoad =
                                  sum(Absolute.load) / sum(SetSize),
-                               SymSpan.Trials = n(),
+                               SymSpan.Trials = dplyr::n(),
                                SymSpan.MemoryItems = sum(SetSize))
   x_processing <- dplyr::filter(x, SubTrialProc == "ProcessingTask")
   x_processing <- dplyr::summarise(x_processing,

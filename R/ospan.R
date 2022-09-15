@@ -347,7 +347,7 @@ score_ospan <- function(x) {
                                OSpan.AbsoluteUnit = mean(Absolute.unit),
                                OSpan.AbsoluteLoad =
                                  sum(Absolute.load) / sum(SetSize),
-                               OSpan.Trials = n(),
+                               OSpan.Trials = dplyr::n(),
                                OSpan.MemoryItems = sum(SetSize))
   x_processing <- dplyr::filter(x, SubTrialProc == "ProcessingTask")
   x_processing <- dplyr::summarise(x_processing,

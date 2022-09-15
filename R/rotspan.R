@@ -398,7 +398,7 @@ score_rotspan <- function(x) {
                                RotSpan.AbsoluteUnit = mean(Absolute.unit),
                                RotSpan.AbsoluteLoad =
                                  sum(Absolute.load) / sum(SetSize),
-                               RotSpan.Trials = n(),
+                               RotSpan.Trials = dplyr::n(),
                                RotSpan.MemoryItems = sum(SetSize))
   x_processing <- dplyr::filter(x, SubTrialProc == "ProcessingTask")
   x_processing <- dplyr::summarise(x_processing,
