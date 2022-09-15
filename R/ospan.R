@@ -16,6 +16,10 @@ raw_ospan <- function(x, include_col = c(), taskVersion = "new") {
 
   exit_task_error <- FALSE
 
+  if (x$ExperimentName[1] == "OspanShort") {
+    taskVersion <- "oswald"
+  }
+
   if (taskVersion == "new") {
     x <- dplyr::mutate(x,
                        `Procedure[Block]` =
@@ -25,7 +29,9 @@ raw_ospan <- function(x, include_col = c(), taskVersion = "new") {
     if (!("AvgMathTime" %in% colnames(x))) {
       x <- dplyr::mutate(x, AvgMathTime = NA)
     }
-  } else if (taskVersion == "old") {
+  }
+
+  if (taskVersion == "old" | taskVersion == "oswald") {
     x <- dplyr::filter(x, `Procedure[Block]` == "SessionProc")
     x <- dplyr::mutate(x, MathACC = NA, AvgMathTime = NA)
   }
@@ -60,63 +66,72 @@ raw_ospan <- function(x, include_col = c(), taskVersion = "new") {
                                            `Running[Trial]` == "BlockList3" ~ 3,
                                            TRUE ~ as.double(NA)))
 
+  if (taskVersion == "oswald") {
+    x <- dplyr::mutate(x,
+                       Block = dplyr::case_when(BlockList.Sample <= 3 ~ 1,
+                                                BlockList.Sample > 3 ~ 2,
+                                                TRUE ~ as.double(NA)))
+  }
+
   blocks <- length(unique(x$Block))
 
-  if (blocks == 1) {
+  if (taskVersion != "oswald") {
+    if (blocks == 1) {
 
-  } else if (blocks == 2) {
-    x <-
-      dplyr::mutate(x,
-                    OPERATION.RT =
-                      dplyr::case_when(SubTrialProc == "ProcessingTask" &
-                                         Block == 1 ~ as.double(OPERATION.RT),
-                                       SubTrialProc == "ProcessingTask" &
-                                         Block == 2 ~ as.double(OPERATION1.RT),
-                                       TRUE ~ as.double(NA)),
-                    CollectClick.RT =
-                      dplyr::case_when(SubTrialProc == "Recall" &
-                                         Block == 1 ~
-                                         as.double(CollectClick.RT),
-                                       SubTrialProc == "Recall" &
-                                         Block == 2 ~
-                                         as.double(CollectClick2.RT),
-                                       TRUE ~ as.double(NA)),
-                    OPERATION.ACC =
-                      dplyr::case_when(SubTrialProc == "ProcessingTask" &
-                                         Block == 1 ~ as.double(OPERATION.ACC),
-                                       SubTrialProc == "ProcessingTask" &
-                                         Block == 2 ~ as.double(OPERATION1.ACC),
-                                       TRUE ~ as.double((NA))))
-  } else if (blocks == 3) {
-    x <-
-      dplyr::mutate(x,
-                    OPERATION.RT =
-                      dplyr::case_when(SubTrialProc == "ProcessingTask" &
-                                         Block == 1 ~ as.double(OPERATION.RT),
-                                       SubTrialProc == "ProcessingTask" &
-                                         Block == 2 ~ as.double(OPERATION1.RT),
-                                       SubTrialProc == "ProcessingTask" &
-                                         Block == 3 ~ as.double(OPERATION2.RT),
-                                       TRUE ~ as.double(NA)),
-                    CollectClick.RT =
-                      dplyr::case_when(SubTrialProc == "Recall" &
-                                         Block == 1 ~
-                                         as.double(CollectClick.RT),
-                                       SubTrialProc == "Recall" &
-                                         Block == 2 ~
-                                         as.double(CollectClick2.RT),
-                                       SubTrialProc == "Recall" &
-                                         Block == 3 ~
-                                         as.double(CollectClick3.RT),
-                                       TRUE ~ as.double(NA)),
-                    OPERATION.ACC =
-                      dplyr::case_when(SubTrialProc == "ProcessingTask" &
-                                         Block == 1 ~ as.double(OPERATION.ACC),
-                                       SubTrialProc == "ProcessingTask" &
-                                         Block == 2 ~ as.double(OPERATION1.ACC),
-                                       SubTrialProc == "ProcessingTask" &
-                                         Block == 3 ~ as.double(OPERATION2.ACC),
-                                       TRUE ~ as.double((NA))))
+    } else if (blocks == 2) {
+      x <-
+        dplyr::mutate(x,
+                      OPERATION.RT =
+                        dplyr::case_when(SubTrialProc == "ProcessingTask" &
+                                           Block == 1 ~ as.double(OPERATION.RT),
+                                         SubTrialProc == "ProcessingTask" &
+                                           Block == 2 ~ as.double(OPERATION1.RT),
+                                         TRUE ~ as.double(NA)),
+                      CollectClick.RT =
+                        dplyr::case_when(SubTrialProc == "Recall" &
+                                           Block == 1 ~
+                                           as.double(CollectClick.RT),
+                                         SubTrialProc == "Recall" &
+                                           Block == 2 ~
+                                           as.double(CollectClick2.RT),
+                                         TRUE ~ as.double(NA)),
+                      OPERATION.ACC =
+                        dplyr::case_when(SubTrialProc == "ProcessingTask" &
+                                           Block == 1 ~ as.double(OPERATION.ACC),
+                                         SubTrialProc == "ProcessingTask" &
+                                           Block == 2 ~ as.double(OPERATION1.ACC),
+                                         TRUE ~ as.double((NA))))
+    } else if (blocks == 3) {
+      x <-
+        dplyr::mutate(x,
+                      OPERATION.RT =
+                        dplyr::case_when(SubTrialProc == "ProcessingTask" &
+                                           Block == 1 ~ as.double(OPERATION.RT),
+                                         SubTrialProc == "ProcessingTask" &
+                                           Block == 2 ~ as.double(OPERATION1.RT),
+                                         SubTrialProc == "ProcessingTask" &
+                                           Block == 3 ~ as.double(OPERATION2.RT),
+                                         TRUE ~ as.double(NA)),
+                      CollectClick.RT =
+                        dplyr::case_when(SubTrialProc == "Recall" &
+                                           Block == 1 ~
+                                           as.double(CollectClick.RT),
+                                         SubTrialProc == "Recall" &
+                                           Block == 2 ~
+                                           as.double(CollectClick2.RT),
+                                         SubTrialProc == "Recall" &
+                                           Block == 3 ~
+                                           as.double(CollectClick3.RT),
+                                         TRUE ~ as.double(NA)),
+                      OPERATION.ACC =
+                        dplyr::case_when(SubTrialProc == "ProcessingTask" &
+                                           Block == 1 ~ as.double(OPERATION.ACC),
+                                         SubTrialProc == "ProcessingTask" &
+                                           Block == 2 ~ as.double(OPERATION1.ACC),
+                                         SubTrialProc == "ProcessingTask" &
+                                           Block == 3 ~ as.double(OPERATION2.ACC),
+                                         TRUE ~ as.double((NA))))
+    }
   }
 
   x <- dplyr::group_by(x, Subject, Block, Trial)
