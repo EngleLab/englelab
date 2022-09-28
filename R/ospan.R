@@ -87,6 +87,12 @@ raw_ospan <- function(x, include_col = c(), taskVersion = "new") {
                                          SubTrialProc == "ProcessingTask" &
                                            Block == 2 ~ as.double(OPERATION1.RT),
                                          TRUE ~ as.double(NA)),
+                      showProblem.RT =
+                        dplyr::case_when(SubTrialProc == "ProcessingTask" &
+                                           Block == 1 ~ as.double(showProblem.RT),
+                                         SubTrialProc == "ProcessingTask" &
+                                           Block == 2 ~ as.double(showProblem1.RT),
+                                         TRUE ~ as.double(NA)),
                       CollectClick.RT =
                         dplyr::case_when(SubTrialProc == "Recall" &
                                            Block == 1 ~
@@ -111,6 +117,14 @@ raw_ospan <- function(x, include_col = c(), taskVersion = "new") {
                                            Block == 2 ~ as.double(OPERATION1.RT),
                                          SubTrialProc == "ProcessingTask" &
                                            Block == 3 ~ as.double(OPERATION2.RT),
+                                         TRUE ~ as.double(NA)),
+                      showProblem.RT =
+                        dplyr::case_when(SubTrialProc == "ProcessingTask" &
+                                           Block == 1 ~ as.double(showProblem.RT),
+                                         SubTrialProc == "ProcessingTask" &
+                                           Block == 2 ~ as.double(showProblem1.RT),
+                                         SubTrialProc == "ProcessingTask" &
+                                           Block == 3 ~ as.double(showProblem2.RT),
                                          TRUE ~ as.double(NA)),
                       CollectClick.RT =
                         dplyr::case_when(SubTrialProc == "Recall" &
@@ -138,7 +152,8 @@ raw_ospan <- function(x, include_col = c(), taskVersion = "new") {
   x <- dplyr::mutate(x,
                      RT =
                        dplyr::case_when(SubTrialProc == "ProcessingTask" ~
-                                          as.double(OPERATION.RT),
+                                          as.double(OPERATION.RT) +
+                                          as.double(showProblem.RT),
                                         SubTrialProc == "Recall" ~
                                           as.double(CollectClick.RT),
                                         TRUE ~ as.double(NA)),
