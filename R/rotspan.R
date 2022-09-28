@@ -55,6 +55,14 @@ raw_rotspan <- function(x, include_col = c(), taskVersion = "new") {
                                          Block == 2 ~
                                          as.double(CheckResponse1.RT),
                                        TRUE ~ as.double(NA)),
+                    ShowRotated.RT =
+                      dplyr::case_when(SubTrialProc == "ProcessingTask" &
+                                         Block == 1 ~
+                                         as.double(ShowRotated.RT),
+                                       SubTrialProc == "ProcessingTask" &
+                                         Block == 2 ~
+                                         as.double(ShowRotated1.RT),
+                                       TRUE ~ as.double(NA)),
                     CheckResponse.ACC =
                       dplyr::case_when(SubTrialProc == "ProcessingTask" &
                                          Block == 1 ~
@@ -77,6 +85,17 @@ raw_rotspan <- function(x, include_col = c(), taskVersion = "new") {
                                          Block == 3 ~
                                          as.double(CheckResponse2.RT),
                                        TRUE ~ as.double(NA)),
+                    ShowRotated.RT =
+                      dplyr::case_when(SubTrialProc == "ProcessingTask" &
+                                         Block == 1 ~
+                                         as.double(ShowRotated.RT),
+                                       SubTrialProc == "ProcessingTask" &
+                                         Block == 2 ~
+                                         as.double(ShowRotated1.RT),
+                                       SubTrialProc == "ProcessingTask" &
+                                         Block == 3 ~
+                                         as.double(ShowRotated2.RT),
+                                       TRUE ~ as.double(NA)),
                     CheckResponse.ACC =
                       dplyr::case_when(SubTrialProc == "ProcessingTask" &
                                          Block == 1 ~
@@ -94,7 +113,8 @@ raw_rotspan <- function(x, include_col = c(), taskVersion = "new") {
   x <- dplyr::mutate(x,
                      RT =
                        dplyr::case_when(SubTrialProc == "ProcessingTask" ~
-                                          as.double(CheckResponse.RT),
+                                          as.double(CheckResponse.RT) +
+                                          as.double(ShowRot),
                                         TRUE ~ as.double(NA)),
                      AvgRotationTime =
                        ifelse(!is.na(AvgRotationTime) &

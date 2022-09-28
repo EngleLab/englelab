@@ -59,6 +59,14 @@ raw_symspan <- function(x, include_col = c(), taskVersion = "new") {
                                          Block == 2 ~
                                          as.double(CheckResponse1.RT),
                                        TRUE ~ as.double(NA)),
+                    ShowSymm.RT =
+                      dplyr::case_when(SubTrialProc == "ProcessingTask" &
+                                         Block == 1 ~
+                                         as.double(ShowSymm.RT),
+                                       SubTrialProc == "ProcessingTask" &
+                                         Block == 2 ~
+                                         as.double(ShowSymm1.RT),
+                                       TRUE ~ as.double(NA)),
                     CollectClick.RT =
                       dplyr::case_when(SubTrialProc == "Recall" &
                                          Block == 1 ~
@@ -89,6 +97,17 @@ raw_symspan <- function(x, include_col = c(), taskVersion = "new") {
                                          Block == 3 ~
                                          as.double(CheckResponse2.RT),
                                        TRUE ~ as.double(NA)),
+                    ShowSymm.RT =
+                      dplyr::case_when(SubTrialProc == "ProcessingTask" &
+                                         Block == 1 ~
+                                         as.double(ShowSymm.RT),
+                                       SubTrialProc == "ProcessingTask" &
+                                         Block == 2 ~
+                                         as.double(ShowSymm1.RT),
+                                       SubTrialProc == "ProcessingTask" &
+                                         Block == 3 ~
+                                         as.double(ShowSymm2.RT),
+                                       TRUE ~ as.double(NA)),
                     CollectClick.RT =
                       dplyr::case_when(SubTrialProc == "Recall" &
                                          Block == 1 ~
@@ -117,7 +136,8 @@ raw_symspan <- function(x, include_col = c(), taskVersion = "new") {
   x <- dplyr::mutate(x,
                      RT =
                        dplyr::case_when(SubTrialProc == "ProcessingTask" ~
-                                          as.double(CheckResponse.RT),
+                                          as.double(CheckResponse.RT) +
+                                          as.double(ShowSymm.RT),
                                         SubTrialProc == "Recall" ~
                                           as.double(CollectClick.RT),
                                         TRUE ~ as.double(NA)),
