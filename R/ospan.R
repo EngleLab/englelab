@@ -301,7 +301,7 @@ raw_ospan <- function(x, include_col = c(), taskVersion = "new") {
                      Recall.correct, Partial.unit, Partial.load,
                      Absolute.unit, Absolute.load, SubTrial, SubTrialProc,
                      RT, Accuracy, Response, CorrectResponse, MemoryItem,
-                     keep_col, SessionDate, SessionTime)
+                     include_col, SessionDate, SessionTime)
   x <- dplyr::distinct(x)
 
   # add columns with sequence of target memory and recalled items
