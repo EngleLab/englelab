@@ -114,7 +114,7 @@ raw_rotspan <- function(x, include_col = c(), taskVersion = "new") {
                      RT =
                        dplyr::case_when(SubTrialProc == "ProcessingTask" ~
                                           as.double(CheckResponse.RT) +
-                                          as.double(ShowRot),
+                                          as.double(ShowRotated.RT),
                                         TRUE ~ as.double(NA)),
                      AvgRotationTime =
                        ifelse(!is.na(AvgRotationTime) &
