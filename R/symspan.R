@@ -14,6 +14,12 @@
 
 raw_symspan <- function(x, include_col = c(), taskVersion = "new") {
 
+  exit_task_error <- FALSE
+
+  if (x$ExperimentName[1] == "SspanShort") {
+    taskVersion <- "oswald"
+  }
+
   if (taskVersion == "new") {
     x <- dplyr::filter(x, `Procedure[Block]` == "TaskProc")
     if (!("AvgSymmetryTime" %in% colnames(x))) {
@@ -21,9 +27,21 @@ raw_symspan <- function(x, include_col = c(), taskVersion = "new") {
     }
   }
 
-  if (taskVersion == "old") {
+  if (taskVersion == "old" | taskVersion == "oswald") {
     x <- dplyr::filter(x, `Procedure[Block]` == "SessionProc")
-    x <- dplyr::mutate(x, SymmetryACC = NA, AvgSymmetryTime = NA)
+    x <- dplyr::mutate(x, MathACC = NA, AvgMathTime = NA)
+  }
+
+  if (!("AvgSymmetryTime" %in% colnames(x))) {
+    x <- dplyr::mutate(x, AvgSymmetryTime = NA)
+  }
+
+  if (NA %in% unique(x$`Running[Trial]`)) {
+    x <- tidyr::fill(x, `Running[Trial]`, .direction = "down")
+    x <- dplyr::mutate(x, `Procedure[SubTrial]` =
+                         ifelse(is.na(`Procedure[SubTrial]`),
+                                "recall", `Procedure[SubTrial]`))
+    exit_task_error <- TRUE
   }
 
   x <- dplyr::rename(x, SetSize = setsz)
@@ -44,92 +62,101 @@ raw_symspan <- function(x, include_col = c(), taskVersion = "new") {
                                            `Running[Trial]` == "BlockList3" ~ 3,
                                            TRUE ~ as.numeric(NA)))
 
+  if (taskVersion == "oswald") {
+    x <- dplyr::mutate(x,
+                       Block = dplyr::case_when(BlockList.Sample <= 3 ~ 1,
+                                                BlockList.Sample > 3 ~ 2,
+                                                TRUE ~ as.double(NA)))
+  }
+
   blocks <- length(unique(x$Block))
 
-  if (blocks == 1) {
-
-  } else if (blocks == 2) {
-    x <-
-      dplyr::mutate(x,
-                    CheckResponse.RT =
-                      dplyr::case_when(SubTrialProc == "ProcessingTask" &
-                                         Block == 1 ~
-                                         as.double(CheckResponse.RT),
-                                       SubTrialProc == "ProcessingTask" &
-                                         Block == 2 ~
-                                         as.double(CheckResponse1.RT),
-                                       TRUE ~ as.double(NA)),
-                    ShowSymm.RT =
-                      dplyr::case_when(SubTrialProc == "ProcessingTask" &
-                                         Block == 1 ~
-                                         as.double(ShowSymm.RT),
-                                       SubTrialProc == "ProcessingTask" &
-                                         Block == 2 ~
-                                         as.double(ShowSymm1.RT),
-                                       TRUE ~ as.double(NA)),
-                    CollectClick.RT =
-                      dplyr::case_when(SubTrialProc == "Recall" &
-                                         Block == 1 ~
-                                         as.double(CollectClick.RT),
-                                       SubTrialProc == "Recall" &
-                                         Block == 2 ~
-                                         as.double(CollectClick2.RT),
-                                       TRUE ~ as.double(NA)),
-                    CheckResponse.ACC =
-                      dplyr::case_when(SubTrialProc == "ProcessingTask" &
-                                         Block == 1 ~
-                                         as.integer(CheckResponse.ACC),
-                                       SubTrialProc == "ProcessingTask" &
-                                         Block == 2 ~
-                                         as.integer(CheckResponse1.ACC),
-                                       TRUE ~ as.integer((NA))))
-  } else if (blocks == 3) {
-    x <-
-      dplyr::mutate(x,
-                    CheckResponse.RT =
-                      dplyr::case_when(SubTrialProc == "ProcessingTask" &
-                                         Block == 1 ~
-                                         as.double(CheckResponse.RT),
-                                       SubTrialProc == "ProcessingTask" &
-                                         Block == 2 ~
-                                         as.double(CheckResponse1.RT),
-                                       SubTrialProc == "ProcessingTask" &
-                                         Block == 3 ~
-                                         as.double(CheckResponse2.RT),
-                                       TRUE ~ as.double(NA)),
-                    ShowSymm.RT =
-                      dplyr::case_when(SubTrialProc == "ProcessingTask" &
-                                         Block == 1 ~
-                                         as.double(ShowSymm.RT),
-                                       SubTrialProc == "ProcessingTask" &
-                                         Block == 2 ~
-                                         as.double(ShowSymm1.RT),
-                                       SubTrialProc == "ProcessingTask" &
-                                         Block == 3 ~
-                                         as.double(ShowSymm2.RT),
-                                       TRUE ~ as.double(NA)),
-                    CollectClick.RT =
-                      dplyr::case_when(SubTrialProc == "Recall" &
-                                         Block == 1 ~
-                                         as.double(CollectClick.RT),
-                                       SubTrialProc == "Recall" &
-                                         Block == 2 ~
-                                         as.double(CollectClick2.RT),
-                                       SubTrialProc == "Recall" &
-                                         Block == 3 ~
-                                         as.double(CollectClick3.RT),
-                                       TRUE ~ as.double(NA)),
-                    CheckResponse.ACC =
-                      dplyr::case_when(SubTrialProc == "ProcessingTask" &
-                                         Block == 1 ~
-                                         as.integer(CheckResponse.ACC),
-                                       SubTrialProc == "ProcessingTask" &
-                                         Block == 2 ~
-                                         as.integer(CheckResponse1.ACC),
-                                       SubTrialProc == "ProcessingTask" &
-                                         Block == 3 ~
-                                         as.integer(CheckResponse2.ACC),
-                                       TRUE ~ as.integer((NA))))
+  if (taskVersion != "oswald") {
+    if (blocks == 1) {
+      x <- dplyr::mutate(x, Block = 1)
+    } else if (blocks == 2) {
+      x <-
+        dplyr::mutate(x,
+                      CheckResponse.RT =
+                        dplyr::case_when(SubTrialProc == "ProcessingTask" &
+                                           Block == 1 ~
+                                           as.double(CheckResponse.RT),
+                                         SubTrialProc == "ProcessingTask" &
+                                           Block == 2 ~
+                                           as.double(CheckResponse1.RT),
+                                         TRUE ~ as.double(NA)),
+                      ShowSymm.RT =
+                        dplyr::case_when(SubTrialProc == "ProcessingTask" &
+                                           Block == 1 ~
+                                           as.double(ShowSymm.RT),
+                                         SubTrialProc == "ProcessingTask" &
+                                           Block == 2 ~
+                                           as.double(ShowSymm1.RT),
+                                         TRUE ~ as.double(NA)),
+                      CollectClick.RT =
+                        dplyr::case_when(SubTrialProc == "Recall" &
+                                           Block == 1 ~
+                                           as.double(CollectClick.RT),
+                                         SubTrialProc == "Recall" &
+                                           Block == 2 ~
+                                           as.double(CollectClick2.RT),
+                                         TRUE ~ as.double(NA)),
+                      CheckResponse.ACC =
+                        dplyr::case_when(SubTrialProc == "ProcessingTask" &
+                                           Block == 1 ~
+                                           as.integer(CheckResponse.ACC),
+                                         SubTrialProc == "ProcessingTask" &
+                                           Block == 2 ~
+                                           as.integer(CheckResponse1.ACC),
+                                         TRUE ~ as.integer((NA))))
+    } else if (blocks == 3) {
+      x <-
+        dplyr::mutate(x,
+                      CheckResponse.RT =
+                        dplyr::case_when(SubTrialProc == "ProcessingTask" &
+                                           Block == 1 ~
+                                           as.double(CheckResponse.RT),
+                                         SubTrialProc == "ProcessingTask" &
+                                           Block == 2 ~
+                                           as.double(CheckResponse1.RT),
+                                         SubTrialProc == "ProcessingTask" &
+                                           Block == 3 ~
+                                           as.double(CheckResponse2.RT),
+                                         TRUE ~ as.double(NA)),
+                      ShowSymm.RT =
+                        dplyr::case_when(SubTrialProc == "ProcessingTask" &
+                                           Block == 1 ~
+                                           as.double(ShowSymm.RT),
+                                         SubTrialProc == "ProcessingTask" &
+                                           Block == 2 ~
+                                           as.double(ShowSymm1.RT),
+                                         SubTrialProc == "ProcessingTask" &
+                                           Block == 3 ~
+                                           as.double(ShowSymm2.RT),
+                                         TRUE ~ as.double(NA)),
+                      CollectClick.RT =
+                        dplyr::case_when(SubTrialProc == "Recall" &
+                                           Block == 1 ~
+                                           as.double(CollectClick.RT),
+                                         SubTrialProc == "Recall" &
+                                           Block == 2 ~
+                                           as.double(CollectClick2.RT),
+                                         SubTrialProc == "Recall" &
+                                           Block == 3 ~
+                                           as.double(CollectClick3.RT),
+                                         TRUE ~ as.double(NA)),
+                      CheckResponse.ACC =
+                        dplyr::case_when(SubTrialProc == "ProcessingTask" &
+                                           Block == 1 ~
+                                           as.integer(CheckResponse.ACC),
+                                         SubTrialProc == "ProcessingTask" &
+                                           Block == 2 ~
+                                           as.integer(CheckResponse1.ACC),
+                                         SubTrialProc == "ProcessingTask" &
+                                           Block == 3 ~
+                                           as.integer(CheckResponse2.ACC),
+                                         TRUE ~ as.integer((NA))))
+    }
   }
 
   x <- dplyr::group_by(x, Subject, Block, Trial)
@@ -303,6 +330,7 @@ raw_symspan <- function(x, include_col = c(), taskVersion = "new") {
                           dplyr::case_when(is.na(Response) ~ as.character(NA),
                                            Response == "TRUE" ~ "TRUE",
                                            Response == "FALSE" ~ "FALSE",
+                                           Response == "-" ~ "-",
                                            TRUE ~ LETTERS[as.numeric(Response)]))
   x_tr <- dplyr::filter(x_tr, recall_response_type == "recall" |
                           SubTrialProc == "ProcessingTask")

@@ -77,7 +77,7 @@ raw_ospan <- function(x, include_col = c(), taskVersion = "new") {
 
   if (taskVersion != "oswald") {
     if (blocks == 1) {
-
+      x <- dplyr::mutate(x, Block = 1)
     } else if (blocks == 2) {
       x <-
         dplyr::mutate(x,
@@ -346,6 +346,7 @@ raw_ospan <- function(x, include_col = c(), taskVersion = "new") {
                           dplyr::case_when(is.na(Response) ~ as.character(NA),
                                            Response == "TRUE" ~ "TRUE",
                                            Response == "FALSE" ~ "FALSE",
+                                           Response == "-" ~ "-",
                                            TRUE ~ Response))
   x_tr <- dplyr::filter(x_tr, recall_response_type == "recall" |
                           SubTrialProc == "ProcessingTask")
