@@ -141,35 +141,62 @@ raw_symspan <- function(x, include_col = c(), taskVersion = "new") {
                                         SubTrialProc == "Recall" ~
                                           as.double(CollectClick.RT),
                                         TRUE ~ as.double(NA)),
-                     erase =
-                       ifelse(SubTrialProc == "Recall" &
-                                WordSelection == "clear", 1, as.numeric(NA)),
-                     erase =
-                       zoo::na.locf(erase, fromLast = TRUE, na.rm = FALSE),
-                     erase =
-                       ifelse(SubTrialProc == "ProcessingTask",
-                              as.numeric(NA), erase),
-                     remove =
+                     clear_items =
                        dplyr::case_when(SubTrialProc == "Recall" &
-                                          is.na(WordSelection) ~ 1,
+                                          WordSelection == "Clear" ~ 1,
                                         SubTrialProc == "Recall" &
+                                          WordSelection == "clear" ~ 1,
+                                        TRUE ~ as.numeric(NA)),
+                     clear_items =
+                       zoo::na.locf(clear_items, fromLast = TRUE, na.rm = FALSE),
+                     clear_items =
+                       ifelse(SubTrialProc == "ProcessingTask",
+                              as.numeric(NA), clear_items),
+                     button_click =
+                       dplyr::case_when(SubTrialProc == "Recall" &
                                           WordSelection == "Enter" ~ 1,
+                                        SubTrialProc == "Recall" &
+                                          WordSelection == "Exit" ~ 1,
+                                        SubTrialProc == "Recall" &
+                                          WordSelection == "Clear" ~ 1,
+                                        SubTrialProc == "Recall" &
+                                          WordSelection == "clear" ~ 1,
                                         SubTrialProc == "Recall" &
                                           WordSelection == "InvalidResponse" ~
                                           1,
-                                        TRUE ~ as.numeric(NA)),
+                                        TRUE ~ 0),
+                     recall_response_type =
+                       dplyr::case_when(SubTrialProc == "Recall" &
+                                          button_click == 0 &
+                                          clear_items == 1 ~ "clear",
+                                        SubTrialProc == "Recall" &
+                                          button_click == 1 ~ "button",
+                                        SubTrialProc == "Recall" &
+                                          button_click == 0 ~ "recall",
+                                        TRUE ~ as.character(NA)),
+                     recall_response =
+                       dplyr::case_when(SubTrialProc == "Recall" ~
+                                          as.character(WordSelection),
+                                        TRUE ~ as.character(NA)),
                      AvgSymmetryTime =
                        ifelse(!is.na(AvgSymmetryTime) &
                                 AvgSymmetryTime == "?",
-                              as.numeric(NA), AvgSymmetryTime))
+                              as.numeric(NA), AvgSymmetryTime),
+                     remove =
+                       dplyr::case_when(SubTrialProc == "Recall" &
+                                          is.na(WordSelection) ~ 1,
+                                        TRUE ~ 0))
 
-  x <- dplyr::filter(x, is.na(erase), is.na(remove))
+  x <- dplyr::filter(x, remove == 0)
+
+  x <- dplyr::group_by(x, Subject, Block, Trial, recall_response_type)
+  x <- dplyr::mutate(x, recall_position = dplyr::row_number())
+
   x <- dplyr::group_by(x, Subject, Block, Trial)
   suppressWarnings({
     x <-
       dplyr::mutate(x,
                     SubTrial = dplyr::row_number(),
-                    serial.position = SubTrial - SetSize,
                     position_1 = ifelse(SubTrial == 1, MatrixId, as.numeric(NA)),
                     position_1 = max(position_1, na.rm = TRUE),
                     position_2 = ifelse(SubTrial == 2, MatrixId, as.numeric(NA)),
@@ -185,19 +212,26 @@ raw_symspan <- function(x, include_col = c(), taskVersion = "new") {
                     position_7 = ifelse(SubTrial == 7, MatrixId, as.numeric(NA)),
                     position_7 = max(position_7, na.rm = TRUE),
                     memory_item =
-                      dplyr::case_when(serial.position == 1 ~
+                      dplyr::case_when(recall_response_type == "recall" &
+                                         recall_position == 1 ~
                                          as.integer(position_1),
-                                       serial.position == 2 ~
+                                       recall_response_type == "recall" &
+                                         recall_position == 2 ~
                                          as.integer(position_2),
-                                       serial.position == 3 ~
+                                       recall_response_type == "recall" &
+                                         recall_position == 3 ~
                                          as.integer(position_3),
-                                       serial.position == 4 ~
+                                       recall_response_type == "recall" &
+                                         recall_position == 4 ~
                                          as.integer(position_4),
-                                       serial.position == 5 ~
+                                       recall_response_type == "recall" &
+                                         recall_position == 5 ~
                                          as.integer(position_5),
-                                       serial.position == 6 ~
+                                       recall_response_type == "recall" &
+                                         recall_position == 6 ~
                                          as.integer(position_6),
-                                       serial.position == 7 ~
+                                       recall_response_type == "recall" &
+                                         recall_position == 7 ~
                                          as.integer(position_7),
                                        TRUE ~ as.integer(NA)),
                     CorrectResponse =
@@ -228,6 +262,9 @@ raw_symspan <- function(x, include_col = c(), taskVersion = "new") {
                                        SubTrialProc == "Recall" ~
                                          as.character(WordSelection),
                                        TRUE ~ as.character(NA)),
+                    Response = dplyr::case_when(Response == "Blank" ~ "-",
+                                                Response == "blank" ~ "-",
+                                                TRUE ~ Response),
                     MemoryItem = MatrixId,
                     Processing.correct =
                       ifelse(SubTrialProc == "ProcessingTask",
@@ -253,10 +290,11 @@ raw_symspan <- function(x, include_col = c(), taskVersion = "new") {
                      Recall.correct, Partial.unit, Partial.load,
                      Absolute.unit, Absolute.load, SubTrial, SubTrialProc,
                      RT, Accuracy, Response, CorrectResponse, MemoryItem,
-                     include_col, SessionDate, SessionTime)
+                     include_col, SessionDate, SessionTime, recall_response_type)
   x <- dplyr::distinct(x)
   x <- dplyr::group_by(x, Subject, Block, Trial, SubTrialProc)
   x <- dplyr::mutate(x, SubTrial = dplyr::row_number())
+  x <- dplyr::ungroup(x)
 
   # add columns with sequence of target memory and recalled items
   x_tr <- dplyr::mutate(x,
@@ -265,8 +303,9 @@ raw_symspan <- function(x, include_col = c(), taskVersion = "new") {
                           dplyr::case_when(is.na(Response) ~ as.character(NA),
                                            Response == "TRUE" ~ "TRUE",
                                            Response == "FALSE" ~ "FALSE",
-                                           Response == "blank" ~ "-",
                                            TRUE ~ LETTERS[as.numeric(Response)]))
+  x_tr <- dplyr::filter(x_tr, recall_response_type == "recall" |
+                          SubTrialProc == "ProcessingTask")
   x_tr <- dplyr::group_by(x_tr, Subject, Block, Trial, SubTrialProc)
   x_tr <- dplyr::mutate(x_tr, SubTrial = dplyr::row_number())
   x_tr <- dplyr::ungroup(x_tr)
@@ -291,7 +330,7 @@ raw_symspan <- function(x, include_col = c(), taskVersion = "new") {
                        .after = Processing.correct)
 
   # remove Recall.correct. It is redundant with Partial.load
-  x <- dplyr::select(x, -Recall.correct)
+  x <- dplyr::select(x, -Recall.correct, -recall_response_type)
   return(x)
 }
 
