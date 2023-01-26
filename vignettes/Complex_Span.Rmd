@@ -191,7 +191,7 @@ cronbachalpha <- data_raw %>%
   distinct(Subject, Trial, .keep_all = TRUE) %>%
   pivot_wider(id_cols = "Subject",
               names_from = "Trial",
-              values_from = contains("Recall.correct")) %>%
+              values_from = contains("Partial.load")) %>%
   alpha()
 
 ## The cronbach alpha value can then be accessed: 
