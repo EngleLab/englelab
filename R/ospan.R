@@ -421,13 +421,17 @@ score_ospan <- function(x) {
   x_processing <- dplyr::summarise(x_processing,
                                    Math.ACC = mean(Accuracy, na.rm = TRUE),
                                    Math.RT_mean = mean(RT, na.rm = TRUE),
-                                   Math.RT_sd = sd(RT, na.rm = TRUE))
+                                   Math.RT_sd = sd(RT, na.rm = TRUE),
+                                   SessionDate = dplyr::first(SessionDate),
+                                   SessionTime = dplyr::first(SessionTime))
   x <- tryCatch(dplyr::full_join(x_recall, x_processing),
                 error = function(c){
                   if (!FALSE) {dplyr::bind_cols(x_recall, x_processing)}
                   else {dplyr::full_join(x_recall, x_processing)}
                 })
-  x <- dplyr::relocate(x, OSpan.Trials, OSpan.MemoryItems,
+  x <- dplyr::relocate(x,
+                       OSpan.Trials, OSpan.MemoryItems,
+                       SessionDate, SessionTime,
                        .after = dplyr::last_col())
 
   return(x)
