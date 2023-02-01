@@ -1,4 +1,4 @@
-#' Raw Tidy Data for Symmetry Span
+#' Raw Tidy Data for Operation Span
 #'
 #' Converts the messy e-prime data file into a tidy raw data file that is
 #' easy to work with.
