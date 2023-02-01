@@ -5,7 +5,7 @@ account: englelab
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 1245947
-bundleId: 6778849
+bundleId: 6799269
 url: https://englelab.shinyapps.io/taskscoring/
-when: 1674774533.56835
-lastSyncTime: 1674774533.56838
+when: 1675280357.19537
+lastSyncTime: 1675280357.19538

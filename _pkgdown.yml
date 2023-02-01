@@ -16,6 +16,7 @@ reference:
   - raw_ospan
   - raw_symspan
   - raw_rotspan
+  - raw_readspan
   - raw_antisaccade
   - raw_visualarrays
   - raw_sact
@@ -26,6 +27,7 @@ reference:
   - score_ospan
   - score_symspan
   - score_rotspan
+  - score_readspan
   - score_visualarrays
 - title: Other Scoring Functions
   contents:

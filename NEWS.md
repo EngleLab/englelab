@@ -1,3 +1,11 @@
+# englelab v1.1.1
+
+Updated: 1 February, 2023
+
+- Minor update
+
+- Added support for reading span tasks (e.g, Standard or Oswald)
+
 # englelab v1.1.0
 
 Updated: 12 August, 2022

@@ -4,7 +4,7 @@ library(dplyr)
 library(stringr)
 library(englelab)
 
-options(shiny.maxRequestSize=100*1024^2)
+options(shiny.maxRequestSize = 100*1024^2)
 
 function(input, output) {
 
@@ -41,6 +41,12 @@ function(input, output) {
         data$trial <- raw_rotspan(import)
         data$scores <- group_by(data$trial, Subject)
         data$scores <- score_rotspan(data$scores)
+      }
+
+      if (input$task == "Reading Span") {
+        data$trial <- raw_readspan(import)
+        data$scores <- group_by(data$trial, Subject)
+        data$scores <- score_readspan(data$scores)
       }
 
       if (input$task == "Antisaccade") {

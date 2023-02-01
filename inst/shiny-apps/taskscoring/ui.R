@@ -30,7 +30,8 @@ fluidPage(
                          ".txt")),
 
     selectInput("task", "Which Task?",
-                choices = c("Operation Span", "Symmetry Span", "Rotation Span",
+                choices = c("Operation Span", "Symmetry Span",
+                            "Rotation Span", "Reading Span",
                             "Antisaccade", "Visual Arrays", "SACT",
                             "FlankerDL", "StroopDL", ""),
                 selected = ""),
