@@ -419,7 +419,9 @@ score_rotspan <- function(x) {
                                RotSpan.AbsoluteLoad =
                                  sum(Absolute.load) / sum(SetSize),
                                RotSpan.Trials = dplyr::n(),
-                               RotSpan.MemoryItems = sum(SetSize))
+                               RotSpan.MemoryItems = sum(SetSize),
+                               SessionDate = dplyr::first(SessionDate),
+                               SessionTime = dplyr::first(SessionTime))
   x_processing <- dplyr::filter(x, SubTrialProc == "ProcessingTask")
   x_processing <- dplyr::summarise(x_processing,
                                    Rotation.ACC = mean(Accuracy, na.rm = TRUE),
@@ -430,9 +432,10 @@ score_rotspan <- function(x) {
                   if (!FALSE) {dplyr::bind_cols(x_recall, x_processing)}
                   else {dplyr::full_join(x_recall, x_processing)}
                 })
-  x <- dplyr::relocate(x, RotSpan.Trials, RotSpan.MemoryItems,
+  x <- dplyr::relocate(x,
+                       SymSpan.Trials, SymSpan.MemoryItems,
+                       SessionDate, SessionTime,
                        .after = dplyr::last_col())
 
   return(x)
 }
-
