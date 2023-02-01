@@ -29,7 +29,7 @@ raw_symspan <- function(x, include_col = c(), taskVersion = "new") {
 
   if (taskVersion == "old" | taskVersion == "oswald") {
     x <- dplyr::filter(x, `Procedure[Block]` == "SessionProc")
-    x <- dplyr::mutate(x, MathACC = NA, AvgMathTime = NA)
+    x <- dplyr::mutate(x, SymmACC = NA, AvgSymmetryTime = NA)
   }
 
   if (!("AvgSymmetryTime" %in% colnames(x))) {
