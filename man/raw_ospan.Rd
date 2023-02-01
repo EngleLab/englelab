@@ -2,7 +2,7 @@
 % Please edit documentation in R/ospan.R
 \name{raw_ospan}
 \alias{raw_ospan}
-\title{Raw Tidy Data for Symmetry Span}
+\title{Raw Tidy Data for Operation Span}
 \usage{
 raw_ospan(x, include_col = c(), taskVersion = "new")
 }
