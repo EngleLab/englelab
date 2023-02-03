@@ -240,37 +240,40 @@ score_stroopDL <- function(x, scoring_method = "Last 4 Reversals",
   x_adaptive <- plyr::join_all(x_adaptive, by = "Subject")
 
   x_condition_perf <- dplyr::group_by(x, Subject, StroopType)
-  x_condition_perf <- dplyr::mutate(x,
+  x_condition_perf <- dplyr::mutate(x_condition_perf,
                                     RT = ifelse(Accuracy == 0, NA, RT),
                                     RT = ifelse(RT < rt_cutoff, NA, RT),
                                     MissedDeadline =
                                       ifelse(MadeDeadline == 1, 0, 1))
-  x_condition_perf <- dplyr::summarise(x,
+  x_condition_perf <- dplyr::summarise(x_condition_perf,
                                        ACC = mean(Accuracy, na.rm = TRUE),
                                        RT = mean(RT, na.rm = TRUE),
                                        MissedDeadlines = mean(MissedDeadline))
   x_condition_perf <- dplyr::ungroup(x_condition_perf)
-  x_condition_perf <- tidyr::pivot_wider(id_cols = "Subject",
+  x_condition_perf <- tidyr::pivot_wider(x_condition_perf,
+                                         id_cols = "Subject",
                                          names_from = "StroopType",
                                          values_from =
                                            c("ACC", "RT", "MissedDeadlines"),
                                          names_glue = "{StroopType}.{.value}")
-  x_condition_perf <- dplyr::rename_with(~ paste("StroopDL_", .x, sep = ""),
+  x_condition_perf <- dplyr::rename_with(x_condition_perf,
+                                         ~ paste("StroopDL_", .x, sep = ""),
                                          dplyr::contains("congruent"))
 
   x_overall_perf <- dplyr::group_by(x, Subject)
-  x_overall_perf <- dplyr::mutate(x,
+  x_overall_perf <- dplyr::mutate(x_overall_perf,
                                   RT = ifelse(Accuracy == 0, NA, RT),
                                   RT = ifelse(RT < rt_cutoff, NA, RT),
                                   MissedDeadline =
                                     ifelse(MadeDeadline == 1, 0, 1))
-  x_overall_perf <- dplyr::summarise(x,
+  x_overall_perf <- dplyr::summarise(x_overall_perf,
                                      ACC = mean(Accuracy, na.rm = TRUE),
                                      RT = mean(RT, na.rm = TRUE),
                                      MissedDeadlines = mean(MissedDeadline),
                                      AdminTime = dplyr::first(AdminTime))
   x_overall_perf <- dplyr::ungroup(x_overall_perf)
-  x_overall_perf <- dplyr::rename_with(~ paste("StroopDL_Overall.", .x, sep = ""),
+  x_overall_perf <- dplyr::rename_with(x_overall_perf,
+                                       ~ paste("StroopDL_Overall.", .x, sep = ""),
                                        c(ACC, RT, MissedDeadlines, AdminTime))
 
   x_scores <- merge(x_adaptive, x_condition_perf, by = "Subject")
