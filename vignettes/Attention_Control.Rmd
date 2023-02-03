@@ -40,6 +40,8 @@ Trial level variables are provided by the `raw_` functions.
 
 -   `score_visualarrays()`
 
+-   `score_stroopDL()`
+
 Based on the output provided by the `raw_` functions, the `score_` functions will calculate task level scores. In order to allow for more flexibility with using the `score_` functions, they will need to be combined with `dplyr::group_by()`.
 
 ```{r eval=FALSE}
