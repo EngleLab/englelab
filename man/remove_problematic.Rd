@@ -4,16 +4,16 @@
 \alias{remove_problematic}
 \title{Remove Problematic Subjects}
 \usage{
-remove_problematic(x, filter = "", log_file = NULL)
+remove_problematic(x, remove = "", log_file = NULL)
 }
 \arguments{
 \item{x}{dataframe}
 
-\item{filter}{an expression passed on to dplyr:filter()}
+\item{remove}{an expression passed on to dplyr:filter()}
 
 \item{log_file}{the file path and name for where to save a log file to}
 }
 \description{
-This function will remove problematic subjects based on a filter criteria
+This function will remove problematic subjects based on a filter criterion
 and save them to a log data file.
 }
