@@ -6,6 +6,10 @@ Updated: 1 February, 2023
 
 - Added support for reading span tasks (e.g, Standard or Oswald)
 
+- Added support and functions for toolbox 2.0 tasks (publication forthcoming)
+
+    - `score_stroopDL()`
+
 # englelab v1.1.0
 
 Updated: 12 August, 2022

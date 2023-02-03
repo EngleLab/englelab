@@ -29,6 +29,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -41,18 +43,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">englelab</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.1</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
@@ -77,7 +73,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/EngleLab/englelab/">
+  <a href="https://github.com/EngleLab/englelab/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -100,139 +96,124 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="englelab-" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#englelab-" class="anchor"></a>englelab <img src="reference/figures/logo_small.png" align="right">
+<div class="section level1">
+<div class="page-header"><h1 id="englelab-">englelab <img src="reference/figures/logo_small.png" align="right"><a class="anchor" aria-label="anchor" href="#englelab-"></a>
 </h1></div>
-<p>This package contains various functions for processing and scoring
-complex-span and attention control tasks downloaded from the
-<a href="http://englelab.gatech.edu" target="_blank"><b>EngleLab</b></a></p>
-<p>There are functions for the <strong>Advanced</strong>, <strong>Foster
-Shortened</strong>, <strong>Oswald Shortened</strong>, and
-<strong>Standard</strong> versions of the complex-span tasks, as well as
-functions for the <strong>Attention Control</strong> tasks.</p>
-<p>There are also functions to assist in processing and cleaning the
-data. These include dealing with outliers with
-<code><a href="reference/replace_outliers.html">replace_outliers()</a></code>, calculating composite scores from a
-group of variables with <code><a href="reference/composite.html">composite()</a></code>, and removing those
-with too much missing data on a construct with
-<code><a href="reference/remove_missing.html">remove_missing()</a></code>.</p>
+<p>This package contains various functions for processing and scoring complex-span and attention control tasks downloaded from the <a href="http://englelab.gatech.edu" target="_blank" class="external-link"><b>EngleLab</b></a></p>
+<p>There are functions for the <strong>Advanced</strong>, <strong>Foster Shortened</strong>, <strong>Oswald Shortened</strong>, and <strong>Standard</strong> versions of the complex-span tasks, as well as functions for the <strong>Attention Control</strong> tasks.</p>
+<p>There are also functions to assist in processing and cleaning the data. These include dealing with outliers with <code><a href="reference/replace_outliers.html">replace_outliers()</a></code>, calculating composite scores from a group of variables with <code><a href="reference/composite.html">composite()</a></code>, and removing those with too much missing data on a construct with <code><a href="reference/remove_missing.html">remove_missing()</a></code>.</p>
 <hr>
-<div id="install" class="section level2">
-<h2 class="hasAnchor">
-<a href="#install" class="anchor"></a>Install</h2>
+<div class="section level2">
+<h2 id="install">Install<a class="anchor" aria-label="anchor" href="#install"></a>
+</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"EngleLab/englelab"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"EngleLab/englelab"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="data-preparation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#data-preparation" class="anchor"></a>Data Preparation</h2>
-<p>Once you are ready to start analyzing data from the tasks, you will
-first need to create a merged (<strong>.emrg</strong>) data file of all
-the individual <strong>.edat</strong> files E-Prime produces.
-<a href="https://www.youtube.com/watch?v=rQOg7ECK2Kw" target="_blank">How
-to create a merged E-Prime file</a></p>
-<p>You then will need to export that <strong>.emrg</strong> file as a
-tab-delimited .txt file.
-<a href="https://support.pstnet.com/hc/en-us/articles/115012298367-E-DATAAID-Exporting-Data-22832-" target="_blank">How
-to Export E-Prime files to .txt</a>. You need to follow the ‘Export Data
-to StatView’ instructions AND <strong>uncheck Unicode</strong>.</p>
-<p>You can then import the .txt merged file into R.
-<code><a href="https://readr.tidyverse.org/reference/read_delim.html">readr::read_delim()</a></code></p>
+<div class="section level2">
+<h2 id="data-preparation">Data Preparation<a class="anchor" aria-label="anchor" href="#data-preparation"></a>
+</h2>
+<p>Once you are ready to start analyzing data from the tasks, you will first need to create a merged (<strong>.emrg</strong>) data file of all the individual <strong>.edat</strong> files E-Prime produces. <a href="https://www.youtube.com/watch?v=rQOg7ECK2Kw" target="_blank" class="external-link">How to create a merged E-Prime file</a></p>
+<p>You then will need to export that <strong>.emrg</strong> file as a tab-delimited .txt file. <a href="https://support.pstnet.com/hc/en-us/articles/115012298367-E-DATAAID-Exporting-Data-22832-" target="_blank" class="external-link">How to Export E-Prime files to .txt</a>. You need to follow the ‘Export Data to StatView’ instructions AND <strong>uncheck Unicode</strong>.</p>
+<p>You can then import the .txt merged file into R. <code><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">readr::read_delim()</a></code></p>
 </div>
-<div id="usage" class="section level2">
-<h2 class="hasAnchor">
-<a href="#usage" class="anchor"></a>Usage</h2>
+<div class="section level2">
+<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
+</h2>
 <p><strong>Symmetry Span Example</strong></p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readr.tidyverse.org">readr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EngleLab/englelab">englelab</a></span><span class="op">)</span>
-
-<span class="co">## Import</span>
-<span class="va">data_import</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_delim</a></span><span class="op">(</span><span class="st">"import/SymSpan.txt"</span>, <span class="st">"\t"</span>, 
-                          escape_double <span class="op">=</span> <span class="cn">FALSE</span>, trim_ws <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-                     
-<span class="co">## Raw</span>
-<span class="va">data_raw</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/raw_symspan.html">raw_symspan</a></span><span class="op">(</span><span class="va">data_import</span><span class="op">)</span>
-
-<span class="co">## Score</span>
-<span class="va">data_score</span> <span class="op">&lt;-</span> <span class="va">data_raw</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Subject</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="reference/score_symspan.html">score_symspan</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://readr.tidyverse.org" class="external-link">readr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EngleLab/englelab" class="external-link">englelab</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## Import</span></span>
+<span><span class="va">data_import</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_delim</a></span><span class="op">(</span><span class="st">"import/SymSpan.txt"</span>, <span class="st">"\t"</span>, </span>
+<span>                          escape_double <span class="op">=</span> <span class="cn">FALSE</span>, trim_ws <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>                     </span>
+<span><span class="co">## Raw</span></span>
+<span><span class="va">data_raw</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/raw_symspan.html">raw_symspan</a></span><span class="op">(</span><span class="va">data_import</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## Score</span></span>
+<span><span class="va">data_score</span> <span class="op">&lt;-</span> <span class="va">data_raw</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Subject</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="reference/score_symspan.html">score_symspan</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><strong>See Articles:</strong></p>
 <ul>
-<li><p><a href="https://englelab.github.io/englelab/articles/Complex_Span.html">Complex
-Span Tasks</a></p></li>
-<li><p><a href="https://englelab.github.io/englelab/articles/Attention_Control.html">Attention
-Control Tasks</a></p></li>
+<li><p><a href="https://englelab.github.io/englelab/articles/Complex_Span.html">Complex Span Tasks</a></p></li>
+<li><p><a href="https://englelab.github.io/englelab/articles/Attention_Control.html">Attention Control Tasks</a></p></li>
 </ul>
 </div>
-<div id="non-r-users" class="section level2">
-<h2 class="hasAnchor">
-<a href="#non-r-users" class="anchor"></a>Non-R Users</h2>
-<p>For non-R users, we created a point-and-click GUI to process and
-score data files from the tasks.</p>
-<div id="web-app-for-englelab" class="section level4">
-<h4 class="hasAnchor">
-<a href="#web-app-for-englelab" class="anchor"></a><a href="https://englelab.shinyapps.io/taskscoring/" target="_blank"><b>Web
-App for englelab</b></a>
+<div class="section level2">
+<h2 id="non-r-users">Non-R Users<a class="anchor" aria-label="anchor" href="#non-r-users"></a>
+</h2>
+<p>For non-R users, we created a point-and-click GUI to process and score data files from the tasks.</p>
+<div class="section level4">
+<h4 id="web-app-for-englelab">
+<a href="https://englelab.shinyapps.io/taskscoring/" target="_blank" class="external-link"><b>Web App for englelab</b></a><a class="anchor" aria-label="anchor" href="#web-app-for-englelab"></a>
 </h4>
 </div>
 </div>
-<div id="troubleshooting" class="section level2">
-<h2 class="hasAnchor">
-<a href="#troubleshooting" class="anchor"></a>Troubleshooting</h2>
-<p>If you are having any difficulties with this package please contact
-Jason Tsukahara at <a href="mailto:jason.tsukahara@gatech.edu">jason.tsukahara@gatech.edu</a></p>
+<div class="section level2">
+<h2 id="troubleshooting">Troubleshooting<a class="anchor" aria-label="anchor" href="#troubleshooting"></a>
+</h2>
+<p>If you are having any difficulties with this package please contact Jason Tsukahara at <a href="mailto:jason.tsukahara@gatech.edu">jason.tsukahara@gatech.edu</a></p>
 <hr>
 </div>
-<div id="citation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#citation" class="anchor"></a>Citation</h2>
+<div class="section level2">
+<h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
+</h2>
 <p>If you use this R package in your research, then please cite</p>
-<p><a href="https://zenodo.org/badge/latestdoi/151780396"><img src="https://zenodo.org/badge/151780396.svg" alt="DOI"></a></p>
-<p>Tsukahara, Jason S. (2022). englelab: An R package for processing
-complex-span and attention control tasks downloaded from the EngleLab
-(1.1.0). Zenodo. <a href="https://doi.org/10.5281/zenodo.6987145" class="uri">https://doi.org/10.5281/zenodo.6987145</a></p>
+<p><a href="https://zenodo.org/badge/latestdoi/151780396" class="external-link"><img src="https://zenodo.org/badge/151780396.svg" alt="DOI"></a></p>
+<p>Tsukahara, Jason S. (2022). englelab: An R package for processing complex-span and attention control tasks downloaded from the EngleLab (1.1.0). Zenodo. <a href="https://doi.org/10.5281/zenodo.6987145" class="external-link uri">https://doi.org/10.5281/zenodo.6987145</a></p>
 </div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/EngleLab/englelab/">https://​github.com/​EngleLab/​englelab/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/EngleLab/englelab/issues">https://​github.com/​EngleLab/​englelab/​issues</a>
-</li>
+<li><a href="https://github.com/EngleLab/englelab/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/EngleLab/englelab/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li>NA</li>
 </ul>
 </div>
-<div class="developers">
-<h2>Developers</h2>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li>
-<a href="https://englelab.gatech.edu/jason">Jason Tsukahara</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/-5550" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="authors.html#citation">Citing englelab</a></li>
 </ul>
 </div>
+
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
+<ul class="list-unstyled">
+<li>
+<a href="https://englelab.gatech.edu/jason" class="external-link">Jason Tsukahara</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/-5550" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+</ul>
+</div>
+
+
 
   </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://englelab.gatech.edu/jason">Jason Tsukahara</a>.</p>
+  <p></p>
+<p>Developed by <a href="https://englelab.gatech.edu/jason" class="external-link">Jason Tsukahara</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

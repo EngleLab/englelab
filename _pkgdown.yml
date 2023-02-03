@@ -29,10 +29,12 @@ reference:
   - score_rotspan
   - score_readspan
   - score_visualarrays
+  - score_stroopDL
 - title: Other Scoring Functions
   contents:
   - composite
   - edit_distance
+  - score_adaptivethreshold
   - bin_score
   - center
 - title: Data Cleaning
