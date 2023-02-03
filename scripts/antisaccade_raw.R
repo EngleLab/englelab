@@ -1,14 +1,14 @@
 # Set up -----------------------------------------------------------------------
-## Load packages
+# load packages
 library(readr)
 library(here)
 library(englelab)
 
-## Set import/output directories
+# set import/output directories
 import_dir <- "Data Files/Merged"
 output_dir <- "Data Files"
 
-## Set import/output files
+# set import/output files
 task <- "Antisaccade"
 import_file <- paste(task, ".txt", sep = "")
 output_file <- paste(task, "_raw.csv", sep = "")
