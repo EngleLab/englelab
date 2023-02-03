@@ -21,7 +21,7 @@ replace_outliers(
 \item{cutoff}{z-score cutoff to use for trimming (default: 3.5)}
 
 \item{with}{What value should the trimmed values be replaced with.
-(default: replace = "NA")}
+(default: with = "NA")}
 
 \item{id}{If variables = "all", then need to supply the subject ID variable}
 
