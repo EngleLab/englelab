@@ -92,7 +92,7 @@ replace_outliers <- function(x,
 
   if (!is.null(log_file)) {
     outliers <- dplyr::anti_join(x, x_replace)
-    if (nrow(outliers > 0)) {
+    if (nrow(outliers) > 0) {
       readr::write_csv(outliers, log_file)
     }
   }

@@ -20,7 +20,7 @@ remove_problematic <- function(x,
   x_removed <- eval(filter_func)
   x_keep <- dplyr::anti_join(x, x_removed)
 
-  if (!is.null(log_file) & nrow(x_removed > 0)) {
+  if (!is.null(log_file) & nrow(x_removed) > 0) {
     readr::write_csv(x_removed, log_file)
   }
 
