@@ -10,7 +10,7 @@
 
 raw_stroopDL <- function(x, include_col = c()) {
 
-  if (x$ExerpimentName[1] == "StroopDL_v2") {
+  if (x$ExperimentName[1] == "StroopDL_v2") {
     x <- dplyr::rename(x, TrialProc = `Procedure[Trial]`)
     x <- dplyr::filter(x, TrialProc != "RestProc")
     x <- dplyr::mutate(x,
