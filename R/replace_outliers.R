@@ -25,7 +25,7 @@ replace_outliers <- function(x,
 
   x_replace <- center(x, variables = variables, standardize = TRUE)
 
-  if (replace == "NA") {
+  if (with == "NA") {
     for (var in variables) {
       zscored <- paste(var, "_z", sep = "")
       x_replace <-
@@ -39,7 +39,7 @@ replace_outliers <- function(x,
     }
   }
 
-  if (replace == "cutoff") {
+  if (with == "cutoff") {
     for (var in variables) {
       zscored <- paste(var, "_z", sep = "")
       x_replace <-
@@ -58,7 +58,7 @@ replace_outliers <- function(x,
     }
   }
 
-  if (replace == "mean") {
+  if (with == "mean") {
     for (var in variables) {
       zscored <- paste(var, "_z", sep = "")
       x_replace <-
@@ -74,7 +74,7 @@ replace_outliers <- function(x,
     }
   }
 
-  if (replace == "median") {
+  if (with == "median") {
     for (var in variables) {
       zscored <- paste(var, "_z", sep = "")
       x_replace <-
