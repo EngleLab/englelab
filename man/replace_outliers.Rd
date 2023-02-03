@@ -9,6 +9,7 @@ replace_outliers(
   variables = c(),
   cutoff = 3.5,
   with = "NA",
+  pass = 1,
   id = "Subject",
   log_file = NULL
 )
@@ -22,6 +23,9 @@ replace_outliers(
 
 \item{with}{What value should the trimmed values be replaced with.
 (default: with = "NA")}
+
+\item{pass}{How many times to do outlier replacement?
+ex. pass = 2 will do a two-pass outlier replacement. (default: 1)}
 
 \item{id}{If variables = "all", then need to supply the subject ID variable}
 
