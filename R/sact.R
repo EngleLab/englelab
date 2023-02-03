@@ -19,7 +19,7 @@ raw_sact <- function(x, include_col = c()) {
                                           "real",
                                         TrialProc == "PracticeTrialProc" ~
                                           "pratice"))
-  if (x$ExerimentName[1] == "SACT_v2") {
+  if (x$ExperimentName[1] == "SACT_v2") {
     x <- dplyr::mutate(x,
                        Block =
                          dplyr::case_when(is.na(BlockList) ~ 1,
@@ -32,7 +32,7 @@ raw_sact <- function(x, include_col = c()) {
     x <- dplyr::group_by(x, Subject)
     x <- dplyr::mutate(x, AdminTime = dplyr::last(AdminTime) / 60000)
     x <- dplyr::ungroup(x)
-    if (x$ExerimentName[1] == "SACT_v2") {
+    if (x$ExperimentName[1] == "SACT_v2") {
       x <- dplyr::select(x, Subject, TrialProc, Block, Trial, WaitTime,
                          Accuracy = Response.ACC, RT = Response.RT,
                          Response = Response.RESP, TargetLetter,
