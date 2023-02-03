@@ -234,7 +234,7 @@ score_stroopDL <- function(x, scoring_method = "Last 4 Reversals",
     x_adaptive[[i]] <-
       englelab::score_adaptivethreshold(x_adaptive[[i]], taskname = "StroopDL",
                                         adaptive_variable = "ResponseDeadline",
-                                        threshold_method = scoring_method[[i]])
+                                        scoring_method = scoring_method[[i]])
     x_adaptive[[i]] <- dplyr::ungroup(x_adaptive[[i]])
   }
   x_adaptive <- plyr::join_all(x_adaptive, by = "Subject")
