@@ -6,7 +6,7 @@
 #' @param variables variables c() to be trimmed
 #' @param cutoff z-score cutoff to use for trimming (default: 3.5)
 #' @param with What value should the trimmed values be replaced with.
-#'     (default: replace = "NA")
+#'     (default: with = "NA")
 #' @param id If variables = "all", then need to supply the subject ID variable
 #' @param log_file the file path and name for where to save a log file to
 #' @export
@@ -92,7 +92,9 @@ replace_outliers <- function(x,
 
   if (!is.null(log_file)) {
     outliers <- dplyr::anti_join(x, x_replace)
-    readr::write_csv(outliers, log_file)
+    if (nrow(outliers > 0)) {
+      readr::write_csv(outliers, log_file)
+    }
   }
 
   x_replace <- x_replace[col_order]
