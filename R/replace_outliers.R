@@ -90,12 +90,13 @@ replace_outliers <- function(x,
     }
   }
 
-  if (!is.null(log_file)) {
-    outliers <- dplyr::anti_join(x, x_replace)
-    if (nrow(outliers) > 0) {
-      readr::write_csv(outliers, log_file)
-    }
+  outliers <- dplyr::anti_join(x, x_replace)
+
+  if (!is.null(log_file) & nrow(outliers) > 0) {
+    readr::write_csv(outliers, log_file)
   }
+
+  message("Rows removed: ", nrow(outliers))
 
   x_replace <- x_replace[col_order]
   return(x_replace)

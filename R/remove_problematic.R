@@ -24,5 +24,7 @@ remove_problematic <- function(x,
     readr::write_csv(x_removed, log_file)
   }
 
+  message("Rows removed: ", nrow(x_removed))
+
   return(x_keep)
 }
