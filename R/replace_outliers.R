@@ -105,6 +105,8 @@ replace_outliers <- function(x,
       }
     }
 
+    x_replace <- x_replace[col_order]
+
     outliers[[i]] <- dplyr::anti_join(x_prev, x_replace)
     outliers[[i]] <- dplyr::mutate(outliers[[i]], Pass = i)
     message("Outliers detected (pass = ", i, "): ", nrow(outliers[[i]]))
