@@ -1,11 +1,11 @@
 pandoc: 2.19.2
-pkgdown: 2.0.6
+pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   Attention_Control: Attention_Control.html
   Complex_Span: Complex_Span.html
-last_built: 2023-01-26T23:18Z
+last_built: 2023-02-03T01:55Z
 urls:
-  reference: https://englelab.github.io/englelab/reference
-  article: https://englelab.github.io/englelab/articles
+  reference: https://englelab.github.io/englelab//reference
+  article: https://englelab.github.io/englelab//articles
 

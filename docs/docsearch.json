@@ -2,21 +2,21 @@
   "index_name": "INDEX_NAME",
   "start_urls": [
     {
-      "url": "https://englelab.github.io/englelab/index.html",
+      "url": "https://englelab.github.io/englelab//index.html",
       "selectors_key": "homepage",
       "tags": [
         "homepage"
       ]
     },
     {
-      "url": "https://englelab.github.io/englelab/reference",
+      "url": "https://englelab.github.io/englelab//reference",
       "selectors_key": "reference",
       "tags": [
         "reference"
       ]
     },
     {
-      "url": "https://englelab.github.io/englelab/articles",
+      "url": "https://englelab.github.io/englelab//articles",
       "selectors_key": "articles",
       "tags": [
         "articles"
@@ -30,7 +30,7 @@
     "/articles/index.html"
   ],
   "sitemap_urls": [
-    "https://englelab.github.io/englelab/sitemap.xml"
+    "https://englelab.github.io/englelab//sitemap.xml"
   ],
   "selectors": {
     "homepage": {
