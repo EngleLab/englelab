@@ -80,6 +80,8 @@ raw_visualarrays <- function(x, include_col = c()) {
 
 score_visualarrays <- function(x, id_col = "Subject", taskname = "VAorient_S") {
 
+  x <- dplyr::filter(x, TrialProc == "real")
+
   grouped_vars <- colnames(dplyr::group_keys(x))
   grouped_vars <- grouped_vars[which(grouped_vars != id_col)]
   grouped_vars_names <- paste("{", grouped_vars, "}", sep = "")

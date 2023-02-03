@@ -11,6 +11,9 @@
 raw_antisaccade <- function(x, include_col = c()) {
 
   x <- dplyr::rename(x, TrialProc = `Procedure[Trial]`)
+  if (!("FixationDuration" %in% colnames(x))) {
+    x <- dplyr::rename(x, FixationDuration = t4)
+  }
   proc_names <- unique(x$TrialProc)
   if ("pracproc" %in% proc_names) {
     x <- dplyr::filter(x, TrialProc == "TrialProc" | TrialProc == "pracproc")
@@ -44,7 +47,9 @@ raw_antisaccade <- function(x, include_col = c()) {
   x <- dplyr::mutate(x,
                      Target =
                        dplyr::case_when(!is.na(right_targ) ~ right_targ,
-                                        !is.na(left_targ) ~ left_targ))
+                                        !is.na(left_targ) ~ left_targ),
+                     TargetLocation = case_when(!is.na(right_cue) ~ "Left",
+                                                !is.na(left_cue) ~ "Right"))
 
   if ("AdminTime" %in% colnames(x)) {
     x <- dplyr::group_by(x, Subject)
@@ -52,11 +57,11 @@ raw_antisaccade <- function(x, include_col = c()) {
     x <- dplyr::ungroup(x)
     x <- dplyr::select(x, Subject, TrialProc, Trial, Accuracy = Mask.ACC,
                        RT = Mask.RT, Target, FixationDuration,
-                       include_col, AdminTime, SessionDate, SessionTime)
+                       dplyr::all_of(include_col), AdminTime, SessionDate, SessionTime)
   } else {
     x <- dplyr::select(x, Subject, TrialProc, Trial, Accuracy = Mask.ACC,
                        RT = Mask.RT, Target, FixationDuration,
-                       include_col, SessionDate, SessionTime)
+                       dplyr::all_of(include_col), SessionDate, SessionTime)
   }
 
   return(x)
