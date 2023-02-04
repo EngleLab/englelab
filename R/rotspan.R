@@ -314,6 +314,9 @@ raw_rotspan <- function(x, include_col = c(), taskVersion = "new") {
                                        SubTrialProc == "Recall" ~
                                          as.character(ArrowSelection),
                                        TRUE ~ as.character(NA)),
+                    Response = ifelse(SubTrialProc == "Recall" &
+                                        is.na(Response),
+                                      "-", Response),
                     MemoryItem = ArrowId,
                     Processing.correct =
                       ifelse(SubTrialProc == "ProcessingTask",
@@ -349,7 +352,7 @@ raw_rotspan <- function(x, include_col = c(), taskVersion = "new") {
                           dplyr::case_when(is.na(Response) ~ as.character(NA),
                                            Response == "TRUE" ~ "TRUE",
                                            Response == "FALSE" ~ "FALSE",
-                                           Response == "blank" ~ "-",
+                                           Response == "-" ~ "-",
                                            TRUE ~ LETTERS[as.numeric(Response)]))
   x_tr <- dplyr::group_by(x_tr, Subject, Block, Trial, SubTrialProc)
   x_tr <- dplyr::mutate(x_tr, SubTrial = dplyr::row_number())
@@ -419,14 +422,14 @@ score_rotspan <- function(x) {
                                RotSpan.AbsoluteLoad =
                                  sum(Absolute.load) / sum(SetSize),
                                RotSpan.Trials = dplyr::n(),
-                               RotSpan.MemoryItems = sum(SetSize),
-                               SessionDate = dplyr::first(SessionDate),
-                               SessionTime = dplyr::first(SessionTime))
+                               RotSpan.MemoryItems = sum(SetSize))
   x_processing <- dplyr::filter(x, SubTrialProc == "ProcessingTask")
   x_processing <- dplyr::summarise(x_processing,
                                    Rotation.ACC = mean(Accuracy, na.rm = TRUE),
                                    Rotation.RT_mean = mean(RT, na.rm = TRUE),
-                                   Rotation.RT_sd = sd(RT, na.rm = TRUE))
+                                   Rotation.RT_sd = sd(RT, na.rm = TRUE),
+                                   SessionDate = dplyr::first(SessionDate),
+                                   SessionTime = dplyr::first(SessionTime))
   x <- tryCatch(dplyr::full_join(x_recall, x_processing),
                 error = function(c){
                   if (!FALSE) {dplyr::bind_cols(x_recall, x_processing)}
