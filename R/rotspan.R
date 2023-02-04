@@ -436,7 +436,7 @@ score_rotspan <- function(x) {
                   else {dplyr::full_join(x_recall, x_processing)}
                 })
   x <- dplyr::relocate(x,
-                       SymSpan.Trials, SymSpan.MemoryItems,
+                       RotSpan.Trials, RotSpan.MemoryItems,
                        SessionDate, SessionTime,
                        .after = dplyr::last_col())
 
