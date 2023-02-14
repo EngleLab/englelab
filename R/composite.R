@@ -9,7 +9,7 @@
 #'     options are "mean", "sum", "fa" (factor analysis using psych::fa), or
 #'     "pca" (principal component analysis using psych::pca). Default is "mean"
 #' @param standardize Logical. Do you want to calculate the composite based
-#'     on standardize (z-score) variables? (Default = FALSE)
+#'     on standardize (z-score) variables? (Default = TRUE)
 #' @param missing_allowed Criteria for how many variables can having missing
 #'     values and still calculate a composite
 #' @export
@@ -24,7 +24,7 @@ composite <- function(x,
 
   # Compute z-scores if standardize == TRUE
   if (standardize == TRUE) {
-    x <- center(x, variables = variables, standardize = TRUE)
+    x <- englelab::center(x, variables = variables, standardize = TRUE)
     # Add _z to variable list so that the composite will use the z-scored values
     variables <- paste(variables, "_z", sep = "")
   }

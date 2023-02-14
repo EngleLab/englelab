@@ -36,7 +36,9 @@ replace_outliers <- function(x,
       x_prev <- x_replace
     }
 
-    x_replace <- center(x_replace, variables = variables, standardize = TRUE)
+    x_replace <- englelab::center(x_replace,
+                                  variables = variables,
+                                  standardize = TRUE)
 
     if (with == "NA") {
       for (var in variables) {
