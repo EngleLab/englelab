@@ -12,12 +12,24 @@ function(input, output) {
   message <- reactiveValues(status = "It may take a minute to finish running.")
 
   observeEvent(input$update, {
-    import <- read_delim(input$file$datapath,
-                         "\t", escape_double = FALSE, trim_ws = TRUE)
+    import <- tryCatch(read_delim(input$file$datapath,
+                         "\t", escape_double = FALSE, trim_ws = TRUE),
+                       error = function(e) {"error"})
 
-    if (ncol(import) == 1) {
+    if (import == "error") {
+      import <- tryCatch(read_delim(input$file$datapath,
+                                    locale = locale(encoding = "UCS-2LE"),
+                                    delim = "\t", escape_double = FALSE,
+                                    trim_ws = TRUE, na = "NULL"),
+                         error = function(e) {"error"})
+    }
+
+    if (import == "error") {
       message$status <-
         "Error: Make sure you exported the E-Prime file using the StatView and SPSS option (see Instructions)"
+
+      data$trial <- data.frame()
+      data$scores <- data.frame()
     } else {
 
       output$status <- renderText({
@@ -25,71 +37,152 @@ function(input, output) {
       })
 
       if (input$task == "Operation Span") {
-        data$trial <- raw_ospan(import)
-        data$scores <- group_by(data$trial, Subject) %>%
-          score_ospan()
+        data$trial <- tryCatch(raw_ospan(import),
+                               error = function(e) {"error"})
+        if (is.data.frame(data$trial)) {
+          data$scores <- group_by(data$trial, Subject) %>%
+            score_ospan()
+        } else {
+          message$status <-
+            "Error: Make sure you exported the E-Prime file using the StatView and SPSS option (see Instructions)"
+          data$trial <- data.frame()
+          data$scores <- data.frame()
+        }
+
       }
 
       if (input$task == "Symmetry Span") {
-        data$trial <- raw_symspan(import)
-        rm(import)
-        data$scores <- group_by(data$trial, Subject) %>%
-          score_symspan()
+        data$trial <- tryCatch(raw_symspan(import),
+                               error = function(e) {"error"})
+        if (is.data.frame(data$trial)) {
+          data$scores <- group_by(data$trial, Subject) %>%
+            score_symspan()
+        } else {
+          message$status <-
+            "Error: Make sure you exported the E-Prime file using the StatView and SPSS option (see Instructions)"
+          data$trial <- data.frame()
+          data$scores <- data.frame()
+        }
+
       }
 
       if (input$task == "Rotation Span") {
-        data$trial <- raw_rotspan(import)
-        data$scores <- group_by(data$trial, Subject)
-        data$scores <- score_rotspan(data$scores)
+        data$trial <- tryCatch(raw_rotspan(import),
+                               error = function(e) {"error"})
+        if (is.data.frame(data$trial)) {
+          data$scores <- group_by(data$trial, Subject)
+          data$scores <- score_rotspan(data$scores)
+        } else {
+          message$status <-
+            "Error: Make sure you exported the E-Prime file using the StatView and SPSS option (see Instructions)"
+          data$trial <- data.frame()
+          data$scores <- data.frame()
+        }
+
       }
 
       if (input$task == "Reading Span") {
-        data$trial <- raw_readspan(import)
-        data$scores <- group_by(data$trial, Subject)
-        data$scores <- score_readspan(data$scores)
+        data$trial <- tryCatch(raw_readspan(import),
+                               error = function(e) {"error"})
+        if (is.data.frame(data$trial)) {
+          data$scores <- group_by(data$trial, Subject)
+          data$scores <- score_readspan(data$scores)
+        } else {
+          message$status <-
+            "Error: Make sure you exported the E-Prime file using the StatView and SPSS option (see Instructions)"
+          data$trial <- data.frame()
+          data$scores <- data.frame()
+        }
+
       }
 
       if (input$task == "Antisaccade") {
-        data$trial <- raw_antisaccade(import)
-        data$scores <- filter(data$trial, TrialProc == "real") %>%
-          group_by(Subject) %>%
-          summarise(Antisaccade.ACC = mean(Accuracy, na.rm = TRUE),
-                    Antisaccade.RT = mean(RT, na.rm = TRUE),
-                    AdminTime = first(AdminTime),
-                    SessionDate = first(SessionDate),
-                    SessionTime = first(SessionTime))
+        data$trial <- tryCatch(raw_antisaccade(import),
+                               error = function(e) {"error"})
+        if (is.data.frame(data$trial)) {
+          data$scores <- filter(data$trial, TrialProc == "real") %>%
+            group_by(Subject) %>%
+            summarise(Antisaccade.ACC = mean(Accuracy, na.rm = TRUE),
+                      Antisaccade.RT = mean(RT, na.rm = TRUE),
+                      AdminTime = first(AdminTime),
+                      SessionDate = first(SessionDate),
+                      SessionTime = first(SessionTime))
+        } else {
+          message$status <-
+            "Error: Make sure you exported the E-Prime file using the StatView and SPSS option (see Instructions)"
+          data$trial <- data.frame()
+          data$scores <- data.frame()
+        }
+
       }
 
       if (input$task == "Visual Arrays") {
-        data$trial <- raw_visualarrays(import)
-        data$scores <- filter(data$trial, TrialProc == "real") %>%
-          group_by(Subject, SetSize) %>%
-          score_visualarrays(taskname = "VAorient_S")
+        data$trial <- tryCatch(raw_visualarrays(import),
+                               error = function(e) {"error"})
+        if (is.data.frame(data$trial)) {
+          data$scores <- filter(data$trial, TrialProc == "real") %>%
+            group_by(Subject, SetSize) %>%
+            score_visualarrays(taskname = "VAorient_S")
+        } else {
+          message$status <-
+            "Error: Make sure you exported the E-Prime file using the StatView and SPSS option (see Instructions)"
+          data$trial <- data.frame()
+          data$scores <- data.frame()
+        }
+
       }
 
       if (input$task == "SACT") {
-        data$trial <- raw_sact(import)
-        data$scores <- filter(data$trial, TrialProc == "real") %>%
-          group_by(Subject) %>%
-          summarise(SACT.acc = mean(Accuracy, na.rm = TRUE),
-                    AdminTime = first(AdminTime),
-                    SessionDate = first(SessionDate),
-                    SessionTime = first(SessionTime))
+        data$trial <- tryCatch(raw_sact(import),
+                               error = function(e) {"error"})
+        if (is.data.frame(data$trial)) {
+          data$scores <- filter(data$trial, TrialProc == "real") %>%
+            group_by(Subject) %>%
+            summarise(SACT.acc = mean(Accuracy, na.rm = TRUE),
+                      AdminTime = first(AdminTime),
+                      SessionDate = first(SessionDate),
+                      SessionTime = first(SessionTime))
+        } else {
+          message$status <-
+            "Error: Make sure you exported the E-Prime file using the StatView and SPSS option (see Instructions)"
+          data$trial <- data.frame()
+          data$scores <- data.frame()
+        }
+
       }
 
       if (input$task == "FlankerDL") {
-        data$trial <- raw_flankerDL(import)
-        data$scores <- select(data$trial, Subject, FlankerDLScore, AdminTime)
-        data$scores <- distinct(data$scores)
+        data$trial <- tryCatch(raw_flankerDL(import),
+                               error = function(e) {"error"})
+        if (is.data.frame(data$trial)) {
+          data$scores <- select(data$trial, Subject, FlankerDLScore, AdminTime)
+          data$scores <- distinct(data$scores)
+        } else {
+          message$status <-
+            "Error: Make sure you exported the E-Prime file using the StatView and SPSS option (see Instructions)"
+          data$trial <- data.frame()
+          data$scores <- data.frame()
+        }
+
       }
 
       if (input$task == "StroopDL") {
-        data$trial <- raw_stroopDL(import)
-        data$scores <- select(data$trial, Subject, StroopDLScore, AdminTime)
-        data$scores <- distinct(data$scores)
+        data$trial <- tryCatch(raw_stroopDL(import),
+                               error = function(e) {"error"})
+        if (is.data.frame(data$trial)) {
+          data$scores <- group_by(data$trial, Subject)
+          data$scores <- tryCatch(score_stroopDL(data$scores),
+                                  error = function(e) {data.frame()})
+        } else {
+          message$status <-
+            "Error: Make sure you exported the E-Prime file using the StatView and SPSS option (see Instructions)"
+          data$trial <- data.frame()
+          data$scores <- data.frame()
+        }
+
       }
 
-      if (!is.null(data$trial)) {
+      if (nrow(data$trial) > 0) {
         message$status <- "Done! Click on the 'Trial Level' and 'Task Scores' tabs to view the data. Tables may take a minute to display"
       }
     }
