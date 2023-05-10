@@ -16,7 +16,7 @@ raw_symspan <- function(x, include_col = c(), taskVersion = "new") {
 
   exit_task_error <- FALSE
 
-  if (x$ExperimentName[1] == "SspanShort") {
+  if (stringr::str_detect(x$ExperimentName[1], "SspanShort")) {
     taskVersion <- "oswald"
   }
 
