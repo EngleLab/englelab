@@ -12,8 +12,10 @@ function(input, output) {
   message <- reactiveValues(status = "It may take a minute to finish running.")
 
   observeEvent(input$update, {
+    enc <- guess_encoding(input$file$datapath)
     import <- tryCatch(read_delim(input$file$datapath,
-                         "\t", escape_double = FALSE, trim_ws = TRUE),
+                         "\t", escape_double = FALSE, trim_ws = TRUE,
+                         locale = locale(encoding = enc$encoding[1])),
                        error = function(e) {"error"})
 
     if (import == "error") {
