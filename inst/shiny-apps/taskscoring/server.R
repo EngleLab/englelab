@@ -12,13 +12,14 @@ function(input, output) {
   message <- reactiveValues(status = "It may take a minute to finish running.")
 
   observeEvent(input$update, {
-    enc <- guess_encoding(input$file$datapath)
     import <- tryCatch(read_delim(input$file$datapath,
                          "\t", escape_double = FALSE, trim_ws = TRUE,
-                         locale = locale(encoding = enc$encoding[1])),
+                         locale =
+                           locale(encoding =
+                                    guess_encoding(input$file$datapath)$encoding[1])),
                        error = function(e) {"error"})
 
-    if (import == "error") {
+    if (!is.data.frame(import)) {
       import <- tryCatch(read_delim(input$file$datapath,
                                     locale = locale(encoding = "UCS-2LE"),
                                     delim = "\t", escape_double = FALSE,
@@ -26,7 +27,7 @@ function(input, output) {
                          error = function(e) {"error"})
     }
 
-    if (import == "error") {
+    if (!is.data.frame(import)) {
       message$status <-
         "Error: Make sure you exported the E-Prime file using the StatView and SPSS option (see Instructions)"
 
