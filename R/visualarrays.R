@@ -9,14 +9,17 @@
 #'
 
 raw_visualarrays <- function(x, include_col = c()) {
-  x <- dplyr::rename(x, TrialProc = `Procedure[Trial]`)
-  x <- dplyr::mutate(x,
-                     TrialProc = dplyr::case_when(TrialProc == "showproc" ~
+  if (!("TrialProc" %in% colnames(x))) {
+    x <- dplyr::rename(x, TrialProc = `Procedure[Trial]`)
+    x <- dplyr::mutate(x, TrialProc = dplyr::case_when(TrialProc == "showproc" ~
                                                     "real",
                                                   TrialProc == "pracproc" ~
                                                     "practice",
                                                   TrialProc == "PracProc" ~
-                                                    "practice"),
+                                                    "practice"))
+  }
+  
+  x <- dplyr::mutate(x,
                      Accuracy = VisResponse.ACC,
                      RT = VisResponse.RT,
                      Response =
