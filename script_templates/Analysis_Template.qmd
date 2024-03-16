@@ -1,0 +1,241 @@
+---
+title: "Document Title"
+author: Your Name
+date: today
+theme: default
+format:
+  html:
+    code-fold: true
+    code-tools: true
+    code-link: true
+    toc: true
+    toc-depth: 1
+    toc-location: left
+    page-layout: full
+    df-print: paged
+execute:
+  error: true
+  warning: true
+self-contained: true
+editor_options: 
+  chunk_output_type: console
+---
+
+# Setup
+
+::: panel-tabset
+## Required Packages
+
+```{r}
+#| warning: false
+#| code-fold: false
+
+library(here)
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(knitr)
+library(kableExtra)
+```
+
+## Plot Theme
+
+```{r}
+#| code-fold: false
+
+# set global ggplot theme
+theme_spacious <- function(font.size = 14, bold = TRUE){
+  key.size <- trunc(font.size * .8)
+  if (bold == TRUE) {
+    face.type <- "bold"
+  } else {
+    face.type <- "plain"
+  }
+
+  theme(text = element_text(size = font.size),
+        axis.title.x = element_text(margin = margin(t = 15, r = 0,
+                                                    b = 0, l = 0),
+                                    face = face.type),
+        axis.title.y = element_text(margin = margin(t = 0, r = 15,
+                                                    b = 0, l = 0),
+                                    face = face.type),
+        legend.title = element_text(face = face.type),
+        legend.spacing = unit(20, "pt"),
+        legend.text = element_text(size = key.size),
+        plot.title = element_text(face = face.type, hjust = .5,
+                                  margin = margin(b = 10)),
+        plot.caption = element_text(hjust = 0, size = key.size,
+                                    margin = margin(t = 20)),
+        strip.background = element_rect(fill = "white", color = "white"),
+        strip.text = element_text(color = "black",
+                                  face = face.type))
+}
+
+output_theme <- theme_linedraw() + 
+  theme_spacious(font.size = 12) + 
+  theme(panel.border = element_rect(color = "gray"),
+        axis.line.x = element_line(color = "gray"),
+        axis.line.y = element_line(color = "gray"),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank())
+
+theme_set(output_theme)
+```
+
+## Table Theme
+
+```{r}
+#| code-fold: false
+
+table_theme <- function(x, digits = 3, title = NULL, note = NULL) {
+  kable(x, digits = digits, caption = title) |>
+    kable_classic(position = "left") |>
+    kable_styling(full_width = FALSE, position = "left") |>
+    footnote(general = note)
+}
+```
+:::
+
+# Data
+
+::: panel-tabset
+## Import Data
+
+```{r}
+#| message: false
+#| code-fold: false
+
+data_import <- read_csv(here("folder_path", "filename.csv"))
+```
+
+## Get Data Ready For Models
+
+```{r}
+#| code-fold: false
+
+
+```
+:::
+
+# Non-Tabbed Section
+
+```{r}
+
+```
+
+# Tabbed Section
+
+Model
+
+```{r}
+#| code-fold: false
+
+
+```
+
+::: panel-tabset
+## Tables
+
+```{r}
+
+
+```
+
+## Figures
+
+```{r}
+
+
+```
+
+## Summary Output
+
+```{r}
+
+summary()
+```
+:::
+
+# Footer
+
+::: panel-tabset
+## Session Info
+
+```{r}
+sessionInfo()
+```
+
+## Citations
+
+```{r}
+lapply(names(sessionInfo()$otherPkgs), citation)
+```
+
+## CSS Styling
+
+```{css}
+#| code-fold: false
+
+.tab-content {
+  border-style: none;
+}
+
+h1 {
+  color: #005098;
+}
+
+h2 {
+  color: #96834a !important;
+  font-weight: 600 !important;
+}
+
+a {
+  color: #005098;
+}
+
+a:hover {
+  color: #96834a !important;
+}
+
+.quarto-title-meta-heading {
+  color: #96834a;
+  font-weight: 600 !important;
+}
+
+.sidebar nav[role=doc-toc] ul>li>a, .sidebar nav[role=doc-toc] ul>li>ul>li>a {
+  color: #005098 !important;
+  border-left: 2px solid #ECE5D7;
+  border-left-color: solid #ECE5D7;
+}
+
+.sidebar nav[role=doc-toc] ul>li>a.active, .sidebar nav[role=doc-toc] ul>li>ul>li>a.active {
+  color: #005098 !important;
+  font-weight: 600;
+  border-left: 2px solid #CBB879;
+  border-left-color: solid #CBB879;
+}
+
+.sidebar nav[role=doc-toc] ul>li>a:hover, .sidebar nav[role=doc-toc] ul>li>ul>li>a:hover {
+  color: #005098 !important;
+  font-weight: 600;
+  border-left: 2px solid #CBB879;
+  border-left-color: solid #CBB879;
+}
+
+.nav-link {
+  color: #495057;
+}
+
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+  color: #96834a !important;
+}
+
+.code-tools-button {
+  color: #96834a !important;
+}
+
+.dropdown-toggle {
+  color: #005098 !important;
+}
+```
+:::

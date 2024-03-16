@@ -1,0 +1,16 @@
+Binding: project_template
+Title: EngleLab Research Study
+Subtitle: Create a Research Study Project (englelab)
+Icon: icon.png
+
+Parameter: wmc_scripts
+Widget: CheckboxInput
+Label: Scripts - Working Memory Capacity
+Default: On
+Position: left
+
+Parameter: ac_scripts
+Widget: CheckboxInput
+Label: Scripts - Attention Control
+Default: On
+Position: left

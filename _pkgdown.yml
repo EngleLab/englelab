@@ -44,4 +44,4 @@ reference:
   - remove_missing
 - title: Download Template Scripts
   contents:
-  - get_script
+  - get_template

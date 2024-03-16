@@ -1,3 +1,13 @@
+# englelab v1.1.2
+
+Updated: 15 March, 2024
+
+- Minor update
+
+- Added script templates
+
+- Added a project template
+
 # englelab v1.1.1
 
 Updated: 1 February, 2023

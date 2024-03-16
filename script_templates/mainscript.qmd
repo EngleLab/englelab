@@ -1,0 +1,108 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+editor: visual
+---
+
+# STUDYNAME
+
+1 - 2 sentence description.
+
+## Directory Organization
+
+------------------------------------------------------------------------
+
+-   **data**: All data files are stored here
+
+    -   **raw**: tidy raw data files
+
+        -   **messy**: original raw data files, all other data files are reproducible from here
+
+    -   **scored**: scored data files
+
+    -   **logs**: logs on the result of data cleaning procedures
+
+-   **documents**: Any documents related to the study and analysis procedure
+
+-   **R**: R scripts used for processing data
+
+-   **analyses**: Scripts and output for data analysis
+
+-   **tasks**: Experimental programs for all the tasks used in the study
+
+## Required Packages
+
+------------------------------------------------------------------------
+
+```{r}
+#| eval: false
+
+source("R/_required_packages.R")
+```
+
+## Data Preparation
+
+------------------------------------------------------------------------
+
+Create tidy raw data files from messy raw data files
+
+-   **Import Directory**: data/raw/messy
+
+-   **Output Directory**: data/raw
+
+```{r}
+source("R/1_task_raw.csv")
+
+rm(list = ls())
+```
+
+## Data Scoring and Cleaning
+
+------------------------------------------------------------------------
+
+Create scored and cleaned data files from raw data files
+
+-   **Import Directory**: data/raw
+
+-   **Output Directory**: data/scored
+
+-   **Data Cleaning**: A log of which subjects were removed for each task due to data cleaning can be found in data/**logs**
+
+    \[provide a general description of some data cleaning decisions\]
+
+-   **Reliability**: \[provide a general description of how reliability was calculated\]
+
+```{r}
+source("R/2_task_score.R")
+
+rm(list = ls())
+```
+
+Create merged data files ready for statistical analysis from scored data files
+
+**Import Directory**: data/scored
+
+**Merged File**: data/**StudyName_Data.csv**
+
+```{r}
+source("R/3_merge.R")
+
+rm(list = ls())
+```
+
+## Statistical Analysis and Data Visualization
+
+------------------------------------------------------------------------
+
+Perform statistical analysis and create data visualizations
+
+Output is saved as **.html** files to **analyses/**
+
+```{r}
+library(quarto)
+
+quarto_render("results/Analysis.qmd")
+
+rm(list = ls())
+```
