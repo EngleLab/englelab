@@ -33,7 +33,7 @@ get_template <- function(to = "R/templates", overwrite = FALSE,
   ## Setup ####
   to <- paste(path, to, sep = "/")
   github_repo <-
-    "https://raw.githubusercontent.com/EngleLab/englelab/master/script_templates"
+    "https://raw.githubusercontent.com/EngleLab/englelab/master/script_templates/"
 
   if (!dir.exists(to)) dir.create(to, recursive = TRUE)
   #####
