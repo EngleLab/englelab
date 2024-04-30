@@ -81,19 +81,6 @@ output_theme <- theme_linedraw() +
 
 theme_set(output_theme)
 ```
-
-## Table Theme
-
-```{r}
-#| code-fold: false
-
-table_theme <- function(x, digits = 3, title = NULL, note = NULL) {
-  kable(x, digits = digits, caption = title) |>
-    kable_classic(position = "left") |>
-    kable_styling(full_width = FALSE, position = "left") |>
-    footnote(general = note)
-}
-```
 :::
 
 # Data
