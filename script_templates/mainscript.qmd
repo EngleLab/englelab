@@ -5,32 +5,6 @@ editor_options:
 editor: visual
 ---
 
-# STUDYNAME
-
-1 - 2 sentence description.
-
-## Directory Organization
-
-------------------------------------------------------------------------
-
--   **data**: All data files are stored here
-
-    -   **raw**: tidy raw data files
-
-        -   **messy**: original raw data files, all other data files are reproducible from here
-
-    -   **scored**: scored data files
-
-    -   **logs**: logs on the result of data cleaning procedures
-
--   **documents**: Any documents related to the study and analysis procedure
-
--   **R**: R scripts used for processing data
-
--   **analyses**: Scripts and output for data analysis
-
--   **tasks**: Experimental programs for all the tasks used in the study
-
 ## Required Packages
 
 ------------------------------------------------------------------------
@@ -69,10 +43,6 @@ Create scored and cleaned data files from raw data files
 
 -   **Data Cleaning**: A log of which subjects were removed for each task due to data cleaning can be found in data/**logs**
 
-    \[provide a general description of some data cleaning decisions\]
-
--   **Reliability**: \[provide a general description of how reliability was calculated\]
-
 ```{r}
 source("R/2_task_score.R")
 
@@ -83,7 +53,7 @@ Create merged data files ready for statistical analysis from scored data files
 
 **Import Directory**: data/scored
 
-**Merged File**: data/**StudyName_Data.csv**
+**Output Directory**: data
 
 ```{r}
 source("R/3_merge.R")
@@ -102,7 +72,7 @@ Output is saved as **.html** files to **analyses/**
 ```{r}
 library(quarto)
 
-quarto_render("results/Analysis.qmd")
+quarto_render("analyses/Analysis.qmd")
 
 rm(list = ls())
 ```

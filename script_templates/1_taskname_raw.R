@@ -25,9 +25,8 @@ data_import <- read_delim(here(import_dir, import_file), delim = "\t",
 # this example is for files created from eprime and needs encoding = "UCS-2LE"
 files <- list.files(here(import_dir, task), pattern = ".txt", full.names = TRUE)
 data_import <- files |>
-  map_df(read_delim, delim = "\t",
-         escape_double = FALSE, trim_ws = TRUE, na = "NULL",
-         locale = locale(encoding = "UCS-2LE"))
+  map_df(~ read_delim(.x, locale = locale(encoding = "UCS-2LE"), delim = "\t",
+                      escape_double = FALSE, trim_ws = TRUE, na = "NULL"))
 # ------------------------------------------------------------------------------
 
 # ---- Tidy Data ---------------------------------------------------------------

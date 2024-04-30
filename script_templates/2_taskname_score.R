@@ -33,7 +33,7 @@ data_scores <- data_import |>
 # ---- Clean Data --------------------------------------------------------------
 data_cleaned <- data_scores |>
   remove_problematic(
-    filter = "",
+    filter = "", # add a statement that would go in dplyr::filter
     log_file = here("data/logs", paste(task, "_problematic.csv", sep = ""))) |>
   replace_outliers(
     variables = c(),
