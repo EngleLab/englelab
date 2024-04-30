@@ -116,7 +116,7 @@ get_template <- function(to = "R/templates", overwrite = FALSE,
       message("Did not download file. 1_complex_span_raw.R already exists")
     } else {
       download.file(paste(github_repo,
-                          "working memory capacity/1_complex_span_raw.R",
+                          "working_memory_capacity/1_complex_span_raw.R",
                           sep = ""),
                     paste(wmc_to, "1_complex_span_raw.R", sep = "/"))
     }
@@ -127,7 +127,7 @@ get_template <- function(to = "R/templates", overwrite = FALSE,
       message("Did not download file. 2_symspan_score.R already exists")
     } else {
       download.file(paste(github_repo,
-                          "working memory capacity/2_symspan_score.R",
+                          "working_memory_capacity/2_symspan_score.R",
                           sep = ""),
                     paste(wmc_to, "2_symspan_score.R", sep = "/"))
     }
@@ -138,7 +138,7 @@ get_template <- function(to = "R/templates", overwrite = FALSE,
       message("Did not download file. 2_rotspan_score.R already exists")
     } else {
       download.file(paste(github_repo,
-                          "working memory capacity/2_rotspan_score.R",
+                          "working_memory_capacity/2_rotspan_score.R",
                           sep = ""),
                     paste(wmc_to, "2_rotspan_score.R", sep = "/"))
     }
@@ -149,7 +149,7 @@ get_template <- function(to = "R/templates", overwrite = FALSE,
       message("Did not download file. 2_ospan_score.R already exists")
     } else {
       download.file(paste(github_repo,
-                          "working memory capacity/2_ospan_score.R",
+                          "working_memory_capacity/2_ospan_score.R",
                           sep = ""),
                     paste(wmc_to, "2_ospan_score.R", sep = "/"))
     }
@@ -169,7 +169,7 @@ get_template <- function(to = "R/templates", overwrite = FALSE,
       message("Did not download file. 1_attention_control_raw.R already exists")
     } else {
       download.file(paste(github_repo,
-                          "attention control/1_attention_control_raw.R",
+                          "attention_control/1_attention_control_raw.R",
                           sep = ""),
                     paste(ac_to, "1_attention_control_raw.R", sep = "/"))
     }
@@ -180,7 +180,7 @@ get_template <- function(to = "R/templates", overwrite = FALSE,
       message("Did not download file. 2_antisaccade_score.R already exists")
     } else {
       download.file(paste(github_repo,
-                          "attention control/2_antisaccade_score.R",
+                          "attention_control/2_antisaccade_score.R",
                           sep = ""),
                     paste(ac_to, "2_antisaccade_score.R", sep = "/"))
     }
@@ -191,7 +191,7 @@ get_template <- function(to = "R/templates", overwrite = FALSE,
       message("Did not download file. 2_visualarrays_score.R already exists")
     } else {
       download.file(paste(github_repo,
-                          "attention control/2_visualarrays_score.R",
+                          "attention_control/2_visualarrays_score.R",
                           sep = ""),
                     paste(ac_to, "2_visualarrays_score.R", sep = "/"))
     }
@@ -202,7 +202,7 @@ get_template <- function(to = "R/templates", overwrite = FALSE,
       message("Did not download file. 2_sact_v2_score.R already exists")
     } else {
       download.file(paste(github_repo,
-                          "attention control/2_sact_v2_score.R",
+                          "attention_control/2_sact_v2_score.R",
                           sep = ""),
                     paste(ac_to, "2_sact_v2_score.R", sep = "/"))
     }
@@ -213,7 +213,7 @@ get_template <- function(to = "R/templates", overwrite = FALSE,
       message("Did not download file. 2_stroopDL_v2_score.R already exists")
     } else {
       download.file(paste(github_repo,
-                          "attention control/2_stroopDL_v2_score.R",
+                          "attention_control/2_stroopDL_v2_score.R",
                           sep = ""),
                     paste(ac_to, "2_stroopDL_v2_score.R", sep = "/"))
     }
