@@ -14,6 +14,7 @@ output_dir <- "data"
 output_scores <- "TaskScores.csv"
 output_reliabilities <- "Reliabilities.csv"
 output_admintimes <- "AdminTimes.csv"
+output_datacleaning <- "DataCleaning_log.csv"
 # ------------------------------------------------------------------------------
 
 # ---- Import Data -------------------------------------------------------------
@@ -61,10 +62,39 @@ data_merge <- data_import |>
               values_from = "value")
 # ------------------------------------------------------------------------------
 
+# ---- Data Cleaning Log -------------------------------------------------------
+# problematic subjects
+data_problematic <- list.files(here("data/logs"), 
+                                 pattern = "problematic", 
+                                 full.names = TRUE) %>%
+  map(read_csv) |>
+  map(function(x) {
+    reframe(x, tibble(Task = gsub("\\..*", "", colnames(select(x, 2))), 
+                       Problematic_Removed = nrow(x)))
+  }) |>
+  bind_rows()
+
+# outliers
+data_outliers <- list.files(here("data/logs"), 
+                                 pattern = "outliers", 
+                                 full.names = TRUE) %>%
+  map(read_csv) |>
+  map(function(x) {
+    reframe(x, tibble(Task = gsub("\\..*", "", colnames(select(x, 2))),
+                      Outliers_Removed = nrow(x),
+                      Outliers_Passes = max(pull(x, Pass))))
+  }) |>
+  bind_rows()
+
+# merge
+data_log <- merge(data_problematic, data_outliers, by = "Task", all = TRUE)
+# ------------------------------------------------------------------------------
+
 # ---- Save Data ---------------------------------------------------------------
 write_csv(data_scores, here(output_dir, output_scores))
 write_csv(data_reliabilities, here(output_dir, output_reliabilities))
 write_csv(data_reliabilities, here(output_dir, output_admintimes))
+write_csv(data_log, here(output_dir, output_datacleaning))
 write_csv(subjlist, here(output_dir, "subjlist_final.csv"))
 # ------------------------------------------------------------------------------
 
