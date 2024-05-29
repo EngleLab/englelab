@@ -22,8 +22,9 @@ output_file <- paste(task, "raw.csv", sep = "_")
 # import data
 files <- list.files(here(import_dir, task), pattern = ".txt", full.names = TRUE)
 data_import <- files |>
-  map_df(~ read_delim(.x, locale = locale(encoding = "UCS-2LE"), delim = "\t",
+  map(\(x) read_delim(x, locale = locale(encoding = "UCS-2LE"), delim = "\t",
                       escape_double = FALSE, trim_ws = TRUE, na = "NULL")) |>
+  bind_rows() |>
   filter(Subject %in% subjlist$Subject)
 
 # tidy data
@@ -41,8 +42,9 @@ output_file <- paste(task, "raw.csv", sep = "_")
 # import data
 files <- list.files(here(import_dir, task), pattern = ".txt", full.names = TRUE)
 data_import <- files |>
-  map_df(~ read_delim(.x, locale = locale(encoding = "UCS-2LE"), delim = "\t",
+  map(\(x) read_delim(x, locale = locale(encoding = "UCS-2LE"), delim = "\t",
                       escape_double = FALSE, trim_ws = TRUE, na = "NULL")) |>
+  bind_rows() |>
   filter(Subject %in% subjlist$Subject)
 
 # tidy data
@@ -60,8 +62,9 @@ output_file <- paste(task, "raw.csv", sep = "_")
 # import data
 files <- list.files(here(import_dir, task), pattern = ".txt", full.names = TRUE)
 data_import <- files |>
-  map_df(~ read_delim(.x, locale = locale(encoding = "UCS-2LE"), delim = "\t",
+  map(\(x) read_delim(x, locale = locale(encoding = "UCS-2LE"), delim = "\t",
                       escape_double = FALSE, trim_ws = TRUE, na = "NULL")) |>
+  bind_rows() |>
   filter(Subject %in% subjlist$Subject)
 
 # tidy data
@@ -79,8 +82,9 @@ output_file <- paste(task, "raw.csv", sep = "_")
 # import data
 files <- list.files(here(import_dir, task), pattern = ".txt", full.names = TRUE)
 data_import <- files |>
-  map_df(~ read_delim(.x, locale = locale(encoding = "UCS-2LE"), delim = "\t",
+  map(\(x) read_delim(x, locale = locale(encoding = "UCS-2LE"), delim = "\t",
                       escape_double = FALSE, trim_ws = TRUE, na = "NULL")) |>
+  bind_rows() |>
   filter(Subject %in% subjlist$Subject)
 
 # tidy data
