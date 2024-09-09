@@ -18,7 +18,7 @@ raw_visualarrays <- function(x, include_col = c()) {
                                                   TrialProc == "PracProc" ~
                                                     "practice"))
   }
-  
+
   x <- dplyr::mutate(x,
                      Accuracy = VisResponse.ACC,
                      RT = VisResponse.RT,
@@ -78,10 +78,13 @@ raw_visualarrays <- function(x, include_col = c()) {
 #' @param id_col Subject id column name (required)
 #' @param taskname string to add as a prefix to columns. Useful if your task
 #'     includes multiple conditions (excluding set size)
+#' @param unit_weight logical. If TRUE, the weight of each trial is 1. If FALSE,
+#'    the weight of each trial is based on the set size
 #' @export
 #'
 
-score_visualarrays <- function(x, id_col = "Subject", taskname = "VAorient_S") {
+score_visualarrays <- function(x, id_col = "Subject", taskname = "VAorient_S",
+                               unit_weight = FALSE) {
 
   x <- dplyr::filter(x, TrialProc == "real")
 
@@ -116,6 +119,14 @@ score_visualarrays <- function(x, id_col = "Subject", taskname = "VAorient_S") {
                      Hits = H.n / (H.n + M.n),
                      Misses = M.n / (H.n + M.n),
                      k = SetSize * (Hits - FalseAlarms))
+  if (unit_weight == TRUE) {
+    x <- dplyr::mutate(x,
+                       CorrectRejections = CR.n / (CR.n + FA.n),
+                       FalseAlarms = FA.n / (CR.n + FA.n),
+                       Hits = H.n / (H.n + M.n),
+                       Misses = M.n / (H.n + M.n),
+                       k = (Hits - FalseAlarms))
+  }
   x <- dplyr::select(x, -CR.n, -FA.n, -M.n, -H.n)
 
   if ("AdminTime" %in% colnames(x)) {

@@ -4,7 +4,12 @@
 \alias{score_visualarrays}
 \title{Calculate Visual Array k Scores}
 \usage{
-score_visualarrays(x, id_col = "Subject", taskname = "VAorient_S")
+score_visualarrays(
+  x,
+  id_col = "Subject",
+  taskname = "VAorient_S",
+  unit_weight = FALSE
+)
 }
 \arguments{
 \item{x}{dataframe}
@@ -13,6 +18,9 @@ score_visualarrays(x, id_col = "Subject", taskname = "VAorient_S")
 
 \item{taskname}{string to add as a prefix to columns. Useful if your task
 includes multiple conditions (excluding set size)}
+
+\item{unit_weight}{logical. If TRUE, the weight of each trial is 1. If FALSE,
+the weight of each trial is based on the set size}
 }
 \description{
 Calculate Visual Array k scores from the output of `raw_visualarrays()`
